@@ -8,7 +8,7 @@ window.onload = function(){
               ver.setAttribute('src','imagenes/ojoabierto.png')
           }else{
               contra.setAttribute('type', 'password')
-              ver.setAttribute('src','imagenes/ojoacerrado.png')
+              ver.setAttribute('src','imagenes/ojocerrado.png')
           }
       })
   }
