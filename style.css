@@ -1,0 +1,44 @@
+body {
+    background-image: url('https://i.pinimg.com/originals/4f/67/76/4f6776070b45bc4c5f522f4c18c61dbe.jpg');
+    background-size: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 190px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background: transparent;
+    backdrop-filter: blur(8px);
+    padding: 25px;
+}
+input {
+    border: 2px solid black;
+    margin: 10px;
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+
+}
+input[type="button"] {
+    border: 2px dotted rgb(106, 1, 133);
+    background-color: rgb(0, 119, 255);
+}
+input[type="button"]:hover {
+    cursor: pointer;
+    width: 215px;
+    height: 45px;
+    background-color: rgb(4, 100, 209);
+    transition: 1s;
+}
+input[class="especial"]{
+    background-color: rgb(88, 8, 218);
+}
+input[class="especial"]:hover{
+    background-color: rgb(141, 8, 218);
+}
