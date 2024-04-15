@@ -8,11 +8,13 @@
 <link rel="stylesheet" href="style.css">
 <body>
 
-    <form method="GET" >
+    <form method="POST" action="MENU.php">
         <div class="contenedor">
-            <input type="text" name="usuario" placeholder="usuario">
-            <input type="password" name="contraseña" placeholder="contraseña">
-            <input type="submit" value="Iniciar Sesión">
+            
+            <input type="text" name="usuario" placeholder="usuario"></input>
+            <input type="password" name="contraseña" placeholder="contraseña"> </input>
+            <input type="submit" value="Iniciar Sesión"></input>
+            <p src="">¿Has olvidado tu contraseña?</p>
         </div>
 </form>
 </body>
