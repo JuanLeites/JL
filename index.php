@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<<<<<<< Updated upstream
 <html lang="en">
 
+=======
+<html lang="es">
+>>>>>>> Stashed changes
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
