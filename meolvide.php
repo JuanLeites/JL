@@ -6,6 +6,6 @@
     <title>Me olvidé la contraseña</title>
 </head>
 <body>
-    <input type="text" name="usuario">
+    <input type="text" name="correo">
 </body>
 </html>
