@@ -16,6 +16,7 @@ body {
     background: transparent;
     backdrop-filter: blur(8px);
     padding: 25px;
+    box-shadow: 0 4px 20px 0 rgba(0,0,0.2);
 }
 input {
     border: 2px solid black;
@@ -49,4 +50,9 @@ p{
 p:hover{
     cursor : pointer;
     color:rgb(88, 8, 218);
+}
+#ver{
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
 }

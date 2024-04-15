@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
 </head>
-<link rel="stylesheet" href="/LUPF/style.css">
+<link rel="stylesheet" href="style.css">
 
 <body>
 
@@ -14,10 +14,10 @@
         <div class="contenedor">
 
             <div>
-                <input type="text" name="usuario" placeholder="usuario"></input>
+            <input type="text" name="usuario" placeholder="usuario"></input>
             </div>
             <div>
-                <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojoabierto.png">
+            <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojoabierto.png">
             </div>
             <?php
             if (isset($_GET['error'])) {
@@ -27,14 +27,16 @@
             }
             ?>
             <div>
-                <p href="meolvide.php">¿Has olvidado tu contraseña?</p>
-                <input type="checkbox" placeholder="recordar">
+            <p src="meolvide.php">¿Has olvidado tu contraseña?</p>
+            <input type="checkbox" placeholder="recordar">
             </div>
             <input type="submit" value="Iniciar Sesión"></input>
 
         </div>
     </form>
-    <script src="js/script.js"> </script>
 </body>
+<script> 
+
+</script>
 
 </html>
