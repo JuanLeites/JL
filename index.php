@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< Updated upstream
-<html lang="en">
-
-=======
 <html lang="es">
->>>>>>> Stashed changes
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,10 +12,10 @@
     <form method="POST" action="MENU.php">
         <div class="contenedor">
 
-            <div>
+            <div class="subcontenedor">
             <input type="text" name="usuario" placeholder="usuario"></input>
             </div>
-            <div>
+            <div class="subcontenedor">
             <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojocerrado.png">
             </div>
             <?php
@@ -28,7 +23,7 @@
                 echo "<h9> contraseña o usuario incorrectos </h9>";
             }
             ?>
-            <div>
+            <div class="subcontenedor">
             <a href="meolvide.php">¿Has olvidado tu contraseña?</a>
             <br>
             <input type="checkbox"><span>recordarme</span></input>
