@@ -35,6 +35,9 @@
         </div>
     </form>
 </body>
+<footer>
+    <p>design by <img src="imagenes/LUPF.svg" alt="Logo"></p>
+</footer>
 <script> 
 
 </script>
