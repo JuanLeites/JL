@@ -10,10 +10,13 @@
 <?php
     if ($_POST['usuario'] == "pepe" & $_POST['contraseña'] == "1234") {
         $login = true;
-        echo "<h1> Pelado pagina</h1>";
+        echo '<link rel="stylesheet" href="style.css">';
     } else {
         $login = false;
         header('Location:index.php?error=1');
+    }
+    if($login){
+        echo '<div class="contenedores"><h1> Pelado pagina</h1> </div>';
     }
     ?>
 
