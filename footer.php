@@ -1,0 +1,1 @@
+<footer>L.U.P.F. 2024 &copy; - <a href="about us.html">About us</a></footer>
