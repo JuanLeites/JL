@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
 </head>
-<link rel="stylesheet" href="/LUPF/style.css">
-
+<link rel="stylesheet" href="css/style.css">
+<script src="js/script.js"></script>
 <body>
 
-    <form method="POST" action="MENU.php">
+    <form method="POST" action="menuprincipal.php">
         <div class="contenedor">
-
-            <div>
-                <input type="text" name="usuario" placeholder="usuario"></input>
-            </div>
-            <div>
-                <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojoabierto.png">
-            </div>
+            <h3>Iniciar Sesión</h3>
+            <input <?php if (isset($_SESSION['bloq'])) {
+                        echo "disabled";
+                    } ?> type="text" name="usuario" placeholder="usuario"></input>
+            <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojocerrado.png"></input>
             <?php
-            if (isset($_GET['error'])) {
-                $intentos = 5;
-                $intentos = $intentos - 1;
-                echo "<h9> contraseña o usuario incorrectos </h9>";
+            session_start();
+            if (isset($_GET['causa'])) {
+                switch ($_GET['causa']) {
+                    case "err":
+                        if (isset($_SESSION["intentos"])) {
+                            echo "<p>contraseña o usuario incorrectos <br> " . $_SESSION["intentos"] + 1  . " intentos restantes</p>";
+                        }
+                        break;;
+                    case "reg":
+                        echo '<script>alert("!! registrado con exito ¡¡")</script>';
+                        break;;
+                    case "bloq":
+                        echo '<p>Usuario bloqueado</p>';
+                        break;;
+                    case "textovacio":
+                        echo '<p>debe completar los campos</p>';
+                        break;;
+                    case "nolog":
+                        echo '<p>debes logearte para poder acceder al menu</p>';
+                        break;;
+                        
+                    case "sesioncerrada":
+                        echo '<p>Secion cerrada con exito</p>';
+                        break;;
+                }
             }
             ?>
-            <div>
-                <p href="meolvide.php">¿Has olvidado tu contraseña?</p>
-                <input type="checkbox" placeholder="recordar">
-            </div>
+            <br>
             <input type="submit" value="Iniciar Sesión"></input>
-
+            <hr>
+            <h5>¿No Tienes Cuenta?<h5>
+                    <a href="registro.php" class="linkk">registrar usuario</a>
+        </div>
         </div>
     </form>
-    <script src="js/script.js"> </script>
+    <?php include("footer.php") ?>
 </body>
 
 </html>
