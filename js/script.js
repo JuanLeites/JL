@@ -11,4 +11,5 @@ window.onload = function(){
               ver.setAttribute('src','imagenes/ojocerrado.png')
           }
       })
+
   }

@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <form method="POST">
-        <div class="conte">
+        <div class="contenedor">
             <h2>Registrar usuario</h2>
             <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
                                                                                     echo "value='" . $_GET["nombre"] . "'";
@@ -71,13 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
             <input type="submit" class="bot" value="Registrarme">
-            <hr>
+            <hr id="linea">
             <br>
             <h5>¿Ya Tienes Cuenta?<h5>
                     <a href="index.php" class="linkk">Iniciar Sesión</a>
         </div>
 
     </form>
+    <?php include("footer.php") ?>
 </body>
 
 </html>

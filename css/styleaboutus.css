@@ -47,6 +47,7 @@ img{
     border-radius: 10px;
     height: 200px;
     width: 200px;
+    border: solid 1px #001F47;
 }
 .info{
     text-align: center;
