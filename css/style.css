@@ -141,13 +141,3 @@ main>h1{
 main>h2{
     font-size: 45px;
 }
-@media only screen and (max-width: 50%) {
-    .contenedordeicono{
-        height: 34px;
-    }
-    .icono{
-        width: 20px;
-        height: 20px;
-    }
-
-}
