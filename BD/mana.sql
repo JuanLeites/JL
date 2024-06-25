@@ -407,7 +407,7 @@ ALTER TABLE `venta`
 --
 ALTER TABLE `venta_de_productos`
   ADD CONSTRAINT `venta_de_productos_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`),
-  ADD CONSTRAINT `venta_de_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`ID_producto`);
+  ADD CONSTRAINT `venta_de_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
