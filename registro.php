@@ -1,5 +1,6 @@
 <?php
 include("coneccionBD.php");
+include("chequeodelogin.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["usuario"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) && isset($_POST["correo"])) {
         if ($_POST["nombre"] != "" && $_POST["usuario"] != "" && $_POST["pass"] != "" && $_POST["pass2"] != "" && $_POST["correo"] != "") { //si no están vacíos
@@ -13,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header('Location:registro.php?causa=yaregistrado');
                     }
                 } else {
-                    header('Location:registro.php?causa=contraseñacorta');
+                    header('Location:registro.php?causa=contraseñacorta&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);
                 }
             } else {
                 header('Location:registro.php?causa=contraseñasdistintas&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);

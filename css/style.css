@@ -81,7 +81,7 @@ footer>a:hover{
     height: 100vh;
     position: absolute;
     left: 0px;
-    width: 95px;
+    width: 90px;
     overflow: hidden;
     transition: 1s;
 }
@@ -89,14 +89,15 @@ footer>a:hover{
     width: 380px;
 }
 .icono{
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     margin: 15px;
     margin-right: 30px;
 }
 .contenedordeicono{
     margin: 10px;
-    padding: 10px;
+    padding: 9px;
+    height: 8%;
     position: relative;
     overflow: hidden;
     width: 350px;
@@ -140,4 +141,45 @@ main>h1{
 }
 main>h2{
     font-size: 45px;
+}
+.contenedordemenu{
+    padding: 20px;
+    position: absolute;
+    top: 20%;
+    background-color: #4DBF38;
+    border-radius: 10px;
+}
+.agregardato{
+    position: absolute;
+    bottom: 10px;
+    right: -80px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    border: #001F47 solid 2px;
+    color: #001F47;
+    background-color: #80D12A;
+    text-align: center;
+    font-size: 30px;
+}
+.buscador{
+    position: absolute;
+    top:20px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #4DBF38;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.agregardato:hover{
+    background-color: red;
+}
+table{
+    font-size: 30px;
+    text-align: center;
+}
+.accion{
+    width: 30px;
+    height: 30px;
 }

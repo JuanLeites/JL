@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las variables de session nos mandara al menu principal
+    header("Location:menuprincipal.php");
+}
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,11 +29,10 @@
             <input type="password" name="contraseña" id="contraseña" placeholder="contraseña"><img id='ver' src="imagenes/ojocerrado.png"></input>
             </div>
             <?php
-            session_start();
             if (isset($_GET['causa'])) {
                 switch ($_GET['causa']) {
                     case "err":
-                        if (isset($_SESSION["intentos"])) {
+                        if (isset($_SESSION["intentos"])) { // la session está iniciada en el archivo "chequeodelogin.php"
                             echo "<p>contraseña o usuario incorrectos <br> " . $_SESSION["intentos"] + 1  . " intentos restantes</p>";
                         }
                         break;;
