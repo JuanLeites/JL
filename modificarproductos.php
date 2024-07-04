@@ -1,6 +1,6 @@
 <?php include("chequeodelogin.php"); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 <body>
     <?php include("barralateral.html") ?>
     <div class="buscador">
-        <input type="text">
+        <input type="text" placeholder="Buscar Productos">
     </div>
     <div class="contenedordemenu">
         <table>
@@ -54,7 +54,7 @@
                 
             </tbody>
         </table>
-        <input type="button" value="+" class="agregardato">
+        <a href="agregarproductos.php" class="agregardato">+</a>
     </div>
 </body>
 

@@ -12,7 +12,7 @@
 <body>
     <?php include("barralateral.html") ?>
     <div class="buscador">
-        <input type="text">
+        <input type="text" placeholder="Buscar Clientes">
     </div>
     <div class="contenedordemenu">
         <table>
@@ -51,7 +51,7 @@
                 <tr>
             </tbody>
         </table>
-        <input type="button" value="+" class="agregardato">
+        <a href="agregarclientes.php" class="agregardato">+</a>
     </div>
 </body>
 

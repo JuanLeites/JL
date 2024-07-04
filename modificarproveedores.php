@@ -10,10 +10,22 @@
 </head>
 
 <body>
+    <!--
+    <div class="conenedordeagregador" style="">
+        <h1>Agregar Proveedores</h1>
+        <input type="text" placeholder="Razón Social" name="RS">
+        <input type="number" placeholder="RUT" name="rut">
+        <input type="number" placeholder="telefono">
+        <input type="submit">
+        <button class="cerrarpopup">X</button>
+    </div> 
+    -->
+
     <?php include("barralateral.html") ?>
     <div class="buscador">
-        <input type="text">
+        <input type="text" placeholder="Buscar proveedores">
     </div>
+
     <div class="contenedordemenu">
         <table>
             <tr>
@@ -47,8 +59,25 @@
                 </tr>
             </tbody>
         </table>
-        <input type="button" value="+" class="agregardato">
+
+        <a href="agregarproveedores.php" class="agregardato">+</a>
+        <!--  <button class="agregardato">-->
     </div>
+
 </body>
+
+<script>
+    /*
+    var botonabrir = document.querySelector(".agregardato");
+    var botoncerrar = document.querySelector(".cerrarpopup");
+    var popup = document.querySelector(".conenedordeagregador");
+    botoncerrar.addEventListener("click", () => {
+        popup.setAttribute("style", "display:none;");
+    })
+    botonabrir.addEventListener("click", () => {
+        var popup = document.querySelector(".conenedordeagregador")
+        popup.setAttribute("style", "");
+    }) */
+</script>
 
 </html>
