@@ -1,3 +1,21 @@
+CREATE DATABASE mana;
+USE mana;
+
+CREATE TABLE Sorteo ( ID_SORTEO INT AUTO_INCREMENT PRIMARY KEY, Premio VARCHAR(255), Cantidad INT, Fecha_realización DATE );
+CREATE TABLE Cliente ( ID_CLIENTE INT AUTO_INCREMENT PRIMARY KEY, Cédula VARCHAR(20), Nombre VARCHAR(255), Deuda DECIMAL(10, 2), Fecha_de_Nacimiento DATE, Tickets_de_Sorteo INT, Contacto VARCHAR(255), RUT VARCHAR(20) );
+CREATE TABLE Ganador ( ID_CLIENTE INT, ID_SORTEO INT, PRIMARY KEY (ID_CLIENTE, ID_SORTEO), FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE), FOREIGN KEY (ID_SORTEO) REFERENCES Sorteo(ID_SORTEO) );
+CREATE TABLE Venta ( ID_VENTA INT AUTO_INCREMENT PRIMARY KEY, Precio_Final DECIMAL(10, 2), Fecha_Venta DATE, ID_CLIENTE INT, FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE) );
+CREATE TABLE Pago ( ID_PAGO INT AUTO_INCREMENT PRIMARY KEY, Monto DECIMAL(10, 2), Fecha_Pago DATE, ID_CLIENTE INT, ID_VENTA INT, FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE), FOREIGN KEY (ID_VENTA) REFERENCES Venta(ID_VENTA) );
+CREATE TABLE Categoría ( ID_CATEGORIA INT AUTO_INCREMENT PRIMARY KEY, Título VARCHAR(255), Descripción TEXT );
+CREATE TABLE IVA ( ID_IVA INT AUTO_INCREMENT PRIMARY KEY, Tipo VARCHAR(50), Valor DECIMAL(5, 2) );
+CREATE TABLE Medida ( ID_UNIDAD INT AUTO_INCREMENT PRIMARY KEY, Unidad VARCHAR(50), Símbolo VARCHAR(10) );
+CREATE TABLE Producto ( ID_Producto INT AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(255), Precio_Neto DECIMAL(10, 2), Código_de_Barras VARCHAR(50), Descripción TEXT, Marca VARCHAR(255), Cantidad INT, Cantidad_minima_aviso INT, imagen VARCHAR(255), ID_IVA INT, ID_UNIDAD INT, ID_CATEGORIA INT, FOREIGN KEY (ID_IVA) REFERENCES IVA(ID_IVA), FOREIGN KEY (ID_UNIDAD) REFERENCES Medida(ID_UNIDAD), FOREIGN KEY (ID_CATEGORIA) REFERENCES Categoría(ID_CATEGORIA) );
+CREATE TABLE Incluye ( ID_Venta INT, ID_Producto INT, Cantidad_de_venta INT, Precio_de_Venta DECIMAL(10, 2), PRIMARY KEY (ID_Venta, ID_Producto), FOREIGN KEY (ID_Venta) REFERENCES Venta(ID_VENTA), FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto) );
+CREATE TABLE Proveedor ( ID_PROVEEDOR INT AUTO_INCREMENT PRIMARY KEY, Contacto VARCHAR(255), Razón_Social VARCHAR(255), RUT VARCHAR(20) );
+CREATE TABLE Compra ( ID_COMPRA INT AUTO_INCREMENT PRIMARY KEY, Precio_Final DECIMAL(10, 2), Fecha_Compra DATE, ID_PROVEEDOR INT, FOREIGN KEY (ID_PROVEEDOR) REFERENCES Proveedor(ID_PROVEEDOR) );
+CREATE TABLE Contiene ( ID_COMPRA INT, ID_PRODUCTO INT, Cantidad_de_Compra INT, Precio_de_Compra DECIMAL(10, 2), PRIMARY KEY (ID_COMPRA, ID_PRODUCTO), FOREIGN KEY (ID_COMPRA) REFERENCES Compra(ID_COMPRA), FOREIGN KEY (ID_PRODUCTO) REFERENCES Producto(ID_Producto) );
+CREATE TABLE Cobro ( ID_COBRO INT AUTO_INCREMENT PRIMARY KEY, Fecha_cobro DATE, Monto DECIMAL(10, 2), ID_PROVEEDOR INT, ID_COMPRA INT, FOREIGN KEY (ID_PROVEEDOR) REFERENCES Proveedor(ID_PROVEEDOR), FOREIGN KEY (ID_COMPRA) REFERENCES Compra(ID_COMPRA) );
+
 GRANT ALL PRIVILEGES ON mana.* TO administrador IDENTIFIED BY 'lupf2024';
 
 GRANT SELECT ON mana.* TO funcionario IDENTIFIED BY "funcionario2024";
@@ -5,29 +23,18 @@ GRANT INSERT ON mana.* TO funcionario;
 GRANT UPDATE ON mana.* TO funcionario;
 GRANT DELETE ON mana.* TO funcionario;
 
+GRANT SELECT ON mana.* TO consultor_datos IDENTIFIED BY "consultor2024";
 
-CREATE DATABASE mana;
+GRANT SELECT, INSERT, UPDATE ON mana.Venta TO contador IDENTIFIED BY "contadordemana"; 
+GRANT SELECT, INSERT, UPDATE ON mana.Pago TO contador;
+GRANT SELECT ON mana.Cliente TO contador; 
+GRANT SELECT ON mana.Producto TO contador;
 
-USE mana;
+GRANT SELECT, INSERT, UPDATE ON mana.Producto TO controlador_stock  IDENTIFIED BY "controlador_stockmana";
 
-CREATE TABLE cliente (`ID_cliente` INT AUTO_INCREMENT PRIMARY KEY, `cedula` INT(9), `nombre` VARCHAR(35), `deuda` INT(6) DEFAULT '0' , `fecha_de_nacimiento` DATE , `tickets_de_sorteo` INT DEFAULT '0',`contacto` INT(12) );
-
-CREATE TABLE categoria (`id_categoria` INT  AUTO_INCREMENT PRIMARY KEY  , `titulo` VARCHAR(20), `descripcion` INT(40));
-
-CREATE TABLE iva (`id_iva` INT  AUTO_INCREMENT PRIMARY KEY  , `tipo` VARCHAR(20), `valor` INT(5));
-
-CREATE TABLE producto (`ID_producto` INT PRIMARY KEY AUTO_INCREMENT, `nombre` VARCHAR(20), `codigo_de_barras` INT(20), `descripcion` VARCHAR (30), `marca` VARCHAR(20), `cantidad` INT, `id_categoria` INT,`id_iva` INT, FOREIGN KEY (`id_categoria`) REFERENCES categoria (`id_categoria`),FOREIGN KEY (`id_iva`) REFERENCES iva (`id_iva`));
-
-CREATE TABLE proveedor ( `id_proveedor` INT AUTO_INCREMENT PRIMARY KEY, `razon_social` VARCHAR(20), `RUT` INT(20), `telefono` INT(14));
-
-CREATE TABLE venta ( `id_venta` INT AUTO_INCREMENT PRIMARY KEY, `precio_final` INT(10), `fecha_venta` DATE, `id_cliente` INT,FOREIGN KEY(`id_cliente`) REFERENCES cliente (`id_cliente`));
-
-CREATE TABLE compra ( `id_compra` INT AUTO_INCREMENT PRIMARY KEY, `precio_final` INT(10), `fecha_compra` DATE, `id_proveedor` INT,FOREIGN KEY(`id_proveedor`) REFERENCES proveedor (`id_proveedor`));
-
-CREATE TABLE sorteo ( `id_sorteo` INT AUTO_INCREMENT PRIMARY KEY, `premio` VARCHAR(30), `fecha_limite` DATE, `id_cliente_ganador` INT,FOREIGN KEY(`id_cliente_ganador`) REFERENCES cliente (`id_cliente`));
-
-CREATE TABLE usuario (`usuario` VARCHAR(20) PRIMARY KEY  , `contraseña` VARCHAR(50), `correo` VARCHAR(30),`nombre` VARCHAR(20));
-
-CREATE TABLE compra_de_productos ( `id_compra` INT,`id_producto` INT ,`cantidad_de_compra` INT(5),FOREIGN KEY(`id_compra`) REFERENCES compra (`id_compra`),FOREIGN KEY(`id_producto`) REFERENCES producto(`id_producto`));
-
-CREATE TABLE venta_de_productos ( `id_venta` INT,`id_producto` INT ,`cantidad_de_venta` INT(5),FOREIGN KEY(`id_venta`) REFERENCES venta (`id_venta`),FOREIGN KEY(`id_producto`) REFERENCES producto(`id_producto`));
+GRANT SELECT, INSERT, UPDATE ON mana.Cliente TO compras_ventas  IDENTIFIED BY "compraventasmana";
+GRANT SELECT, INSERT, UPDATE ON mana.Venta TO compras_ventas;
+GRANT SELECT, INSERT, UPDATE ON mana.Incluye TO compras_ventas; GRANT SELECT, INSERT, UPDATE ON mana.Pago TO compras_ventas;
+GRANT SELECT, INSERT, UPDATE ON mana.Contiene TO compras_ventas;
+GRANT SELECT, INSERT, UPDATE ON mana.Compra TO compras_ventas;
+GRANT SELECT, INSERT, UPDATE ON mana.Pago TO compras_ventas;
