@@ -14,6 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($indice == "nombre") {
                         $_SESSION["nombre"] = $dato;
                     }
+                    if($indice == "fotoperfil"){
+                        $_SESSION["fotoperf"] = $dato;
+                    }
                 }
             }
         } else {

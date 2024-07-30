@@ -1,15 +1,25 @@
 <?php
 include("coneccionBD.php");
-include("chequeodelogin.php");
+if (!file_exists("fotoperfil")) {
+    mkdir("fotoperfil");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["nombre"]) && isset($_POST["usuario"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) && isset($_POST["correo"])) {
-        if ($_POST["nombre"] != "" && $_POST["usuario"] != "" && $_POST["pass"] != "" && $_POST["pass2"] != "" && $_POST["correo"] != "") { //si no están vacíos
+    if (isset($_POST["nombre"]) && isset($_POST["usuario"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) && isset($_POST["correo"]) && isset($_POST["fecha"]) && isset($_FILES["fotoperfil"])) {
+        if ($_POST["nombre"] != "" && $_POST["usuario"] != "" && $_POST["pass"] != "" && $_POST["pass2"] != "" && $_POST["correo"] != "" && $_POST["fecha"] != "" && $_FILES["fotoperfil"]["tmp_name"] != "") { //si no están vacíos
             if ($_POST["pass"] == $_POST["pass2"]) { //chequea que las dos contraseñas sean iguales
-                if (strlen($_POST["pass"]) >= 6) {//si la cantidad de caracteres de la contraseña es mayor o igual a 6
+                if (strlen($_POST["pass"]) >= 6) { //si la cantidad de caracteres de la contraseña es mayor o igual a 6
                     $chek = mysqli_query($basededatos, 'SELECT * from usuario WHERE usuario="' . $_POST["usuario"] . '"');
-                    if (mysqli_num_rows($chek) == 0) {//si no encuentra ningun usuario con ese nombre
-                        mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"] . '");');
-                        header("Location:index.php?causa=reg");
+                    if (mysqli_num_rows($chek) == 0) { //si no encuentra ningun usuario con ese nombre
+                        if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) {//si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
+                            move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
+                            mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                            header("Location:index.php?causa=reg");
+                        } else {//sino la guardara con el nombre de usuario(unico)y el nombre de la foto
+                            move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"]. $_FILES['fotoperfil']['name'] );
+                            mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"].$_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                            header("Location:index.php?causa=reg");
+                        }
                     } else {
                         header('Location:registro.php?causa=yaregistrado');
                     }
@@ -24,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <div class="contenedor">
             <h2>Registrar usuario</h2>
             <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
@@ -53,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
+            <input type="date" name="fecha">
+            <input type="file" name="fotoperfil">
             <?php
             if (isset($_GET["causa"])) {
                 switch ($_GET['causa']) {

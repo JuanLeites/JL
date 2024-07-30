@@ -121,7 +121,7 @@ footer>a:hover{
 }
 .botonx{
     padding: 5px;
-    height: 20px;
+    height: 30px;
     margin: 5px;
     border-radius: 4px;
     background-color: red;
@@ -217,4 +217,8 @@ td,th{
 
 tr:hover {
     background-color: #80D12A;
+}
+.fotoperfil{
+    width: 36px;
+    height: 36px;
 }
