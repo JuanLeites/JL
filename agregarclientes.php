@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Agregar Clientes</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<link rel="stylesheet" href="estilomeolvide.css">
 
 <body>
     <?php include("barralateral.html") ?>

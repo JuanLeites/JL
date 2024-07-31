@@ -1,0 +1,29 @@
+body{
+    
+    background-color: #001F47;
+    }
+     .contenedormeolvide{
+        display: flex;
+        justify-content: flex-start;
+        text-align: center;
+        flex-direction: column;
+        border-radius: 10px;
+        padding: 50px;
+        box-shadow: 0 5px 5px 0 rgba(0, 0, 0.2);
+        border: solid #dbdbdb 0.571429px;
+        background-color: #80D12A;
+        color: #001F47;
+    }
+    
+     h4{
+        color:white;
+     }
+     input{
+        border: 1px solid #0EAB62;
+        margin: 10px;
+        border-radius: 5px;
+        width: 220px;
+        height: 40px;
+        background-color: #4DBF38;
+        color: #001F47;
+     }
