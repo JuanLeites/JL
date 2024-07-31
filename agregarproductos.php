@@ -2,18 +2,29 @@
 include("chequeodelogin.php");
 include("coneccionBD.php");
 $ivas =  mysqli_query($basededatos, 'SELECT * FROM iva ');
-$categorias = mysqli_query($basededatos, 'SELECT * FROM categoria ');
-//$medida = mysqli_query($basededatos, 'SELECT * FROM medida ');
+$categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ');
+$medidas = mysqli_query($basededatos, 'SELECT * FROM medida ');
+
+if (!file_exists("IMAGENESSOFTWARE")) {
+    mkdir("IMAGENESSOFTWARE");
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["nombre"]) && isset($_POST["precio"]) && isset($_POST["codbarras"]) && isset($_POST["descripcion"]) && isset($_POST["marca"])&&isset($_POST["cantidad"])&&isset($_POST["cantidadaviso"])&&isset($_POST["ID_CATEGORIA"])&&isset($_POST["ID_IVA"])) {
-        if ($_POST["nombre"] != "" && $_POST["precio"] != "" && $_POST["codbarras"] != "" && $_POST["descripcion"] != "" && $_POST["marca"] != "" && $_POST["cantidad"] != "" && $_POST["cantidadaviso"] != "" && $_POST["ID_CATEGORIA"] != "" && $_POST["ID_IVA"]!= ""){
-            #mysqli_query($basededatos, 'INSERT INTO producto (nombre, cedula, fecha_de_nacimiento, contacto) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '");');
-            echo "<script>alert('Producto Redistrado Registrado')</script>";
-        }else{
+    if (isset($_POST["nombre"]) && isset($_POST["precio"]) && isset($_POST["codbarras"]) && isset($_POST["descripcion"]) && isset($_POST["marca"]) && isset($_POST["cantidad"]) && isset($_POST["cantidadaviso"]) && isset($_FILES["foto"]) && isset($_POST["ID_IVA"]) && isset($_POST["ID_UNIDAD"]) && isset($_POST["ID_CATEGORIA"])) {
+        if ($_POST["nombre"] != "" && $_POST["precio"] != "" && $_POST["codbarras"] != "" && $_POST["descripcion"] != "" && $_POST["marca"] != "" && $_POST["cantidad"] != "" && $_POST["cantidadaviso"] != "" && $_POST["ID_CATEGORIA"] != "" && $_POST["ID_IVA"] != "" && $_POST["ID_UNIDAD"] != "" &&  $_FILES["foto"]["tmp_name"] != "") {
+            if (!file_exists('IMAGENESSOFTWARE/' . $_FILES['foto']['name'])) {//sino existe una imagen con ese nombre la guarda y carga la base de datos.
+                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']);
+                echo "<script>alert('Producto Redistrado Registrado')</script>";
+            }else{//si llegase a existir imagen con ese nombre le pone el codigo de barras a la imagen y la carga asi.
+                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["codbarras"].$_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"].$_FILES['foto']['name']);
+                echo "<script>alert('Producto Redistrado Registrado')</script>";
+            }
+        } else {
             echo "<script>alert('debe ingresar datos')</script>";
         }
-    }else{
+    } else {
         echo "<script>alert('los datos no fueron seteados')</script>";
     }
 }
@@ -33,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    
+
     <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
         <h1>Agregar un Producto</h1>
         <input type="text" placeholder="Nombre" name="nombre">
@@ -43,23 +54,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" placeholder="marca" name="marca">
         <input type="number" placeholder="cantidad" name="cantidad">
         <input type="number" placeholder="cantidad de aviso" name="cantidadaviso">
-        <select id="categoria" name="ID_CATEGORIA" required>
-            <option>categoria</option>
-            <?php foreach($categorias as $categoria){
-                echo "<option value='".$categoria['ID_CATEGORIA']."'>".$categoria['titulo']."</option>";
-            }?>
-        </select>
+        <input type="file" name="foto">
         <select id="iva" name="ID_IVA" required>
             <option>iva</option>
-            <?php foreach($ivas as $iva){
-                echo "<option value='".$iva['ID_IVA']."'>".$iva['tipo']."</option>";
-            }?>
+            <?php foreach ($ivas as $iva) {
+                echo "<option value='" . $iva['ID_IVA'] . "'>" . $iva['Tipo'] . "</option>";
+            } ?>
         </select>
-        
-        <select id="medida">
-
+        <select id="medida" name="ID_UNIDAD" required>
+            <option>unidad de medida</option>
+            <?php foreach ($medidas as $medida) {
+                echo "<option value='" . $medida['ID_UNIDAD'] . "'>" . $medida['Unidad'] . "</option>";
+            } ?>
         </select>
-        <input type="file" name="foto">
+        <select id="categoria" name="ID_CATEGORIA" required>
+            <option>categoria</option>
+            <?php foreach ($categorias as $categoria) {
+                echo "<option value='" . $categoria['ID_CATEGORIA'] . "'>" . $categoria['Título'] . "</option>";
+            } ?>
+        </select>
         <input type="submit">
     </form>
 
