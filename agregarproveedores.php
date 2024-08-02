@@ -4,7 +4,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
         if ($_POST["RS"] != "" && $_POST["rut"] != "" && $_POST["contacto"] != "") {
-            mysqli_query($basededatos, 'INSERT INTO proveedor (RUT, razon_social,contacto) VALUES ("' . $_POST["rut"] . '","' . $_POST["RS"] . '","' . $_POST["contacto"] . '");');
+            mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
             echo "<script>alert('Proveedor Registrado')</script>";
         }else{
             echo "<script>alert('debe ingresar datos')</script>";
