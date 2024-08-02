@@ -60,6 +60,9 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
             <hr id="linea">
             <h4>¿No Tienes Cuenta?<h4>
                     <a href="registro.php" class="linkk">registrar usuario</a>
+            <h4>¿has olvidado tu contraseña?</h4>
+                    <a href="meolvide.php" class="linkk">recuperar contraseña</a>
+
         </div>
         </div>
     </form>
