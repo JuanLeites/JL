@@ -25,7 +25,12 @@ include("chequeodelogin.php");
     </div>
     <?php include("barralateral.html") ?>
 </body>
-<script>
+
+<script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+<script type="module">
+    import {asignarbotoneliminar} from "./js/funciones.js"
+
     window.onload = () => {
         cargarclientes()
         setInterval(() => {
@@ -64,10 +69,11 @@ include("chequeodelogin.php");
                     agregaralinea(cadacliente.Tickets_de_Sorteo);
                     agregaralinea(cadacliente.Contacto);
                     agregaralinea(cadacliente.RUT);
-                    agregaralinea('<a href="eliminarcliente?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/borrar.png" class="accion eliminarcli"></a><a href="modificarcliente?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')
+                    agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE +'" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                     tabla.appendChild(linea);
 
                 })
+                asignarbotoneliminar();;//llamamos a la funcion luego de haber cargado todos las filas.
             }
 
 

@@ -23,10 +23,13 @@
     </div>
 
     <?php include("barralateral.html") ?>
+
 </body>
+
 <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-<script>
+<script type="module">
+    import {asignarbotoneliminar} from "./js/funciones.js"
     window.onload = () => {
         cargarproductos()
         setInterval(() => {
@@ -34,36 +37,7 @@
         }, 2000);
     }
 
-    function asignar() {
-    var eliminarproductos = document.querySelectorAll(".eliminarprod");// un querryselector all ya que hay muchos elementos con esta clase
-    eliminarproductos.forEach(eliminarproducto => {// este foeeach recorre cada elemento que obtiene el query selector
-        eliminarproducto.addEventListener("click", (evento) => {//al hacer click en el elemento
-            evento.preventDefault();//prevenimos el evento por defecto, en este caso redirigirnos a el enlace href
-            Swal.fire({
-                title: "Estas Seguro?",
-                text: "No podrás volver esta acción hacia atras!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "SI, Eliminar!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    /* 
-                    accion para borrar el producto
-                    eliminarproducto.href// la ruta, eliminar con esto
-                    */
-                   
-                    Swal.fire({
-                        title: "Eliminado!",
-                        text: "El archivo a sido eliminado.",
-                        icon: "success"
-                    });
-                }
-            });
-        });
-    });
-}
+
 
 
     function cargarproductos() {
@@ -81,10 +55,10 @@
 
                     var linea = document.createElement("tr");
 
-                    function agregaralinea(dato) {
-                        var objeto = document.createElement("td");
-                        objeto.innerHTML = dato;
-                        linea.appendChild(objeto);
+                    function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                        var objeto = document.createElement("td");//crea el elemento td(columna)
+                        objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                        linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
                     }
 
                     agregaralinea(cadaproducto.ID_Producto);
@@ -96,25 +70,26 @@
                     agregaralinea(cadaproducto.Cantidad);
                     agregaralinea(cadaproducto.Cantidad_minima_aviso);
 
-                    var imagen = document.createElement("img")
-                    imagen.setAttribute("src", "IMAGENESSOFTWARE/" + cadaproducto.imagen)
-                    imagen.setAttribute("id", "prod");
-                    var objeto = document.createElement("td")
-                    objeto.appendChild(imagen);
-                    linea.appendChild(objeto);
+                    var imagen = document.createElement("img")//crea elemento imagen
+                    imagen.setAttribute("src", "IMAGENESSOFTWARE/" + cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
+                    imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
+                    var objeto = document.createElement("td")//creamos una columna
+                    objeto.appendChild(imagen);//le agregamos la imagen a la columna
+                    linea.appendChild(objeto);//agregamos la columna a la fila
                     agregaralinea(cadaproducto.ID_IVA);
                     agregaralinea(cadaproducto.ID_UNIDAD);
                     agregaralinea(cadaproducto.ID_CATEGORIA);
-                    agregaralinea('<a href="eliminarproducto?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/borrar.png" class="accion eliminarprod"></a><a href="modificarproducto?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')
-                    tabla.appendChild(linea);
+                    agregaralinea('<img ruta="eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                    tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
                 })
-                asignar()// luego de cargar todos los elementos, les asignamos los eventos
+                asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas que asignará para cada boton eliminar una funcion de confirmación.
             }
 
 
         }
     }
+
 </script>
 
 </html>

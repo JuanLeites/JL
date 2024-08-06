@@ -11,7 +11,7 @@ src: url('../fuentes/Franchise.ttf')format('truetype') ;
 body{
     padding: 0px;
     margin: 0px;
-    background-color: #001F47;
+    background-color: var(--color-fondo)
 }
 .contenedor{
     padding: 0px;
@@ -22,7 +22,7 @@ body{
 h1{
     font-size: 80px;
     font-family: "fuente";
-    color: #4DBF38;
+    color: var(--color-principal)
 }
 h3{
     font-size: 35px;
@@ -30,7 +30,7 @@ h3{
 }
 p{
     font-family: "p";
-    color:#80D12A;
+    color:var(--color-secundario)
 }
 .izq{
     border-right: 1px black solid;
@@ -47,7 +47,7 @@ img{
     border-radius: 10px;
     height: 200px;
     width: 200px;
-    border: solid 1px #001F47;
+    border: solid 1px var(--color-fondo)
 }
 .info{
     text-align: center;
@@ -65,7 +65,7 @@ img{
     cursor: not-allowed;
 }
 .desc{
-    color: #001F47;
+    color: var(--color-fondo)
 }
 .perfil{
     position: relative;
@@ -78,7 +78,7 @@ img{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(360deg, #80D12A 5%, #001F47 95%);
+    background-image: linear-gradient(360deg, var(--color-secundario) 5%, var(--color-fondo) 95%);
     overflow: hidden;
     transition: 0.5s;
 }
@@ -90,8 +90,8 @@ img{
     position: fixed;
     top: 15px;
     right: 15px;
-    background-color: #80D12A;
-    color:#001F47;
+    background-color: var(--color-secundario);
+    color:var(--color-fondo);
     border-radius: 5px;
     font-family: "p";
     text-decoration: none;

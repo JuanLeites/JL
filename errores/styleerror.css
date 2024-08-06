@@ -1,13 +1,13 @@
 @font-face {
     font-family: "deadpool";
-    src: url("PEANUT BUTTER.otf");
+    src: url("fuente.ttf");
 }
 video{
     width: 85vw;
     height: 85vh;
 }
 body{
-    background-color: pink;
+    background-color: #4DBF38;
     display: flex;
     align-items: center;
     text-align: center;
@@ -15,6 +15,7 @@ body{
     flex-direction: column;
 }
 h1{
-    font-size: 90px;
+    font-size: 50px;
     font-family: "deadpool";
+    color:#001F47;
 }

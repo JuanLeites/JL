@@ -66,7 +66,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
         </div>
         </div>
     </form>
-    <?php include("footer.php") ?>
+    <?php include("footer.html") ?>
 </body>
 
 </html>
