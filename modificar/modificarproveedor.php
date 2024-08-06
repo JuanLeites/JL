@@ -1,6 +1,12 @@
 <?php
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    mysqli_query($basededatos,'UPDATE `proveedor` SET `Contacto` = "'.$_POST["contacto"].'", `Razón_Social` = "'.$_POST["RS"].'", `RUT` = "'.$_POST["rut"].'" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
+    echo "<script>alert('Proveedor actualizado')</script>";
+}
+
 if (isset($_GET["id"])) {
     $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
     $proveedor = mysqli_fetch_assoc($consultaproveedor);
@@ -8,10 +14,7 @@ if (isset($_GET["id"])) {
     header("Location:proveedores.php");
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //al presionar boton actualizar
-    echo "<script>alert('Proveedor actualizado')</script>";
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -1,6 +1,12 @@
 <?php
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    mysqli_query($basededatos,'UPDATE `cliente` SET `Cédula` = "'.$_POST["cedula"].'", `Nombre` = "'.$_POST["nombre"].'", `Deuda` = "'.$_POST["deuda"].'", `Fecha_de_Nacimiento` = "'.$_POST["fechanac"].'", `Contacto` = "'.$_POST["contacto"].'", `RUT` = "'.$_POST["rut"].'" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
+    echo "<script>alert('Cliente actualizado')</script>";
+}
+
 if (isset($_GET["id"])) {
     $consultacliente = mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ID_CLIENTE=' . $_GET["id"]);
     $cliente = mysqli_fetch_assoc($consultacliente); //obtenemos un array asociativo de la consulta(un array con indices iguales a la base de datos)
@@ -8,10 +14,7 @@ if (isset($_GET["id"])) {
     header("Location:clientes.php");
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //al presionar boton actualizar
-    echo "<script>alert('Cliente actualizado')</script>";
-}
+
 
 ?>
 <!DOCTYPE html>
