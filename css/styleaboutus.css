@@ -1,3 +1,9 @@
+
+:root{
+    --color-principal:#4DBF38;
+    --color-secundario:#80D12A;
+    --color-fondo:#001F47;
+}
 @font-face {
     font-family: "p";
     src: url("../fuentes/Grumpy\ Sunshine\ Demo.ttf")format('truetype');
