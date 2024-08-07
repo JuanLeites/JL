@@ -1,19 +1,19 @@
 <?php
- include("chequeodelogin.php");
- include("coneccionBD.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
         if ($_POST["RS"] != "" && $_POST["rut"] != "" && $_POST["contacto"] != "") {
-            mysqli_query($basededatos, 'INSERT INTO proveedor (RUT, razon_social,contacto) VALUES ("' . $_POST["rut"] . '","' . $_POST["RS"] . '","' . $_POST["contacto"] . '");');
+            mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
             echo "<script>alert('Proveedor Registrado')</script>";
-        }else{
+        } else {
             echo "<script>alert('debe ingresar datos')</script>";
         }
-    }else{
+    } else {
         echo "<script>alert('los datos no fueron seteados')</script>";
     }
 }
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,15 +25,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    
+
     <form method="POST" class="conenedordeagregador">
         <h1>Agregar Proveedores</h1>
-        <input type="text" placeholder="Razón Social" name="RS" require>
-        <input type="number" placeholder="RUT" name="rut" require>
-        <input type="text" placeholder="contacto" name="contacto" require>
+        <label for="RS">Razón Social</label>
+        <input type="text" placeholder="Razón Social" name="RS" id="RS" required>
+
+        <label for="rut">RUT</label>
+        <input type="number" placeholder="RUT" name="rut" id="rut" required>
+
+        <label for="contacto">Contacto</label>
+        <input type="text" placeholder="contacto" name="contacto" id="contacto" required>
+
         <input type="submit">
+
     </form>
-    
+
     <?php include("barralateral.html") ?>
 </body>
 

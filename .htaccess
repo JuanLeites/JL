@@ -1,0 +1,37 @@
+RewriteEngine on 
+
+Options -Indexes 
+
+
+#RewriteCond %{HTTPS} !=on 
+#RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+#RewriteRule ^(.*)$ http://www.3emt.kesug.com/$1 [L,R=301] 
+
+DirectoryIndex index.php
+
+ErrorDocument 400 /errores/error400.html
+ErrorDocument 401 /errores/error401.html
+ErrorDocument 402 /errores/error402.html
+ErrorDocument 403 /errores/error403.html
+ErrorDocument 404 /errores/error404.html
+ErrorDocument 405 /errores/error405.html
+
+ErrorDocument 500 /errores/error500.html
+ErrorDocument 501 /errores/error501.html
+ErrorDocument 502 /errores/error502.html
+ErrorDocument 503 /errores/error503.html
+ErrorDocument 504 /errores/error504.html
+ErrorDocument 505 /errores/error505.html
+#ErrorDocument 509 /errores/error509.html
+
+php_value upload_max_filesize= 32M
+#php_value post_max_size = 128M
+#php_value max_execution_time = 1800 #En segundos
+#php_value memory_limit = 200M
+#php_value max_file_uploads = 5
+#php_value max_input_time = 150  0

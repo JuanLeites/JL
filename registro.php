@@ -4,33 +4,49 @@ if (!file_exists("fotoperfil")) {
     mkdir("fotoperfil");
 }
 
+$clavemaestra = "lupf2024"; //asignamos clave maestra del software
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["nombre"]) && isset($_POST["usuario"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) && isset($_POST["correo"]) && isset($_POST["fecha"]) && isset($_FILES["fotoperfil"])) {
-        if ($_POST["nombre"] != "" && $_POST["usuario"] != "" && $_POST["pass"] != "" && $_POST["pass2"] != "" && $_POST["correo"] != "" && $_POST["fecha"] != "" && $_FILES["fotoperfil"]["tmp_name"] != "") { //si no están vacíos
+    if (isset($_POST["nombre"]) && isset($_POST["usuario"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) && isset($_POST["correo"]) && isset($_POST["fecha"]) && isset($_FILES["fotoperfil"]) && isset($_POST["clavamaestra"])) {
+        if ($_POST["nombre"] != "" && $_POST["usuario"] != "" && $_POST["pass"] != "" && $_POST["pass2"] != "" && $_POST["correo"] != "" && $_POST["fecha"] != "" && $_FILES["fotoperfil"]["tmp_name"] != "" && $_POST["clavamaestra"] != "") { //si no están vacíos
             if ($_POST["pass"] == $_POST["pass2"]) { //chequea que las dos contraseñas sean iguales
+
                 if (strlen($_POST["pass"]) >= 6) { //si la cantidad de caracteres de la contraseña es mayor o igual a 6
-                    $chek = mysqli_query($basededatos, 'SELECT * from usuario WHERE usuario="' . $_POST["usuario"] . '"');
-                    if (mysqli_num_rows($chek) == 0) { //si no encuentra ningun usuario con ese nombre
-                        if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) {//si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
-                            move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
-                            mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
-                            header("Location:index.php?causa=reg");
-                        } else {//sino la guardara con el nombre de usuario(unico)y el nombre de la foto
-                            move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"]. $_FILES['fotoperfil']['name'] );
-                            mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"].$_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
-                            header("Location:index.php?causa=reg");
+                    if($_POST["fecha"]>"2020-01-01"){
+                        if ($_POST["clavamaestra"] == $clavemaestra) { //comparamos clave maestra para lograr el registro
+
+                            $chek = mysqli_query($basededatos, 'SELECT * from usuario WHERE usuario="' . $_POST["usuario"] . '"');
+    
+                            if (mysqli_num_rows($chek) == 0) { //si no encuentra ningun usuario con ese nombre
+    
+                                if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) { //si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
+                                    move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
+                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    header("Location:index.php?causa=reg");
+                                } else { //sino la guardara con el nombre de usuario(unico)y el nombre de la foto
+                                    move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"] . $_FILES['fotoperfil']['name']);
+                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    header("Location:index.php?causa=reg");
+                                }
+                            } else {
+                                header('Location:registro.php?causa=yaregistrado&nombre=' . $_POST["nombre"] . '&correo=' . $_POST["correo"].'&fecha='.$POST["fecha"]);
+                            }
+                        } else {
+                            header('Location:registro.php?causa=clavemaestram&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"].'&fecha='.$POST["fecha"]);
                         }
-                    } else {
-                        header('Location:registro.php?causa=yaregistrado');
+                    }else{
+                        header('Location:registro.php?causa=menor&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);
                     }
+
+
                 } else {
-                    header('Location:registro.php?causa=contraseñacorta&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);
+                    header('Location:registro.php?causa=contraseñacorta&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"].'&fecha='.$POST["fecha"]);
                 }
             } else {
-                header('Location:registro.php?causa=contraseñasdistintas&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);
+                header('Location:registro.php?causa=contraseñasdistintas&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"].'&fecha='.$POST["fecha"]);
             }
         } else { //si llega a estar un campo vacío
-            header('Location:registro.php?causa=campovacio&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"]);
+            header('Location:registro.php?causa=campovacio&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"].'&fecha='.$POST["fecha"]);
         }
     }
 }
@@ -62,8 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
-            <input type="date" name="fecha">
+            <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
+                                                echo "value='" . $_GET["fecha"] . "'";
+                                            } ?>>
             <input type="file" name="fotoperfil">
+            <input type="password" name="clavamaestra" placeholder="clave maestra">
             <?php
             if (isset($_GET["causa"])) {
                 switch ($_GET['causa']) {
@@ -79,6 +98,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     case "contraseñacorta":
                         echo '<p>la contraseña debe de tener al menos 6 caracteres</p>';
                         break;;
+                    case "clavemaestram":
+                        echo '<p>la clave maestra está mal</p>';
+                        break;;
+                    case "menor":
+                        echo '<p>debes de haber nacido antes del 2020 para registrarte</p>';//mejorar
+                        break;;
                 }
             }
             ?>
@@ -90,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
     </form>
-    <?php include("footer.php") ?>
+    <?php include("footer.html") ?>
 </body>
 
 </html>

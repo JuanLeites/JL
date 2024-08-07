@@ -1,15 +1,15 @@
-<?php 
-include("chequeodelogin.php"); 
+<?php
+include("chequeodelogin.php");
 include("coneccionBD.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["cedula"]) && isset($_POST["fechanac"]) && isset($_POST["contacto"])) {
         if ($_POST["nombre"] != "" && $_POST["cedula"] != "" && $_POST["fechanac"] != "" && $_POST["contacto"] != "") {
-            mysqli_query($basededatos, 'INSERT INTO cliente (nombre, cedula, fecha_de_nacimiento, contacto) VALUES ("' . $_POST["nombre"] . '","' . $_POST["cedula"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '");');
+            mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto,RUT) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '","' . $_POST["rut"] . '");');
             echo "<script>alert('Cliete Registrado')</script>";
-        }else{
+        } else {
             echo "<script>alert('debe ingresar datos')</script>";
         }
-    }else{
+    } else {
         echo "<script>alert('los datos no fueron seteados')</script>";
     }
 }
@@ -31,15 +31,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include("barralateral.html") ?>
     <form method="POST" class="conenedordeagregador">
         <h1>Agregar Clientes</h1>
-        <input type="text" placeholder="nombre" name="nombre">
+        <label for="nombre">Nombre</label>
+        <input type="text" placeholder="nombre" name="nombre" id="nombre">
 
-        <input type="number" placeholder="Cedula" name="cedula">
+        <label for="cedula">Cédula</label>
+        <input type="number" placeholder="Cedula" name="cedula" id="cedula">
 
-        <p>Fecha de nacimiento:</p>
-        <input type="date" name="fechanac">
+        <label for="fechanac">Fecha de Nacimiento</label>
+        <input type="date" name="fechanac" id="fechanac">
 
-        <input type="number" placeholder="contacto" name="contacto">
+        <label for="contacto">Contacto</label>
+        <input type="number" placeholder="contacto" name="contacto" id="contacto">
+
+        <label for="rut">RUT</label>
+        <input type="number" placeholder="RUT" name="rut" id="rut">
+
         <input type="submit">
+
     </form>
 </body>
 
