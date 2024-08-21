@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" required>
 
-        <input type="submit">
+        <input type="submit" value="agregar">
 
     </form>
 

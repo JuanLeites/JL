@@ -35,18 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" placeholder="nombre" name="nombre" id="nombre">
 
         <label for="cedula">Cédula</label>
-        <input type="number" placeholder="Cedula" name="cedula" id="cedula">
+        <input type="number" placeholder="Cedula" name="cedula" id="cedula" min="1000000" max="99999999">
 
         <label for="fechanac">Fecha de Nacimiento</label>
-        <input type="date" name="fechanac" id="fechanac">
+        <input type="date" name="fechanac" id="fechanac"  max="2019-12-31" min="1940-12-31">
 
         <label for="contacto">Contacto</label>
-        <input type="number" placeholder="contacto" name="contacto" id="contacto">
+        <input type="text" placeholder="contacto" name="contacto" id="contacto">
 
         <label for="rut">RUT</label>
         <input type="number" placeholder="RUT" name="rut" id="rut">
 
-        <input type="submit">
+        <input type="submit" value="agregar">
 
     </form>
 </body>

@@ -76,9 +76,9 @@
                     var objeto = document.createElement("td")//creamos una columna
                     objeto.appendChild(imagen);//le agregamos la imagen a la columna
                     linea.appendChild(objeto);//agregamos la columna a la fila
-                    agregaralinea(cadaproducto.ID_IVA);
-                    agregaralinea(cadaproducto.ID_UNIDAD);
-                    agregaralinea(cadaproducto.ID_CATEGORIA);
+                    agregaralinea(cadaproducto.Tipo);
+                    agregaralinea(cadaproducto.Unidad);
+                    agregaralinea(cadaproducto.Título);
                     agregaralinea('<img ruta="eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                     tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 

@@ -9,6 +9,8 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             json_encode("Cliente ".$_GET["id"]." Eliminado");
             break;;
         case "producto":
+            $FOTODELPRODUCTO = mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT imagen FROM producto WHERE `producto`.`ID_Producto` = '.$_GET["id"]));//guardamos en la variable $FOTODELPRODUCTO un array asociativo que contiene el resultado de la consulta que solamente tendrá la ruta de la imagen con la id pasada por parametros
+            @unlink("../IMAGENESSOFTWARE/".$FOTODELPRODUCTO["imagen"]);//le ponemos un arroba por si no encuentra la imagen no nos de un error
             mysqli_query($basededatos,'DELETE FROM producto WHERE `producto`.`ID_Producto` = '.$_GET["id"]);
             json_encode("Producto ".$_GET["id"]." Eliminado");
             break;;

@@ -49,7 +49,7 @@
             const proveedores = JSON.parse(this.responseText);
 
             if (cantidaddeelementosantes - 1 != proveedores.length) { // compara los elementos de la tabla con los resultados de la api, si hay una cantidad distinta, cargará todos los proveedores
-                tabla.innerHTML = "<tr><th>ID</th><th>Razón social</th><th>RUT</th><th>telefono</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
+                tabla.innerHTML = "<tr><th>ID</th><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
                 proveedores.forEach(cadaproveedor => {
 
                     var linea = document.createElement("tr");

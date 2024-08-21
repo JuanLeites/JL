@@ -76,7 +76,6 @@ if (isset($_GET["id"])) {
 
                 <label for="iva">IVA</label>
                 <select id="iva" name="ID_IVA" value="<?php echo $producto['ID_IVA']; ?>">
-                    <option>iva</option>
                     <?php foreach ($ivas as $iva) {
                         if ($iva['ID_IVA'] == $producto['ID_IVA']) {
                             echo "<option selected value='" . $iva['ID_IVA'] . "'>" . $iva['Tipo'] . "</option>";
@@ -88,7 +87,6 @@ if (isset($_GET["id"])) {
 
                 <label for="medida">Unidad de Medida</label>
                 <select id="medida" name="ID_UNIDAD" value="<?php echo $producto['ID_UNIDAD']; ?>">
-                    <option>unidad de medida</option>
                     <?php foreach ($medidas as $medida) {
                         if ($medida['ID_UNIDAD'] == $producto['ID_UNIDAD']) {
                             echo "<option selected value='" . $medida['ID_UNIDAD'] . "'>" . $medida['Unidad'] . "</option>";
@@ -100,7 +98,6 @@ if (isset($_GET["id"])) {
 
                 <label for="categoria">Categoría</label>
                 <select id="categoria" name="ID_CATEGORIA" value="<?php echo $producto['ID_CATEGORIA']; ?>">
-                    <option>categoria</option>
                     <?php foreach ($categorias as $categoria) {
                         if ($categoria['ID_CATEGORIA'] == $producto['ID_CATEGORIA']) {
                             echo "<option selected value='" . $categoria['ID_CATEGORIA'] . "'>" . $categoria['Título'] . "</option>";
