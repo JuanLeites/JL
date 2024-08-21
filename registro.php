@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($_POST["pass"] == $_POST["pass2"]) { //chequea que las dos contraseñas sean iguales
 
                 if (strlen($_POST["pass"]) >= 6) { //si la cantidad de caracteres de la contraseña es mayor o igual a 6
-                    if($_POST["fecha"]>"2020-01-01"){
+                    if($_POST["fecha"]<"2020-01-01"){
                         if ($_POST["clavamaestra"] == $clavemaestra) { //comparamos clave maestra para lograr el registro
 
                             $chek = mysqli_query($basededatos, 'SELECT * from usuario WHERE usuario="' . $_POST["usuario"] . '"');

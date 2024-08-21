@@ -10,6 +10,7 @@
 
   <div class="contenedor">
   <form method="post">
+    <input type="email" placeholder="ingrece email" name="dest">
     <input type="submit" value="enviar codigo al correo" name="enviar">
     <input type="text" name="codigo" placeholder="ingrese código de 6 digitos">
     <input type="submit" value="siguiente" name="validar">
@@ -33,11 +34,12 @@ function generarCodigo() {
 }
 
 if (isset($_POST['enviar'])) {
+    if (!empty($_POST['dest'])){
     $codigo = generarCodigo(); // Llama a la función y almacena el código generado
     $_SESSION['codigo'] = $codigo;// las variables se usan para evaluar mas tarde
     $_SESSION['codigo_generado'] = time();
   
-    $dest = "Lautacap12@gmail.com"; // aca hay que extraer de la bd el correo del usuario.
+     $dest = $_POST['dest']; 
     $asunto = "Código para recuperación de contraseña";
     $msj = "Tu código es: ".$codigo." Este código cambiará en 3 minutos.";
     $header = "From: lupfdesarrollodesoftware@gmail.com\r\n";  
@@ -49,6 +51,9 @@ if (isset($_POST['enviar'])) {
        echo "<h4>Código enviado</h4>";
     } else {
        echo "<h4>Error al enviar el código</h4>";
+    }
+    }else{
+      echo "correo no ingresado";
     }
 }
 
