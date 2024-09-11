@@ -10,14 +10,13 @@ if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
     if ($_POST["premio"] != "" && isset($_POST["cantidad"])) {
         mysqli_query($basededatos, 'INSERT INTO sorteo (Premio, Cantidad, Fecha_realización) VALUES ("' . $_POST["premio"] . '", "' . $_POST["cantidad"] . '", CURDATE())');
         echo "<script>alert('Sorteo creado')</script>";
-    } 
+    } else {
+        echo "<script>alert('debe ingresar datos')</script>";
+    }
+} else {
+    echo "<script>alert('los datos no fueron seteados')</script>";
 }
- } else {
-            echo "<script>alert('debe ingresar datos')</script>";
 }
-
-
-
 
 ?>
 <!DOCTYPE html>

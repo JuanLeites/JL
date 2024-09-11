@@ -43,7 +43,7 @@ include("chequeodelogin.php");
         var tabla = document.querySelector("tbody");
         var cantidaddeelementosantes = tabla.children.length;
         const cargaDatos = new XMLHttpRequest();
-        cargaDatos.open('GET', 'apis/apiSorteos.php');
+        cargaDatos.open('GET', 'apis/apisorteos.php');
         cargaDatos.send()
         cargaDatos.onload = function() {
             const sorteos = JSON.parse(this.responseText);
