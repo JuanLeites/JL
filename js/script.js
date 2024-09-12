@@ -1,15 +1,24 @@
 window.onload = function(){
-    var contra = document.querySelector('#contraseña')
-      var ver = document.getElementById('ver')
-  
-      ver.addEventListener('click', function(){
-          if(contra.type == 'password'){
-              contra.setAttribute('type', 'text')
-              ver.setAttribute('src','imagenes/ojoabierto.png')
-          }else{
-              contra.setAttribute('type', 'password')
-              ver.setAttribute('src','imagenes/ojocerrado.png')
-          }
-      })
 
+    //declaramos cada ojo para ver contraseñas y le agregamos el evento
+    var inputcontraseñaindex = document.querySelector(".contraseñadeindex");
+    var ojoindex = document.querySelector(".ojoindex")
+    ojoindex.addEventListener("click",()=>{alternar(inputcontraseñaindex,ojoindex)})
+
+    var inputcontraseña
   }
+
+
+
+
+
+
+  function alternar(inputdecontraseña, imagen) {
+    if (inputdecontraseña.type == 'password') {
+        inputdecontraseña.setAttribute('type', 'text')
+        imagen.setAttribute('src', 'imagenes/ojoabierto.png')
+    } else {
+        inputdecontraseña.setAttribute('type', 'password')
+        imagen.setAttribute('src', 'imagenes/ojocerrado.png')
+    }
+}

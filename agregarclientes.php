@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php include("barralateral.html") ?>
-    <form method="POST" class="conenedordeagregador">
+    <form method="POST" class="formularios">
         <h1>Agregar Clientes</h1>
         <label for="nombre">Nombre</label>
         <input type="text" placeholder="nombre" name="nombre" id="nombre">

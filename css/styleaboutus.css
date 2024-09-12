@@ -1,79 +1,92 @@
-
-:root{
-    --color-principal:#4DBF38;
-    --color-secundario:#80D12A;
-    --color-fondo:#001F47;
+:root {
+    --color-principal: #4DBF38;
+    --color-secundario: #80D12A;
+    --color-fondo: #001F47;
 }
+
 @font-face {
     font-family: "p";
     src: url("../fuentes/Grumpy\ Sunshine\ Demo.ttf")format('truetype');
 }
 
 @font-face {
-font-family: "fuente";
-src: url('../fuentes/Franchise.ttf')format('truetype') ;
+    font-family: "fuente";
+    src: url('../fuentes/Franchise.ttf')format('truetype');
 }
 
-body{
+body {
     padding: 0px;
     margin: 0px;
     background-color: var(--color-fondo)
 }
-.contenedor{
+
+.contenedor {
     padding: 0px;
     margin: 0px;
     display: flex;
     text-align: center;
 }
-h1{
+
+h1 {
     font-size: 80px;
     font-family: "fuente";
     color: var(--color-principal)
 }
-h3{
+
+h3 {
     font-size: 35px;
     color: rgb(214, 255, 205);
 }
-p{
+
+p {
     font-family: "p";
-    color:var(--color-secundario)
+    color: var(--color-secundario)
 }
-.izq{
+
+.izq {
     border-right: 1px black solid;
 }
-.conten{
+
+.conten {
     width: 50%;
     padding: 10px;
 }
-.contenedorperfiles{
+
+.contenedorperfiles {
     display: flex;
 }
 
-img{
+img {
     border-radius: 10px;
     height: 200px;
     width: 200px;
     border: solid 1px var(--color-fondo)
 }
-.info{
+
+.info {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#leites{
-   cursor: cell;
+
+#leites {
+    cursor: cell;
 }
-#benja{
+
+#benja {
     cursor: help;
 }
-#lautaro{
+
+#lautaro {
     cursor: not-allowed;
 }
-.desc{
+
+.desc {
     color: var(--color-fondo)
 }
-.perfil{
+
+.perfil {
     position: relative;
     border: solid 1px black;
     width: 33%;
@@ -88,18 +101,45 @@ img{
     overflow: hidden;
     transition: 0.5s;
 }
+
 .perfil:hover {
     transform: translateY(-20px);
-  }
+}
 
-  #reg{
+#reg {
     position: fixed;
     top: 15px;
     right: 15px;
     background-color: var(--color-secundario);
-    color:var(--color-fondo);
+    color: var(--color-fondo);
     border-radius: 5px;
     font-family: "p";
     text-decoration: none;
     padding: 5px;
-  }
+}
+
+.linkedin {
+    background-color: #0e76a8;
+    color: #fff;
+    padding: 10px;
+    border-radius: 9px;
+    text-decoration: none;
+}
+
+.contenedorredes {
+    display: flex;
+}
+
+.instagram {
+    width: 100px;
+    height: 100px;
+    background: #f09433;
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
+    color: #fff;
+    padding: 10px;
+    border-radius: 9px;
+    text-decoration: none;
+}

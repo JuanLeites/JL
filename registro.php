@@ -63,27 +63,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </head>
 
-<body>
-    <form method="POST" enctype="multipart/form-data">
-        <div class="contenedor">
-            <h2>Registrar usuario</h2>
-            <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
+<body class="scroll">
+    <form method="POST" class="contenedor" enctype="multipart/form-data">
+        <h1>Registrar usuario</h1>
+        <div class="contenedordesubcontenedores">
+            <div class="subcontenedores">
+                <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
                                                                                     echo "value='" . $_GET["nombre"] . "'";
                                                                                 } ?>>
-            <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
+                <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
                                                                                     echo "value='" . $_GET["usuario"] . "'";
                                                                                 } ?>>
-            <input type="password" name="pass" placeholder="Ingrese contraseña">
-            <input type="password" name="pass2" placeholder="Repita contraseña">
-            <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
+                <input type="password" name="pass" placeholder="Ingrese contraseña">
+                <input type="password" name="pass2" placeholder="Repita contraseña">
+            </div>
+
+            <div class="subcontenedores ">
+                <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
-            <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
+                <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
                                                 echo "value='" . $_GET["fecha"] . "'";
                                             } ?>>
-            <input type="file" name="fotoperfil">
-            <input type="password" name="clavamaestra" placeholder="clave maestra">
-            <?php
+                <input type="file" name="fotoperfil">
+                <input type="password" name="clavamaestra" placeholder="clave maestra">
+            </div>
+        </div>
+        
+        <?php
             if (isset($_GET["causa"])) {
                 switch ($_GET['causa']) {
                     case "yaregistrado":
@@ -106,16 +113,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         break;;
                 }
             }
-            ?>
-            <input type="submit" class="bot" value="Registrarme">
-            <hr id="linea">
-            <br>
-            <h5>¿Ya Tienes Cuenta?<h5>
-                    <a href="index.php" class="linkk">Iniciar Sesión</a>
-        </div>
-
+        ?>
+        <input type="submit" value="Registrarme">
+        <hr id="linea">
+        <br>
+        <h4>¿Ya Tienes Cuenta?</h4>
+        <a href="index.php" class="linkk">Iniciar Sesión</a>
     </form>
     <?php include("footer.html") ?>
 </body>
+
 
 </html>

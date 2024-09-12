@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <form method="POST" class="conenedordeagregador">
+    <form method="POST" class="formularios">
         <h1>Agregar Proveedores</h1>
         <label for="RS">Razón Social</label>
         <input type="text" placeholder="Razón Social" name="RS" id="RS" required>

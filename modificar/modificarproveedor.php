@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <form method="POST" class="conenedordeagregador">
+    <form method="POST" class="formularios">
         <h1>Modificar Proveedor</h1>
         <label for="RS">Razón Social</label>
         <input type="text" placeholder="Razón Social" name="RS" id="RS" value="<?php echo $proveedor['Razón_Social']; ?>">

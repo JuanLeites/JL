@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Me olvidé la contraseña</title>
-    <link rel="stylesheet" href="/LUPF/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <div class="contenedor">
   <form method="post">
+  <div class="contenedor">
     <input type="email" placeholder="ingrece email" name="dest">
     <input type="submit" value="enviar codigo al correo" name="enviar">
     <input type="text" name="codigo" placeholder="ingrese código de 6 digitos">

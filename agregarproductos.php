@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
+    <form method="POST" class="formularios" enctype="multipart/form-data">
         <h1>Agregar un Producto</h1>
 
         <div class="contenedordesubcontenedores"><!-- CONTIENE DOS SUBCONTENEDORES, es para ordenar en dos filas -->

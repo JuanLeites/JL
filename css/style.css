@@ -15,15 +15,18 @@ body {
 
 .contenedor {
     display: flex;
-    justify-content: flex-start;
-    text-align: center;
     flex-direction: column;
     border-radius: 10px;
-    padding: 50px;
+    padding: 35px;
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0.2);
     border: solid #dbdbdb 0.571429px;
     background-color: #80D12A;
     color: #001F47;
+    align-items: center;
+}
+.contenedor>h4{
+    margin: 3px;
+
 }
 input,select {
     border: 1px solid #0EAB62;
@@ -60,15 +63,15 @@ a:hover {
     height: 16px;
     cursor: pointer;
     display: block;
-    transform: translate(+210px,-40px)
+    transform: translate(+90px,-40px)
 }
 footer{
     color:#ffffff;
     position: absolute;
     bottom: 0px;
-    width: 95vw;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
+    background-color: red;
 }
 footer>a{
     color: antiquewhite;
@@ -193,12 +196,12 @@ table{
     width: 30px;
     height: 30px;
 }
-.conenedordeagregador{
+.formularios{
     display: flex;
     flex-direction: column;
     background-color:#004aab;
     border-radius: 10px;
-    padding: 30px;
+    padding: 25px;
     align-items: center;
 }
 
@@ -243,4 +246,23 @@ tr:hover {
 .subcontenedores{
     display: flex;
     flex-direction: column;
+}
+.linkk{
+    font-size: 13px;
+    font-weight: bold;
+    margin: 4px;
+    padding: 0px;
+}
+.scroll{
+    overflow-y: scroll;
+}
+.contenedordecumpleañeros{
+    margin-left: 30px;
+    border: solid var(--color-secundario);
+    border-radius: 20px;
+    padding-left: 30px;
+    max-width: 30%;
+}
+main{
+    margin-left: 5%;
 }
