@@ -56,7 +56,7 @@ export function cargarclientes() {
 
         if (cantidaddeelementosantes - 1 != clientes.length) {
 
-            tabla.innerHTML = "<tr><th>ID</th><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Bouchers</th><th>contacto</th><th>RUT</th><th>accion</th></tr>"
+            tabla.innerHTML = "<tr><th>ID</th><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Bouchers</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
             clientes.forEach(cadacliente => {
 
                 var linea = document.createElement("tr");
@@ -97,7 +97,7 @@ export function cargarproductos() {
         const productos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != productos.length) {
-            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Precio Neto</th><th>codigo de barras</th><th>descripcion</th><th>marca</th><th>cantidad</th><th>cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
+            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Precio Neto</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
             productos.forEach(cadaproducto => {
 
                 var linea = document.createElement("tr");
@@ -215,5 +215,4 @@ window.onload = function () {
     if (inputcontraseña3 && ojo3) {
         ojo3.addEventListener("click", () => { alternar(inputcontraseña3, ojo3, "../imagenes") })
     }
-
 }

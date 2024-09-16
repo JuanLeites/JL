@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                                 if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) { //si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO Usuario (Usuario, Contraseña, Correo, Nombre, Fotoperfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO Usuario (Usuario, Contraseña, Nombre, Correo, Foto_Perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["nombre"] . '","' . $_POST["correo"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 } else { //sino la guardara con el nombre de usuario(unico)y el nombre de la foto
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"] . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (Usuario, Contraseña, Correo, Nombre, Fotoperfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO usuario (Usuario, Contraseña, Nombre, Correo, Foto_Perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["nombre"] . '","' . $_POST["correo"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 }
                             } else {
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
-                <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
+                <input type="date"  max="2019-12-31" name="fecha" <?php if (isset($_GET["fecha"])) {
                                                 echo "value='" . $_GET["fecha"] . "'";
                                             } ?>>
                 <input type="file" name="fotoperfil">
