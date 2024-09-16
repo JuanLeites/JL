@@ -7,20 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
 <body>
 
     <div class="buscador">
         <input type="text" placeholder="Buscar Productos">
+        <a href="agregarproductos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <table>
             <tbody>
             </tbody>
         </table>
-        <a href="agregarproductos.php" class="agregardato">+</a>
     </div>
+    
 
     <?php include("barralateral.html") ?>
 

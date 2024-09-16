@@ -39,6 +39,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Producto</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
 <body>
@@ -70,7 +71,7 @@ if (isset($_GET["id"])) {
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso" value="<?php echo $producto['Cantidad_minima_aviso']; ?>">
 
                 <label for="foto">Foto</label>
-                <input type="file" name="foto" id="foto"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
+                <input type="file" name="foto" id="foto" accept="image/*"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
                 <input type="text" name="rutavieja" value="<?php echo $producto['imagen']; ?>" style="display:none"><!-- creamos este elemento para pasarle la ruta de la foto vieja por formulario -->
 
 

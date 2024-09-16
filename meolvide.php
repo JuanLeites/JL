@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Me olvidé la contraseña</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/LUPF/css/style.css">
+    <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
 </head>
 <body>
   <form method="post">

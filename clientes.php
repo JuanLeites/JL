@@ -9,20 +9,22 @@ include("chequeodelogin.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
 
 <body>
 
     <div class="buscador">
         <input type="text" placeholder="Buscar Clientes">
+        <a href="agregarclientes.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <table>
             <tbody>
             </tbody>
         </table>
-        <a href="agregarclientes.php" class="agregardato">+</a>
     </div>
+
     <?php include("barralateral.html") ?>
 </body>
 

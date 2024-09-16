@@ -5,16 +5,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["usuario"] != "" && $_POST["contraseña"] != "") { // si contienen texto
         $usuario = $_POST["usuario"];
         $contraseña = $_POST["contraseña"];
-        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
+        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
         if (mysqli_num_rows($consultausuarios) == 1) { //chequeamos que haya un solo valor(un usuario con ese user y esa contraseña)
-            $_SESSION["user"] = strtolower($usuario);
-            $_SESSION["pass"] = strtolower($contraseña); //si hay las setea a varables de sesion
+            $_SESSION["user"] = $usuario;
+            $_SESSION["pass"] = $contraseña; //si hay las setea a varables de sesion
             foreach ($consultausuarios as $usuario) {
                 foreach ($usuario as $indice => $dato) {
-                    if ($indice == "nombre") {
+                    if ($indice == "Nombre") {
                         $_SESSION["nombre"] = $dato;
                     }
-                    if($indice == "fotoperfil"){
+                    if($indice == "Foto_Perfil"){
                         $_SESSION["fotoperf"] = $dato;
                     }
                 }
@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
 </head>
 
 <body>

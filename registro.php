@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                                 if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) { //si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO Usuario (Usuario, Contraseña, Correo, Nombre, Foto_perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 } else { //sino la guardara con el nombre de usuario(unico)y el nombre de la foto
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"] . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO usuario (Usuario, Contraseña, Correo, Nombre, Foto_perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 }
                             } else {
@@ -74,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
                                                                                     echo "value='" . $_GET["usuario"] . "'";
                                                                                 } ?>>
-                <input type="password" name="pass" placeholder="Ingrese contraseña">
-                <input type="password" name="pass2" placeholder="Repita contraseña">
+                <input type="password" name="pass" placeholder="Ingrese contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png">
+                <input type="password" name="pass2" placeholder="Repita contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png">
             </div>
 
             <div class="subcontenedores ">

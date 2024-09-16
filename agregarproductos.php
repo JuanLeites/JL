@@ -38,14 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>agregar productos</title>
+    <title>Agregar Producto</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
 <body>
 
-    <form method="POST" class="formularios" enctype="multipart/form-data">
-        <h1>Agregar un Producto</h1>
+    <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
+        <h1>Agregar Producto</h1>
 
         <div class="contenedordesubcontenedores"><!-- CONTIENE DOS SUBCONTENEDORES, es para ordenar en dos filas -->
             <div class="subcontenedores"><!-- CONTIENE los inputs, es para ordenarlos con estilo -->
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso">
 
                 <label for="foto">Foto</label>
-                <input type="file" name="foto" id="foto">
+                <input type="file" name="foto" id="foto" accept="image/*">
 
                 <label for="iva">IVA</label>
                 <select id="iva" name="ID_IVA" required>

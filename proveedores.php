@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proveedores</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/icons/modproveedores.png" type="image/x-icon">
 </head>
 
 <body>
 
     <div class="buscador">
         <input type="text" placeholder="Buscar proveedores">
+        <a href="agregarproveedores.php" class="agregardato">+</a>
     </div>
 
     <div class="contenedordemenu">
@@ -21,9 +23,8 @@
 
             </tbody>
         </table>
-        <a href="agregarproveedores.php" class="agregardato">+</a>
-
     </div>
+    
     <?php include("barralateral.html") ?>
 </body>
 

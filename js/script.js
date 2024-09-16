@@ -5,7 +5,7 @@ window.onload = function(){
     var ojoindex = document.querySelector(".ojoindex")
     ojoindex.addEventListener("click",()=>{alternar(inputcontraseñaindex,ojoindex)})
 
-    var inputcontraseña
+    var inputcontraseña;
   }
 
 

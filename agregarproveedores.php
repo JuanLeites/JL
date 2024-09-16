@@ -20,19 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Clientes</title>
+    <title>Agregar Proveedore</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/icons/modproveedores.png" type="image/x-icon">
 </head>
 
 <body>
 
-    <form method="POST" class="formularios">
-        <h1>Agregar Proveedores</h1>
+    <form method="POST" class="conenedordeagregador">
+        <h1>Agregar Proveedor</h1>
         <label for="RS">Razón Social</label>
         <input type="text" placeholder="Razón Social" name="RS" id="RS" required>
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" name="rut" id="rut" required>
+        <input type="number" placeholder="RUT" min="1000000" max="999999999999" name="rut" id="rut" required>
 
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" required>

@@ -10,12 +10,13 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+<script src="js/script.js"></script>
+<link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
     <title>Inicio de Sesión</title>
 </head>
-<link rel="stylesheet" href="css/style.css">
-<script src="js/script.js"></script>
 
-<body>
+<body class="scroll">
 
     <form method="POST" class="contenedor" action="menuprincipal.php">
             <h1>Iniciar Sesión</h1>
@@ -46,7 +47,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
                         break;;
 
                     case "sesioncerrada":
-                        echo '<p>Sesion cerrada con exito</p>';
+                        echo '<p>Sesión cerrada con exito</p>';
                         break;;
                 }
             }

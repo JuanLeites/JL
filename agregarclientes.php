@@ -22,15 +22,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Clientes</title>
+    <title>Agregar Cliente</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
 <link rel="stylesheet" href="estilomeolvide.css">
 
 <body>
     <?php include("barralateral.html") ?>
     <form method="POST" class="formularios">
-        <h1>Agregar Clientes</h1>
+        <h1>Agregar Cliente</h1>
         <label for="nombre">Nombre</label>
         <input type="text" placeholder="nombre" name="nombre" id="nombre">
 
