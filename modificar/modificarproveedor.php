@@ -24,16 +24,17 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Proveedor</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../imagenes/icons/modproveedores.png" type="image/x-icon">
 </head>
 
 <body>
-    <form method="POST" class="conenedordeagregador">
+    <form method="POST" class="formularios">
         <h1>Modificar Proveedor</h1>
         <label for="RS">Razón Social</label>
         <input type="text" placeholder="Razón Social" name="RS" id="RS" value="<?php echo $proveedor['Razón_Social']; ?>">
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" name="rut" id="rut" value="<?php echo $proveedor['RUT']; ?>">
+        <input type="number" placeholder="RUT" min="1000000" max="999999999999" name="rut" id="rut" value="<?php echo $proveedor['RUT']; ?>">
 
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" value="<?php echo $proveedor['Contacto']; ?>">

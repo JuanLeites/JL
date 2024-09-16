@@ -22,33 +22,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Clientes</title>
+    <title>Agregar Cliente</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
-<link rel="stylesheet" href="estilomeolvide.css">
-
 <body>
-    <?php include("barralateral.html") ?>
-    <form method="POST" class="conenedordeagregador">
-        <h1>Agregar Clientes</h1>
+    <form method="POST" class="formularios">
+        <h1>Agregar Cliente</h1>
         <label for="nombre">Nombre</label>
         <input type="text" placeholder="nombre" name="nombre" id="nombre">
 
         <label for="cedula">Cédula</label>
-        <input type="number" placeholder="Cedula" name="cedula" id="cedula">
+        <input type="number" placeholder="Cedula" name="cedula" id="cedula" min="1000000" max="99999999">
 
         <label for="fechanac">Fecha de Nacimiento</label>
-        <input type="date" name="fechanac" id="fechanac">
+        <input type="date" name="fechanac" id="fechanac"  max="2019-12-31" min="1940-12-31">
 
         <label for="contacto">Contacto</label>
-        <input type="number" placeholder="contacto" name="contacto" id="contacto">
+        <input type="text" placeholder="contacto" name="contacto" id="contacto">
 
         <label for="rut">RUT</label>
         <input type="number" placeholder="RUT" name="rut" id="rut">
 
-        <input type="submit">
+        <input type="submit" value="agregar">
 
     </form>
+    <?php include("barralateral.html") ?>
 </body>
 
 </html>

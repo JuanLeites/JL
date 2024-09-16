@@ -1,0 +1,1 @@
+-cuando quedan datos incompletos no se rellenan los otros campos en agregarclientes.php

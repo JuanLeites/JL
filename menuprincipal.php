@@ -5,16 +5,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["usuario"] != "" && $_POST["contraseña"] != "") { // si contienen texto
         $usuario = $_POST["usuario"];
         $contraseña = $_POST["contraseña"];
-        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
+        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
         if (mysqli_num_rows($consultausuarios) == 1) { //chequeamos que haya un solo valor(un usuario con ese user y esa contraseña)
-            $_SESSION["user"] = strtolower($usuario);
-            $_SESSION["pass"] = strtolower($contraseña); //si hay las setea a varables de sesion
+            $_SESSION["user"] = $usuario;
+            $_SESSION["pass"] = $contraseña; //si hay las setea a varables de sesion
             foreach ($consultausuarios as $usuario) {
                 foreach ($usuario as $indice => $dato) {
-                    if ($indice == "nombre") {
+                    if ($indice == "Nombre") {
                         $_SESSION["nombre"] = $dato;
                     }
-                    if($indice == "fotoperfil"){
+                    if($indice == "Foto_Perfil"){
                         $_SESSION["fotoperf"] = $dato;
                     }
                 }
@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -58,14 +59,102 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
     <h1>Bienvenido <?php echo $_SESSION["nombre"]; ?></h1>
     <h2 id="titulo_con_fecha"></h2>
+   <div class="contenedordecumpleañeros">
+        <h2>Clientes de cumpleaños 🍰</h2>
+   </div>
+
     </main>
 
 </body>
 <script>
     window.onload = ()=>{
-        var hoy = new Date(Date.now())
-        var titulo = document.querySelector("#titulo_con_fecha")
-        titulo.innerHTML="Hoy es "+hoy
+            var hoy = new Date()
+            var titulo = document.querySelector("#titulo_con_fecha")
+        
+        switch (hoy.getDay()){
+            case 0:
+                diasemana="Domingo ";
+                break;
+            case 1:
+                diasemana="Lunes ";
+                break;
+            case 2:
+                diasemana="Martes ";
+                break;
+            case 3:
+                diasemana="Miercoles ";
+                break;
+            case 4:
+                diasemana="Jueves ";
+                break;
+            case 5:
+                diasemana="Viernes ";
+                break;
+            case 6:
+                diasemana="Sabado ";
+
+        }
+        switch (hoy.getMonth()){
+            case 0:
+                diames="Enero"
+                break;
+            case 1:
+                diames="Febrero"
+                break;
+            case 2:
+                diames="Marzo"
+                break;
+            case 3:
+                diames="Abril"
+                break;
+            case 4:
+                diames="Mayo"
+                break;
+            case 5:
+                diames="Junio"
+                break;
+            case 6:
+                diames="Julio"
+                break;
+            case 7:
+                diames="Agosto"
+                break;
+            case 8:
+                diames="Septiembre"
+                break;
+            case 9:
+                diames="Octubre"
+                break;
+            case 10:
+                diames="Noviembre"
+                break;
+            case 11:
+                diames="Diciembre"
+                break;
+            
+                
+        }
+        titulo.innerHTML="Hoy es "+diasemana+hoy.getDate()+" de "+diames+" de "+hoy.getFullYear();
+
+        var contenedordecumpleañeros = document.querySelector(".contenedordecumpleañeros");
+        
+
+        const cargaCumpleañeros = new XMLHttpRequest();
+        cargaCumpleañeros.open('GET', 'apis/apiclientes.php');
+        cargaCumpleañeros.send()
+        cargaCumpleañeros.onload = function() {
+            const clientes = JSON.parse(this.responseText);
+                clientes.forEach(cadacliente => {
+                    var dia = new Date(cadacliente.Fecha_de_Nacimiento);
+                    if(dia.getMonth() == hoy.getMonth() && dia.getDate()+1 == hoy.getDate()){//si el dia y el mes coinciden on el actual
+                        contenedordecumpleañeros.innerHTML+="<h3>"+cadacliente.Nombre+" - "+cadacliente.Cédula+"</h3>";
+                    }
+                })
+                if(contenedordecumpleañeros.childElementCount == 1){
+                    contenedordecumpleañeros.innerHTML+="<h3>No hay cumpleañeros el dia de hoy</h3>"
+                }//si no hay nada mostrar texto alternativo
+        }
+
     }
 
 </script>

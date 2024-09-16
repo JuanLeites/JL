@@ -1,11 +1,18 @@
 <div class="barralateral">
+
+    <button class="cerrarbarralateral" onclick="ocultarmenu()">X</button>
+    
     <div class="contenedordeicono">
         <a href="menuprincipal.php">
             <img class="icono" src="imagenes/icons/casa.png">
             <h2>Menu Principal</h2>
         </a>
     </div>
+
+
     <hr>
+
+
     <div class="contenedordeicono">
         <a href="cobros.php">
             <img class="icono" src="imagenes/icons/carrito.png">
@@ -49,8 +56,54 @@
         </a>
     </div>
 </div>
+
+
+<img src="imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
+
+
+
+<script>
+    function mostrarpopup() {
+        var popup = document.querySelector("#popup");
+        popup.setAttribute("Style","");
+    }
+    function ocultarpopup() {
+        var popup = document.querySelector("#popup");
+        popup.setAttribute("Style","display: none");
+    }
+    function mostrarmenu() {
+        var slidebar = document.querySelector(".barralateral");
+        var boton = document.querySelector(".botonbarralateral");
+        var botoncerrar = document.querySelector(".cerrarbarralateral");
+        botoncerrar.setAttribute("Style","display:initial;")
+        slidebar.setAttribute("Style","display:initial");
+        boton.setAttribute("Style","display:none;");
+
+    }
+    function ocultarmenu() {
+        var slidebar = document.querySelector(".barralateral");
+        var boton = document.querySelector(".botonbarralateral");
+        var botoncerrar = document.querySelector(".cerrarbarralateral");
+        botoncerrar.setAttribute("Style","display:none;")
+        slidebar.setAttribute("Style","display: none");
+        boton.setAttribute("Style","display:initial;");
+    }
+</script>
+
+
+
+<div class="popup" style="display: none;" id="popup">
+    <a href="modificarsoftware/modificarusuario.php"> Modificar Datos de Usuario</a>
+    <a href="modificarsoftware/modificarcontraseña.php"> Modificar Contraseña</a>
+    <a href="modificarsoftware/modificarconfiguracion.php"> Modificar Configuración del software</a>
+    <button  onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
+</div>
+
+
 <div class="close">
-    <h2><?php echo $_SESSION["user"]; ?></h2>
-    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil">
-<a class="botonx" href="close.php">cerrar <br> sesion</a>
+    <h2>
+        <?php echo $_SESSION["user"]; ?>
+    </h2>
+    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
+    <a class="botoncerrar" href="close.php">LogOut</a>
 </div>

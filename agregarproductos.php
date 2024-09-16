@@ -11,19 +11,18 @@ if (!file_exists("IMAGENESSOFTWARE")) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["precio"]) && isset($_POST["codbarras"]) && isset($_POST["descripcion"]) && isset($_POST["marca"]) && isset($_POST["cantidad"]) && isset($_POST["cantidadaviso"]) && isset($_FILES["foto"]) && isset($_POST["ID_IVA"]) && isset($_POST["ID_UNIDAD"]) && isset($_POST["ID_CATEGORIA"])) {
-        if ($_POST["nombre"] != "" && $_POST["precio"] != "" && $_POST["codbarras"] != "" && $_POST["descripcion"] != "" && $_POST["marca"] != "" && $_POST["cantidad"] != "" && $_POST["cantidadaviso"] != "" && $_POST["ID_CATEGORIA"] != "" && $_POST["ID_IVA"] != "" && $_POST["ID_UNIDAD"] != "" &&  $_FILES["foto"]["tmp_name"] != "") {
-            if (!file_exists('IMAGENESSOFTWARE/' . $_FILES['foto']['name'])) { //sino existe una imagen con ese nombre la guarda y carga la base de datos.
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
-                move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']);
-                echo "<script>alert('Producto Redistrado Registrado')</script>";
-            } else { //si llegase a existir imagen con ese nombre le pone el codigo de barras a la imagen y la carga asi.
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
-                move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"] . $_FILES['foto']['name']);
-                echo "<script>alert('Producto Redistrado Registrado')</script>";
-            }
-        } else {
-            echo "<script>alert('debe ingresar datos')</script>";
+        // if ($_POST["nombre"] != "" && $_POST["precio"] != "" && $_POST["codbarras"] != "" && $_POST["descripcion"] != "" && $_POST["marca"] != "" && $_POST["cantidad"] != "" && $_POST["cantidadaviso"] != "" && $_POST["ID_CATEGORIA"] != "" && $_POST["ID_IVA"] != "" && $_POST["ID_UNIDAD"] != "" &&  $_FILES["foto"]["tmp_name"] != "") {
+        if (!file_exists('IMAGENESSOFTWARE/' . $_FILES['foto']['name'])) { //sino existe una imagen con ese nombre la guarda y carga la base de datos.
+            mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+            move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']);
+            echo "<script>alert('Producto Registrado')</script>";
+        } else { //si llegase a existir imagen con ese nombre le pone el codigo de barras a la imagen y la carga asi.
+            mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Neto,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["precio"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+            move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"] . $_FILES['foto']['name']);
+            echo "<script>alert('Producto Registrado')</script>";
         }
+        ////     echo "<script>alert('debe ingresar datos')</script>";
+        //  }
     } else {
         echo "<script>alert('los datos no fueron seteados')</script>";
     }
@@ -39,14 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>agregar productos</title>
+    <title>Agregar Producto</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
 <body>
 
-    <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
-        <h1>Agregar un Producto</h1>
+    <form method="POST" class="formularios" enctype="multipart/form-data">
+        <h1>Agregar Producto</h1>
 
         <div class="contenedordesubcontenedores"><!-- CONTIENE DOS SUBCONTENEDORES, es para ordenar en dos filas -->
             <div class="subcontenedores"><!-- CONTIENE los inputs, es para ordenarlos con estilo -->
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso">
 
                 <label for="foto">Foto</label>
-                <input type="file" name="foto" id="foto">
+                <input type="file" name="foto" id="foto" accept="image/*">
 
                 <label for="iva">IVA</label>
                 <select id="iva" name="ID_IVA" required>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <input type="submit">
+        <input type="submit" value="agregar">
     </form>
 
     <?php include("barralateral.html") ?>

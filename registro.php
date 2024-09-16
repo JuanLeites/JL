@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                                 if (!file_exists('fotoperfil/' . $_FILES['fotoperfil']['name'])) { //si no existe ninguna foto con ese nombre se guardara la foto en la carpeta foto de perfil
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO Usuario (Usuario, Contraseña, Correo, Nombre, Foto_perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 } else { //sino la guardara con el nombre de usuario(unico)y el nombre de la foto
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"] . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (usuario, contraseña, correo, nombre, fotoperfil, fecha_nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO usuario (Usuario, Contraseña, Correo, Nombre, Foto_perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . $_POST["pass"] . '","' . $_POST["correo"] . '","' . $_POST["nombre"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 }
                             } else {
@@ -60,30 +60,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registrarme</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="imagenes/register.png" type="image/x-icon">
-
+    <script src="js/script.js">
+        
+    </script>
 </head>
 
-<body>
-    <form method="POST" enctype="multipart/form-data">
-        <div class="contenedor">
-            <h2>Registrar usuario</h2>
-            <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
+<body class="scroll">
+    <form method="POST" class="contenedor" enctype="multipart/form-data">
+        <h1>Registrar usuario</h1>
+        <div class="contenedordesubcontenedores">
+            <div class="subcontenedores">
+                <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
                                                                                     echo "value='" . $_GET["nombre"] . "'";
                                                                                 } ?>>
-            <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
+                <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
                                                                                     echo "value='" . $_GET["usuario"] . "'";
                                                                                 } ?>>
-            <input type="password" name="pass" placeholder="Ingrese contraseña">
-            <input type="password" name="pass2" placeholder="Repita contraseña">
-            <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
+                <input type="password" class="contraseña1register" name="pass" placeholder="Ingrese contraseña"><img class="ojo1register" id='ver' src="imagenes/ojocerrado.png">
+                <input type="password" class="contraseña2register" name="pass2" placeholder="Repita contraseña"><img class="ojo2register" id='ver' src="imagenes/ojocerrado.png">
+            </div>
+
+            <div class="subcontenedores ">
+                <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
-            <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
+                <input type="date" name="fecha" <?php if (isset($_GET["fecha"])) {
                                                 echo "value='" . $_GET["fecha"] . "'";
                                             } ?>>
-            <input type="file" name="fotoperfil">
-            <input type="password" name="clavamaestra" placeholder="clave maestra">
-            <?php
+                <input type="file" name="fotoperfil">
+                <input type="password" name="clavamaestra" placeholder="clave maestra">
+            </div>
+        </div>
+        
+        <?php
             if (isset($_GET["causa"])) {
                 switch ($_GET['causa']) {
                     case "yaregistrado":
@@ -106,16 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         break;;
                 }
             }
-            ?>
-            <input type="submit" class="bot" value="Registrarme">
-            <hr id="linea">
-            <br>
-            <h5>¿Ya Tienes Cuenta?<h5>
-                    <a href="index.php" class="linkk">Iniciar Sesión</a>
-        </div>
-
+        ?>
+        <input type="submit" value="Registrarme">
+        <hr id="linea">
+        <br>
+        <h4>¿Ya Tienes Cuenta?</h4>
+        <a href="index.php" class="linkk">Iniciar Sesión</a>
     </form>
     <?php include("footer.html") ?>
 </body>
-
+<script src="js/funciones.js" type="module"></script>
 </html>

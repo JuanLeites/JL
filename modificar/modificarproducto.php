@@ -39,10 +39,11 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Producto</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
 <body>
-    <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
+    <form method="POST" class="formularios" enctype="multipart/form-data">
         <h1>Modificar un Producto</h1>
         <div class="contenedordesubcontenedores">
             <div class="subcontenedores">
@@ -70,13 +71,12 @@ if (isset($_GET["id"])) {
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso" value="<?php echo $producto['Cantidad_minima_aviso']; ?>">
 
                 <label for="foto">Foto</label>
-                <input type="file" name="foto" id="foto"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
+                <input type="file" name="foto" id="foto" accept="image/*"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
                 <input type="text" name="rutavieja" value="<?php echo $producto['imagen']; ?>" style="display:none"><!-- creamos este elemento para pasarle la ruta de la foto vieja por formulario -->
 
 
                 <label for="iva">IVA</label>
                 <select id="iva" name="ID_IVA" value="<?php echo $producto['ID_IVA']; ?>">
-                    <option>iva</option>
                     <?php foreach ($ivas as $iva) {
                         if ($iva['ID_IVA'] == $producto['ID_IVA']) {
                             echo "<option selected value='" . $iva['ID_IVA'] . "'>" . $iva['Tipo'] . "</option>";
@@ -88,7 +88,6 @@ if (isset($_GET["id"])) {
 
                 <label for="medida">Unidad de Medida</label>
                 <select id="medida" name="ID_UNIDAD" value="<?php echo $producto['ID_UNIDAD']; ?>">
-                    <option>unidad de medida</option>
                     <?php foreach ($medidas as $medida) {
                         if ($medida['ID_UNIDAD'] == $producto['ID_UNIDAD']) {
                             echo "<option selected value='" . $medida['ID_UNIDAD'] . "'>" . $medida['Unidad'] . "</option>";
@@ -100,7 +99,6 @@ if (isset($_GET["id"])) {
 
                 <label for="categoria">Categoría</label>
                 <select id="categoria" name="ID_CATEGORIA" value="<?php echo $producto['ID_CATEGORIA']; ?>">
-                    <option>categoria</option>
                     <?php foreach ($categorias as $categoria) {
                         if ($categoria['ID_CATEGORIA'] == $producto['ID_CATEGORIA']) {
                             echo "<option selected value='" . $categoria['ID_CATEGORIA'] . "'>" . $categoria['Título'] . "</option>";
