@@ -60,7 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registrarme</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="imagenes/register.png" type="image/x-icon">
-
+    <script src="js/script.js">
+        
+    </script>
 </head>
 
 <body class="scroll">
@@ -74,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
                                                                                     echo "value='" . $_GET["usuario"] . "'";
                                                                                 } ?>>
-                <input type="password" name="pass" placeholder="Ingrese contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png">
-                <input type="password" name="pass2" placeholder="Repita contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png">
+                <input type="password" class="contraseña1register" name="pass" placeholder="Ingrese contraseña"><img class="ojo1register" id='ver' src="imagenes/ojocerrado.png">
+                <input type="password" class="contraseña2register" name="pass2" placeholder="Repita contraseña"><img class="ojo2register" id='ver' src="imagenes/ojocerrado.png">
             </div>
 
             <div class="subcontenedores ">
@@ -122,6 +124,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     <?php include("footer.html") ?>
 </body>
-
-
+<script src="js/funciones.js" type="module"></script>
 </html>

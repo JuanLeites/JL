@@ -11,7 +11,6 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-<script src="js/script.js"></script>
 <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
     <title>Inicio de Sesión</title>
 </head>
@@ -62,5 +61,5 @@ if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las var
     </form>
     <?php include("footer.html") ?>
 </body>
-
+<script src="js/funciones.js" type="module"></script>
 </html>

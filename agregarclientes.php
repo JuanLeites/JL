@@ -26,10 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="./imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
-<link rel="stylesheet" href="estilomeolvide.css">
-
 <body>
-    <?php include("barralateral.html") ?>
     <form method="POST" class="formularios">
         <h1>Agregar Cliente</h1>
         <label for="nombre">Nombre</label>
@@ -50,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="agregar">
 
     </form>
+    <?php include("barralateral.html") ?>
 </body>
 
 </html>

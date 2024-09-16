@@ -3,6 +3,29 @@ include("../chequeodelogin.php");
 include("../coneccionBD.php");
 $consultausuario = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario ="' . $_SESSION["user"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["contraseñavieja"])&& isset($_POST["contraseñanueva"])&&isset($_POST["contraseñanueva2"])){
+        if($_POST["contraseñavieja"] != "" && $_POST["contraseñanueva"] != "" && $_POST["contraseñanueva2"] != ""){
+            if($_POST["contraseñavieja"] == $usuario["contraseña"]){
+                if($_POST["contraseñanueva"] == $_POST["contraseñanueva2"]){
+                    if(strlen($_POST["contraseñanueva"])>5){//strlen retorna la cantidad de caracteres
+                        mysqli_query($basededatos, 'UPDATE `usuario` SET `contraseña`="'.$_POST["contraseñanueva2"].'"');
+                        echo "<script>alert('contraseña cambiada con éxito  ')</script>";
+                    }else{
+                        echo "<script>alert('la contraseña debe de tener minimo 6 caracteres')</script>";
+                    }
+
+                }else{
+                    echo "<script>alert('las contraseñas nuevas no coinciden')</script>";
+                }
+            }else{
+                echo "<script>alert('la contraseña que has ingresado no es correcta')</script>";
+            }
+        }else{
+            echo "<script>alert('debe de rellenar todos los campos de texto')</script>";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,21 +42,21 @@ $usuario = mysqli_fetch_assoc($consultausuario);
     <form method="POST" class="formularios">
 
         <label for="contraseñavieja">Ingrese su contraseña Acutal</label>
-        <input type="password" name="contraseñavieja" id="contraseñavieja">
-        <img class="ojoindex" id='ver' src="../imagenes/ojocerrado.png">
+        <input class="inputpass1" type="password" name="contraseñavieja" id="contraseñavieja">
+        <img class="ojo1" id='ver' src="../imagenes/ojocerrado.png">
 
         <hr id="linea">
 
         <label for="contraseñanueva">Ingrese Contraseña nueva</label>
-        <input type="password" name="contraseñanueva" id="contraseñanueva">
-        <img class="ojoindex" id='ver' src="../imagenes/ojocerrado.png">
+        <input class="inputpass2" type="password" name="contraseñanueva" id="contraseñanueva">
+        <img class="ojo2" id='ver' src="../imagenes/ojocerrado.png">
 
         <label for="contraseñanueva2">Repita Contraseña nueva</label>
-        <input type="password" name="contraseñanueva2" id="contraseñanueva2">
-        <img class="ojoindex" id='ver' src="../imagenes/ojocerrado.png">
+        <input class="inputpass3" type="password" name="contraseñanueva2" id="contraseñanueva2">
+        <img class="ojo3" id='ver' src="../imagenes/ojocerrado.png">
         <input type="submit" value="Cambiar">
     </form>
     <a href="../menuprincipal.php" id="reg">regresar</a>
 </body>
-
+<script src="../js/funciones.js" type="module"></script>
 </html>
