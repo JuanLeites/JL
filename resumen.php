@@ -65,7 +65,7 @@ $datosJson = json_encode($datosIniciales['datos']);
         var etiquetasIniciales = <?php echo $etiquetasJson; ?>;
         var datosIniciales = <?php echo $datosJson; ?>;
     </script>
-    <script src="js/LineChart.js"></script>
     <script src="js/PieChart.js"></script>
+    <script src="js/LineChart.js"></script>
 </body>
 </html>

@@ -1,5 +1,3 @@
-// js/PieChart.js
-
 document.addEventListener('DOMContentLoaded', function() {
     var ctx2 = document.getElementById('PieChart').getContext('2d');
     new Chart(ctx2, {

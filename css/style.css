@@ -417,9 +417,9 @@ main{
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Puedes cambiar a 1fr 1fr si quieres columnas iguales */
+    grid-template-columns: 1fr 2fr;
     grid-gap: 30px;
-    box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+    box-sizing: border-box;
     min-height: 200px;
 }
 
@@ -429,7 +429,7 @@ main{
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
-    box-sizing: border-box; /* Asegura que el padding y borde no afecten el ancho */
+    box-sizing: border-box;
 }
 
 @media (max-width: 991px) {

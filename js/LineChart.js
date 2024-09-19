@@ -1,5 +1,3 @@
-// js/LineChart.js
-
 document.addEventListener('DOMContentLoaded', function() {
     var ctx = document.getElementById('LineChart').getContext('2d');
     var LineChart = new Chart(ctx, {
@@ -27,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Actualización automática del gráfico
-    function actualizarGrafico() {
+    function actualizarGrafica() {
         var fechaInicio = document.getElementById('fecha_inicio').value;
         var fechaFinal = document.getElementById('fecha_final').value;
 
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    setInterval(actualizarGrafico, 5000);
-    document.getElementById('fecha_inicio').addEventListener('change', actualizarGrafico);
-    document.getElementById('fecha_final').addEventListener('change', actualizarGrafico);
+    setInterval(actualizarGrafica, 5000);
+    document.getElementById('fecha_inicio').addEventListener('change', actualizarGrafica);
+    document.getElementById('fecha_final').addEventListener('change', actualizarGrafica);
 });
