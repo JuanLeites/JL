@@ -11,7 +11,7 @@ if (isset($_GET["id"])) {
     $consultacliente = mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ID_CLIENTE=' . $_GET["id"]);
     $cliente = mysqli_fetch_assoc($consultacliente); //obtenemos un array asociativo de la consulta(un array con indices iguales a la base de datos)
 } else {
-    header("Location:clientes.php");
+    header("Location:/LUPF/clientes.php");
 }
 
 

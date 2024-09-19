@@ -135,8 +135,12 @@ footer>a:hover {
     background-color: var(--color-secundario);
     padding: 5px;
     border-radius: 10px;
+    max-width: 10%;
+    border: solid var(--color-principal) 1px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
-
 .botoncerrar {
     padding: 5px;
     height: 20px;
@@ -160,10 +164,16 @@ main {
 
 main>h1 {
     font-size: 60px;
+    max-height: 14%;
+    max-width: 90%;
+    overflow: hidden;
+    margin: 5px;
 }
 
 main>h2 {
     font-size: 45px;
+    max-height: 20%;
+    overflow: hidden;
 }
 
 .contenedordemenu {
@@ -217,7 +227,8 @@ table {
     width: 30px;
     height: 30px;
 }
-.formularios{
+
+.formularios {
     display: flex;
     flex-direction: column;
     background-color: #004aab;
@@ -254,6 +265,8 @@ tr:hover {
     width: 36px;
     height: 36px;
     cursor: pointer;
+    border-radius: 5px;
+    border: solid 1px var(--color-fondo);
 }
 
 #reg {
@@ -277,23 +290,46 @@ tr:hover {
     flex-direction: column;
     align-items: center;
 }
-.linkk{
+
+.linkk {
     font-size: 13px;
     font-weight: bold;
     margin: 4px;
     padding: 0px;
 }
-.scroll{
+
+.scroll {
     overflow-y: scroll;
 }
-.contenedordecumpleañeros{
+
+.contenedoresenmenuprincipal {
+    display: flex;
+    gap: 20px;
+}
+
+.contenedoresenmenuprincipal>div {
     margin-left: 30px;
     border: solid var(--color-secundario);
-    border-radius: 20px;
-    padding-left: 30px;
+    border-radius: 10px;
     max-width: 30%;
+    padding: 20px;
+    top: 20%;
+    margin: 10px;
+    max-height: 60vh;
+    overflow-y: scroll;
+    padding: 20px;
+    border: 1px solid var(--color-principal);
 }
-main{
+
+.contenedordecumpleañeros {
+left:20%;
+}
+
+.contenedordeproductos {
+left:50%;
+}
+
+main {
     margin-left: 5%;
 }
 
@@ -352,6 +388,13 @@ main{
     color: #dbdbdb;
 }
 
+
+@media (max-width: 670px) {
+.contenedoresenmenuprincipal>div{
+    max-height: 50vh;
+}
+}
+
 @media (max-width: 1450px) {
     /* EL MENU DE PRODUCTOS NO SE CARGA BIEN*/
 
@@ -367,6 +410,7 @@ main{
         font-size: 1.5vw;
     }
 
+
 }
 
 @media (max-height: 620px) {
@@ -378,18 +422,21 @@ main{
     .contenedordeicono {
         height: 6vh;
     }
+
     .icono {
         width: 30px;
         height: 30px;
         margin: 5px;
         margin-right: 60px;
     }
-    footer{
+
+    footer {
         position: relative;
         bottom: 5px;
         margin: 20px;
     }
-    .scroll{
+
+    .scroll {
         display: flex;
         flex-direction: column;
         justify-content: start;

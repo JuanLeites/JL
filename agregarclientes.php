@@ -4,8 +4,14 @@ include("coneccionBD.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["cedula"]) && isset($_POST["fechanac"]) && isset($_POST["contacto"])) {
         if ($_POST["nombre"] != "" && $_POST["cedula"] != "" && $_POST["fechanac"] != "" && $_POST["contacto"] != "") {
-            mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto,RUT) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '","' . $_POST["rut"] . '");');
-            echo "<script>alert('Cliete Registrado')</script>";
+            if($_POST["rut"]!=""){//si see ingresó un rut lo cargará
+                mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto,RUT) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '","' . $_POST["rut"] . '");');
+                echo "<script>alert('Cliete con RUT Registrado')</script>";
+            }else{//si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
+                mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"].'");');
+                echo "<script>alert('Cliete Registrado')</script>";
+            }
+
         } else {
             echo "<script>alert('debe ingresar datos')</script>";
         }

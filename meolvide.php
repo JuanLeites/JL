@@ -79,5 +79,6 @@ if (isset($_POST['validar'])) {
     }
 }
 ?>
+<a href="index.php" id="reg">regresar</a>
 </body>
 </html>

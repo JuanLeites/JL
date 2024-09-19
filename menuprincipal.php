@@ -7,14 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $contraseña = $_POST["contraseña"];
         $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
         if (mysqli_num_rows($consultausuarios) == 1) { //chequeamos que haya un solo valor(un usuario con ese user y esa contraseña)
-            $_SESSION["user"] = $usuario;
-            $_SESSION["pass"] = $contraseña; //si hay las setea a varables de sesion
+            $_SESSION["usuario"] = $usuario;
+            $_SESSION["contraseña"] = $contraseña; //si hay las setea a varables de sesion
             foreach ($consultausuarios as $usuario) {
                 foreach ($usuario as $indice => $dato) {
                     if ($indice == "Nombre") {
                         $_SESSION["nombre"] = $dato;
                     }
-                    if($indice == "Foto_Perfil"){
+                    if ($indice == "Foto_Perfil") {
                         $_SESSION["fotoperf"] = $dato;
                     }
                 }
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location:index.php?causa=textovacio");
     }
 } else { //SI NO ESTAN seteadas por post 
-    if (!isset($_SESSION["user"]) && !isset($_SESSION["pass"])) {
+    if (!isset($_SESSION["usuario"]) && !isset($_SESSION["contraseña"])) {
         header("Location:index.php?causa=nolog");
     }
 }
@@ -55,107 +55,126 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include("barralateral.html") ?>
+
     <main>
-    <h1>Bienvenido <?php echo $_SESSION["nombre"]; ?></h1>
-    <h2 id="titulo_con_fecha"></h2>
-   <div class="contenedordecumpleañeros">
-        <h2>Clientes de cumpleaños 🍰</h2>
-   </div>
-
+        <h1>Bienvenido <?php echo $_SESSION["nombre"]; ?></h1>
+        <h2 id="titulo_con_fecha"></h2>
+        <div class="contenedoresenmenuprincipal">
+            <div class="contenedordecumpleañeros">
+                <h2>Clientes de cumpleaños 🍰</h2>
+            </div>
+            <div class="contenedordeproductos">
+                <h2>Productos con poco Stock</h2>
+            </div>
+        </div>
     </main>
-
+    <?php include("barralateral.html") ?>
 </body>
 <script>
-    window.onload = ()=>{
-            var hoy = new Date()
-            var titulo = document.querySelector("#titulo_con_fecha")
-        
-        switch (hoy.getDay()){
+    window.onload = () => {
+        var hoy = new Date()
+        var titulo = document.querySelector("#titulo_con_fecha")
+
+        switch (hoy.getDay()) {
             case 0:
-                diasemana="Domingo ";
+                diasemana = "Domingo ";
                 break;
             case 1:
-                diasemana="Lunes ";
+                diasemana = "Lunes ";
                 break;
             case 2:
-                diasemana="Martes ";
+                diasemana = "Martes ";
                 break;
             case 3:
-                diasemana="Miercoles ";
+                diasemana = "Miercoles ";
                 break;
             case 4:
-                diasemana="Jueves ";
+                diasemana = "Jueves ";
                 break;
             case 5:
-                diasemana="Viernes ";
+                diasemana = "Viernes ";
                 break;
             case 6:
-                diasemana="Sabado ";
+                diasemana = "Sabado ";
 
         }
-        switch (hoy.getMonth()){
+        switch (hoy.getMonth()) {
             case 0:
-                diames="Enero"
+                diames = "Enero"
                 break;
             case 1:
-                diames="Febrero"
+                diames = "Febrero"
                 break;
             case 2:
-                diames="Marzo"
+                diames = "Marzo"
                 break;
             case 3:
-                diames="Abril"
+                diames = "Abril"
                 break;
             case 4:
-                diames="Mayo"
+                diames = "Mayo"
                 break;
             case 5:
-                diames="Junio"
+                diames = "Junio"
                 break;
             case 6:
-                diames="Julio"
+                diames = "Julio"
                 break;
             case 7:
-                diames="Agosto"
+                diames = "Agosto"
                 break;
             case 8:
-                diames="Septiembre"
+                diames = "Septiembre"
                 break;
             case 9:
-                diames="Octubre"
+                diames = "Octubre"
                 break;
             case 10:
-                diames="Noviembre"
+                diames = "Noviembre"
                 break;
             case 11:
-                diames="Diciembre"
+                diames = "Diciembre"
                 break;
-            
-                
+
+
         }
-        titulo.innerHTML="Hoy es "+diasemana+hoy.getDate()+" de "+diames+" de "+hoy.getFullYear();
+        titulo.innerHTML = "Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear();
 
         var contenedordecumpleañeros = document.querySelector(".contenedordecumpleañeros");
-        
+        var contenedordeproductos = document.querySelector(".contenedordeproductos");
+
+        const cargaproductos = new XMLHttpRequest();
+        cargaproductos.open('GET', 'apis/apiproductos.php');
+        cargaproductos.send()
+        cargaproductos.onload = function() {
+            const productos = JSON.parse(this.responseText);
+            productos.forEach(cadaProducto => {
+                if (parseInt(cadaProducto.Cantidad) < parseInt(cadaProducto.Cantidad_minima_aviso)) {
+                    contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                }
+            })
+            if (contenedordeproductos.childElementCount == 1) {
+                contenedordeproductos.innerHTML += "<h3>Hay Stock de todo</h3>"
+            }
+        }
 
         const cargaCumpleañeros = new XMLHttpRequest();
         cargaCumpleañeros.open('GET', 'apis/apiclientes.php');
         cargaCumpleañeros.send()
         cargaCumpleañeros.onload = function() {
             const clientes = JSON.parse(this.responseText);
-                clientes.forEach(cadacliente => {
-                    var dia = new Date(cadacliente.Fecha_de_Nacimiento);
-                    if(dia.getMonth() == hoy.getMonth() && dia.getDate()+1 == hoy.getDate()){//si el dia y el mes coinciden on el actual
-                        contenedordecumpleañeros.innerHTML+="<h3>"+cadacliente.Nombre+" - "+cadacliente.Cédula+"</h3>";
-                    }
-                })
-                if(contenedordecumpleañeros.childElementCount == 1){
-                    contenedordecumpleañeros.innerHTML+="<h3>No hay cumpleañeros el dia de hoy</h3>"
-                }//si no hay nada mostrar texto alternativo
+            clientes.forEach(cadacliente => {
+                var dia = new Date(cadacliente.Fecha_de_Nacimiento);
+                if (dia.getMonth() == hoy.getMonth() && dia.getDate() + 1 == hoy.getDate()) { //si el dia y el mes coinciden on el actual
+                    contenedordecumpleañeros.innerHTML += "<h3>" + cadacliente.Nombre + " - " + cadacliente.Cédula + "</h3>";
+                }
+            })
+            if (contenedordecumpleañeros.childElementCount == 1) {
+                contenedordecumpleañeros.innerHTML += "<h3>No hay cumpleañeros el dia de hoy</h3>"
+            }
         }
 
     }
-
 </script>
+
 </html>

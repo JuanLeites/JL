@@ -8,8 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<script>alert('Configuración Actualizada')</script>";
 }
 
-
-$consultausuario = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario ="' . $_SESSION["user"] . '";');
+$consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
 ?>
 <!DOCTYPE html>
@@ -26,7 +25,7 @@ $usuario = mysqli_fetch_assoc($consultausuario);
 <body>
     <form method="POST" class="formularios">
 
-        <label for="precioxtiket">Precio para Generación de Voucher</label>
+        <label for="precioxtiket">Precio para Generación de Tickets</label>
         <input type="number" step="0.10" min="1" max="10000" name="precioxtiket" id="precioxtiket" value="<?php echo $usuario["Precio_por_Tickets"] ?>">
 
         <label for="colorprincipal">Color Principal</label>
