@@ -411,3 +411,30 @@ main{
     background-color: var(--color-fondo);
 
 }
+
+.con {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Puedes cambiar a 1fr 1fr si quieres columnas iguales */
+    grid-gap: 30px;
+    box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+    min-height: 200px;
+}
+
+.con .sub {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    box-sizing: border-box; /* Asegura que el padding y borde no afecten el ancho */
+}
+
+@media (max-width: 991px) {
+    .con {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}
