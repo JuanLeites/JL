@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="date"  max="2019-12-31" name="fecha" <?php if (isset($_GET["fecha"])) {
                                                 echo "value='" . $_GET["fecha"] . "'";
                                             } ?>>
-                <input type="file" name="fotoperfil">
+                <input type="file" name="fotoperfil" accept="image/*">
                 <input type="password" name="clavamaestra" placeholder="clave maestra">
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION["user"]) && isset($_SESSION["pass"])){//si ya están las variables de session nos mandara al menu principal
+if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])){//si ya están las variables de session nos mandara al menu principal
     header("Location:menuprincipal.php");
 }
  ?>

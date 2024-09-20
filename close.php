@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset($_SESSION["user"])&&isset($_SESSION["pass"])){
+if(isset($_SESSION["usuario"])&&isset($_SESSION["contraseña"])){
     session_destroy();
     header("Location:index.php?causa=sesioncerrada");
 }

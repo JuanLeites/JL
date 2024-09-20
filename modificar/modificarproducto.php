@@ -1,9 +1,6 @@
 <?php
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
-
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargue la pagina si el formulario fue enviado
     if($_FILES["foto"]["tmp_name"] != ""){//si se selecciona una foto en el input type file
         @unlink("../IMAGENESSOFTWARE/".$_POST["rutavieja"]);//borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
@@ -25,7 +22,7 @@ if (isset($_GET["id"])) {
     $consultaproducto = mysqli_query($basededatos, 'SELECT * FROM producto WHERE ID_PRODUCTO=' . $_GET["id"]);
     $producto = mysqli_fetch_assoc($consultaproducto);
 } else {
-    header("Location:productos.php");
+    header("Location:/LUPF/productos.php");
 }
 
 
@@ -72,7 +69,7 @@ if (isset($_GET["id"])) {
 
                 <label for="foto">Foto</label>
                 <input type="file" name="foto" id="foto" accept="image/*"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
-                <input type="text" name="rutavieja" value="<?php echo $producto['imagen']; ?>" style="display:none"><!-- creamos este elemento para pasarle la ruta de la foto vieja por formulario -->
+                <input type="text" name="rutavieja" value="<?php echo $producto['Imagen']; ?>" style="display:none"><!-- creamos este elemento para pasarle la ruta de la foto vieja por formulario -->
 
 
                 <label for="iva">IVA</label>

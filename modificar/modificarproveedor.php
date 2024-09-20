@@ -11,7 +11,7 @@ if (isset($_GET["id"])) {
     $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
     $proveedor = mysqli_fetch_assoc($consultaproveedor);
 } else {
-    header("Location:proveedores.php");
+    header("Location:/LUPF/proveedores.php");
 }
 
 

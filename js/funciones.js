@@ -56,7 +56,7 @@ export function cargarclientes() {
 
         if (cantidaddeelementosantes - 1 != clientes.length) {
 
-            tabla.innerHTML = "<tr><th>ID</th><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Bouchers</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
+            tabla.innerHTML = "<tr><th>ID</th><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
             clientes.forEach(cadacliente => {
 
                 var linea = document.createElement("tr");
