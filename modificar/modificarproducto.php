@@ -1,17 +1,25 @@
 <?php
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
-if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargue la pagina si el formulario fue enviado
-    if($_FILES["foto"]["tmp_name"] != ""){//si se selecciona una foto en el input type file
-        @unlink("../IMAGENESSOFTWARE/".$_POST["rutavieja"]);//borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
-        move_uploaded_file($_FILES['foto']['tmp_name'], '../IMAGENESSOFTWARE/' . $_FILES['foto']['name']);//carga la nueva foto en la carpeta
-        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="'.$_FILES['foto']['name'].'",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
-        echo "<script>alert('Producto actualizado, con foto actualiazda')</script>";
-    }else{
-        mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
-        echo "<script>alert('Producto actualizado')</script>";
-    }
+include("../funciones.php");
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargue la pagina si el formulario fue enviado
+    if ($_FILES["foto"]["tmp_name"] != "") { //si se selecciona una foto en el input type file
+        @unlink("../IMAGENESSOFTWARE/" . $_POST["rutavieja"]); //borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
+        move_uploaded_file($_FILES['foto']['tmp_name'], '../IMAGENESSOFTWARE/' . $_FILES['foto']['name']); //carga la nueva foto en la carpeta
+        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="IMAGENESSOFTWARE/' . $_FILES['foto']['name'] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+        $opcion = "productoactualizadoconfoto";
+    } else {
+        if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
+            mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            $opcion = "productoactualizado";
+        } else {
+            mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            $opcion = "productoactualizado";
+        }
+    }
+} else {
+    $opcion = "";
 }
 
 $ivas =  mysqli_query($basededatos, 'SELECT * FROM iva ');
@@ -36,6 +44,11 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Producto</title>
     <link rel="stylesheet" href="../css/style.css">
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    ?>
+    <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
+
     <link rel="shortcut icon" href="../imagenes/icons/modproductos.png" type="image/x-icon">
 </head>
 
@@ -58,11 +71,12 @@ if (isset($_GET["id"])) {
 
                 <label for="marca">Marca</label>
                 <input type="text" placeholder="marca" name="marca" id="marca" value="<?php echo $producto['Marca']; ?>">
+
+                <label for="cantidad">Cantidad</label>
+                <input type="number" placeholder="cantidad" name="cantidad" id="cantidad" value="<?php echo $producto['Cantidad']; ?>">
             </div>
 
             <div class="subcontenedores">
-                <label for="cantidad">Cantidad</label>
-                <input type="number" placeholder="cantidad" name="cantidad" id="cantidad" value="<?php echo $producto['Cantidad']; ?>">
 
                 <label for="cantidadaviso">Cantidad de Aviso</label>
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso" value="<?php echo $producto['Cantidad_minima_aviso']; ?>">
@@ -71,6 +85,8 @@ if (isset($_GET["id"])) {
                 <input type="file" name="foto" id="foto" accept="image/*"><!-- le establecemos un value con el nombre de la foto que ya tenia cargada -->
                 <input type="text" name="rutavieja" value="<?php echo $producto['Imagen']; ?>" style="display:none"><!-- creamos este elemento para pasarle la ruta de la foto vieja por formulario -->
 
+                <label for="enlacedefoto">Enlace de Foto</label>
+                <input type="url" name="enlacedefoto" id="enlacedefoto" placeholder="Ingrese el enlace de una foto">
 
                 <label for="iva">IVA</label>
                 <select id="iva" name="ID_IVA" value="<?php echo $producto['ID_IVA']; ?>">
@@ -113,3 +129,18 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php
+// esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
+//las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
+switch ($opcion) {
+    case 'productoactualizadoconfoto';
+        mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, "../IMAGENESSOFTWARE/" . $_FILES['foto']['name']);
+        break;
+    case 'productoactualizado';
+        mostraraviso('Producto modificado con éxito', $colorfondo, $colorprincipal);
+        break;
+    case 'ingresefotooenlace';
+        mostraralerta('Debe Ingresar una foto o enlace', $colorfondo, $colorprincipal);
+    break;
+}
+?>

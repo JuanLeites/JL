@@ -1,0 +1,2 @@
+-al incluir archivo funciones, se debe de incluir la coneccion con la libreria sweet alert
+-al incluir archivo de estilo se debe de incluir el archivo de coloresersonalizados.php

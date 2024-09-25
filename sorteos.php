@@ -1,5 +1,6 @@
 <?php
 include("chequeodelogin.php");
+include("funciones.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,70 +10,67 @@ include("chequeodelogin.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteos</title>
     <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); ?>
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
 
     <div class="buscador">
-        <input type="text" placeholder="Buscar Sorteos">
+        <input type="text" placeholder="Buscar Sorteos" class="inputparabuscarsorteos">
+        <a href="agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <table>
             <tbody>
             </tbody>
         </table>
-        <a href="agregarsorteos.php" class="agregardato">+</a>
+
     </div>
     <?php include("barralateral.html") ?>
 </body>
 
-<script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+
 <script type="module">
-    import {asignarbotoneliminar} from "./js/funciones.js"
+    import {
+        cargarsorteos
+    } from "./js/funciones.js"
+
+    var inputdesorteos = document.querySelector(".inputparabuscarsorteos");
+
+    inputdesorteos.addEventListener("keyup", () => {
+        cargarsorteos(inputdesorteos.value)
+    }) // le agregamos la función cargarcobros y le pasamos por parametro el "filtro". esto lo hace al levantar la tecla
 
     window.onload = () => {
         cargarsorteos()
         setInterval(() => {
-            cargarsorteos()
+            if (inputdesorteos.value == "") { //si el input está vacío recarga, esto es para que no interrumpa la funcion cuando está filtrando
+                cargarsorteos()
+            }
         }, 2000);
     }
+</script>
+</html>
 
-
-    function cargarsorteos() {
-        var tabla = document.querySelector("tbody");
-        var cantidaddeelementosantes = tabla.children.length;
-        const cargaDatos = new XMLHttpRequest();
-        cargaDatos.open('GET', 'apis/apisorteos.php');
-        cargaDatos.send()
-        cargaDatos.onload = function() {
-            const sorteos = JSON.parse(this.responseText);
-
-            if (cantidaddeelementosantes - 1 != sorteos.length) {
-    tabla.innerHTML = "<tr><th>ID</th><th>Premio</th><th>Cantidad</th><th>Fecha de realización</th><th>Acción</th></tr>"
-    sorteos.forEach(cadaSorteo => {
-        var linea = document.createElement("tr");
-
-        function agregaralinea(dato) {
-            var objeto = document.createElement("td");
-            objeto.innerHTML = dato;
-            linea.appendChild(objeto);
-        }
-
-        agregaralinea(cadaSorteo.ID_SORTEO);
-        agregaralinea(cadaSorteo.Premio);
-        agregaralinea(cadaSorteo.Cantidad);
-        agregaralinea(cadaSorteo.Fecha_realización);
-        agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a>');
-        
-        tabla.appendChild(linea);
-    })
-    asignarbotoneliminar();
+<?php
+            if (isset($_GET["causa"])) {
+                switch ($_GET['causa']) {
+                    case "idnoseteada":
+                        mostraralerta("ID de sorteo no seteada",$colorfondo,$colorprincipal);
+                        break;;
+                    case "maspremiosqueclientes":
+                        mostraralerta("No hay suficientes clientes con Tickets para poder realizar ese sorteo",$colorfondo,$colorprincipal);
+                        break;;
+                    case "clientessintickets":
+                        mostraralerta("Ningun cliente tiene tickets",$colorfondo,$colorprincipal);
+                        break;;
+                    case "sorteoyarealizado":
+                        mostraralerta("El sorteo ya fue realizado",$colorfondo,$colorprincipal);
+                        break;;
+                }
             }
 
-
-        }
-    }
-</script>
-
-</html>
+?>

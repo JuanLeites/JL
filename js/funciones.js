@@ -1,6 +1,5 @@
 
 export function asignarbotoneliminar() {
-
     function eliminar(ruta) { //funcion que ejecuta archivo de eliminar el cual se le pasan dos parametros(el tipo de objeto que vamos a borrar y la id) con esto el archivo ejecuta una consulta en la base de datos la cual elimina el archivo
         const CONSULTA = new XMLHttpRequest();
         CONSULTA.open('GET', 'apis/' + ruta); //consulta a la api
@@ -17,22 +16,52 @@ export function asignarbotoneliminar() {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "SI, Eliminar!"
+                customClass: {
+                    popup: "alertas"  //le establecemos la clase alertas para poder personalizarlas
+                },
+                confirmButtonText: "SI, Eliminar!",
+                toast: true, //toast para que aparezcan como notificacion (position:fixed)
             }).then((result) => {
                 if (result.isConfirmed) {
                     eliminar(CADABOTON.getAttribute("ruta")) //llamamos a la funcion eliminar y le pasamos como parametro lo que habiamos guardado en el elemento imagen con el nombre de "ruta" en la cual está guardada el tipo de elemento que es el que vamos a borrar y un id
                     Swal.fire({
                         title: "Eliminado!",
                         text: "El Objeto a sido eliminado.",
-                        icon: "success"
+                        icon: "success",
+                        customClass: {
+                            popup: "alertas"  //le establecemos la clase alertas para poder personalizarlas
+                        },
+                        toast: true,
                     });
 
                 }
             });
         });
     });
-}
 
+}
+function asignarbotonsortear() {
+    var BOTONESSORTEAR = document.querySelectorAll(".sortear");
+    BOTONESSORTEAR.forEach(CADABOTON => {
+        CADABOTON.addEventListener("mouseenter", () => {
+            // al ingresar al botón de adveretencia 
+            Swal.fire({ //va a mostrar un objeto de la libreria(sweetalert)
+                position: "center",
+                title: "Al Realizar el sorteo todos los ticketes se estableceran en 0!!",
+                icon: "info",
+                customClass: {
+                    popup: "alertas"  // Añadimos una clase personalizada para poder mostrar bordes ya que la alerta no lo permite
+                },
+                toast: true,
+                showConfirmButton: false
+            })
+        })
+        CADABOTON.addEventListener("mouseleave", () => {
+            Swal.close()
+        })
+
+    })
+}
 
 export function alternar(inputdecontraseña, imagen, ruta) {
     if (inputdecontraseña.type == 'password') {
@@ -45,11 +74,11 @@ export function alternar(inputdecontraseña, imagen, ruta) {
 }
 
 /* Funciones de carga de datos  */
-export function cargarclientes() {
+export function cargarclientes(filtro) {
     var tabla = document.querySelector("tbody");
     var cantidaddeelementosantes = tabla.children.length;
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiclientes.php');
+    cargaDatos.open('GET', 'apis/apiclientes.php?filtro=' + filtro);
     cargaDatos.send()
     cargaDatos.onload = function () {
         const clientes = JSON.parse(this.responseText);
@@ -86,31 +115,73 @@ export function cargarclientes() {
     }
 
 }
+export function cargarproveedoresenselect(filtro) {
+    var select = document.querySelector(".selectdeproveedores");
+    var cantidaddeelementosantes = select.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproveedores.php?filtro=' + filtro); // consultamos a la api
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const proveedores = JSON.parse(this.responseText);
+        if (cantidaddeelementosantes - 1 != proveedores.length) { // la primera vez siempre va a entrar....comparamos la cantidad anterior(la cantidad de hijos del select -1 (usamos el -1 pq en un futuro cuando esté cargado. se carga con todos los proveedores y con un option sin value el cual sirve para que muestre algo. pero debemos de poner el -1 para que no lo cuente))
+            select.innerHTML = "<option value=''>proveedor</option>" //seteamos el contenido del select en la opcion de proveedor con un value "" , la cual no podrá ser seleccionada pero sirva para poder identificar de que es el select
+            proveedores.forEach(cadaproveedor => { // foreach que recorre la respuesta de la api
+                var option = document.createElement("option"); // creamos un elemento opcion
+                option.setAttribute("value", cadaproveedor.ID_PROVEEDOR); // le seteamos el atributo value en la id del proveedor actual
+                option.innerHTML = cadaproveedor.Razón_Social + " - " + cadaproveedor.RUT// y le damos el contenido al option con la razón social y el rut
+                select.appendChild(option); // luego le agregamos el option al select.
 
-export function cargarproductos() {
+            })
+        }
+    }
+}
+export function cargarclientesenselect(filtro) {
+    var select = document.querySelector(".selectdeclientes");
+    var cantidaddeelementosantes = select.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiclientes.php?filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const clientes = JSON.parse(this.responseText);
+        if (cantidaddeelementosantes - 1 != clientes.length) {
+            select.innerHTML = "<option value=''>cliente</option>"
+            clientes.forEach(cadacliente => {
+                var option = document.createElement("option");
+                option.setAttribute("value", cadacliente.ID_CLIENTE);
+                option.innerHTML = cadacliente.Nombre + " - " + cadacliente.Cédula
+                select.appendChild(option);
+
+            })
+        }
+    }
+}
+
+
+export function cargarproductos(filtro) {
     var tabla = document.querySelector("tbody");
     var cantidaddeelementosantes = tabla.children.length;
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiproductos.php');
+    cargaDatos.open('GET', 'apis/apiproductos.php?filtro=' + filtro);
     cargaDatos.send()
-    cargaDatos.onload = function() {
+    cargaDatos.onload = function () {
         const productos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != productos.length) {
-            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Precio Neto</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
+            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
             productos.forEach(cadaproducto => {
 
                 var linea = document.createElement("tr");
 
-                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
-                    var objeto = document.createElement("td");//crea el elemento td(columna)
-                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
-                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                function agregaralinea(dato) {//funcion creada para agregar una celda a "linea" la cual es una fila de una tabla (tr)
+                    var objeto = document.createElement("td");//crea el elemento td(celda)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros a la celda
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion(la celda)
                 }
 
                 agregaralinea(cadaproducto.ID_Producto);
                 agregaralinea(cadaproducto.Nombre);
-                agregaralinea(cadaproducto.Precio_Neto);
+                agregaralinea(cadaproducto.Precio_Compra);
+                agregaralinea(cadaproducto.Precio_Venta);
                 agregaralinea(cadaproducto.Código_de_Barras);
                 agregaralinea(cadaproducto.Descripción);
                 agregaralinea(cadaproducto.Marca);
@@ -118,11 +189,11 @@ export function cargarproductos() {
                 agregaralinea(cadaproducto.Cantidad_minima_aviso);
 
                 var imagen = document.createElement("img")//crea elemento imagen
-                imagen.setAttribute("src", "IMAGENESSOFTWARE/" + cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
+                imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
                 imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
-                var objeto = document.createElement("td")//creamos una columna
-                objeto.appendChild(imagen);//le agregamos la imagen a la columna
-                linea.appendChild(objeto);//agregamos la columna a la fila
+                var objeto = document.createElement("td")//creamos una celda
+                objeto.appendChild(imagen);//le agregamos la imagen a la celda
+                linea.appendChild(objeto);//agregamos la celda a la fila
                 agregaralinea(cadaproducto.Tipo);
                 agregaralinea(cadaproducto.Unidad);
                 agregaralinea(cadaproducto.Título);
@@ -132,49 +203,458 @@ export function cargarproductos() {
             })
             asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas que asignará para cada boton eliminar una funcion de confirmación.
         }
+    }
+}
+
+function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de cargar productos para vender, la cual se utiliza en el archivo ingresarventa.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
+    function agregar(id_producto, nombre, Precio_Neto) {//recive 3 parametros
+        var inputdeenviar = document.querySelector(".botonenviar");
+        inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+
+        if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
+            tabla.innerHTML = "<tr><th>ID</th><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+        }
+
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
+                return // al suman uno en la cantidad termina la función termuna la función aca
+            }
+        }
+        //si no encuentra ninguno sigue con la función y carga el elemento:
+        var linea = document.createElement("tr");
+        function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+            var objeto = document.createElement("td");//crea el elemento td(columna)
+            objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+            linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+        }
+        agregaralinea(id_producto);
+        agregaralinea(nombre)
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number'name='cantidad' value='1'>");
+        agregaralinea(Precio_Neto)
+        agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
+        var inputparalaid = document.createElement("input")
+        inputparalaid.setAttribute("type", "hidden")
+        inputparalaid.setAttribute("name", "IDPRODUCTOS[]")
+        inputparalaid.setAttribute("value", id_producto)
+        linea.appendChild(inputparalaid)
+
+        tabla.appendChild(linea);
+        linea.children[4].children[0].addEventListener("click", () => { eliminar(id_producto) })//le agregamos el evento a el hijo 0(en este caso la imagen de borrar) dentro del 4to hijo de la linea(la cual contiene las acciones)
+        linea.children[4].children[1].addEventListener("click", () => { sumar(id_producto) })
+        linea.children[4].children[2].addEventListener("click", () => { restar(id_producto) })
+        //en el caso de arriba (linea.children[4] seria la celda numero 5 de la linea y los otros serian los hijos de esa linea)
+    }
+    function eliminar(id_producto) {
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                tabla.children[i].remove(); // elimina el elemento que tenga la id igual al producto
+                return //termina la función
+            }
+        }
+    }
+    function sumar(id_producto) {
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
+                return //termina la función
+            }
+        }
+    }
+    function restar(id_producto) {
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                if (parseInt(tabla.children[i].children[2].children[0].value) == 1) { // si el contenido de children[2] que en este caso es lo que está dentro de "cantidad" es igual a 1 y fue llamada la función lo eliminamos
+                    eliminar(id_producto);
+                    return
+                }
+                tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) - 1 // al entrar le va a restar uno al valor del hijo
+                return // al suman uno en la cantidad termina la función termuna la función aca
+            }
+        }
+    }
+
+    //lo que hace la función es esto
+    var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
+    BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
+        CADABOTON.addEventListener("click", () => {
+            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"));
+        });
+    });
+};
+
+
+
+export function cargarproductosparacomprar(filtro) {
+    var tabla = document.querySelector("tbody");
+    var cantidaddeelementosantes = tabla.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproductos.php?filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const productos = JSON.parse(this.responseText);
+        if (cantidaddeelementosantes - 1 != productos.length) {
+            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Código de barras</th><th>Precio Neto</th><th>Descripcion</th><th>acción</th></tr>"
+            productos.forEach(cadaproducto => {
+                var linea = document.createElement("tr");
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+
+                agregaralinea(cadaproducto.ID_Producto);
+                agregaralinea(cadaproducto.Nombre);
+                agregaralinea(cadaproducto.Código_de_Barras);
+                agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
+                agregaralinea(cadaproducto.Descripción);
+                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+            cargarbotonparasumarproducto()
+        }
+    }
+}
+export function cargarproductosparavender(filtro) {
+    var tabla = document.querySelector("tbody");
+    var cantidaddeelementosantes = tabla.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproductos.php?filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const productos = JSON.parse(this.responseText);
+        if (cantidaddeelementosantes - 1 != productos.length) {
+            tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Código de barras</th><th>Precio Neto</th><th>Descripcion</th><th>acción</th></tr>"
+            productos.forEach(cadaproducto => {
+                var linea = document.createElement("tr");
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+
+                agregaralinea(cadaproducto.ID_Producto);
+                agregaralinea(cadaproducto.Nombre);
+                agregaralinea(cadaproducto.Código_de_Barras);
+                agregaralinea(cadaproducto.Precio_Venta); // cargamos unicamente el precio de venta ya que vamos a vender
+                agregaralinea(cadaproducto.Descripción);
+                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+            cargarbotonparasumarproducto()
+        }
+    }
+
+}
+
+export function cargarproveedores(filtro) {
+    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
+    var cantidaddeelementosantes = tabla.children.length; // guanta en la variable la cantidad de elementos "hijos" tiene la tabla
+
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproveedores.php?filtro=' + filtro); //consulta a la api
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const proveedores = JSON.parse(this.responseText);
+
+        if (cantidaddeelementosantes - 1 != proveedores.length) { // compara los elementos de la tabla con los resultados de la api, si hay una cantidad distinta, cargará todos los proveedores
+            tabla.innerHTML = "<tr><th>ID</th><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Deuda</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
+            proveedores.forEach(cadaproveedor => {
+
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {
+                    var objeto = document.createElement("td");
+                    objeto.innerHTML = dato;
+                    linea.appendChild(objeto);
+                }
+                agregaralinea(cadaproveedor.ID_PROVEEDOR)
+                agregaralinea(cadaproveedor.Razón_Social);
+                agregaralinea(cadaproveedor.RUT);
+                agregaralinea(cadaproveedor.Contacto);
+                agregaralinea(cadaproveedor.Deuda);
+                agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                tabla.appendChild(linea);
+
+            })
+            asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas.
+        }
 
 
     }
 }
+export function cargarcobros(filtro) {
+    var tabla = document.querySelector("tbody");
+    var cantidaddeelementosantes = tabla.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apicobros.php?filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const cobros = JSON.parse(this.responseText);
 
-export function cargarproveedores() {
-     var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
-     var cantidaddeelementosantes = tabla.children.length; // guanta en la variable la cantidad de elementos "hijos" tiene la tabla
+        if (cantidaddeelementosantes - 1 != cobros.length) {
+            tabla.innerHTML = "<tr><th>ID</th><th>Nombre</th><th>Cédula</th><th>Monto</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
+            cobros.forEach(cadacobro => {
 
-     const cargaDatos = new XMLHttpRequest();
-     cargaDatos.open('GET', 'apis/apiproveedores.php'); //consulta a la api
-     cargaDatos.send()
-     cargaDatos.onload = function() {
-         const proveedores = JSON.parse(this.responseText);
+                var linea = document.createElement("tr");
 
-         if (cantidaddeelementosantes - 1 != proveedores.length) { // compara los elementos de la tabla con los resultados de la api, si hay una cantidad distinta, cargará todos los proveedores
-             tabla.innerHTML = "<tr><th>ID</th><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
-             proveedores.forEach(cadaproveedor => {
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
 
-                 var linea = document.createElement("tr");
+                agregaralinea(cadacobro.ID_COBRO);
+                agregaralinea(cadacobro.Nombre);
+                agregaralinea(cadacobro.Cédula);
+                agregaralinea(cadacobro.Monto);
+                agregaralinea(cadacobro.Fecha_Cobro);
+                if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
+                    agregaralinea("<a href='verventa.php?id=" + cadacobro.ID_VENTA + "'>--Ver Venta--<a>")
+                } else {
+                    agregaralinea("Sin Datos");
+                }
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
-                 function agregaralinea(dato) {
-                     var objeto = document.createElement("td");
-                     objeto.innerHTML = dato;
-                     linea.appendChild(objeto);
-                 }
-                 agregaralinea(cadaproveedor.ID_PROVEEDOR)
-                 agregaralinea(cadaproveedor.Razón_Social);
-                 agregaralinea(cadaproveedor.RUT);
-                 agregaralinea(cadaproveedor.Contacto);
-                 agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
-                 tabla.appendChild(linea);
+            })
+        }
+    }
+}
+export function cargarpagos(filtro) {
+    var tabla = document.querySelector("tbody");
+    var cantidaddeelementosantes = tabla.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apipagos.php?filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const pagos = JSON.parse(this.responseText);
 
-             })
-             asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas.
-         }
+        if (cantidaddeelementosantes - 1 != pagos.length) {
+            tabla.innerHTML = "<tr><th>ID</th><th>Razón Social</th><th>Rut</th><th>Monto</th><th>Fecha de Pago</th><th>Compra</th></tr>"
+            pagos.forEach(cadapago => {
+
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+
+                agregaralinea(cadapago.ID_PAGO);
+                agregaralinea(cadapago.Razón_Social);
+                agregaralinea(cadapago.RUT);
+                agregaralinea(cadapago.Monto);
+                agregaralinea(cadapago.Fecha_Pago);
+                if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
+                    agregaralinea("<a href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>--Ver Compra--<a>")
+                } else {
+                    agregaralinea("Sin Datos");
+                }
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+        }
+    }
+}
 
 
-     }
- }
+export function actualizarfecha(fechadecumpleaños) {
+    var hoy = new Date()
+    var titulo = document.querySelector("#titulo_con_fecha")
+    var diasemana
+    var diames
+    switch (hoy.getDay()) {
+        case 0:
+            diasemana = "Domingo ";
+            break;
+        case 1:
+            diasemana = "Lunes ";
+            break;
+        case 2:
+            diasemana = "Martes ";
+            break;
+        case 3:
+            diasemana = "Miercoles ";
+            break;
+        case 4:
+            diasemana = "Jueves ";
+            break;
+        case 5:
+            diasemana = "Viernes ";
+            break;
+        case 6:
+            diasemana = "Sabado ";
+
+    }
+    switch (hoy.getMonth()) {
+        case 0:
+            diames = "Enero"
+            break;
+        case 1:
+            diames = "Febrero"
+            break;
+        case 2:
+            diames = "Marzo"
+            break;
+        case 3:
+            diames = "Abril"
+            break;
+        case 4:
+            diames = "Mayo"
+            break;
+        case 5:
+            diames = "Junio"
+            break;
+        case 6:
+            diames = "Julio"
+            break;
+        case 7:
+            diames = "Agosto"
+            break;
+        case 8:
+            diames = "Septiembre"
+            break;
+        case 9:
+            diames = "Octubre"
+            break;
+        case 10:
+            diames = "Noviembre"
+            break;
+        case 11:
+            diames = "Diciembre"
+            break;
 
 
+    }
 
+    if (titulo.innerHTML != ("Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear() || titulo.innerHTML != ("Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear() + "<br> Muy Feliz Cumpleaños!!"))) { //si el contenido de el titulo es distinto a los datos del dia de hoy, lo carga
+        var dia = new Date(fechadecumpleaños); // guardamos el cumpleaños del usuario que será pasado por parametros en el dato tipo fecha "dia"
+        //console.log(fechadecumpleaños)
+        if (dia.getMonth() == hoy.getMonth() && dia.getDate() + 1 == hoy.getDate()) {// si llegase a ser el cumpleaños del cliente
+            titulo.innerHTML = "Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear() + "<br> Muy Feliz Cumpleaños!!";
+        } else {
+            titulo.innerHTML = "Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear();
+        }
+    }
+
+}
+
+
+export function cargarclientesdecumpleaños() {
+    var contenedordecumpleañeros = document.querySelector(".contenedordecumpleañeros");
+    var cantidaddecumpleañeros = contenedordecumpleañeros.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los cumplañeros ya cargados)
+    var cantidadactual = 0
+
+    const cargaCumpleañeros = new XMLHttpRequest();
+    cargaCumpleañeros.open('GET', 'apis/apiclientes.php');
+    cargaCumpleañeros.send()
+    cargaCumpleañeros.onload = function () {
+        const clientes = JSON.parse(this.responseText);
+        clientes.forEach(cadacliente => { //for each con todos los clientes
+            var hoy = new Date() //guardamos la fecha de hoy en un dato tipo fecha
+            var dia = new Date(cadacliente.Fecha_de_Nacimiento); // guardamos el cumpleaños del cliente como un dato tipo fecha
+            if (dia.getMonth() == hoy.getMonth() && dia.getDate() + 1 == hoy.getDate()) { //si el dia y el mes coinciden con el actual
+                cantidadactual++ // cuenta cuantos cumpleañeros hay el dia de hoy
+            }
+        }) //luego del foreach que solamente cuenta
+        if (cantidaddecumpleañeros != cantidadactual) { // chequemos si hay menos o mas clientes de cumpleaños el dia de hoy// si llega a haber carga todos los cumpleañeros el dia de hoy // la primera vez entra en este if. si o si ya que compara -1 con 0 o la cantidad de clientes que haya de cumpleaños que nunca va a ser negativo y estos son distintos
+            contenedordecumpleañeros.innerHTML = "<h2>Clientes de cumpleaños 🍰</h2>" // la primera vez carga el titulo si o si
+            clientes.forEach(cadacliente => {
+                var hoy = new Date() //guardamos la fecha de hoy en un dato tipo fecha
+                var dia = new Date(cadacliente.Fecha_de_Nacimiento); // guardamos el cumpleaños del cliente como un dato tipo fecha
+                if (dia.getMonth() == hoy.getMonth() && dia.getDate() + 1 == hoy.getDate()) { //si el dia y el mes coinciden con el actual
+                    contenedordecumpleañeros.innerHTML += "<h3>" + cadacliente.Nombre + " - " + cadacliente.Cédula + "</h3>"; // carga el cliente con su cédula para identificarlo
+                }
+            })
+        }
+        if (contenedordecumpleañeros.childElementCount == 1) { // si solamente se cargó el titulo( osea que no hay ningun cumpleañero) carga un texto diciendo que no hay cumpleañeros
+            contenedordecumpleañeros.innerHTML += "<h3>No hay cumpleañeros el dia de hoy</h3>"
+        }
+    }
+}
+
+export function cargarproductosconpocostock() {
+    var contenedordeproductos = document.querySelector(".contenedordeproductos");
+    var cantidaddeproductos = contenedordeproductos.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los productos ya cargados)
+    var cantidadactual = 0
+
+    const cargaproductos = new XMLHttpRequest();
+    cargaproductos.open('GET', 'apis/apiproductos.php');
+    cargaproductos.send()
+    cargaproductos.onload = function () {
+        const productos = JSON.parse(this.responseText);
+        productos.forEach(cadaProducto => {
+            if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
+                cantidadactual++
+            }
+        })
+        if (cantidaddeproductos != cantidadactual) {
+            productos.forEach(cadaProducto => {
+                if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
+                    if (parseInt(cadaProducto.Cantidad) == 0) {
+                        contenedordeproductos.innerHTML += "<h3 style='border:dotted 2px red;border-radius:10px;padding:5px;' >" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                    } else {
+                        contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                    }
+
+                }
+            })
+        }
+
+        if (contenedordeproductos.childElementCount == 1) { // si no han nada(1 por el titulo(h2))
+            contenedordeproductos.innerHTML += "<h3>Todos los productos se encuentran con stock</h3>"
+        }
+    }
+}
+
+
+export function cargarsorteos(filtro) {
+    var tabla = document.querySelector("tbody");
+    var cantidaddeelementosantes = tabla.children.length;
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apisorteos.php?filtro=' + filtro)
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const sorteos = JSON.parse(this.responseText);
+
+        if (cantidaddeelementosantes - 1 != sorteos.length) {
+            tabla.innerHTML = "<tr><th>ID</th><th>Premio</th><th>Cantidad</th><th>Fecha de realización</th><th>Acción</th></tr>"
+            sorteos.forEach(cadaSorteo => {
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {
+                    var objeto = document.createElement("td");
+                    objeto.innerHTML = dato;
+                    linea.appendChild(objeto);
+                }
+
+                agregaralinea(cadaSorteo.ID_SORTEO);
+                agregaralinea(cadaSorteo.Premio);
+                agregaralinea(cadaSorteo.Cantidad);
+                if (cadaSorteo.Realizado == 0) {//si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
+                    agregaralinea("todavia no realizado");
+                    agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"></a>');
+                } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
+                    agregaralinea(cadaSorteo.Fecha_realización);
+                    agregaralinea('<img ruta="eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
+                }
+
+                tabla.appendChild(linea);
+            })
+            asignarbotoneliminar();
+            asignarbotonsortear();
+        }
+
+
+    }
+}
 window.onload = function () {
     //declaramos cada ojo para ver contraseñas y le agregamos el evento
     var inputcontraseñaindex = document.querySelector(".contraseñadeindex");
@@ -208,7 +688,6 @@ window.onload = function () {
     if (inputcontraseña2 && ojo2) {
         ojo2.addEventListener("click", () => { alternar(inputcontraseña2, ojo2, "../imagenes") })
     }
-
 
     var inputcontraseña3 = document.querySelector(".inputpass3");
     var ojo3 = document.querySelector(".ojo3");

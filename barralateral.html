@@ -1,10 +1,10 @@
 <div class="barralateral">
 
     <button class="cerrarbarralateral" onclick="ocultarmenu()">X</button>
-    
+
     <div class="contenedordeicono">
         <a href="menuprincipal.php">
-            <img class="icono" src="imagenes/icons/casa.png">
+            <img class="icono" src="/LUPF/imagenes/icons/casa.png">
             <h2>Menu Principal</h2>
         </a>
     </div>
@@ -14,97 +14,96 @@
 
 
     <div class="contenedordeicono">
-        <a href="cobros.php">
-            <img class="icono" src="imagenes/icons/carrito.png">
-            <h2 style="color:red;">cobros</h2>
+        <a href="/LUPF/cobros.php">
+            <img class="icono" src="/LUPF/imagenes/icons/carrito.png">
+            <h2>cobros</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="pagos.php">
-            <img class="icono" src="imagenes/icons/stock.png">
-            <h2 style="color:red;">pagos</h2>
+        <a href="/LUPF/pagos.php">
+            <img class="icono" src="/LUPF/imagenes/icons/stock.png">
+            <h2>pagos</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="proveedores.php">
-            <img class="icono" src="imagenes/icons/modproveedores.png">
+        <a href="/LUPF/proveedores.php">
+            <img class="icono" src="/LUPF/imagenes/icons/modproveedores.png">
             <h2>Proveedores</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="productos.php">
-            <img class="icono" src="imagenes/icons/modproductos.png">
+        <a href="/LUPF/productos.php">
+            <img class="icono" src="/LUPF/imagenes/icons/modproductos.png">
             <h2>Productos</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="clientes.php">
-            <img class="icono" src="imagenes/icons/modclientes.png">
+        <a href="/LUPF/clientes.php">
+            <img class="icono" src="/LUPF/imagenes/icons/modclientes.png">
             <h2>Clientes</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="resumen.php">
-            <img class="icono" src="imagenes/icons/grafica.png">
+        <a href="/LUPF/resumenmensual.php">
+            <img class="icono" src="/LUPF/imagenes/icons/grafica.png">
             <h2>Resumen Mensual</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="sorteos.php">
-            <img class="icono" src="imagenes/icons/sorteo.png">
+        <a href="/LUPF/sorteos.php">
+            <img class="icono" src="/LUPF/imagenes/icons/sorteo.png">
             <h2>Sorteo</h2>
         </a>
     </div>
 </div>
 
 
-<img src="imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
+<img src="/LUPF/imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
 
 
 
 <script>
     function mostrarpopup() {
         var popup = document.querySelector("#popup");
-        popup.setAttribute("Style","");
+        popup.setAttribute("Style", "");
     }
     function ocultarpopup() {
         var popup = document.querySelector("#popup");
-        popup.setAttribute("Style","display: none");
+        popup.setAttribute("Style", "display: none");
     }
     function mostrarmenu() {
         var slidebar = document.querySelector(".barralateral");
         var boton = document.querySelector(".botonbarralateral");
         var botoncerrar = document.querySelector(".cerrarbarralateral");
-        botoncerrar.setAttribute("Style","display:initial;")
-        slidebar.setAttribute("Style","display:initial");
-        boton.setAttribute("Style","display:none;");
+        botoncerrar.setAttribute("Style", "display:initial;")
+        slidebar.setAttribute("Style", "display:initial");
+        boton.setAttribute("Style", "display:none;");
 
     }
     function ocultarmenu() {
         var slidebar = document.querySelector(".barralateral");
         var boton = document.querySelector(".botonbarralateral");
         var botoncerrar = document.querySelector(".cerrarbarralateral");
-        botoncerrar.setAttribute("Style","display:none;")
-        slidebar.setAttribute("Style","display: none");
-        boton.setAttribute("Style","display:initial;");
+        botoncerrar.setAttribute("Style", "display:none;")
+        slidebar.setAttribute("Style", "display: none");
+        boton.setAttribute("Style", "display:initial;");
     }
 </script>
 
-
-
 <div class="popup" style="display: none;" id="popup">
-    <a href="modificarsoftware/modificarusuario.php"> Modificar Datos de Usuario</a>
-    <a href="modificarsoftware/modificarcontraseña.php"> Modificar Contraseña</a>
-    <a href="modificarsoftware/modificarconfiguracion.php"> Modificar Configuración del software</a>
-    <a href="modificarsoftware/reestablecercolores.php">Reestablecer Colores por defecto</a>
-    <button  onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
+    <a href="/LUPF/modificarsoftware/modificarusuario.php"> Modificar Datos de Usuario</a>
+    <a href="/LUPF/modificarsoftware/modificarcontraseña.php"> Modificar Contraseña</a>
+    <a href="/LUPF/modificarsoftware/modificarconfiguracion.php"> Modificar Configuración del software</a>
+    <a href="/LUPF/modificarsoftware/reestablecercolores.php" class="reestablecercolores">Reestablecer Colores por
+        defecto</a>
+    <button onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
 </div>
 
 
 <div class="close">
     <h2>
-        <?php echo $_SESSION["usuario"]; ?> 
+        <?php echo $_SESSION["usuario"]; ?>
     </h2>
-    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
-    <a class="botoncerrar" href="close.php">LogOut</a>
+    <img src='/LUPF/fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
+    <a class="botoncerrar" href="/LUPF/close.php">LogOut</a>
 </div>

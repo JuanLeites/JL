@@ -1,6 +1,8 @@
 <?php
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
+include("../funciones.php");
+
 $consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,20 +13,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen($_POST["contraseñanueva"]) > 5) { //strlen retorna la cantidad de caracteres
                         $_SESSION["contraseña"] = $_POST["contraseñanueva2"];
                         mysqli_query($basededatos, 'UPDATE `usuario` SET `contraseña`="' . $_POST["contraseñanueva2"] . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
-                        echo "<script>alert('contraseña cambiada con éxito  ')</script>";
+                        $opcion = "contraseñacambiada";
                     } else {
-                        echo "<script>alert('la contraseña debe de tener minimo 6 caracteres')</script>";
+                        $opcion = "contraseñacorta";
                     }
                 } else {
-                    echo "<script>alert('la contraseña que has ingresado no es correcta')</script>";
+                    $opcion = "contraseñaactualincorrecta";
                 }
             } else {
-                echo "<script>alert('las contraseñas nuevas no coinciden')</script>";
+                $opcion = "contraseñasnocoinciden";
             }
         } else {
-            echo "<script>alert('debe de rellenar todos los campos de texto')</script>";
+            $opcion = "camposincompletos";
         }
     }
+} else {
+    $opcion = "";
 }
 ?>
 <!DOCTYPE html>
@@ -35,7 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Contraseña</title>
     <link rel="stylesheet" href="../css/style.css">
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    ?>
+
     <link rel="shortcut icon" href="../imagenes/LUPF.svg" type="image/x-icon">
+
+    <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -61,3 +71,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="../js/funciones.js" type="module"></script>
 
 </html>
+<?php
+// esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
+//las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
+switch ($opcion) {
+    case 'contraseñacambiada';
+        mostraraviso('Contraseña actualizada con éxito', $colorfondo, $colorprincipal);
+        break;
+    case 'contraseñacorta';
+        mostraralerta('La contraseña debe de tener al menos 6 caracteres', $colorfondo, $colorprincipal);
+        break;
+    case 'contraseñaactualincorrecta';
+        mostraralerta('La contraseña que has ingresado no es la correcta', $colorfondo, $colorprincipal);
+        break;
+    case 'contraseñasnocoinciden';
+        mostraralerta('Las contraseñas que has ingresado no coinciden', $colorfondo, $colorprincipal);
+        break;
+    case 'camposincompletos';
+        mostraralerta("Debe de rellenar todos los campos", $colorfondo, $colorprincipal);
+        break;
+}
+?>

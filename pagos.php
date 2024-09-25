@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cobros</title>
+    <title>Pagos</title>
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
@@ -14,12 +14,12 @@
 <body>
     <div class="tresinputs">
         <div class="subcontenedor">
-            <a class="enlacesdebuscador" href="ingresarventa.php">Ingresar Venta</a>
-            <a class="enlacesdebuscador" href="ingresarcobro.php">Ingresar Cobro</a>
+            <a class="enlacesdebuscador" href="ingresarcompra.php">Ingresar Compra</a>
+            <a class="enlacesdebuscador" href="ingresarpago.php">Ingresar Pago</a>
         </div>
 
 
-        <input type="search" placeholder="Buscar Cobro" class="inputdebusquedadecobro">
+        <input type="search" placeholder="Buscar Pago" class="inputdebusquedadepago">
     </div>
     <div class="contenedordemenu tablabajolostresinputs">
         <table>
@@ -30,14 +30,14 @@
     <?php include("barralateral.html") ?>
 </body>
 <script type="module">
-    import {cargarcobros} from "./js/funciones.js"
-    var inputdecobros = document.querySelector(".inputdebusquedadecobro");
-    inputdecobros.addEventListener("keyup",()=>{cargarcobros(inputdecobros.value)})
+    import {cargarpagos} from "./js/funciones.js"
+    var inputdepagos = document.querySelector(".inputdebusquedadepago");
+    inputdepagos.addEventListener("keyup",()=>{cargarpagos(inputdepagos.value)})
     window.onload = () => {
-        cargarcobros();
+        cargarpagos();
         setInterval(() => {
-            if(inputdecobros.value==""){
-                cargarcobros();
+            if(inputdepagos.value==""){
+                cargarpagos();
             }
         }, 2000);
     }

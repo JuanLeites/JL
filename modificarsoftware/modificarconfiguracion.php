@@ -2,13 +2,16 @@
 
 include("../chequeodelogin.php");
 include("../coneccionBD.php");
+include("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'UPDATE `Usuario` SET `Precio_por_Tickets` = "' . $_POST["precioxtiket"] . '", `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '";');
-    echo "<script>alert('Configuración Actualizada')</script>";
+    mysqli_query($basededatos, 'UPDATE `Usuario` SET `Precio_por_Tickets` = "' . $_POST["precioxtiket"] . '", `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '"  WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+    $opcion = "configuracionactualizada";
+} else {
+    $opcion = "";
 }
 
-$consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+$consultausuario = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
 ?>
 <!DOCTYPE html>
@@ -19,6 +22,8 @@ $usuario = mysqli_fetch_assoc($consultausuario);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar configuración</title>
     <link rel="stylesheet" href="../css/style.css">
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    ?>
     <link rel="shortcut icon" href="../imagenes/LUPF.svg" type="image/x-icon">
 </head>
 
@@ -42,3 +47,12 @@ $usuario = mysqli_fetch_assoc($consultausuario);
 </body>
 
 </html>
+<?php
+// esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
+//las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
+switch ($opcion) {
+    case 'configuracionactualizada';
+        mostraraviso('Configuración modificada con éxito', $colorfondo, $colorprincipal);
+        break;
+}
+?>

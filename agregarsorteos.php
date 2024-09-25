@@ -1,21 +1,21 @@
 <?php
 include("chequeodelogin.php");
 include("coneccionBD.php");
-$ventas =  mysqli_query($basededatos, 'SELECT * FROM venta ');
-$clientes = mysqli_query($basededatos, 'SELECT * FROM cliente ');
-$sorteos = mysqli_query($basededatos, 'SELECT * FROM sorteo ');
+include("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
-    if ($_POST["premio"] != "" && isset($_POST["cantidad"])) {
-        mysqli_query($basededatos, 'INSERT INTO sorteo (Premio, Cantidad, Fecha_realización) VALUES ("' . $_POST["premio"] . '", "' . $_POST["cantidad"] . '", CURDATE())');
-        echo "<script>alert('Sorteo creado')</script>";
+    if ($_POST["premio"] != "" && $_POST["cantidad"]!="") {
+        mysqli_query($basededatos, 'INSERT INTO sorteo (Premio, Cantidad) VALUES ("' . $_POST["premio"] . '" , "' . $_POST["cantidad"].'");');
+        $opcion="sorteorealizado";
     } else {
-        echo "<script>alert('debe ingresar datos')</script>";
+        $opcion="datosincompletos";
     }
 } else {
-    echo "<script>alert('los datos no fueron seteados')</script>";
+    echo $opcion="datosnoseteados";
 }
+}else{
+    $opcion="";
 }
 
 ?>
@@ -27,22 +27,44 @@ if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear un sorteo</title>
     <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+
 </head>
 
 <body>
 
-    <form method="POST" class="conenedordeagregador" enctype="multipart/form-data">
+    <form method="POST" class="formularios">
         <h1>Crear un Sorteo</h1>
             <div class="subcontenedores">
                 <label for="premio">Premio</label>
                 <input type="text" placeholder="Premio" name="premio" id="premio">
 
                 <label for="cantidad">Cantidad</label>
-                <input type="number" placeholder="Cantidad" name="cantidad" id="cantidad">
-        <input type="submit">
+                <input type="number" min="1" placeholder="Cantidad" name="cantidad" id="cantidad">
+
+        <input type="submit" value="Crear Sorteo">
     </form>
     </div>
     <?php include("barralateral.html") ?>
 </body>
-
 </html>
+
+<?php 
+
+// esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
+//las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
+switch ($opcion) {
+    case 'sorteorealizado';
+        mostraraviso("Sorteo Creado con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'datosincompletos';
+        mostraralerta("Debes de completar todos los campos", $colorfondo, $colorprincipal);
+        break;
+    case 'datosnoseteados';
+        mostraralerta("Los datos no fueron seteados", $colorfondo, $colorprincipal);
+        break;
+}
+?>

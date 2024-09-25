@@ -17,6 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($indice == "Foto_Perfil") {
                         $_SESSION["fotoperf"] = $dato;
                     }
+                    if ($indice == "Fecha_Nacimiento") {
+                        $_SESSION["fecha_nacimiento"] = $dato;
+                    }
                 }
             }
         } else {
@@ -51,17 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
 </head>
 
 <body>
 
     <main>
-        <h1>Bienvenido <?php echo $_SESSION["nombre"]; ?></h1>
+        <h1>Bienvenid@ <?php echo $_SESSION["nombre"]; ?></h1>
         <h2 id="titulo_con_fecha"></h2>
         <div class="contenedoresenmenuprincipal">
             <div class="contenedordecumpleañeros">
-                <h2>Clientes de cumpleaños 🍰</h2>
             </div>
             <div class="contenedordeproductos">
                 <h2>Productos con poco Stock</h2>
@@ -70,110 +73,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
     <?php include("barralateral.html") ?>
 </body>
-<script>
+<script type="module">
+    import {
+        actualizarfecha,
+        cargarclientesdecumpleaños,
+        cargarproductosconpocostock
+    } from "./js/funciones.js"
+
+
     window.onload = () => {
-        var hoy = new Date()
-        var titulo = document.querySelector("#titulo_con_fecha")
 
-        switch (hoy.getDay()) {
-            case 0:
-                diasemana = "Domingo ";
-                break;
-            case 1:
-                diasemana = "Lunes ";
-                break;
-            case 2:
-                diasemana = "Martes ";
-                break;
-            case 3:
-                diasemana = "Miercoles ";
-                break;
-            case 4:
-                diasemana = "Jueves ";
-                break;
-            case 5:
-                diasemana = "Viernes ";
-                break;
-            case 6:
-                diasemana = "Sabado ";
-
-        }
-        switch (hoy.getMonth()) {
-            case 0:
-                diames = "Enero"
-                break;
-            case 1:
-                diames = "Febrero"
-                break;
-            case 2:
-                diames = "Marzo"
-                break;
-            case 3:
-                diames = "Abril"
-                break;
-            case 4:
-                diames = "Mayo"
-                break;
-            case 5:
-                diames = "Junio"
-                break;
-            case 6:
-                diames = "Julio"
-                break;
-            case 7:
-                diames = "Agosto"
-                break;
-            case 8:
-                diames = "Septiembre"
-                break;
-            case 9:
-                diames = "Octubre"
-                break;
-            case 10:
-                diames = "Noviembre"
-                break;
-            case 11:
-                diames = "Diciembre"
-                break;
-
-
-        }
-        titulo.innerHTML = "Hoy es " + diasemana + hoy.getDate() + " de " + diames + " de " + hoy.getFullYear();
-
-        var contenedordecumpleañeros = document.querySelector(".contenedordecumpleañeros");
-        var contenedordeproductos = document.querySelector(".contenedordeproductos");
-
-        const cargaproductos = new XMLHttpRequest();
-        cargaproductos.open('GET', 'apis/apiproductos.php');
-        cargaproductos.send()
-        cargaproductos.onload = function() {
-            const productos = JSON.parse(this.responseText);
-            productos.forEach(cadaProducto => {
-                if (parseInt(cadaProducto.Cantidad) < parseInt(cadaProducto.Cantidad_minima_aviso)) {
-                    contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
-                }
-            })
-            if (contenedordeproductos.childElementCount == 1) {
-                contenedordeproductos.innerHTML += "<h3>Hay Stock de todo</h3>"
-            }
-        }
-
-        const cargaCumpleañeros = new XMLHttpRequest();
-        cargaCumpleañeros.open('GET', 'apis/apiclientes.php');
-        cargaCumpleañeros.send()
-        cargaCumpleañeros.onload = function() {
-            const clientes = JSON.parse(this.responseText);
-            clientes.forEach(cadacliente => {
-                var dia = new Date(cadacliente.Fecha_de_Nacimiento);
-                if (dia.getMonth() == hoy.getMonth() && dia.getDate() + 1 == hoy.getDate()) { //si el dia y el mes coinciden on el actual
-                    contenedordecumpleañeros.innerHTML += "<h3>" + cadacliente.Nombre + " - " + cadacliente.Cédula + "</h3>";
-                }
-            })
-            if (contenedordecumpleañeros.childElementCount == 1) {
-                contenedordecumpleañeros.innerHTML += "<h3>No hay cumpleañeros el dia de hoy</h3>"
-            }
-        }
-
+        actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
+        cargarclientesdecumpleaños()
+        cargarproductosconpocostock()
+        setInterval(() => {
+            actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
+            cargarclientesdecumpleaños()
+            cargarproductosconpocostock()
+        }, 2000);
     }
 </script>
 

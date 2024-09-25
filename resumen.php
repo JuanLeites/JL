@@ -75,6 +75,7 @@ $totalesProductosJson = json_encode($datosInicialesProductos['totales']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumen Mensual</title>
     <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); ?>
     <script src="LIBRERIAS/chart.js/chart.umd.js"></script>
 </head>
 <body>

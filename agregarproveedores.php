@@ -1,17 +1,21 @@
 <?php
 include("chequeodelogin.php");
 include("coneccionBD.php");
+include("funciones.php");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
         if ($_POST["RS"] != "" && $_POST["rut"] != "" && $_POST["contacto"] != "") {
             mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
-            echo "<script>alert('Proveedor Registrado')</script>";
+            $opcion = "proveedorregistrado";
         } else {
-            echo "<script>alert('debe ingresar datos')</script>";
+            $opcion="datosincompletos";
         }
     } else {
-        echo "<script>alert('los datos no fueron seteados')</script>";
+        $opcion="datosnoseteados";
     }
+}else{
+    $opcion="";
 }
 ?>
 <!DOCTYPE html>
@@ -22,7 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Proveedore</title>
     <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
     <link rel="shortcut icon" href="imagenes/icons/modproveedores.png" type="image/x-icon">
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+    
 </head>
 
 <body>
@@ -44,5 +53,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include("barralateral.html") ?>
 </body>
-
 </html>
+<?php
+switch ($opcion) {
+    case 'proveedorregistrado';
+        mostraraviso("Proveedor registrado con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'datosincompletos';
+        mostraralerta("Debe rellenar todos los campos", $colorfondo, $colorprincipal);
+        break;
+    case 'datosnoseteados';
+        mostraralerta("Datos no seteados", $colorfondo, $colorprincipal);
+        break;
+}
+
+?>
