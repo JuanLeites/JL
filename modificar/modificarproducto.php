@@ -7,14 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargu
     if ($_FILES["foto"]["tmp_name"] != "") { //si se selecciona una foto en el input type file
         @unlink("../IMAGENESSOFTWARE/" . $_POST["rutavieja"]); //borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
         move_uploaded_file($_FILES['foto']['tmp_name'], '../IMAGENESSOFTWARE/' . $_FILES['foto']['name']); //carga la nueva foto en la carpeta
-        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="IMAGENESSOFTWARE/' . $_FILES['foto']['name'] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="IMAGENESSOFTWARE/' . $_FILES['foto']['name'] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
         $opcion = "productoactualizadoconfoto";
     } else {
         if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
-            mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
             $opcion = "productoactualizado";
         } else {
-            mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Neto` = "' . $_POST["precio"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
             $opcion = "productoactualizado";
         }
     }
@@ -60,8 +60,11 @@ if (isset($_GET["id"])) {
                 <label for="nombre">Nombre</label>
                 <input type="text" placeholder="Nombre" name="nombre" id="nombre" value="<?php echo $producto['Nombre']; ?>">
 
-                <label for="precio">Precio Neto</label>
-                <input type="float" placeholder="Precio Neto" name="precio" id="precio" value="<?php echo $producto['Precio_Neto']; ?>">
+                <label for="preciocompra">Precio Compra</label>
+                <input type="float" placeholder="Precio Compra" name="preciocompra" id="preciocompra" value="<?php echo $producto['Precio_Compra']; ?>">
+
+                <label for="precioventa">Precio Venta</label>
+                <input type="float" placeholder="Precio Neto" name="precioventa" id="precioventa" value="<?php echo $producto['Precio_Venta']; ?>">
 
                 <label for="codbarras">Código de Barras</label>
                 <input type="number" placeholder="codigo de barras" name="codbarras" id="codbarras" value="<?php echo $producto['Código_de_Barras']; ?>">
