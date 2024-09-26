@@ -16,10 +16,7 @@ include("funciones.php");
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
 
-    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/LUPF/imagenes/icons/carrito.png" type="image/x-icon">
 </head>
 
 <body>
@@ -91,24 +88,28 @@ include("funciones.php");
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["monto"]) && isset($_POST["ID_CLIENTE"]) && isset($_POST["ID_VENTA"])) {
-        mysqli_query($basededatos, 'INSERT INTO cobro (Monto,ID_CLIENTE, Fecha_Cobro,ID_Venta) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] . '","' . date("Y-m-d") . '","' . $_POST["ID_VENTA"] . '");');
-        $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Deuda,Tickets_de_Sorteo from cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
-        $Tiketsanteriores = $cliente["Tickets_de_Sorteo"];
-        $PrecioFinaldelaventa = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_Final from venta WHERE ID_VENTA="' . $_POST["ID_VENTA"] . '";')); // obtenemos el precio final de la venta
-
-        //sabiendo que $_POST["monto"] es lo que pagó podemos calcular la deuda que se le debe de sumar y también calular los tikets que generó
-
-        $generacióndetikets = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_por_Tickets from usuario WHERE Usuario="' . $_SESSION["usuario"] . '";'));
-        $tiketsgenerados = floor($_POST["monto"] / $generacióndetikets["Precio_por_Tickets"]); //calculamos los tickets generados por la compra dividiendo el motno por el precio del tiket y lo redondeamos con el floor. dividimos lo que pagó por lo que saldria generar un tiket según la condiguración del usuario
-        $deudadeventa = $PrecioFinaldelaventa["Precio_Final"] - $_POST["monto"]; // calculamos lo que salió la venta menos lo que pagó el cliente. se genera la deuda (lo que faltó por pagar)
-        $deudaactual = $cliente["Deuda"] + $deudadeventa; // establecemos en la variable deudaactual el valor de la deuda anterior del cliente + la deuda de la vanta actual. 
-        $tiketsactuales = $Tiketsanteriores + $tiketsgenerados;
-
-
-        mysqli_query($basededatos, 'UPDATE `cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // lo actualizamos en la base de datos
-
-
-        mostraraviso("Venta concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
+        if($_POST["monto"]!=""){
+            mysqli_query($basededatos, 'INSERT INTO cobro (Monto,ID_CLIENTE, Fecha_Cobro,ID_Venta) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] . '","' . date("Y-m-d") . '","' . $_POST["ID_VENTA"] . '");');
+            $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Deuda,Tickets_de_Sorteo from cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
+            $Tiketsanteriores = $cliente["Tickets_de_Sorteo"];
+            $PrecioFinaldelaventa = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_Final from venta WHERE ID_VENTA="' . $_POST["ID_VENTA"] . '";')); // obtenemos el precio final de la venta
+    
+            //sabiendo que $_POST["monto"] es lo que pagó podemos calcular la deuda que se le debe de sumar y también calular los tikets que generó
+    
+            $generacióndetikets = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_por_Tickets from usuario WHERE Usuario="' . $_SESSION["usuario"] . '";'));
+            $tiketsgenerados = floor($_POST["monto"] / $generacióndetikets["Precio_por_Tickets"]); //calculamos los tickets generados por la compra dividiendo el motno por el precio del tiket y lo redondeamos con el floor. dividimos lo que pagó por lo que saldria generar un tiket según la condiguración del usuario
+            $deudadeventa = $PrecioFinaldelaventa["Precio_Final"] - $_POST["monto"]; // calculamos lo que salió la venta menos lo que pagó el cliente. se genera la deuda (lo que faltó por pagar)
+            $deudaactual = $cliente["Deuda"] + $deudadeventa; // establecemos en la variable deudaactual el valor de la deuda anterior del cliente + la deuda de la vanta actual. 
+            $tiketsactuales = $Tiketsanteriores + $tiketsgenerados;
+    
+    
+            mysqli_query($basededatos, 'UPDATE `cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // actualizamos la deuda y los tikets del cliente
+    
+            mostraraviso("Venta concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
+        }else{
+            mostraralerta("Monto no ingresado",$colorfondo,$colorsecundario);
+        }
+        
     }
 }
 

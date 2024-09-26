@@ -4,8 +4,13 @@ include("../coneccionBD.php");
 include("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
-    $opcion = "clienteactualizado";
+    if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
+        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        $opcion="clienteconrutactualizado";
+    } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
+        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        $opcion="clienteactualizado";
+    }
 } else {
     $opcion = "";
 }
@@ -31,10 +36,7 @@ if (isset($_GET["id"])) {
     <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal 
     ?>
 
-    <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
-
-    <link rel="shortcut icon" href="../imagenes/icons/modclientes.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/LUPF/imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
 
 <body>
@@ -61,7 +63,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="../clientes.php" id="reg">regresar</a>
+    <a href="/LUPF/clientes.php" id="reg">regresar</a>
 </body>
 
 </html>
@@ -71,6 +73,9 @@ if (isset($_GET["id"])) {
 switch ($opcion) {; //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
     case 'clienteactualizado';
         mostraraviso("cliente modificado con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'clienteconrutactualizado';
+        mostraraviso("cliente con rut modificado con éxito",$colorfondo,$colorprincipal);
         break;
 }
 ?>

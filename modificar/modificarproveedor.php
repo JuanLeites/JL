@@ -29,8 +29,6 @@ if (isset($_GET["id"])) {
     <link rel="stylesheet" href="../css/style.css">
     <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
-    <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
     <link rel="shortcut icon" href="../imagenes/icons/modproveedores.png" type="image/x-icon">
 </head>
 
@@ -49,7 +47,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="../proveedores.php" id="reg">regresar</a>
+    <a href="/LUPF/proveedores.php" id="reg">regresar</a>
 </body>
 
 </html>

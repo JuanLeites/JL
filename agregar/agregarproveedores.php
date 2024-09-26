@@ -1,7 +1,7 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include("../chequeodelogin.php");
+include("../coneccionBD.php");
+include("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
@@ -25,13 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Proveedore</title>
-    <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
-    <link rel="shortcut icon" href="imagenes/icons/modproveedores.png" type="image/x-icon">
+    <link rel="stylesheet" href="/LUPF/css/style.css">
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
+    <link rel="shortcut icon" href="/LUPF/imagenes/icons/modproveedores.png" type="image/x-icon">
 
-    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-    
 </head>
 
 <body>
@@ -51,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </form>
 
-    <?php include("barralateral.html") ?>
+    <?php include("../barralateral.html") ?>
 </body>
 </html>
 <?php

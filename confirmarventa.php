@@ -15,10 +15,8 @@ include("funciones.php");
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
 
-    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/LUPF/imagenes/icons/carrito.png" type="image/x-icon">
 </head>
 
 <body>
@@ -44,7 +42,7 @@ include("funciones.php");
                         $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * From cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";'));
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) { // foreach al array de ID_PRODUCTOS pasado por post // hacemos primero este for para obtener los datos para poder ingresar primero la venta
-                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Precio_Venta From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";')); // consulta la cual obtiene el valor del iva que le corresponde y el precio de venta del producto
+                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Precio_Venta,Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";')); // consulta la cual obtiene el valor del iva que le corresponde y el precio de venta del producto
                             //junto a esto una consulta que ingresa el producto con la venta a la tabla ProductosVendidos
                             $subtotal = floatval($productoconprecio["Precio_Venta"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
                             $contadordesubtotal += $subtotal;
@@ -56,7 +54,10 @@ include("funciones.php");
                         $iddeventa = mysqli_insert_id($basededatos); // guardamos en la variable $iddeventa la clave principal de la ultima insercción en la base de datos(la venta ingresada);
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
-                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Venta From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
+                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Venta,Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
+                            //actualizamos la cantidad de cada producto dependiendo a lo que compró:
+                            $cantidadactualizada=floatval($productoconprecio["Cantidad"])-floatval($_POST["CANTIDAD"][$indice]);//obtenemos la cantidad actualizada de cada producto
+                            mysqli_query($basededatos,'UPDATE producto SET Cantidad="'.$cantidadactualizada.'" WHERE ID_PRODUCTO="'.$cadaID.'" ');
 
                             $subtotal = floatval($productoconprecio["Precio_Venta"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
                             mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO,Cantidad_de_Venta,Precio_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . $subtotal . '");'); //ingresamos cada producto a la tabla productos vendidos
@@ -76,7 +77,7 @@ include("funciones.php");
                             echo "<tr><th></th><th></th><th></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
                         }
                         if ($contadordeiva22 != 0) {
-                            echo "<tr><th></th><th></th><th></th><th>Iva 20%</th><th>" . $contadordeiva22 . "</th></tr>";
+                            echo "<tr><th></th><th></th><th></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
                         }
                         echo "<tr><th></th><th></th><th></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
                         echo "<tr><th></th><th></th><th></th><th>Total</th><th>" . $total . "</th></tr>";
@@ -93,7 +94,7 @@ include("funciones.php");
             </h1>
             <?php echo "<input type='hidden' name='ID_VENTA' value='" . $iddeventa . "'> <input type='hidden' name='ID_CLIENTE' value='" . $_POST["ID_CLIENTE"] . "' ";  ?>
             <label for="cuantopaga">Ingrese el dinero recibido </label>
-            <input id="cuantopaga" tpye="number" placeholder="Dinero Recibido" name="monto" min="1">
+            <input id="cuantopaga" tpye="number" placeholder="Dinero Recibido" name="monto" min="1" required>
             <input type="submit" value="Concretar Venta">
             <?php if($cliente["RUT"]!="no tiene"){ echo "<input type='button' value='Solicitar Boleta'></input>"; }//solamente carga el botón solicitar boleta si el cliente tiene rut  ?>
         </form>

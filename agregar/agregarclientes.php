@@ -1,7 +1,7 @@
 <?php
-include("/LUPF/chequeodelogin.php");
-include("/LUPF/coneccionBD.php");
-include("/LUPF/funciones.php");
+include("../chequeodelogin.php");
+include("../coneccionBD.php");
+include("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["cedula"]) && isset($_POST["fechanac"]) && isset($_POST["contacto"])) {
@@ -30,17 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Cliente</title>
-    <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal ?> 
-    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-    <link rel="shortcut icon" href="./imagenes/icons/modclientes.png" type="image/x-icon">
+    <link rel="stylesheet" href="/LUPF/css/style.css">
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal ?> 
+
+    <link rel="shortcut icon" href="/LUFP/imagenes/icons/modclientes.png" type="image/x-icon">
 </head>
 
 <body>
@@ -64,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="agregar">
 
     </form>
-    <?php include("barralateral.html") ?>
+    <?php include("../barralateral.html") ?>
 </body>
 
 </html>

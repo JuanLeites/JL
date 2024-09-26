@@ -1,14 +1,14 @@
 <?php
-include("/LUPF/chequeodelogin.php");
-include("/LUPF/coneccionBD.php");
-include("/LUPF/funciones.php");
+include("../chequeodelogin.php");
+include("../coneccionBD.php");
+include("../funciones.php");
 
 $ivas =  mysqli_query($basededatos, 'SELECT * FROM iva ');
 $categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ');
 $medidas = mysqli_query($basededatos, 'SELECT * FROM medida ');
 
-if (!file_exists("/LUPF/IMAGENESSOFTWARE")) {
-    mkdir("/LUPF/IMAGENESSOFTWARE");
+if (!file_exists("../IMAGENESSOFTWARE")) {
+    mkdir("../IMAGENESSOFTWARE");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
     <link rel="stylesheet" href="/LUPF/css/style.css">
-    <?php include("/LUPF/css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
+    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
 
     <script src="/LUPF/LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="/LUPF/LIBRERIAS/sweetalert/sweetalert2.css">
@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <input type="submit" value="agregar">
     </form>
-    <?php include("barralateral.html") ?>
+    <?php include("../barralateral.html") ?>
 </body>
 </html>
 <?php

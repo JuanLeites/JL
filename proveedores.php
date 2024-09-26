@@ -8,6 +8,9 @@
     <title>Proveedores</title>
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="/LUPF/LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/LUPF/LIBRERIAS/sweetalert/sweetalert2.css">
+    
     <?php include("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/modproveedores.png" type="image/x-icon">
 </head>
@@ -16,7 +19,7 @@
 
     <div class="buscador">
         <input type="search" class="inputdeproveedores" placeholder="Buscar proveedores">
-        <a href="agregarproveedores.php" class="agregardato">+</a>
+        <a href="/LUPF/agregar/agregarproveedores.php" class="agregardato">+</a>
     </div>
 
     <div class="contenedordemenu">
@@ -29,10 +32,6 @@
 
     <?php include("barralateral.html") ?>
 </body>
-
-<script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-
 <script type="module">
     import {cargarproveedores} from "./js/funciones.js"
     

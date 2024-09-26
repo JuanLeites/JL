@@ -43,7 +43,7 @@ include("funciones.php");
         $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from cliente WHERE ID_CLIENTE="'.$_POST["ID_CLIENTE"].'";'));//obtenemos deuda anterior
         $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
         mysqli_query($basededatos,'UPDATE `cliente` SET `Deuda`="'.$deudaactual.'" WHERE ID_CLIENTE="'.$_POST["ID_CLIENTE"].'";'); //actualizamos la deuda del cliente
-        mostraraviso("Cobro ingresado con éxito<br> Deuda actualizada",$colorfondo,$colorsecundario);
+        mostraraviso("Cobro ingresado con éxito, <br> Deuda actualizada",$colorfondo,$colorsecundario);
     }
     ?>
 </body>

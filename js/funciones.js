@@ -207,7 +207,102 @@ export function cargarproductos(filtro) {
 }
 
 function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de cargar productos para vender, la cual se utiliza en el archivo ingresarventa.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
-    function agregar(id_producto, nombre, Precio_Neto) {//recive 3 parametros
+    function agregar(id_producto, nombre, Precio_Neto, cantidaddisponible) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
+        var inputdeenviar = document.querySelector(".botonenviar");
+        inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+
+        if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
+            tabla.innerHTML = "<tr><th>ID</th><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+        }
+
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                if (parseInt(tabla.children[i].children[2].children[0].value) < parseInt(cantidaddisponible)) { //si el texto de cantidad es menor a la cantidad que queda disponible
+                    tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
+                    return // al suman uno en la cantidad termina la función termuna la función aca
+                } else {//si la cantidad disponible es menor a la cantidad que se va a usar en la compra
+                    console.log("no queda mas stock");
+                    return
+                }
+            }
+        }
+        //si no encuentra ninguno sigue con la función y carga el elemento:
+        var linea = document.createElement("tr");
+        function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+            var objeto = document.createElement("td");//crea el elemento td(columna)
+            objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+            linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+        }
+        agregaralinea(id_producto);
+        agregaralinea(nombre)
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' value='1' max='" + cantidaddisponible + "'>");
+        agregaralinea(Precio_Neto)
+        agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
+        var inputparalaid = document.createElement("input")
+        inputparalaid.setAttribute("type", "hidden")
+        inputparalaid.setAttribute("name", "IDPRODUCTOS[]")
+        inputparalaid.setAttribute("value", id_producto)
+        linea.appendChild(inputparalaid)
+
+        tabla.appendChild(linea);
+        linea.children[4].children[0].addEventListener("click", () => { eliminar(id_producto) })//le agregamos el evento a el hijo 0(en este caso la imagen de borrar) dentro del 4to hijo de la linea(la cual contiene las acciones)
+        linea.children[4].children[1].addEventListener("click", () => { sumar(id_producto, cantidaddisponible) })
+        linea.children[4].children[2].addEventListener("click", () => { restar(id_producto) })
+        //en el caso de arriba (linea.children[4] seria la celda numero 5 de la linea y los otros serian los hijos de esa linea)
+    }
+    function eliminar(id_producto) {
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                tabla.children[i].remove(); // elimina el elemento que tenga la id igual al producto
+                return //termina la función
+            }
+        }
+    }
+    function sumar(id_producto, cantidaddisponible) {
+        console.log("cantidadmaxima= " + cantidaddisponible);
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                if (parseInt(tabla.children[i].children[2].children[0].value) < parseInt(cantidaddisponible)) {//parse int ya que toma el dato como string
+                    tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
+                    return //termina la función
+                } else {
+                    console.log("has llegado al limite de productos");
+                    return
+                }
+
+            }
+        }
+    }
+    function restar(id_producto) {
+        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
+        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
+            if (tabla.children[i].children[0].textContent == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
+                if (parseInt(tabla.children[i].children[2].children[0].value) == 1) { // si el contenido de children[2] que en este caso es lo que está dentro de "cantidad" es igual a 1 y fue llamada la función lo eliminamos
+                    eliminar(id_producto);
+                    return
+                }
+                tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) - 1 // al entrar le va a restar uno al valor del hijo
+                return // al suman uno en la cantidad termina la función termuna la función aca
+            }
+        }
+    }
+
+    //lo que hace la función es esto
+    var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
+    BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
+        CADABOTON.addEventListener("click", () => {
+            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
+        });
+    });
+};
+
+
+
+function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la funcion de cargar productos para vender, la cual se utiliza en el archivo ingresarventa.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
+    function agregar(id_producto, nombre, Precio_Neto) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
         var inputdeenviar = document.querySelector(".botonenviar");
         inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
@@ -222,6 +317,7 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
                 return // al suman uno en la cantidad termina la función termuna la función aca
             }
         }
+
         //si no encuentra ninguno sigue con la función y carga el elemento:
         var linea = document.createElement("tr");
         function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
@@ -231,7 +327,7 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
         }
         agregaralinea(id_producto);
         agregaralinea(nombre)
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number'name='cantidad' value='1'>");
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' value='1'>");
         agregaralinea(Precio_Neto)
         agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
         var inputparalaid = document.createElement("input")
@@ -262,8 +358,10 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
                 tabla.children[i].children[2].children[0].value = parseInt(tabla.children[i].children[2].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
                 return //termina la función
             }
+
         }
     }
+
     function restar(id_producto) {
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
         for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -282,11 +380,10 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
     var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
     BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
         CADABOTON.addEventListener("click", () => {
-            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"));
+            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
         });
     });
 };
-
 
 
 export function cargarproductosparacomprar(filtro) {
@@ -316,7 +413,7 @@ export function cargarproductosparacomprar(filtro) {
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
-            cargarbotonparasumarproducto()
+            cargarbotonparasumarproductoparacomprar()//es una funcion distinta, la cual no tiene limite para agregar
         }
     }
 }
@@ -331,23 +428,26 @@ export function cargarproductosparavender(filtro) {
         if (cantidaddeelementosantes - 1 != productos.length) {
             tabla.innerHTML = "<tr><th>ID</th><th>nombre</th><th>Código de barras</th><th>Precio Neto</th><th>Descripcion</th><th>acción</th></tr>"
             productos.forEach(cadaproducto => {
-                var linea = document.createElement("tr");
-                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
-                    var objeto = document.createElement("td");//crea el elemento td(columna)
-                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
-                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                if (cadaproducto.Cantidad > 0) {//si el producto tiene por lo menos uno lo carga
+                    var linea = document.createElement("tr");
+                    function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                        var objeto = document.createElement("td");//crea el elemento td(columna)
+                        objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                        linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                    }
+
+                    agregaralinea(cadaproducto.ID_Producto);
+                    agregaralinea(cadaproducto.Nombre);
+                    agregaralinea(cadaproducto.Código_de_Barras);
+                    agregaralinea(cadaproducto.Precio_Venta); // cargamos unicamente el precio de venta ya que vamos a vender
+                    agregaralinea(cadaproducto.Descripción);
+                    agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' cantidaddisponible='" + cadaproducto.Cantidad + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")//se le agrega atributos al boton para poder ser utilizados en la funcion cargarbotonparasumarproducto la cual recibe 4 parametros.
+                    tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
                 }
 
-                agregaralinea(cadaproducto.ID_Producto);
-                agregaralinea(cadaproducto.Nombre);
-                agregaralinea(cadaproducto.Código_de_Barras);
-                agregaralinea(cadaproducto.Precio_Venta); // cargamos unicamente el precio de venta ya que vamos a vender
-                agregaralinea(cadaproducto.Descripción);
-                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
-                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
-
             })
-            cargarbotonparasumarproducto()
+            cargarbotonparasumarproducto()//esta funcion le agrega a todos los botones con la clase 'agregarproducto' la funcion agregar() que recibe cuatro parametros para agregar cada producto
         }
     }
 

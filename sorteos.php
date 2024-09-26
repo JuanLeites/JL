@@ -20,7 +20,7 @@ include("funciones.php");
 
     <div class="buscador">
         <input type="text" placeholder="Buscar Sorteos" class="inputparabuscarsorteos">
-        <a href="agregarsorteos.php" class="agregardato">+</a>
+        <a href="/LUPF/agregar/agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <table>
