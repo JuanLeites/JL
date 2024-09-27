@@ -59,8 +59,8 @@ include("funciones.php");
                             $cantidadactualizada=floatval($productoconprecio["Cantidad"])-floatval($_POST["CANTIDAD"][$indice]);//obtenemos la cantidad actualizada de cada producto
                             mysqli_query($basededatos,'UPDATE producto SET Cantidad="'.$cantidadactualizada.'" WHERE ID_PRODUCTO="'.$cadaID.'" ');
 
+                            mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO,Cantidad_de_Venta,Precio_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Venta"]) . '");'); //ingresamos cada producto a la tabla productos vendidos
                             $subtotal = floatval($productoconprecio["Precio_Venta"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
-                            mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO,Cantidad_de_Venta,Precio_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . $subtotal . '");'); //ingresamos cada producto a la tabla productos vendidos
 
                             if ($productoconprecio["Valor"] == 10) { // si el iva es del 10 
                                 $contadordeiva10 += (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos a la variable que tiene la funcion de contador el iva dependiendo del subtotal
@@ -74,13 +74,13 @@ include("funciones.php");
                             echo "<tr><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Venta"] . "</th><th>" . $productoconprecio["Valor"] . "%</th><th>" . $subtotal . "</th></tr>";
                         }
                         if ($contadordeiva10 != 0) {
-                            echo "<tr><th></th><th></th><th></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
                         }
                         if ($contadordeiva22 != 0) {
-                            echo "<tr><th></th><th></th><th></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
                         }
-                        echo "<tr><th></th><th></th><th></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
-                        echo "<tr><th></th><th></th><th></th><th>Total</th><th>" . $total . "</th></tr>";
+                        echo "<tr><th colspan='3'></th></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Total</th><th>" . $total . "</th></tr>";
                     }
 
 

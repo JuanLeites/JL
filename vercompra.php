@@ -37,13 +37,13 @@ include("funciones.php");
                         <?php
                         //sumar los precio
                         if (isset($_GET["id"])) {
-                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT Razón_Social,RUT,Fecha_Compra,Monto,Precio_Final, Sub_Total from compra c,proveedor pr,pago pa WHERE c.ID_COMPRA=pa.ID_COMPRA and c.ID_COMPRA = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
-                            $productos = mysqli_query($basededatos, 'SELECT Nombre, Cantidad_de_Compra,Precio_Compra,Valor,Precio_de_Compra From iva i,producto p ,compra c,productos_comprados pc WHERE i.ID_IVA = p.ID_IVA and pc.ID_PRODUCTO= p.ID_PRODUCTO and c.ID_COMPRA=pc.ID_COMPRA and c.ID_COMPRA="' . $_GET["id"] . '";');
+                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT Razón_Social,RUT,Fecha_Compra,Monto,Precio_Final, Sub_Total from compra c,proveedor pr,pago pa WHERE c.ID_COMPRA = pa.ID_COMPRA and c.ID_PROVEEDOR = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
+                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pc.Cantidad_de_Compra, i.Valor, pc.Precio_de_Compra From iva i,producto p ,compra c,productos_comprados pc WHERE i.ID_IVA = p.ID_IVA and pc.ID_PRODUCTO= p.ID_PRODUCTO and c.ID_COMPRA=pc.ID_COMPRA and c.ID_COMPRA="' . $_GET["id"] . '";');
                             foreach ($productos as $indice => $cadaproducto) {
-                                echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Compra"] . "</th><th>" . $cadaproducto["Precio_Compra"] . "</th><th>" . $cadaproducto["Valor"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] . "</th></tr>";
+                                echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Compra"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] . "</th><th>" . $cadaproducto["Valor"] . "</th><th>" . $cadaproducto["Precio_de_Compra"]*$cadaproducto["Cantidad_de_Compra"] . "</th></tr>";
                             }
-                            echo "<tr><th></th><th></th><th></th><th>Subtotal</th><th>" . $datosdecompra["Sub_Total"] . "</th></tr>";
-                            echo "<tr><th></th><th></th><th></th><th>Total</th><th>" . $datosdecompra["Precio_Final"] . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $datosdecompra["Sub_Total"] . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Total</th><th>" . $datosdecompra["Precio_Final"] . "</th></tr>";
                         }
                         ?>
                     </tbody>

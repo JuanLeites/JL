@@ -19,20 +19,20 @@ RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ 
 RewriteRule ^(.*)$ http://www.3emt.kesug.com/$1 [L,R=301] 
 
 
-ErrorDocument 400 errores/error400.html
-ErrorDocument 401 errores/error401.html
-ErrorDocument 402 errores/error402.html
-ErrorDocument 403 errores/error403.html
-ErrorDocument 404 errores/error404.html
-ErrorDocument 405 errores/error405.html
+ErrorDocument 400 /LUPF/errores/error400.html
+ErrorDocument 401 /LUPF/errores/error401.html
+ErrorDocument 402 /LUPF/errores/error402.html
+ErrorDocument 403 /LUPF/errores/error403.html
+ErrorDocument 404 /LUPF/errores/error404.html
+ErrorDocument 405 /LUPF/errores/error405.html
 
-ErrorDocument 500 errores/error500.html
-ErrorDocument 501 errores/error501.html
-ErrorDocument 502 errores/error502.html
-ErrorDocument 503 errores/error503.html
-ErrorDocument 504 errores/error504.html
-ErrorDocument 505 errores/error505.html
-ErrorDocument 509 errores/error509.html
+ErrorDocument 500 /LUPF/errores/error500.html
+ErrorDocument 501 /LUPF/errores/error501.html
+ErrorDocument 502 /LUPF/errores/error502.html
+ErrorDocument 503 /LUPF/errores/error503.html
+ErrorDocument 504 /LUPF/errores/error504.html
+ErrorDocument 505 /LUPF/errores/error505.html
+ErrorDocument 509 /LUPF/errores/error509.html
 
 
 php_value upload_max_filesize= 32M

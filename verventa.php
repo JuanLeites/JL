@@ -37,14 +37,14 @@ include("funciones.php");
                         <?php
                         //sumar los precio
                         if (isset($_GET["id"])) {
-                            $datosdeventa = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT Nombre,Cédula,Fecha_Venta,Monto,Precio_Final, Sub_Total from venta v,cliente cl,cobro co WHERE co.ID_VENTA=v.ID_VENTA and v.ID_CLIENTE = cl.ID_CLIENTE and v.ID_VENTA="' . $_GET["id"] . ';"'));
-                            $productos = mysqli_query($basededatos, 'SELECT Nombre, Cantidad_de_Venta,Precio_Venta,Valor,Precio_de_venta From iva i,producto p ,venta v,productos_vendidos pv WHERE i.ID_IVA = p.ID_IVA and pv.ID_PRODUCTO= p.ID_PRODUCTO and v.ID_VENTA=pv.ID_VENTA and v.ID_VENTA="' . $_GET["id"] . '";');
+                            $datosdeventa = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT cl.Nombre, cl.Cédula, v.Fecha_Venta, co.Monto, v.Precio_Final, v.Sub_Total from venta v,cliente cl,cobro co WHERE co.ID_VENTA=v.ID_VENTA and v.ID_CLIENTE = cl.ID_CLIENTE and v.ID_VENTA="' . $_GET["id"] . ';"'));
+                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pv.Cantidad_de_Venta,i.Valor,pv.Precio_de_venta From iva i,producto p ,venta v,productos_vendidos pv WHERE i.ID_IVA = p.ID_IVA and pv.ID_PRODUCTO= p.ID_PRODUCTO and v.ID_VENTA=pv.ID_VENTA and v.ID_VENTA="' . $_GET["id"] . '";');
+                            
                             foreach ($productos as $indice => $cadaproducto) {
-                                //print_r($cadaproducto);
-                                echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th>" . $cadaproducto["Precio_Venta"] . "</th><th>" . $cadaproducto["Valor"] . "</th><th>" . $cadaproducto["Precio_de_venta"] . "</th></tr>";
+                                echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] . "</th><th>" . $cadaproducto["Valor"] . "</th><th>" . $cadaproducto["Precio_de_venta"]*$cadaproducto["Cantidad_de_Venta"] . "</th></tr>";//cargamos cada fila de productos calculando el monto sin el iva, de el precio de venta por la cantidad q se vendió
                             }
-                            echo "<tr><th></th><th></th><th></th><th>Subtotal</th><th>" . $datosdeventa["Sub_Total"] . "</th></tr>";
-                            echo "<tr><th></th><th></th><th></th><th>Total</th><th>" . $datosdeventa["Precio_Final"] . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $datosdeventa["Sub_Total"] . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Total</th><th>" . $datosdeventa["Precio_Final"] . "</th></tr>";
                         }
                         ?>
                     </tbody>

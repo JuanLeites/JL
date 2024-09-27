@@ -236,7 +236,7 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
         }
         agregaralinea(id_producto);
         agregaralinea(nombre)
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' value='1' max='" + cantidaddisponible + "'>");
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' min='1' value='1' max='" + cantidaddisponible + "'>");
         agregaralinea(Precio_Neto)
         agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
         var inputparalaid = document.createElement("input")
@@ -327,7 +327,7 @@ function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la fu
         }
         agregaralinea(id_producto);
         agregaralinea(nombre)
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' value='1'>");
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' min='1' type='number' name='cantidad' value='1'>");
         agregaralinea(Precio_Neto)
         agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
         var inputparalaid = document.createElement("input")

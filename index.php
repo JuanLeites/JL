@@ -12,7 +12,7 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
-    <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/LUPF/imagenes/" type="image/x-icon">
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script><link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
     <title>Inicio de Sesión</title>
 </head>

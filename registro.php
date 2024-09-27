@@ -70,25 +70,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Registrar usuario</h1>
         <div class="contenedordesubcontenedores">
             <div class="subcontenedores">
-                <input type="text" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" <?php if (isset($_GET["nombre"])) {
                                                                                     echo "value='" . $_GET["nombre"] . "'";
                                                                                 } ?>>
-                <input type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
+                <label for="usuario">Usuario</label>
+                <input id="usuario" type="text" name="usuario" placeholder="Ingrese su usuario" <?php if (isset($_GET["usuario"])) {
                                                                                     echo "value='" . $_GET["usuario"] . "'";
                                                                                 } ?>>
-                <input type="password" class="contraseña1register" name="pass" placeholder="Ingrese contraseña"><img class="ojo1register" id='ver' src="imagenes/ojocerrado.png">
-                <input type="password" class="contraseña2register" name="pass2" placeholder="Repita contraseña"><img class="ojo2register" id='ver' src="imagenes/ojocerrado.png">
+                <label for="contra1">Contraseña</label>
+                <input id="contra1"type="password" class="contraseña1register" name="pass" placeholder="Ingrese contraseña"><img class="ojo1register" id='ver' src="imagenes/ojocerrado.png">
+                <label for="contra2">Repita contraseña</label>
+                <input id="contra2"type="password" class="contraseña2register" name="pass2" placeholder="Repita contraseña"><img class="ojo2register" id='ver' src="imagenes/ojocerrado.png">
             </div>
 
             <div class="subcontenedores ">
-                <input type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
+                <label for="correo">Correo electrónico</label>
+                <input id="correo" type="email" name="correo" placeholder="Ingrese su correo" <?php if (isset($_GET["correo"])) {
                                                                                     echo "value='" . $_GET["correo"] . "'";
                                                                                 } ?>>
-                <input type="date"  max="2019-12-31" name="fecha" <?php if (isset($_GET["fecha"])) {
+                <label for="fecha" style="margin-top: 1px;">Fecha de nacimiento</label>
+                <input id="fecha"type="date"  max="2019-12-31" name="fecha" <?php if (isset($_GET["fecha"])) {
                                                 echo "value='" . $_GET["fecha"] . "'";
                                             } ?>>
-                <input type="file" name="fotoperfil" accept="image/*">
-                <input type="password" name="clavamaestra" placeholder="clave maestra">
+                <label for="fotoperf">Foto de perfil</label>
+                <input id="fotoperf" type="file" name="fotoperfil" accept="image/*">
+
+                <label for="clavemaestra" style="margin-top: 18px;">Clave maestra</label>
+                <input id="clavemaestra"type="password" name="clavamaestra" placeholder="clave maestra">
             </div>
         </div>
         
