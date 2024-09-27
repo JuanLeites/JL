@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
         $opcion="clienteconrutactualizado";
     } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
-        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
         $opcion="clienteactualizado";
     }
 } else {

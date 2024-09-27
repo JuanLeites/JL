@@ -59,10 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
     <main>
-        <h1>Bienvenid@ <?php echo $_SESSION["nombre"]; ?></h1>
-        <h2 id="titulo_con_fecha"></h2>
+        <div class="contenedordetitulos">
+            <h1>Bienvenid@ <?php echo $_SESSION["nombre"]; ?></h1>
+            <h2 id="titulo_con_fecha"></h2>
+        </div>
+
         <div class="contenedoresenmenuprincipal">
             <div class="contenedordecumpleañeros">
             </div>

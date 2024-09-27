@@ -55,7 +55,7 @@ include("funciones.php");
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
                             $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Venta,Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
-                            //actualizamos la cantidad de cada producto dependiendo a lo que compró:
+                            //actualizamos la cantidad de cada producto dependiendo a lo que vendió:
                             $cantidadactualizada=floatval($productoconprecio["Cantidad"])-floatval($_POST["CANTIDAD"][$indice]);//obtenemos la cantidad actualizada de cada producto
                             mysqli_query($basededatos,'UPDATE producto SET Cantidad="'.$cantidadactualizada.'" WHERE ID_PRODUCTO="'.$cadaID.'" ');
 
@@ -96,7 +96,7 @@ include("funciones.php");
             <label for="cuantopaga">Ingrese el dinero recibido </label>
             <input id="cuantopaga" tpye="number" placeholder="Dinero Recibido" name="monto" min="1" required>
             <input type="submit" value="Concretar Venta">
-            <?php if($cliente["RUT"]!="no tiene"){ echo "<input type='button' value='Solicitar Boleta'></input>"; }//solamente carga el botón solicitar boleta si el cliente tiene rut  ?>
+            <?php if($cliente["RUT"]!="no tiene"){ echo "<input type='button' value='Solicitar Factura'></input>"; }//solamente carga el botón solicitar boleta si el cliente tiene rut  ?>
         </form>
     </div>
     <?php include("barralateral.html");

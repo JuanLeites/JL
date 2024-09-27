@@ -51,7 +51,7 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-    <form method="POST" class="formularios" enctype="multipart/form-data">
+    <form method="POST" class="formularios formularioproductos" enctype="multipart/form-data">
         <h1>Modificar un Producto</h1>
         <div class="contenedordesubcontenedores">
             <div class="subcontenedores">

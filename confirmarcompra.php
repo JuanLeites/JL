@@ -56,7 +56,11 @@ include("funciones.php");
                         $iddecompra = mysqli_insert_id($basededatos); // guardamos en la variable $iddecompra la clave principal de la ultima insercción en la base de datos(la compra ingresada);
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
-                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Compra From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
+                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Compra, Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
+
+                            //actualizamos la cantidad de cada producto dependiendo a lo que compró:
+                            $cantidadactualizada=floatval($productoconprecio["Cantidad"])+floatval($_POST["CANTIDAD"][$indice]);//obtenemos la cantidad actualizada de cada producto
+                            mysqli_query($basededatos,'UPDATE producto SET Cantidad="'.$cantidadactualizada.'" WHERE ID_PRODUCTO="'.$cadaID.'" ');
 
                             $subtotal = floatval($productoconprecio["Precio_Compra"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
                             mysqli_query($basededatos, 'INSERT INTO productos_comprados (ID_COMPRA,ID_PRODUCTO,Cantidad_de_Compra,Precio_de_Compra) values ("' . $iddecompra . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . $subtotal . '");'); //ingresamos cada producto a la tabla productos vendidos
@@ -71,13 +75,13 @@ include("funciones.php");
                             echo "<tr><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Compra"] . "</th><th>" . $productoconprecio["Valor"] . "%</th><th>" . $subtotal . "</th></tr>";//cargamos una fila
                         }
                         if ($contadordeiva10 != 0) {
-                            echo "<tr><th></th><th></th><th></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
                         }
                         if ($contadordeiva22 != 0) {
-                            echo "<tr><th></th><th></th><th></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
                         }
-                        echo "<tr><th></th><th></th><th></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
-                        echo "<tr><th></th><th></th><th></th><th>Total</th><th>" . $total . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Total</th><th>" . $total . "</th></tr>";
                     }
 
 
