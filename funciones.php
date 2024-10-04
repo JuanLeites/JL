@@ -81,4 +81,15 @@ function mostraralerta($titulo, $colorfondo, $colortexto){
           });
           </script>';
 }
-//
+function enviarcodigoparareestablecer($nombre,$codigo,$destino){
+//esta función deberia de mandar el codigo por correo al destino
+echo "<script>alert('Se enviará el código ".$codigo." a ".$nombre." con el correo ".$destino." ')</script>";
+
+}
+function generarcodigo($cantidad){
+  $codigo="";
+  for($i = 0;$i < $cantidad ; $i++){
+    $codigo .= rand(0,9);
+  }  
+  return $codigo;
+}

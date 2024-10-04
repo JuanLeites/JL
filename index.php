@@ -40,17 +40,16 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
                     mostraraviso("Registrado con éxito", "", "");
                     break;;
                 case "bloq":
-                    echo '<p>Usuario bloqueado</p>';
+                    mostraralerta("Usuario Bloqueado!","","");
                     break;;
                 case "textovacio":
-                    echo '<p>Debes completar todos los campos</p>';
+                    mostraralerta("Debes de completar todos los campos","","");
                     break;;
                 case "nolog":
-                    echo '<p>Debes logearte para poder acceder al menu</p>';
+                    mostraralerta("Debes estar logeado para poder acceder al menu.","","");
                     break;;
-
                 case "sesioncerrada":
-                    echo '<p>Sesión cerrada con exito</p>';
+                    mostraraviso("Sesión cerrada con éxito","","");
                     break;;
             }
         }
@@ -61,7 +60,7 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
         <h4>¿No Tienes Cuenta?</h4>
         <a href="registro.php" class="linkk">registrar usuario</a>
         <h4>¿has olvidado tu contraseña?</h4>
-        <a href="meolvide.php" class="linkk">recuperar contraseña</a>
+        <a href="/LUPF/meolvidecontraseña/meolvide.php" class="linkk">recuperar contraseña</a>
     </form>
     <?php include("footer.html") ?>
 </body>
