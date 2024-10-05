@@ -241,6 +241,22 @@ footer>a:hover {
     color: wheat;
     transition: 0.6s;
 }
+.logoenformulario{
+    height: 40px;
+    width: 40px;
+    margin: auto auto;
+    filter:  drop-shadow(0 0 10px var(--color-fondo)) ;
+    border-radius: 10px;
+    padding: 2px;
+}
+.textoformulario{
+    text-align: center;
+    color: var(--color-fondo);
+    margin-bottom: 10%;
+}
+.meolvidelacontraseña{
+    max-width: 20% !important   ;
+}
 
 .botoncerrar:hover {
     color: var(--color-secundario);

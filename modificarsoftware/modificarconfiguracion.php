@@ -24,10 +24,10 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar configuración</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/LUPF/css/style.css">
     <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
-    <link rel="shortcut icon" href="../imagenes/LUPF.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/LUPF/imagenes/LUPF.png" type="image/x-icon">
 </head>
 
 <body>
