@@ -103,7 +103,12 @@ export function cargarclientes(filtro) {
                 agregaralinea(cadacliente.Fecha_de_Nacimiento);
                 agregaralinea(cadacliente.Tickets_de_Sorteo);
                 agregaralinea(cadacliente.Contacto);
-                agregaralinea(cadacliente.RUT);
+                if(cadacliente.RUT == null){
+                    agregaralinea("no tiene");
+                }else{
+                    agregaralinea(cadacliente.RUT);
+                }
+                
                 agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
 
@@ -499,7 +504,7 @@ export function cargarcobros(filtro) {
         const cobros = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != cobros.length) {
-            tabla.innerHTML = "<tr><th>ID</th><th>Nombre</th><th>Cédula</th><th>Monto</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
+            tabla.innerHTML = "<tr><th>Responsable</th><th>Cliente</th><th>Monto</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
             cobros.forEach(cadacobro => {
 
                 var linea = document.createElement("tr");
@@ -510,13 +515,12 @@ export function cargarcobros(filtro) {
                     linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
                 }
 
-                agregaralinea(cadacobro.ID_COBRO);
-                agregaralinea(cadacobro.Nombre);
-                agregaralinea(cadacobro.Cédula);
+                agregaralinea(cadacobro.NombreUsuario);
+                agregaralinea(cadacobro.Nombre+" - "+cadacobro.Cédula);
                 agregaralinea(cadacobro.Monto);
                 agregaralinea(cadacobro.Fecha_Cobro);
                 if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a href='verventa.php?id=" + cadacobro.ID_VENTA + "'>--Ver Venta--<a>")
+                    agregaralinea("<a href='verventa.php?id=" + cadacobro.ID_VENTA + "'>--Ver Venta--<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -536,7 +540,7 @@ export function cargarpagos(filtro) {
         const pagos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != pagos.length) {
-            tabla.innerHTML = "<tr><th>ID</th><th>Razón Social</th><th>Rut</th><th>Monto</th><th>Fecha de Pago</th><th>Compra</th></tr>"
+            tabla.innerHTML = "<tr><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Compra</th></tr>"
             pagos.forEach(cadapago => {
 
                 var linea = document.createElement("tr");
@@ -547,9 +551,8 @@ export function cargarpagos(filtro) {
                     linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
                 }
 
-                agregaralinea(cadapago.ID_PAGO);
-                agregaralinea(cadapago.Razón_Social);
-                agregaralinea(cadapago.RUT);
+                agregaralinea(cadapago.NombreUsuario);
+                agregaralinea(cadapago.Razón_Social+" - "+cadapago.RUT);
                 agregaralinea(cadapago.Monto);
                 agregaralinea(cadapago.Fecha_Pago);
                 if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
@@ -699,7 +702,7 @@ export function cargarproductosconpocostock() {
             productos.forEach(cadaProducto => {
                 if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
                     if (parseInt(cadaProducto.Cantidad) == 0) {
-                        contenedordeproductos.innerHTML += "<h3 style='border:dotted 2px red;border-radius:10px;padding:5px;' >" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                        contenedordeproductos.innerHTML += "<h3 class='productoconpocostock' >" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
                     } else {
                         contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
                     }
@@ -738,7 +741,7 @@ export function cargarsorteos(filtro) {
                 agregaralinea(cadaSorteo.ID_SORTEO);
                 agregaralinea(cadaSorteo.Premio);
                 agregaralinea(cadaSorteo.Cantidad);
-                if (cadaSorteo.Realizado == 0) {//si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
+                if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("todavia no realizado");
                     agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está

@@ -7,7 +7,7 @@ if (!isset($_GET["id"])) {
 }
 
 $consultadesorteo = mysqli_fetch_array(mysqli_query($basededatos, 'Select * FROM sorteo WHERE ID_SORTEO ="' . $_GET["id"] . '"'));
-if ($consultadesorteo["Realizado"] == 0) { // si el sorteo todavia no fue realizado
+if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia no fue realizado
 
     $consultadeclientes = mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ACTIVO=TRUE and Tickets_de_Sorteo>=1;'); //obtenemos todos los clientes que tienen por lo menos un tiket del sorteo o más
     if (mysqli_num_rows($consultadeclientes) > 0) { //si por lo menos hay un ciente con tikets
@@ -76,7 +76,7 @@ if ($consultadesorteo["Realizado"] == 0) { // si el sorteo todavia no fue realiz
                 $datosdelclienteganador = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ACTIVO=TRUE and ID_CLIENTE="' . $arraydeparticipantes[$cadaganador] . '"')); //obtenemos los datos del cliente ganador
                 echo "<p class='ganadores'>" . $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"] . "</p>";
             }
-            mysqli_query($basededatos, 'UPDATE sorteo SET REALIZADO=TRUE, Fecha_realización ="' . date("Y-m-d") . '" WHERE ID_SORTEO ="' . $_GET["id"] . '"');
+            mysqli_query($basededatos, 'UPDATE sorteo SET Fecha_realización ="' . date("Y-m-d") . '" WHERE ID_SORTEO ="' . $_GET["id"] . '"');
             mysqli_query($basededatos, 'UPDATE cliente SET Tickets_de_Sorteo="0"');
             ?>
         </div>

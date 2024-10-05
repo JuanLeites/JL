@@ -5,7 +5,8 @@ include("../coneccionBD.php");
 include("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'UPDATE `Usuario` SET `Precio_por_Tickets` = "' . $_POST["precioxtiket"] . '", `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '"  WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+    mysqli_query($basededatos, 'UPDATE `Usuario` SET `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '"  WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+    mysqli_query($basededatos, 'UPDATE `Configuración` SET `Precio_por_Tickets` = "' . $_POST["precioxtiket"] . '"');//actualizamos los precios por tickets
     $opcion = "configuracionactualizada";
 } else {
     $opcion = "";
@@ -13,6 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $consultausuario = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
+$consultaconfiguración = mysqli_query($basededatos, 'SELECT * FROM Configuración');
+$config= mysqli_fetch_assoc($consultaconfiguración);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,7 +34,7 @@ $usuario = mysqli_fetch_assoc($consultausuario);
     <form method="POST" class="formularios">
 
         <label for="precioxtiket">Precio para Generación de Tickets</label>
-        <input type="number" step="0.10" min="1" max="10000" name="precioxtiket" id="precioxtiket" value="<?php echo $usuario["Precio_por_Tickets"] ?>">
+        <input type="number" step="0.10" min="1" max="10000" name="precioxtiket" id="precioxtiket" value="<?php echo $config["Precio_por_Tickets"] ?>">
 
         <label for="colorprincipal">Color Principal</label>
         <input type="color" name="colorprincipal" id="colorprincipal" value="<?php echo $usuario["Color_Principal"] ?>">

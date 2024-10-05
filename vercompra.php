@@ -37,13 +37,15 @@ include("funciones.php");
                         <?php
                         //sumar los precio
                         if (isset($_GET["id"])) {
-                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT Razón_Social,RUT,Fecha_Compra,Monto,Precio_Final, Sub_Total from compra c,proveedor pr,pago pa WHERE c.ID_COMPRA = pa.ID_COMPRA and c.ID_PROVEEDOR = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
+                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT Razón_Social,RUT,Fecha_Compra,Monto,Precio_Final, Sub_Total, u.Nombre"NombreUsuario" from compra c,proveedor pr,pago pa,usuario u WHERE u.Usuario=pa.Usuario and c.ID_COMPRA = pa.ID_COMPRA and c.ID_PROVEEDOR = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
                             $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pc.Cantidad_de_Compra, i.Valor, pc.Precio_de_Compra From iva i,producto p ,compra c,productos_comprados pc WHERE i.ID_IVA = p.ID_IVA and pc.ID_PRODUCTO= p.ID_PRODUCTO and c.ID_COMPRA=pc.ID_COMPRA and c.ID_COMPRA="' . $_GET["id"] . '";');
                             foreach ($productos as $indice => $cadaproducto) {
                                 echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Compra"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] . "</th><th>" . $cadaproducto["Valor"] . "</th><th>" . $cadaproducto["Precio_de_Compra"]*$cadaproducto["Cantidad_de_Compra"] . "</th></tr>";
                             }
                             echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $datosdecompra["Sub_Total"] . "</th></tr>";
                             echo "<tr><th colspan='3'></th><th>Total</th><th>" . $datosdecompra["Precio_Final"] . "</th></tr>";
+                        }else{
+                            header("Location:/LUPF/compras.php?causa=ningunidseteado");// arreglar this
                         }
                         ?>
                     </tbody>
@@ -51,11 +53,12 @@ include("funciones.php");
             </div>
         </div>
         <div class="formularios">
-            <h1>Datos de la venta</h1>
+            <h1>Datos de la Compra</h1>
             <p>Proveedor : <?php echo $datosdecompra["Razón_Social"]." - ".$datosdecompra["RUT"]; ?> </p>
             <p>Fecha de la compra : <?php echo $datosdecompra["Fecha_Compra"]; ?> </p>
             <p>Se le pagó al proveedor : <?php echo $datosdecompra["Monto"]; ?></p>
             <p>Generó una deuda de : <?php echo $datosdecompra["Monto"]-$datosdecompra["Precio_Final"]; // siendo monto el dinero que se le pagó al proveedor y precio final lo que se deberia de haber pagado ?></p>
+            <p>Compra ingresada por: <?php echo $datosdecompra["NombreUsuario"]; ?> </p>
         </div>
     </div>
         <?php include("barralateral.html");

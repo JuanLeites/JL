@@ -1,9 +1,10 @@
 Para La importación debe de seguir el siguiente orden, estos son necesarios para el correcto funcionamiento del software:
 
-	1)creacióndeBDytablas.sql
-	2)creacióndeusuarios.sql
+	1)byytablas.sql
+	2)usuarios.sql
 	3)cargadedatosesenciales.sql
 
-también puede importar el archivo "datosdeprueba.sql" el cual contiene datos de prueba para poder probar el software.
+También puede importar el archivo "datosdeprueba.sql" el cual contiene datos de prueba
+para poder probar el software, esto es solamente si desea probar el software con datos ficticios.
 
 Gracias por leer!

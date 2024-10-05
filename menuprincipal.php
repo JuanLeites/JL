@@ -3,44 +3,38 @@ include("coneccionBD.php");
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["usuario"] != "" && $_POST["contraseña"] != "") { // si contienen texto
-        $usuario = $_POST["usuario"];
+        $usuarioingresado = $_POST["usuario"];
         $contraseña = $_POST["contraseña"];
-        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario = "' . $usuario . '" AND contraseña = "' . $contraseña . '"');
-        if (mysqli_num_rows($consultausuarios) == 1) { //chequeamos que haya un solo valor(un usuario con ese user y esa contraseña)
-            $_SESSION["usuario"] = $usuario;
-            $_SESSION["contraseña"] = $contraseña; //si hay las setea a varables de sesion
-            foreach ($consultausuarios as $usuario) {
-                foreach ($usuario as $indice => $dato) {
-                    if ($indice == "Nombre") {
-                        $_SESSION["nombre"] = $dato;
+        $consultausuarios = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario = "' . $usuarioingresado . '"');
+        if (mysqli_num_rows($consultausuarios) == 1) { //chequemos que exista un usuario con ese nombre de usuario
+            $usuario = mysqli_fetch_assoc($consultausuarios);
+            if (password_verify($contraseña, $usuario["Contraseña"])) { //la variable contraseña obtiene la contraseña que ingresó el usuario y "$usuario["Contraseña"]" obtiene la contraseña encriptada, la funcion password_veryfy() verifica que esté correcta la contraseña
+                $_SESSION["usuario"] = $usuarioingresado;
+                $_SESSION["nombre"] = $usuario["Nombre"];
+                $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
+                $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+            } else {
+                if (isset($_SESSION["intentosdisponibles"])) { //chequea que intentos este seteada
+                    if ($_SESSION["intentosdisponibles"] <= 0) {// si intentos en
+                        $_SESSION["bloq"] = 1;
+                        header("Location:index.php?causa=bloq"); //vuelve al index con con la variable de sesion bloq y con la variable causa que avisará que esta bloqueado
+                    } else { //sino es menor o igual a 0
+                        $_SESSION["intentosdisponibles"] -= 1; // restamos 1 y volvemos a index con la variabla causa seteada en err
+                        header("Location:index.php?causa=err");
                     }
-                    if ($indice == "Foto_Perfil") {
-                        $_SESSION["fotoperf"] = $dato;
-                    }
-                    if ($indice == "Fecha_Nacimiento") {
-                        $_SESSION["fecha_nacimiento"] = $dato;
-                    }
+                } else {
+                    $_SESSION["intentosdisponibles"] = 2;
+                    header("Location:index.php?causa=err");
                 }
             }
         } else {
-            if (isset($_SESSION["intentos"])) { //chequea que intentos este seteada
-                if ($_SESSION["intentos"] <= 0) {
-                    $_SESSION["bloq"] = 1;
-                    header("Location:index.php?causa=bloq"); //vuelve al index con con la variable de sesion bloq y con la variable causa que avisará que esta bloqueado
-                } else { //sino es menor o igual a 0
-                    $_SESSION["intentos"] = $_SESSION["intentos"] - 1; // restamos 1 y volvemos a index con la variabla causa seteada en err
-                    header("Location:index.php?causa=err");
-                }
-            } else {
-                $_SESSION["intentos"] = 2;
-                header("Location:index.php?causa=err");
-            }
+            header("Location:index.php?causa=usuarioinexistente");
         }
     } else {
         header("Location:index.php?causa=textovacio");
     }
 } else { //SI NO ESTAN seteadas por post 
-    if (!isset($_SESSION["usuario"]) && !isset($_SESSION["contraseña"])) {
+    if (!isset($_SESSION["usuario"])) {
         header("Location:index.php?causa=nolog");
     }
 }

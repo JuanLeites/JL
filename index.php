@@ -21,10 +21,8 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
 
     <form method="POST" class="contenedor" action="menuprincipal.php">
         <h1>Iniciar Sesión</h1>
-        <input <?php if (isset($_SESSION['bloq'])) {
-                    echo "disabled";
-                } ?> type="text" name="usuario" placeholder="usuario"></input>
-        <input type="password" name="contraseña" class="contraseñadeindex" placeholder="contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png"></input>
+        <input <?php if (isset($_SESSION['bloq'])) { echo "disabled";} // si está seteada la variable de session bloq, desabilitamos el botón ?> type="text" name="usuario" placeholder="usuario"></input> 
+        <input <?php if (isset($_SESSION['bloq'])) { echo "disabled";} ?> type="password" name="contraseña" class="contraseñadeindex" placeholder="contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png"></input>
 
         <?php
         include("funciones.php");
@@ -32,8 +30,8 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
         if (isset($_GET['causa'])) {
             switch ($_GET['causa']) {
                 case "err":
-                    if (isset($_SESSION["intentos"])) { // la session está iniciada en el archivo "chequeodelogin.php"
-                        echo "<p>Contraseña o usuario incorrectos <br> " . $_SESSION["intentos"] + 1  . " intentos restantes</p>";
+                    if (isset($_SESSION["intentosdisponibles"])) { // la session está iniciada en el archivo "chequeodelogin.php"
+                        echo "<p>Contraseña o usuario incorrectos <br> " . $_SESSION["intentosdisponibles"] + 1  . " intentos restantes</p>";
                     }
                     break;;
                 case "reg":
@@ -48,15 +46,17 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
                 case "nolog":
                     echo '<p>Debes logearte para poder acceder al menu</p>';
                     break;;
-
                 case "sesioncerrada":
                     echo '<p>Sesión cerrada con exito</p>';
+                    break;;
+                case "usuarioinexistente":
+                    echo '<p>Ese usuario no existe</p>';
                     break;;
             }
         }
         ?>
         <br>
-        <input type="submit" value="Iniciar Sesión"></input>
+        <input <?php if (isset($_SESSION['bloq'])) { echo "disabled";} ?> type="submit" value="Iniciar Sesión"></input>
         <hr id="linea">
         <h4>¿No Tienes Cuenta?</h4>
         <a href="registro.php" class="linkk">registrar usuario</a>

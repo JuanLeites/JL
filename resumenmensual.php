@@ -240,7 +240,7 @@ include("coneccionBD.php");
     data: {
       labels: [''],
       datasets: [{
-        label: 'Debe',
+        label: 'Cantidad',
         data: [],
         borderColor: '#36A2EB',
         backgroundColor: [

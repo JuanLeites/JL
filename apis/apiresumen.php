@@ -48,6 +48,7 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
                     echo json_encode(array(array(0),array(0)));
                 }
                 break;
+
             case 'categorias';
             $consulta = mysqli_query($basededatos, 'SELECT SUM(Cantidad_de_Venta)"Cantidad de venta",Título FROM productos_vendidos pv, producto p, categoría c,venta v WHERE v.Fecha_Venta>="'.$_GET["fecha_inicio"].'" and v.Fecha_Venta<="'.$_GET["fecha_final"].'" and pv.ID_VENTA=v.ID_VENTA and c.ID_CATEGORIA=p.ID_CATEGORIA and pv.ID_PRODUCTO = p.ID_PRODUCTO GROUP BY c.ID_CATEGORIA ORDER BY SUM(Cantidad_de_Venta) DESC LIMIT 10;');
             if (mysqli_num_rows($consulta) > 0) {
@@ -66,6 +67,5 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
         }
     }
 } else {
-    header("Location:/LUPF/a");
-    die();
+    echo json_encode("Datos Necesarios");
 }

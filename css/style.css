@@ -226,13 +226,18 @@ footer>a:hover {
   50px 41px 115px rgba(0, 0, 0, 0.45)
 ;
 }
-
+.productoconpocostock{
+    border:dotted 3px var(--color-principal);
+    border-radius:10px;
+    padding:5px;
+}
 .botoncerrar {
     padding: 5px;
     height: 20px;
     margin: 5px;
     border-radius: 4px;
     background-color: red;
+    border: solid 1px black;
     color: wheat;
     transition: 0.6s;
 }
@@ -343,6 +348,13 @@ main {
     font-size: 20px;
     -webkit-text-stroke-width: .1px;
     -webkit-text-stroke-color: black;
+    transition: 1s;
+}
+.enlacesdebuscador:hover{
+    box-shadow:
+  4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
+  35px 41px 80px rgba(0, 0, 0, 0.52)
+;
 }
 
 .agregardato:hover {

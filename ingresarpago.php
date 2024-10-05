@@ -28,7 +28,7 @@ include("funciones.php");
         <label for="monto">Monto</label>
         <input min="1" max="1000000" type="number" id="monto" name="monto" placeholder="Monto" required>
 
-        <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label> 
+        <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="/LUPF/agregar/agregarproveedores.php">agregar proveedores</a> </label> 
         <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
 
         <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
@@ -38,7 +38,7 @@ include("funciones.php");
     
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        mysqli_query($basededatos, 'INSERT INTO pago (Monto,ID_PROVEEDOR, Fecha_Pago) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'");');
+        mysqli_query($basededatos, 'INSERT INTO pago (Monto, ID_PROVEEDOR, Fecha_Pago, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
         
         $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
         $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente

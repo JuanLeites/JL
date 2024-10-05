@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargu
 }
 
 $ivas =  mysqli_query($basededatos, 'SELECT * FROM iva ');
-$categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ');
-$medidas = mysqli_query($basededatos, 'SELECT * FROM medida ');
+$categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ORDER BY Título');
+$medidas = mysqli_query($basededatos, 'SELECT * FROM medida ORDER BY Unidad');
 
 if (isset($_GET["id"])) {
     $consultaproducto = mysqli_query($basededatos, 'SELECT * FROM producto WHERE ID_PRODUCTO=' . $_GET["id"]);
