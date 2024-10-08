@@ -62,4 +62,4 @@ INSERT INTO IVA (Tipo, Valor) VALUES
 ('Tasa Reducida', 10.00);
 
 INSERT INTO Configuración (Precio_por_Tickets,Clave_Maestra) VALUES
-('200','lupf2024');
+('200','JL2024');

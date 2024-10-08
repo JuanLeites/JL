@@ -56,7 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarme</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="imagenes/register.png" type="image/x-icon">
+
+    <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
+    
     <script src="js/script.js">
 
     </script>

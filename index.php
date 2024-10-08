@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya están las variables de session nos mandara al menu principal
+if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos mandara al menu principal
     header("Location:menuprincipal.php");
 }
 ?>
@@ -12,7 +12,7 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
-    <link rel="shortcut icon" href="/LUPF/imagenes/" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script><link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
     <title>Inicio de Sesión</title>
 </head>
@@ -61,7 +61,7 @@ if (isset($_SESSION["usuario"]) && isset($_SESSION["contraseña"])) { //si ya es
         <h4>¿No Tienes Cuenta?</h4>
         <a href="registro.php" class="linkk">registrar usuario</a>
         <h4>¿has olvidado tu contraseña?</h4>
-        <a href="/LUPF/meolvidecontraseña/meolvide.php" class="linkk">recuperar contraseña</a>
+        <a href="meolvidecontraseña/meolvide.php" class="linkk">recuperar contraseña</a>
     </form>
     <?php include("footer.html") ?>
 </body>

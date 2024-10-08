@@ -1,7 +1,7 @@
 <?php
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
+include("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($basededatos, 'UPDATE `proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
@@ -14,7 +14,7 @@ if (isset($_GET["id"])) {
     $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
     $proveedor = mysqli_fetch_assoc($consultaproveedor);
 } else {
-    header("Location:/LUPF/proveedores.php");
+    header("Location:proveedores.php");
 }
 
 
@@ -26,10 +26,13 @@ if (isset($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Proveedor</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
-    <link rel="shortcut icon" href="../imagenes/icons/modproveedores.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/proveedor.png" type="image/x-icon">
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -47,7 +50,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="/LUPF/proveedores.php" id="reg">regresar</a>
+    <a href="proveedores.php" id="reg">regresar</a>
 </body>
 
 </html>

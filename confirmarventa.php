@@ -15,8 +15,10 @@ include("funciones.php");
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
 
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
-    <link rel="shortcut icon" href="/LUPF/imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
 </head>
 
 <body>
@@ -35,7 +37,7 @@ include("funciones.php");
                     <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if(!isset($_POST["IDPRODUCTOS"])){//si no está seteado ningun producto
-                            header("Location:/LUPF/ingresarventa.php?causa=sinproductos"); // nos manda a ingresar compra con la variable causa seteada con un error especifico
+                            header("Location:ingresarventa.php?causa=sinproductos"); // nos manda a ingresar compra con la variable causa seteada con un error especifico
                             die();
                         }
                         $total = 0; //contador que sumara el precio del producto por la cantidad mas el iva
@@ -47,7 +49,9 @@ include("funciones.php");
                         $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * From cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";'));
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) { // foreach al array de ID_PRODUCTOS pasado por post // hacemos for que cargue los datos actuales de la venta en la tabla.
-                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Nombre,Valor, Precio_Venta, Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";')); // consulta la cual obtiene el valor del iva que le corresponde y el precio de venta del producto
+                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Nombre,Valor, Precio_Venta, Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";')); // consulta la cual obtiene el valor del iva que le corresponde y el precio de venta del producto 
+                            $subtotal = floatval($productoconprecio["Precio_Venta"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
+                            
                             //calculamos depende su iva:
                             if ($productoconprecio["Valor"] == 10) { // si el iva es del 10 
                                 $contadordeiva10 += (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos a la variable que tiene la funcion de contador el iva dependiendo del subtotal
@@ -57,7 +61,6 @@ include("funciones.php");
                             }
                             $preciototalconiva = $subtotal + (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos al subtotal el iva
 
-                            $subtotal = floatval($productoconprecio["Precio_Venta"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
                             $contadordesubtotal += $subtotal;
 
                             $preciototalconiva = $subtotal + (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos al subtotal el iva

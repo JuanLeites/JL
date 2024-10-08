@@ -8,7 +8,7 @@
     <title>Cobros</title>
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
 </head>
 
 <body>

@@ -18,7 +18,7 @@ include("funciones.php");
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/pagos.png" type="image/x-icon">
 </head>
 
 <body>
@@ -28,7 +28,7 @@ include("funciones.php");
         <label for="monto">Monto</label>
         <input min="1" max="1000000" type="number" id="monto" name="monto" placeholder="Monto" required>
 
-        <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="/LUPF/agregar/agregarproveedores.php">agregar proveedores</a> </label> 
+        <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label> 
         <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
 
         <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>

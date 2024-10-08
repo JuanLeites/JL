@@ -49,8 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Menu Principal</title>
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
-    <link rel="shortcut icon" href="imagenes/LUPF.svg" type="image/x-icon">
-</head>
+    <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
 
 <body>
     <main>

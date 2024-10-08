@@ -1,7 +1,7 @@
 <?php
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
+include("funciones.php");
 
 $consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
@@ -38,14 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Contraseña</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
+    
+    <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
 
-    <link rel="shortcut icon" href="../imagenes/LUPF.svg" type="image/x-icon">
-
-    <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -53,22 +53,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="contraseñavieja">Ingrese su contraseña Acutal</label>
         <input class="inputpass1" type="password" name="contraseñavieja" id="contraseñavieja">
-        <img class="ojo1" id='ver' src="../imagenes/ojocerrado.png">
+        <img class="ojo1" id='ver' src="imagenes/ojocerrado.png">
 
         <hr id="linea">
 
         <label for="contraseñanueva">Ingrese Contraseña nueva</label>
         <input class="inputpass2" type="password" name="contraseñanueva" id="contraseñanueva">
-        <img class="ojo2" id='ver' src="../imagenes/ojocerrado.png">
+        <img class="ojo2" id='ver' src="imagenes/ojocerrado.png">
 
         <label for="contraseñanueva2">Repita Contraseña nueva</label>
         <input class="inputpass3" type="password" name="contraseñanueva2" id="contraseñanueva2">
-        <img class="ojo3" id='ver' src="../imagenes/ojocerrado.png">
+        <img class="ojo3" id='ver' src="imagenes/ojocerrado.png">
         <input type="submit" value="Cambiar">
     </form>
-    <a href="../menuprincipal.php" id="reg">regresar</a>
+    <a href="menuprincipal.php" id="reg">regresar</a>
 </body>
-<script src="../js/funciones.js" type="module"></script>
+<script src="js/funciones.js" type="module"></script>
 
 </html>
 <?php

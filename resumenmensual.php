@@ -15,6 +15,9 @@ include("coneccionBD.php");
   <link rel="stylesheet" href="css/style.css">
   <?php include("css/colorespersonalizados.php"); ?>
 
+  <link rel="shortcut icon" href="imagenes/icons/grafica.png" type="image/x-icon">
+
+
   <script src="LIBRERIAS/chart.js/chart.umd.js"></script>
 
 </head>

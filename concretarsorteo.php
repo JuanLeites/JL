@@ -55,6 +55,9 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
+    <link rel="shortcut icon" href="imagenes/icons/sorteo.png" type="image/x-icon">
+
+
 </head>
 
 <body>
@@ -81,7 +84,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
             ?>
         </div>
     </div>
-    <a href="/LUPF/sorteos.php" id="reg">regresar</a>
+    <a href="sorteos.php" id="reg">regresar</a>
 </body>
 
 

@@ -1,8 +1,8 @@
 <?php
 
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
+include("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($basededatos, 'UPDATE `Usuario` SET `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '"  WHERE Usuario ="' . $_SESSION["usuario"] . '";');
@@ -24,10 +24,14 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar configuración</title>
-    <link rel="stylesheet" href="/LUPF/css/style.css">
-    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
-    <link rel="shortcut icon" href="/LUPF/imagenes/LUPF.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+
 </head>
 
 <body>
@@ -46,7 +50,7 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
         <input type="color" name="colorfon" id="colorfon" value="<?php echo $usuario["Color_Fondo"] ?>">
         <input type="submit" value="Actualizar">
     </form>
-    <a href="../menuprincipal.php" id="reg">regresar</a>
+    <a href="menuprincipal.php" id="reg">regresar</a>
 </body>
 
 </html>

@@ -3,8 +3,8 @@
     <button class="cerrarbarralateral" onclick="ocultarmenu()">X</button>
 
     <div class="contenedordeicono">
-        <a href="/LUPF/menuprincipal.php">
-            <img class="icono" src="/LUPF/imagenes/icons/casa.png">
+        <a href="menuprincipal.php">
+            <img class="icono" src="imagenes/icons/casa.png">
             <h2>Menu Principal</h2>
         </a>
     </div>
@@ -14,51 +14,51 @@
 
 
     <div class="contenedordeicono">
-        <a href="/LUPF/cobros.php">
-            <img class="icono" src="/LUPF/imagenes/icons/carrito.png">
+        <a href="cobros.php">
+            <img class="icono" src="imagenes/icons/cobros.png">
             <h2>cobros</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/pagos.php">
-            <img class="icono" src="/LUPF/imagenes/icons/stock.png">
+        <a href="pagos.php">
+            <img class="icono" src="imagenes/icons/pagos.png">
             <h2>pagos</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/proveedores.php">
-            <img class="icono" src="/LUPF/imagenes/icons/proveedor.png">
+        <a href="proveedores.php">
+            <img class="icono" src="imagenes/icons/proveedor.png">
             <h2>Proveedores</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/productos.php">
-            <img class="icono" src="/LUPF/imagenes/icons/modproductos.png">
+        <a href="productos.php">
+            <img class="icono" src="imagenes/icons/productos.png">
             <h2>Productos</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/clientes.php">
-            <img class="icono" src="/LUPF/imagenes/icons/modclientes.png">
+        <a href="clientes.php">
+            <img class="icono" src="imagenes/icons/modclientes.png">
             <h2>Clientes</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/resumenmensual.php">
-            <img class="icono" src="/LUPF/imagenes/icons/grafica.png">
+        <a href="resumenmensual.php">
+            <img class="icono" src="imagenes/icons/grafica.png">
             <h2>Resumen Mensual</h2>
         </a>
     </div>
     <div class="contenedordeicono">
-        <a href="/LUPF/sorteos.php">
-            <img class="icono" src="/LUPF/imagenes/icons/sorteo.png">
-            <h2>Sorteo</h2>
+        <a href="sorteos.php">
+            <img class="icono" src="imagenes/icons/sorteo.png">
+            <h2>Sorteos</h2>
         </a>
     </div>
 </div>
 
 
-<img src="/LUPF/imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
+<img src="imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
 
 
 
@@ -91,10 +91,10 @@
 </script>
 
 <div class="popup" style="display: none;" id="popup">
-    <a href="/LUPF/modificarsoftware/modificarusuario.php"> Modificar Datos de Usuario</a>
-    <a href="/LUPF/modificarsoftware/modificarcontraseña.php"> Modificar Contraseña</a>
-    <a href="/LUPF/modificarsoftware/modificarconfiguracion.php"> Modificar Configuración del software</a>
-    <a href="/LUPF/modificarsoftware/reestablecercolores.php">Reestablecer Colores por defecto</a>
+    <a href="modificarusuario.php"> Modificar Datos de Usuario</a>
+    <a href="modificarcontraseña.php"> Modificar Contraseña</a>
+    <a href="modificarconfiguracion.php"> Modificar Configuración del software</a>
+    <a href="reestablecercolores.php">Reestablecer Colores por defecto</a>
     <button onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
 </div>
 
@@ -103,6 +103,6 @@
     <h2>
         <?php echo $_SESSION["usuario"]; ?>
     </h2>
-    <img src='/LUPF/fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
-    <a class="botoncerrar" href="/LUPF/close.php">LogOut</a>
+    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
+    <a class="botoncerrar" href="close.php">LogOut</a>
 </div>

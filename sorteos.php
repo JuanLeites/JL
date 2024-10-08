@@ -14,13 +14,16 @@ include("funciones.php");
 
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+
+    <link rel="shortcut icon" href="imagenes/icons/sorteo.png" type="image/x-icon">
+
 </head>
 
 <body>
 
     <div class="buscador">
         <input type="text" placeholder="Buscar Sorteos" class="inputparabuscarsorteos">
-        <a href="/LUPF/agregar/agregarsorteos.php" class="agregardato">+</a>
+        <a href="agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <table>

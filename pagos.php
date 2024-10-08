@@ -8,7 +8,7 @@
     <title>Pagos</title>
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/pagos.png" type="image/x-icon">
 </head>
 
 <body>
@@ -41,6 +41,7 @@
             }
         }, 2000);
     }
+    
 </script>
 
 </html>

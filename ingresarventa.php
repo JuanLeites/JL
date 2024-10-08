@@ -16,7 +16,10 @@ include("funciones.php");
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
 
-    <link rel="shortcut icon" href="/LUPF/imagenes/icons/carrito.png" type="image/x-icon">
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+
+    <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
 </head>
 
 <body>
@@ -37,7 +40,7 @@ include("funciones.php");
 
         <form method="POST" class="formularios" action="confirmarventa.php">
             <h1>Ingresar Venta</h1>
-            <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="/LUPF/agregar/agregarclientes.php">agregar clientes</a> </label>
+            <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="agregarclientes.php">agregar clientes</a> </label>
             <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
 
             <select name="ID_CLIENTE" class="selectdeclientes" required></select>

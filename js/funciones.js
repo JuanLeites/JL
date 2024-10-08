@@ -109,7 +109,7 @@ export function cargarclientes(filtro) {
                     agregaralinea(cadacliente.RUT);
                 }
                 
-                agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
 
             })
@@ -202,7 +202,7 @@ export function cargarproductos(filtro) {
                 agregaralinea(cadaproducto.Tipo);
                 agregaralinea(cadaproducto.Unidad);
                 agregaralinea(cadaproducto.Título);
-                agregaralinea('<img ruta="eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img ruta="eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
@@ -484,7 +484,7 @@ export function cargarproveedores(filtro) {
                 agregaralinea(cadaproveedor.RUT);
                 agregaralinea(cadaproveedor.Contacto);
                 agregaralinea(cadaproveedor.Deuda);
-                agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
 
             })
@@ -743,7 +743,7 @@ export function cargarsorteos(filtro) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("todavia no realizado");
-                    agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificar/modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"></a>');
+                    agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
                     agregaralinea('<img ruta="eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');

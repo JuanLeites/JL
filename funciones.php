@@ -1,8 +1,5 @@
 <?php
 //al utilizar funciones hay que incluir archivos de la libreria:"sweetalert";   "<script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script><link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">"
-echo '<script src="/LUPF/LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="/LUPF/LIBRERIAS/sweetalert/sweetalert2.css">';
-
 function mostraraviso($titulo, $colorfondo, $colortexto){
   if ($colorfondo == "") {
     $colorfondo = "#001F47";

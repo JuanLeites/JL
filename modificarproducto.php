@@ -1,20 +1,20 @@
 <?php
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
+include("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargue la pagina si el formulario fue enviado
     if ($_FILES["foto"]["tmp_name"] != "") { //si se selecciona una foto en el input type file
-        @unlink("../IMAGENESSOFTWARE/" . $_POST["rutavieja"]); //borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
-        move_uploaded_file($_FILES['foto']['tmp_name'], '../IMAGENESSOFTWARE/' . $_FILES['foto']['name']); //carga la nueva foto en la carpeta
-        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="IMAGENESSOFTWARE/' . $_FILES['foto']['name'] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+        @unlink("IMAGENESSOFTWARE/" . $_POST["rutavieja"]); //borra la foto anterior si es que la encuentra, sino da error pero lo escondemos con un arroba
+        move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']); //carga la nueva foto en la carpeta
+        mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="IMAGENESSOFTWARE/' . $_FILES['foto']['name'] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"]. '", `Cantidad` = "' . $_POST["cantidad"]  . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
         $opcion = "productoactualizadoconfoto";
     } else {
         if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
-            mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            mysqli_query($basededatos, 'UPDATE `producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"]. '", `Cantidad` = "' . $_POST["cantidad"]   . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
             $opcion = "productoactualizado";
         } else {
-            mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"] . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
+            mysqli_query($basededatos, 'UPDATE `producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"]. '", `Cantidad` = "' . $_POST["cantidad"]   . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
             $opcion = "productoactualizado";
         }
     }
@@ -30,7 +30,7 @@ if (isset($_GET["id"])) {
     $consultaproducto = mysqli_query($basededatos, 'SELECT * FROM producto WHERE ID_PRODUCTO=' . $_GET["id"]);
     $producto = mysqli_fetch_assoc($consultaproducto);
 } else {
-    header("Location:/LUPF/productos.php");
+    header("Location:productos.php");
 }
 
 
@@ -43,11 +43,13 @@ if (isset($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Producto</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
+    <link rel="shortcut icon" href="imagenes/icons//productos.png" type="image/x-icon">
 
-    <link rel="shortcut icon" href="/LUPF/imagenes/icons/modproductos.png" type="image/x-icon">
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -126,7 +128,7 @@ if (isset($_GET["id"])) {
 
         <input type="submit" value="Actualizar">
     </form>
-    <a href="/LUPF/productos.php" id="reg">regresar</a>
+    <a href="productos.php" id="reg">regresar</a>
 </body>
 
 </html>
@@ -135,7 +137,7 @@ if (isset($_GET["id"])) {
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
 switch ($opcion) {
     case 'productoactualizadoconfoto';
-        mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, "../IMAGENESSOFTWARE/" . $_FILES['foto']['name']);
+        mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, "IMAGENESSOFTWARE/" . $_FILES['foto']['name']);
         break;
     case 'productoactualizado';
         mostraraviso('Producto modificado con éxito', $colorfondo, $colorprincipal);

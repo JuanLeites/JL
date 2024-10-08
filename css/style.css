@@ -92,6 +92,17 @@ select {
     color: var(--color-fondo);
     -webkit-text-stroke-width: .1px;
     -webkit-text-stroke-color: black;
+    transition: .7s;
+}
+
+input:hover {
+    box-shadow:
+        4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
+        35px 41px 80px rgba(0, 0, 0, 0.52);
+}
+
+input::placeholder {
+    color: var(--color-fondo);
 }
 
 input[type="submit"] {
@@ -187,6 +198,7 @@ footer>a:hover {
     min-width: 3000px;
     color: var(--color-fondo);
     transition: 1s;
+    height: 100%;
 }
 
 .contenedordeicono:hover {
@@ -197,11 +209,6 @@ footer>a:hover {
 .contenedordeicono>a:hover {
     color: var(--color-secundario)
 }
-
-
-
-
-
 
 
 .close {
@@ -221,16 +228,17 @@ footer>a:hover {
     overflow-wrap: break-word;
     word-wrap: break-word;
     box-shadow:
-  3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
-  11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
-  50px 41px 115px rgba(0, 0, 0, 0.45)
-;
+        3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
+        11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
+        50px 41px 115px rgba(0, 0, 0, 0.45);
 }
-.productoconpocostock{
-    border:dotted 3px var(--color-principal);
-    border-radius:10px;
-    padding:5px;
+
+.productoconpocostock {
+    border: dotted 3px var(--color-principal);
+    border-radius: 10px;
+    padding: 5px;
 }
+
 .botoncerrar {
     padding: 5px;
     height: 20px;
@@ -241,21 +249,24 @@ footer>a:hover {
     color: wheat;
     transition: 0.6s;
 }
-.logoenformulario{
+
+.logoenformulario {
     height: 40px;
     width: 40px;
     margin: auto auto;
-    filter:  drop-shadow(0 0 10px var(--color-fondo)) ;
+    filter: drop-shadow(0 0 10px var(--color-fondo));
     border-radius: 10px;
     padding: 2px;
 }
-.textoformulario{
+
+.textoformulario {
     text-align: center;
     color: var(--color-fondo);
     margin-bottom: 10%;
 }
-.meolvidelacontraseña{
-    max-width: 20% !important   ;
+
+.meolvidelacontraseña {
+    max-width: 20% !important;
 }
 
 .botoncerrar:hover {
@@ -278,11 +289,10 @@ main {
     max-height: 70%;
     overflow-y: scroll;
     box-shadow:
-  3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
-  10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
-  25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
-  84px 66px 80px rgba(0, 0, 0, 0.52)
-;
+        3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
+        10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
+        25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
+        84px 66px 80px rgba(0, 0, 0, 0.52);
 
 }
 
@@ -294,21 +304,6 @@ main {
     padding: 20px;
 }
 
-/* ESTILO PARA EL BOTON*/
-.agregarproducto {
-    height: 40px;
-    width: 40px;
-    border-radius: 50px;
-    border: var(--color-fondo) solid 2px;
-    color: var(--color-fondo);
-    background-color: var(--color-secundario);
-    text-align: center;
-    font-size: 30px;
-}
-
-
-
-
 .agregardato {
     height: 40px;
     width: 40px;
@@ -318,8 +313,13 @@ main {
     background-color: var(--color-secundario);
     text-align: center;
     font-size: 30px;
+    transition: 1s;
 }
-
+.agregardato:hover {
+    background-color: var(--color-fondo);
+    border: var(--color-secundario) solid 2px;
+    color: var(--color-secundario);
+}
 .buscador {
     position: absolute;
     top: 20px;
@@ -366,16 +366,14 @@ main {
     -webkit-text-stroke-color: black;
     transition: 1s;
 }
-.enlacesdebuscador:hover{
+
+.enlacesdebuscador:hover {
     box-shadow:
-  4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
-  35px 41px 80px rgba(0, 0, 0, 0.52)
-;
+        4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
+        35px 41px 80px rgba(0, 0, 0, 0.52);
 }
 
-.agregardato:hover {
-    background-color: wheat;
-}
+
 
 table {
     font-size: 20px;
@@ -404,7 +402,7 @@ table {
     max-width: 60%;
     margin: 10px;
     overflow: hidden;
-    box-shadow:11px 10px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 11px 10px 15px rgba(0, 0, 0, 0.15);
 }
 
 .compra-venta {
@@ -540,10 +538,9 @@ main {
     gap: 10px;
     align-items: center;
     box-shadow:
-  3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
-  11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
-  50px 41px 115px rgba(0, 0, 0, 0.45)
-;
+        3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
+        11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
+        50px 41px 115px rgba(0, 0, 0, 0.45);
 
 }
 
@@ -554,6 +551,11 @@ main {
     color: black;
     border: solid 1px black;
     border-radius: 10px;
+}
+.popup>a:hover{
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    border: solid 2px var(--color-principal);
 }
 
 
@@ -617,10 +619,9 @@ main {
 
 .contenedordegraficas>canvas {
     box-shadow:
-  3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
-  11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
-  50px 41px 115px rgba(0, 0, 0, 0.45)
-;
+        3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
+        11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
+        50px 41px 115px rgba(0, 0, 0, 0.45);
 }
 
 @media (max-height: 830px) {
@@ -712,6 +713,7 @@ main {
         top: 45% !important;
         max-height: 45% !important;
     }
+
     .formularioproductos>.contenedordesubcontenedores>.subcontenedores>input,
     .formularioproductos>.contenedordesubcontenedores>.subcontenedores>select {
         padding: 1px;
@@ -724,9 +726,11 @@ main {
     .contenedordeicono {
         padding: 3px;
     }
-    .formularioproductos>h1{
+
+    .formularioproductos>h1 {
         margin: 2px;
     }
+
     .formularioproductos>.contenedordesubcontenedores>.subcontenedores>input,
     .formularioproductos>.contenedordesubcontenedores>.subcontenedores>select {
         max-height: 20px;

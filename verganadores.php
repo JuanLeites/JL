@@ -5,7 +5,7 @@ if (isset($_GET["id"])) {
     $datosdelsorteo = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT * FROM sorteo WHERE ID_SORTEO="' . $_GET["id"] . '"'));
     $ganadores = mysqli_query($basededatos, 'SELECT Nombre,Cédula FROM sorteo s, ganador g, cliente c WHERE s.ID_SORTEO=g.ID_SORTEO and g.ID_CLIENTE=c.ID_CLIENTE and  s.ID_SORTEO="' . $_GET["id"] . '"');
 } else {
-    header("Location:/LUPF/sorteos.php?causa?idnoseteada");
+    header("Location:sorteos.php?causa?idnoseteada");
     die();
 }
 
@@ -22,9 +22,7 @@ if (isset($_GET["id"])) {
     <link rel="stylesheet" href="css/style.css">
     <?php include("css/colorespersonalizados.php"); ?>
 
-
-
-    <link rel="shortcut icon" href="./imagenes/icons/carrito.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/sorteo.png" type="image/x-icon">
 </head>
 
 <body>

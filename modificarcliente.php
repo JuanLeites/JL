@@ -1,7 +1,7 @@
 <?php
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include("chequeodelogin.php");
+include("coneccionBD.php");
+include("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
@@ -19,7 +19,7 @@ if (isset($_GET["id"])) {
     $consultacliente = mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ID_CLIENTE=' . $_GET["id"]);
     $cliente = mysqli_fetch_assoc($consultacliente); //obtenemos un array asociativo de la consulta(un array con indices iguales a la base de datos sirve unicamente cuando obtenemos una fila sola)
 } else {
-    header("Location:/LUPF/clientes.php");
+    header("Location:clientes.php");
 }
 
 
@@ -32,11 +32,15 @@ if (isset($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Cliente</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <?php include("../css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal 
+    <link rel="stylesheet" href="css/style.css">
+    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal 
     ?>
+    <link rel="shortcut icon" href="imagenes/icons/modclientes.png" type="image/x-icon">
 
-    <link rel="shortcut icon" href="/LUPF/imagenes/icons/modclientes.png" type="image/x-icon">
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
+    
 </head>
 
 <body>
@@ -63,7 +67,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="/LUPF/clientes.php" id="reg">regresar</a>
+    <a href="clientes.php" id="reg">regresar</a>
 </body>
 
 </html>
