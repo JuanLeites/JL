@@ -7,7 +7,7 @@ function filtrarproductos() {
         const title = cadaproducto.querySelector('h2').textContent.toLowerCase();
         const description = cadaproducto.querySelector('p').textContent.toLowerCase();
 
-        if (title.includes(textofiltrado) || description.includes(textofiltrado)) {
+        if (title.include_onces(textofiltrado) || description.include_onces(textofiltrado)) {
             cadaproducto.style.display = 'block';
         } else {
             cadaproducto.style.display = 'none';
@@ -48,7 +48,7 @@ function cargarproductosparavender() {
                 tarjeta.setAttribute("categoria-producto", cadaproducto.Título);
 
                 var imagen = document.createElement("img");
-                if (cadaproducto.imagen.includes("IMAGENESSOFTWARE")) {
+                if (cadaproducto.imagen.include_onces("IMAGENESSOFTWARE")) {
                     console.log(cadaproducto.imagen)
                     imagen.setAttribute("src", "../" + cadaproducto.imagen);
                 } else {

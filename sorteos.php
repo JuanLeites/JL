@@ -1,6 +1,6 @@
 <?php
-include("chequeodelogin.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("funciones.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +10,7 @@ include("funciones.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteos</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
 
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
@@ -32,7 +32,7 @@ include("funciones.php");
         </table>
 
     </div>
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 
 

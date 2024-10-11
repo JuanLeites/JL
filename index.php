@@ -11,7 +11,7 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script><link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
     <title>Inicio de Sesión</title>
@@ -25,7 +25,7 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
         <input <?php if (isset($_SESSION['bloq'])) { echo "disabled";} ?> type="password" name="contraseña" class="contraseñadeindex" placeholder="contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png"></input>
 
         <?php
-        include("funciones.php");
+        include_once("funciones.php");
 
         if (isset($_GET['causa'])) {
             switch ($_GET['causa']) {
@@ -35,7 +35,7 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
                     }
                     break;;
                 case "reg":
-                    mostraraviso("Registrado con éxito", "", "");
+                    mostraraviso("Registrado con éxito!", "", "");
                     break;;
                 case "bloq":
                     mostraralerta("Usuario Bloqueado!","","");
@@ -50,9 +50,15 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
                     mostraraviso("Sesión cerrada con éxito","","");
                     break;;
                 case "usuarioinexistente":
-                    echo '<p>Ese usuario no existe</p>';
+                    mostraralerta("Ese usuario no existe","","");
                     break;;
-            }
+                case "contraseñaactualizada":
+                    mostraraviso("Contraseña Actualizada con éxito!", "", "");
+                    break;;
+                case "nohagastrampa":
+                    mostraralerta("No trates de acceder a apartados que no puedes!","","");
+                    break;;
+                            }
         }
         ?>
         <br>
@@ -63,7 +69,7 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
         <h4>¿has olvidado tu contraseña?</h4>
         <a href="meolvidecontraseña/meolvide.php" class="linkk">recuperar contraseña</a>
     </form>
-    <?php include("footer.html") ?>
+    <?php include_once("footer.html") ?>
 </body>
 <script src="js/funciones.js" type="module"></script>
 

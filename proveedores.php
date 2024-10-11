@@ -1,4 +1,4 @@
-<?php include("chequeodelogin.php"); ?>
+<?php include_once("chequeodelogin.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +11,7 @@
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
     
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/proveedor.png" type="image/x-icon">
 </head>
 
@@ -30,7 +30,7 @@
         </table>
     </div>
 
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
     import {cargarproveedores} from "./js/funciones.js"

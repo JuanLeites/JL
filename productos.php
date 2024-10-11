@@ -1,4 +1,4 @@
-<?php include("chequeodelogin.php"); ?>
+<?php include_once("chequeodelogin.php"); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -9,8 +9,8 @@
     <title>Productos</title>
     <link rel="stylesheet" href="css/style.css">
     <?php 
-    include("coneccionBD.php");
-    include("css/colorespersonalizados.php");//se incluye archivo que imprime las variables de estilos establecidas en la base de datos si es que la variable de session usuario está seteada
+    include_once("coneccionBD.php");
+    include_once("css/colorespersonalizados.php");//se incluye archivo que imprime las variables de estilos establecidas en la base de datos si es que la variable de session usuario está seteada
     ?>
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
@@ -32,7 +32,7 @@
     </div>
 
 
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 
 </body>
 

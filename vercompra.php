@@ -1,6 +1,6 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ include("coneccionBD.php");
     <title>Ver datos de la Compra</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
 
     <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
 </head>
@@ -59,7 +59,7 @@ include("coneccionBD.php");
             <p>Compra ingresada por: <?php echo $datosdecompra["NombreUsuario"]; ?> </p>
         </div>
     </div>
-    <?php include("barralateral.html");
+    <?php include_once("barralateral.html");
     ?>
 </body>
 <script type="module">

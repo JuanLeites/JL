@@ -1,7 +1,7 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargue la pagina si el formulario fue enviado
     if ($_FILES["foto"]["tmp_name"] != "") { //si se selecciona una foto en el input type file
@@ -44,7 +44,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Producto</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
     <link rel="shortcut icon" href="imagenes/icons//productos.png" type="image/x-icon">
 

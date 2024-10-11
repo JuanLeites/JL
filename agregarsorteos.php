@@ -1,7 +1,7 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
@@ -31,7 +31,7 @@ if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  ?>
 
     <link rel="shortcut icon" href="imagenes/icons/sorteo.png" type="image/x-icon">
 
@@ -51,7 +51,7 @@ if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
         <input type="submit" value="Crear Sorteo">
     </form>
     </div>
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 
 </html>

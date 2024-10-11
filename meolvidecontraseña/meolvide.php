@@ -1,3 +1,11 @@
+<?php 
+include_once("../funciones.php");
+session_start();
+if(isset($_SESSION["acertado"])){
+  header("Location:cambiarcontraseña.php");
+  die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +32,7 @@
 </body>
 </html>
 <?php
-include("../funciones.php");
+
 if (isset($_GET['causa'])) {
   switch ($_GET['causa']) {
       case "sindatos":

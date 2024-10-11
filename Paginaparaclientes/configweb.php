@@ -1,8 +1,8 @@
 <?php
 
-include("../chequeodelogin.php");
-include("../coneccionBD.php");
-include("../funciones.php");
+include_once("../chequeodelogin.php");
+include_once("../coneccionBD.php");
+include_once("../funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($basededatos, 'UPDATE `Configuración` SET `Color_Principal` = "' . $_POST["colorprincipal"] . '",`Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '";');//actualizamos los precios por tickets

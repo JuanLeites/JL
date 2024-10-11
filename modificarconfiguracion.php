@@ -1,8 +1,8 @@
 <?php
 
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($basededatos, 'UPDATE `Usuario` SET `Color_Principal` = "' . $_POST["colorprincipal"] . '", `Color_Secundario` = "' . $_POST["colorsecu"] . '", `Color_Fondo` = "' . $_POST["colorfon"] . '"  WHERE Usuario ="' . $_SESSION["usuario"] . '";');
@@ -25,7 +25,7 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar configuración</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
 

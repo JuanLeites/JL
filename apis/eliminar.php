@@ -1,6 +1,6 @@
 <?php
-include("../coneccionBD.php");
-include("../chequeodelogin.php");
+include_once("../coneccionBD.php");
+include_once("../chequeodelogin.php");
 if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
     switch ($_GET['tipo']) {

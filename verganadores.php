@@ -1,6 +1,6 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
 if (isset($_GET["id"])) {
     $datosdelsorteo = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT * FROM sorteo WHERE ID_SORTEO="' . $_GET["id"] . '"'));
     $ganadores = mysqli_query($basededatos, 'SELECT Nombre,Cédula FROM sorteo s, ganador g, cliente c WHERE s.ID_SORTEO=g.ID_SORTEO and g.ID_CLIENTE=c.ID_CLIENTE and  s.ID_SORTEO="' . $_GET["id"] . '"');
@@ -20,7 +20,7 @@ if (isset($_GET["id"])) {
     <title>Ver datos del sorteo</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
 
     <link rel="shortcut icon" href="imagenes/icons/sorteo.png" type="image/x-icon">
 </head>
@@ -44,7 +44,7 @@ if (isset($_GET["id"])) {
         </div>
     </div>
 
-    <?php include("barralateral.html");
+    <?php include_once("barralateral.html");
     ?>
 </body>
 <script type="module">

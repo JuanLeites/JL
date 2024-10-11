@@ -1,6 +1,6 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
 
 
 
@@ -13,7 +13,7 @@ include("coneccionBD.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resumen mensual</title>
   <link rel="stylesheet" href="css/style.css">
-  <?php include("css/colorespersonalizados.php"); ?>
+  <?php include_once("css/colorespersonalizados.php"); ?>
 
   <link rel="shortcut icon" href="imagenes/icons/grafica.png" type="image/x-icon">
 
@@ -33,7 +33,7 @@ include("coneccionBD.php");
     <canvas id="grafica3"></canvas>
     <canvas id="grafica4"></canvas>
   </div>
-  <?php include("barralateral.html") ?>
+  <?php include_once("barralateral.html") ?>
 </body>
 <script>
   var inputdefechadeinicio = document.querySelector(".fechainicio");

@@ -1,18 +1,20 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 $consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["contraseñavieja"]) && isset($_POST["contraseñanueva"]) && isset($_POST["contraseñanueva2"])) { //si estan seteados los valores
         if ($_POST["contraseñavieja"] != "" && $_POST["contraseñanueva"] != "" && $_POST["contraseñanueva2"] != "") { //si no estan vacios
             if ($_POST["contraseñanueva"] == $_POST["contraseñanueva2"]) {
-                if ($_POST["contraseñavieja"] == $usuario["Contraseña"]) { // si la contraseña ingresada coincide con la contraseña del usuario
+                $contraseña = $_POST["contraseñavieja"];
+                if (password_verify($contraseña, $usuario["Contraseña"])) { // si la contraseña ingresada coincide con la contraseña del usuario
                     if (strlen($_POST["contraseñanueva"]) > 5) { //strlen retorna la cantidad de caracteres
-                        $_SESSION["contraseña"] = $_POST["contraseñanueva2"];
-                        mysqli_query($basededatos, 'UPDATE `usuario` SET `contraseña`="' . $_POST["contraseñanueva2"] . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+
+                        mysqli_query($basededatos, 'UPDATE `usuario` SET `contraseña`="' . password_hash($_POST["contraseñanueva2"], PASSWORD_BCRYPT) . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
                         $opcion = "contraseñacambiada";
                     } else {
                         $opcion = "contraseñacorta";
@@ -39,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Contraseña</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
     
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">

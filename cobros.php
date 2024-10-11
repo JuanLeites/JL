@@ -1,4 +1,4 @@
-<?php include("chequeodelogin.php"); ?>
+<?php include_once("chequeodelogin.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cobros</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
 </head>
 
@@ -27,7 +27,7 @@
             </tbody>
         </table>
     </div>
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
     import {cargarcobros} from "./js/funciones.js"

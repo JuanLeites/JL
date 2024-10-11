@@ -1,5 +1,5 @@
 <?php
-include("coneccionBD.php");
+include_once("coneccionBD.php");
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["usuario"] != "" && $_POST["contraseña"] != "") { // si contienen texto
@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["nombre"] = $usuario["Nombre"];
                 $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
                 $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+                $_SESSION["correo"] = $usuario["Correo"];
             } else {
                 if (isset($_SESSION["intentosdisponibles"])) { //chequea que intentos este seteada
                     if ($_SESSION["intentosdisponibles"] <= 0) {// si intentos en
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
 
 <body>
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </main>
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
     import {
