@@ -19,6 +19,7 @@ include_once("funciones.php");
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 
     <link rel="shortcut icon" href="imagenes/icons/pagos.png" type="image/x-icon">
+    
 </head>
 
 <body>
@@ -95,8 +96,12 @@ include_once("funciones.php");
                 echo "<input type='hidden' name='CANTIDAD[]' value='" . $_POST["CANTIDAD"][$indice] . "'>";
             }
             ?>
-            <h1>Compra a <?php echo  $proveedor["Razón_Social"] . " - " . $proveedor["RUT"];  ?>
-            </h1>
+            <h3>Concretar compra</h3>
+            <p>proveedor : <?php echo  $proveedor["Razón_Social"] . " - " . $proveedor["RUT"];  ?></p>
+            <div class="acredito">
+                <input type="button" name="opciondepago" id="botoncreditocontado" class="acredito" value="Contado">
+                <input type="hidden" min="<?php echo date("Y-m-d"); ?>" name="fechacredito" id="inputdate"> 
+            </div>
             <label for="cuantopaga">Ingrese el dinero pagado </label>
             <input id="cuantopaga" type="number" placeholder="Dinero Pagado" name="monto" min="0"  required>
             <input type="submit" value="Concretar Compra">
@@ -105,8 +110,5 @@ include_once("funciones.php");
     <?php include_once("barralateral.html");
     ?>
 </body>
-<script type="module">
-
-</script>
-
+<script src="js/funciones.js" type="module"></script>
 </html>

@@ -9,11 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($consultausuarios) == 1) { //chequemos que exista un usuario con ese nombre de usuario
             $usuario = mysqli_fetch_assoc($consultausuarios);
             if (password_verify($contraseña, $usuario["Contraseña"])) { //la variable contraseña obtiene la contraseña que ingresó el usuario y "$usuario["Contraseña"]" obtiene la contraseña encriptada, la funcion password_veryfy() verifica que esté correcta la contraseña
-                $_SESSION["usuario"] = $usuarioingresado;
-                $_SESSION["nombre"] = $usuario["Nombre"];
-                $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
-                $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
-                $_SESSION["correo"] = $usuario["Correo"];
+                if($usuario["Tipo_Usuario"]=="admin"){
+                    $_SESSION["administador"]=TRUE;
+                    $_SESSION["usuario"] = $usuarioingresado;
+                    $_SESSION["nombre"] = $usuario["Nombre"];
+                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
+                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+                    $_SESSION["correo"] = $usuario["Correo"];
+                }else{
+                    $_SESSION["usuario"] = $usuarioingresado;
+                    $_SESSION["nombre"] = $usuario["Nombre"];
+                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
+                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+                    $_SESSION["correo"] = $usuario["Correo"];
+                }
             } else {
                 if (isset($_SESSION["intentosdisponibles"])) { //chequea que intentos este seteada
                     if ($_SESSION["intentosdisponibles"] <= 0) {// si intentos en

@@ -28,7 +28,7 @@ include_once("funciones.php");
         <label for="monto">Monto</label>
         <input min="1" max="1000000" type="number" id="monto" name="monto" placeholder="Monto" required>
 
-        <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="agregarclientes.php">agregar clientes</a> </label> 
+        <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarclientes.php">agregar clientes</a> </label> 
         <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
 
         <select name="ID_CLIENTE" class="selectdeclientes" required></select>

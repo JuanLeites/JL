@@ -53,6 +53,9 @@ include_once("coneccionBD.php");
             <h1>Datos de la Compra</h1>
             <p>Proveedor : <?php echo $datosdecompra["Razón_Social"] . " - " . $datosdecompra["RUT"]; ?> </p>
             <p>Fecha de la compra : <?php echo $datosdecompra["Fecha_Compra"]; ?> </p>
+            <?php if ($datosdecompra["Vencimiento_Factura"] != "") {
+                echo "<p>La compra fué a credito, vence : " . $datosdecompra["Vencimiento_Factura"] . "</p>";
+            } ?>
             <p>Se le pagó al proveedor : <?php echo $datosdecompra["Monto"]; ?></p>
             <p>Generó una deuda de : <?php echo $datosdecompra["Monto"] - $datosdecompra["Precio_Final"]; // siendo monto el dinero que se le pagó al proveedor y precio final lo que se deberia de haber pagado 
                                         ?></p>

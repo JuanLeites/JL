@@ -40,9 +40,8 @@ include_once("funciones.php");
 
         <form method="POST" class="formularios" action="confirmarcompra.php">
             <h1>Ingresar Compra</h1>
-            <label for="filtro">Buscar o <a style="text-decoration: none; color:<?php echo $colorprincipal; ?>;" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label>
+            <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label>
             <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
-
             <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
             <div class="contenedordeproductos">
                 <table class="agregarproductos">
@@ -89,19 +88,27 @@ include_once("funciones.php");
 
 </html>
 <?php
-if(isset($_GET["causa"])){
+if (isset($_GET["causa"])) {
     switch ($_GET['causa']) {
         case "sinproductos":
-            mostraralerta("No puedes realizar una compra sin productos",$colorfondo, $colorprincipal);
+            mostraralerta("No puedes realizar una compra sin productos", $colorfondo, $colorprincipal);
             break;;
     }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["monto"]) && isset($_POST["ID_PROVEEDOR"]) && isset($_POST["IDPRODUCTOS"]) && isset($_POST["CANTIDAD"]) && isset($_POST["precio_final"])) {
+
         if ($_POST["monto"] != "") {
-            //ingresamos la compra
-            mysqli_query($basededatos, 'INSERT INTO compra (Precio_Final,Fecha_COMPRA,ID_Proveedor,sub_total) values ("' .  $_POST["precio_final"] . '","' . date("Y-m-d") . '","' . $_POST["ID_PROVEEDOR"] . '","' . $_POST["subtotal"] . '");'); //insertamos la compra antes del cobro ya que el cobro es algo que va por separado ya que le puede pagar menos de lo que sale
-            $iddecompra = mysqli_insert_id($basededatos); // guardamos en la variable $iddecompra la clave principal de la ultima insercción en la base de datos(la compra ingresada);
+            //chequeamos si es a crédito o contado:
+            if ($_POST["fechacredito"] != "") {//si es a credito, la fecha de crédito se debe de setear
+                //se ingresa
+                mysqli_query($basededatos, 'INSERT INTO compra (Precio_Final,Fecha_COMPRA,ID_Proveedor,sub_total,Vencimiento_Factura) values ("' .  $_POST["precio_final"] . '","' . date("Y-m-d") . '","' . $_POST["ID_PROVEEDOR"] . '","' . $_POST["subtotal"] . '","'.$_POST["fechacredito"].'");'); //insertamos la compra antes del cobro ya que el cobro es algo que va por separado ya que le puede pagar menos de lo que sale
+                $iddecompra = mysqli_insert_id($basededatos); // guardamos en la variable $iddecompra la clave principal de la ultima insercción en la base de datos(la compra ingresada);
+                $esacredito=true;
+            } else {//si llegase a ser al contado
+                mysqli_query($basededatos, 'INSERT INTO compra (Precio_Final,Fecha_COMPRA,ID_Proveedor,sub_total) values ("' .  $_POST["precio_final"] . '","' . date("Y-m-d") . '","' . $_POST["ID_PROVEEDOR"] . '","' . $_POST["subtotal"] . '");'); //insertamos la compra antes del cobro ya que el cobro es algo que va por separado ya que le puede pagar menos de lo que sale
+                $iddecompra = mysqli_insert_id($basededatos); // guardamos en la variable $iddecompra la clave principal de la ultima insercción en la base de datos(la compra ingresada);
+            }
 
             foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
                 $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Compra, Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
@@ -122,10 +129,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_query($basededatos, 'UPDATE `proveedor` SET `Deuda`="' . $deudaactual . '"  WHERE `ID_PROVEEDOR`="' . $_POST["ID_PROVEEDOR"] . '";'); // lo actualizamos en la base de datos
 
-            mostraraviso("Compra concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
+            if(isset($esacredito)){
+                mostraraviso("Compra a crédito concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
+            }else{
+                mostraraviso("Compra al contado concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
+            }
         } else {
             mostraralerta("Monto no ingresado", $colorfondo, $colorsecundario);
         }
+
     } else {
         mostraralerta("Datos no seteados", $colorfondo, $colorsecundario);
     }

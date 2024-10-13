@@ -82,7 +82,7 @@ body {
 }
 
 input,
-select {
+select,.botonconfiguración {
     border: 1px solid var(--color-fondo);
     margin: 10px;
     border-radius: 5px;
@@ -93,6 +93,17 @@ select {
     -webkit-text-stroke-width: .1px;
     -webkit-text-stroke-color: black;
     transition: .7s;
+}
+.acredito{
+    max-width: 240px;
+    position: relative;
+    justify-content: center;
+    background-color: red;
+}
+.botonconfiguración{
+    text-align: center;
+    padding: 5px ;
+    justify-content: center;
 }
 
 input:hover {
@@ -210,7 +221,12 @@ footer>a:hover {
     color: var(--color-secundario)
 }
 
-
+.contenedordeinputs{
+    display: flex;
+    flex-direction: column;
+    border: solid 2px var(--color-fondo);
+    border-radius: 13px;
+}
 .close {
     position: fixed;
     display: flex;
@@ -417,7 +433,17 @@ table {
     display: flex;
     justify-content: center;
 }
-
+.agregarproducto{
+    border-radius: 100%;
+    background-color: var(--color-secundario);
+    border: solid 1px var(--color-fondo);
+    padding: 5px 10px;
+    font-size: 100%;
+}
+.enlace{
+    text-decoration: none; 
+    color:var(--color-principal);;
+}
 .contenedordeproductos {
     max-height: 50%;
     overflow-y: scroll;
@@ -623,7 +649,22 @@ main {
         11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
         50px 41px 115px rgba(0, 0, 0, 0.45);
 }
-
+/*.acredito{ 
+    border: 1px solid var(--color-fondo);
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    -webkit-text-stroke-width: .1px;
+    -webkit-text-stroke-color: black;
+    transition: .7s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+}*/
 @media (max-height: 830px) {
     .tablabajolostresinputs {
         top: 36% !important;

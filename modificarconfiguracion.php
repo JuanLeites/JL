@@ -49,6 +49,7 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
         <label for="colorfond">Color Fondo</label>
         <input type="color" name="colorfon" id="colorfon" value="<?php echo $usuario["Color_Fondo"] ?>">
         <input type="submit" value="Actualizar">
+        <?php if(isset($_SESSION["administador"])){echo "<a class='botonconfiguración' href='Paginaparaclientes/configweb.php' >Configuración de administrador</a>'";} ?>
     </form>
     <a href="menuprincipal.php" id="reg">regresar</a>
 </body>

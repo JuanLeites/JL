@@ -1,4 +1,3 @@
-
 export function asignarbotoneliminar() {
     function eliminar(ruta) { //funcion que ejecuta archivo de eliminar el cual se le pasan dos parametros(el tipo de objeto que vamos a borrar y la id) con esto el archivo ejecuta una consulta en la base de datos la cual elimina el archivo
         const CONSULTA = new XMLHttpRequest();
@@ -103,12 +102,12 @@ export function cargarclientes(filtro) {
                 agregaralinea(cadacliente.Fecha_de_Nacimiento);
                 agregaralinea(cadacliente.Tickets_de_Sorteo);
                 agregaralinea(cadacliente.Contacto);
-                if(cadacliente.RUT == null){
+                if (cadacliente.RUT == null) {
                     agregaralinea("no tiene");
-                }else{
+                } else {
                     agregaralinea(cadacliente.RUT);
                 }
-                
+
                 agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
 
@@ -516,7 +515,7 @@ export function cargarcobros(filtro) {
                 }
 
                 agregaralinea(cadacobro.NombreUsuario);
-                agregaralinea(cadacobro.Nombre+" - "+cadacobro.Cédula);
+                agregaralinea(cadacobro.Nombre + " - " + cadacobro.Cédula);
                 agregaralinea(cadacobro.Monto);
                 agregaralinea(cadacobro.Fecha_Cobro);
                 if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
@@ -552,7 +551,7 @@ export function cargarpagos(filtro) {
                 }
 
                 agregaralinea(cadapago.NombreUsuario);
-                agregaralinea(cadapago.Razón_Social+" - "+cadapago.RUT);
+                agregaralinea(cadapago.Razón_Social + " - " + cadapago.RUT);
                 agregaralinea(cadapago.Monto);
                 agregaralinea(cadapago.Fecha_Pago);
                 if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
@@ -797,4 +796,21 @@ window.onload = function () {
     if (inputcontraseña3 && ojo3) {
         ojo3.addEventListener("click", () => { alternar(inputcontraseña3, ojo3, "../imagenes") })
     }
+
+    var boton = document.querySelector("#botoncreditocontado");
+    var inputdate = document.querySelector('#inputdate');
+    if(boton && inputdate){
+        boton.addEventListener("click", () => {
+            if (inputdate.type == "date") {
+                inputdate.type = "hidden";
+                inputdate.value = "";
+                boton.value = "Contado";
+            } else {
+                inputdate.type = "date";
+                inputdate.required = true;
+                boton.value = "Crédito";
+            }
+        })
+    }
+
 }

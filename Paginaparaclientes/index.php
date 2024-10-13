@@ -18,7 +18,7 @@ $categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ORDER BY Tít
     <title>EL MANÁ</title>
     <link rel="shortcut icon" href="../imagenes/JL.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

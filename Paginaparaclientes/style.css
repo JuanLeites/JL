@@ -1,3 +1,4 @@
+
 html, body {
     height: 100%;
     margin: 0;
@@ -6,11 +7,10 @@ html, body {
     color: var(--color-principal);
 }
 
-.contenedordeinputs{
+.content-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: red;
 }
 
 header {
