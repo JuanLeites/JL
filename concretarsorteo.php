@@ -1,6 +1,6 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
 
 if (!isset($_GET["id"])) {
     header("LOCATION:sorteos.php?causa=idnoseteada");
@@ -50,7 +50,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Realizar Sorteo</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); ?>
+    <?php include_once("css/colorespersonalizados.php"); ?>
 
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">

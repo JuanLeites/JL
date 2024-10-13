@@ -1,5 +1,5 @@
 <?php
-include("chequeodelogin.php");
+include_once("chequeodelogin.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@ include("chequeodelogin.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php");?>
+    <?php include_once("css/colorespersonalizados.php");?>
     
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
@@ -31,7 +31,7 @@ include("chequeodelogin.php");
         </table>
     </div>
 
-    <?php include("barralateral.html") ?>
+    <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
     import {cargarclientes} from "./js/funciones.js"

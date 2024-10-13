@@ -1,5 +1,5 @@
 <?php
-include("coneccionBD.php");
+include_once("coneccionBD.php");
 if (!file_exists("fotoperfil")) {
     mkdir("fotoperfil");
 }
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h4>¿Ya Tienes Cuenta?</h4>
         <a href="index.php" class="linkk">Iniciar Sesión</a>
     </form>
-    <?php include("footer.html") ?>
+    <?php include_once("footer.html") ?>
 </body>
 <script src="js/funciones.js" type="module"></script>
 

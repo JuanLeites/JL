@@ -1,7 +1,7 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($basededatos, 'UPDATE `proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Proveedor</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal  
     ?>
     <link rel="shortcut icon" href="imagenes/icons/proveedor.png" type="image/x-icon">
 

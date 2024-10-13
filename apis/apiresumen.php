@@ -1,6 +1,6 @@
 <?php
-include("../coneccionBD.php");
-include("../chequeodelogin.php");
+include_once("../coneccionBD.php");
+include_once("../chequeodelogin.php");
 if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["tipo"])) {
     if ($_GET["fecha_inicio"] != "" && $_GET["fecha_final"] != "") {
         switch ($_GET["tipo"]) {

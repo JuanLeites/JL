@@ -1,7 +1,7 @@
 <?php
-include("chequeodelogin.php");
-include("coneccionBD.php");
-include("funciones.php");
+include_once("chequeodelogin.php");
+include_once("coneccionBD.php");
+include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
@@ -33,7 +33,7 @@ if (isset($_GET["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Cliente</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php include("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal 
+    <?php include_once("css/colorespersonalizados.php"); //este archivo contiene las variables $colorfondo,$colorprincipal 
     ?>
     <link rel="shortcut icon" href="imagenes/icons/modclientes.png" type="image/x-icon">
 
