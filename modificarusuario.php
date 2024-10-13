@@ -5,6 +5,18 @@ include_once("funciones.php");
 
 //en todos los casos posbiles guardamos lo que pasa en la variable "$opcion" para luego mostrar un mensaje despues que se carga el html
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SESSION["usuario"] != $_POST["usuario"]) {
+        $checkuser = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario ="' . $_POST["usuario"] . '";'); //consulta para ver si está registrado el nuevo nombre de usuario
+        if (mysqli_num_rows($checkuser) == 0) { // si no hay ningun usuario con ese mismo nombre de usuario o ese corro
+            mysqli_query($basededatos, 'UPDATE `Usuario` SET `Usuario` = "' . $_POST["usuario"] . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";'); //actualizamos en la tabla usuario el usuario que está, iniciado incluyendo la foto.
+        }
+    }
+    if ($_SESSION["correo"] != $_POST["correo"]) {
+        $checkcorreo =mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE  correo ="'.$_POST["correo"].'";');
+
+        if (mysqli_num_rows($checkcorreo) == 0) {//si no hay un correo así en la BD
+        }
+    }
     if ($_SESSION["usuario"] != $_POST["usuario"]) { //si el nombre de usuario ingresados y el usuario actual son distintos
         if ($_SESSION["correo"] != $_POST["correo"]) {//si el correo ingresado es distinto al del usuario (se modificó)
             $checkuser = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE usuario ="' . $_POST["usuario"] . '";'); //consulta para ver si está registrado el nuevo nombre de usuario
