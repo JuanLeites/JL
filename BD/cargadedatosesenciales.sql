@@ -61,5 +61,7 @@ INSERT INTO IVA (Tipo, Valor) VALUES
 ('Tasa Básica', 22.00),
 ('Tasa Reducida', 10.00);
 
-INSERT INTO Configuración (Precio_por_Tickets,Clave_Maestra) VALUES
-('200','JL2024');
+INSERT INTO Configuración (Precio_por_Tickets,Clave_Maestra,Color_Principal,Color_Secundario,Color_Fondo) VALUES
+('200','JL2024','red','green','blue');
+
+INSERT INTO Usuario (Usuario,Contraseña,Nombre,Correo,Tipo_Usuario) VALUES ("usuarioadmin","contraseñausuarioadmin","Usuario Administrador","correousuarioadministrador@gmail.com","administrador");

@@ -49,6 +49,10 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
     <form method="POST" class="formularios" style="max-width: 20%;text-align:center;">
     <h1>Configuración para página web destinada a clientes</h1>
 
+    
+        <label for="clavemaestra">Clave Maestra</label>
+        <input type="password" name="clavemaestra" id="clavemaestra" value="<?php echo $config["Clave_Maestra"] ?>">
+
         <label for="colorprincipal">Color Principal</label>
         <input type="color" name="colorprincipal" id="colorprincipal" value="<?php echo $config["Color_Principal"] ?>">
 

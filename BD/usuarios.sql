@@ -3,7 +3,10 @@ GRANT ALL PRIVILEGES ON mana.* TO administrador IDENTIFIED BY 'lupf2024';
 
 GRANT SELECT,UPDATE,INSERT,DELETE ON mana.* TO funcionario IDENTIFIED BY "funcionario2024";
 
-
+GRANT SELECT ON mana.Producto TO clientes IDENTIFIED BY "clientes2024";
+GRANT SELECT ON mana.IVA TO clientes;
+GRANT SELECT ON mana.Categoría TO clientes;
+GRANT SELECT ON mana.Configuración TO clientes;
 
 GRANT SELECT ON mana.* TO consultor_datos IDENTIFIED BY "consultor2024";
 
