@@ -9,18 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($consultausuarios) == 1) { //chequemos que exista un usuario con ese nombre de usuario
             $usuario = mysqli_fetch_assoc($consultausuarios);
             if (password_verify($contraseña, $usuario["Contraseña"])) { //la variable contraseña obtiene la contraseña que ingresó el usuario y "$usuario["Contraseña"]" obtiene la contraseña encriptada, la funcion password_veryfy() verifica que esté correcta la contraseña
-                if($usuario["Tipo_Usuario"]=="admin"){
-                    $_SESSION["administador"]=TRUE;
+                if ($usuario["Tipo_Usuario"] == "administrador") {
+                    $_SESSION["administador"] = TRUE;
                 }
-                    $_SESSION["usuario"] = $usuarioingresado;
-                    $_SESSION["nombre"] = $usuario["Nombre"];
-                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
-                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
-                    $_SESSION["correo"] = $usuario["Correo"];
-                
+                $_SESSION["usuario"] = $usuarioingresado;
+                $_SESSION["nombre"] = $usuario["Nombre"];
+                $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
+                $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+                $_SESSION["correo"] = $usuario["Correo"];
             } else {
                 if (isset($_SESSION["intentosdisponibles"])) { //chequea que intentos este seteada
-                    if ($_SESSION["intentosdisponibles"] <= 0) {// si intentos en
+                    if ($_SESSION["intentosdisponibles"] <= 0) { // si intentos en
                         $_SESSION["bloq"] = 1;
                         header("Location:index.php?causa=bloq"); //vuelve al index con con la variable de sesion bloq y con la variable causa que avisará que esta bloqueado
                     } else { //sino es menor o igual a 0
@@ -67,10 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="contenedordecumpleañeros">
             </div>
             <div class="contenedordeproductos">
-                <h2>Productos con poco Stock</h2>
             </div>
             <div class="contenedordefacturas">
-                <h2>Futuras Facturas a vencer<h2>
             </div>
         </div>
     </main>
@@ -95,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
             cargarclientesdecumpleaños()
             cargarproductosconpocostock()
+            cargarfacturasavencer()
         }, 2000);
     }
 </script>

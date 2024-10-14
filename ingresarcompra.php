@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //actualizamos la cantidad de cada producto dependiendo a lo que compró:
                 $cantidadactualizada = floatval($productoconprecio["Cantidad"]) + floatval($_POST["CANTIDAD"][$indice]); //obtenemos la cantidad actualizada de cada producto
                 mysqli_query($basededatos, 'UPDATE producto SET Cantidad="' . $cantidadactualizada . '" WHERE ID_PRODUCTO="' . $cadaID . '" ');
-                mysqli_query($basededatos, 'INSERT INTO productos_comprados (ID_COMPRA,ID_PRODUCTO, Cantidad_de_Compra, Precio_de_Compra) values ("' . $iddecompra . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Compra"]) . '");'); //ingresamos cada producto a la tabla productos vendidos
+                mysqli_query($basededatos, 'INSERT INTO productos_comprados (ID_COMPRA,ID_PRODUCTO, Cantidad_de_Compra, Precio_de_Compra,Iva_de_Compra) values ("' . $iddecompra . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Compra"]) . '","'.$productoconprecio["Valor"].'");'); //ingresamos cada producto a la tabla productos vendidos
             }
 
             mysqli_query($basededatos, 'INSERT INTO pago (Monto, ID_PROVEEDOR, Fecha_Pago, ID_COMPRA, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] . '","' . date("Y-m-d") . '","' . $iddecompra . '","' . $_SESSION["usuario"] . '");');

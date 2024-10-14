@@ -97,7 +97,7 @@ include_once("funciones.php");
             }
             ?>
             <h3>Concretar compra</h3>
-            <p>proveedor : <?php echo  $proveedor["Razón_Social"] . " - " . $proveedor["RUT"];  ?></p>
+            <p>Proveedor : <?php echo  $proveedor["Razón_Social"] . " - " . $proveedor["RUT"];  ?></p>
             <div class="acredito">
                 <input type="button" name="opciondepago" id="botoncreditocontado" class="acredito" value="Contado">
                 <input type="hidden" min="<?php echo date("Y-m-d"); ?>" name="fechacredito" id="inputdate"> 

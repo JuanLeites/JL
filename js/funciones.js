@@ -240,7 +240,7 @@ function cargarbotonparasumarproducto() {//funcion utilizada en la funcion de ca
         }
         agregaralinea(id_producto);
         agregaralinea(nombre)
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' min='1' value='1' max='" + cantidaddisponible + "'>");
+        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' min='1' value='1' max='" + cantidaddisponible + "' required>");
         agregaralinea(Precio_Neto)
         agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
         var inputparalaid = document.createElement("input")
@@ -554,9 +554,14 @@ export function cargarpagos(filtro) {
                 agregaralinea(cadapago.Razón_Social + " - " + cadapago.RUT);
                 agregaralinea(cadapago.Monto);
                 agregaralinea(cadapago.Fecha_Pago);
-                if (cadapago.Vencimiento_Factura) {
-                    agregaralinea(cadapago.Vencimiento_Factura)
-                } else {
+                if (cadapago.Vencimiento_Factura) {//si llega a estár seteado el vencimiento de la factura
+                    var hoy = new Date()//creamos un elemento tipo fecha, se establece la fecha actual
+                    if (Date.parse(cadapago.Vencimiento_Factura) > Date.parse(hoy)) {//si el vencimiento de la factura es mayor que el dia actual (el vencimiento está en el futuro es decir que todavia no pasó )
+                        agregaralinea(cadapago.Vencimiento_Factura)//carga la fecha
+                    } else {//sino va a cargar un texto por defecto de que ya venció la factura
+                        agregaralinea("Ya venció")
+                    }
+                } else {//si no está seteado, es porque fué al contado
                     agregaralinea("Contado");
                 }
 
@@ -687,6 +692,7 @@ export function cargarclientesdecumpleaños() {
         }
     }
 }
+
 export function cargarfacturasavencer() {
     var contenedordefacturas = document.querySelector(".contenedordefacturas");
     var cantidaddefacturas = contenedordefacturas.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los cumplañeros ya cargados)
@@ -697,16 +703,17 @@ export function cargarfacturasavencer() {
     cargaFacturas.send()
     cargaFacturas.onload = function () {
         const pagos = JSON.parse(this.responseText);
-        pagos.forEach(cadapago => { //for each que recorre todos los pagos
-            if(cadapago.Vencimiento_Factura){
+        pagos.forEach(cadapago => { //for each que cuanta los pagos
+            if (cadapago.Vencimiento_Factura) {
                 cantidadactual++;
             }
         }) //luego del foreach que solamente cuenta
         if (cantidaddefacturas != cantidadactual) { // chequemos si hay menos o mas clientes de cumpleaños el dia de hoy// si llega a haber carga todos los cumpleañeros el dia de hoy // la primera vez entra en este if. si o si ya que compara -1 con 0 o la cantidad de clientes que haya de cumpleaños que nunca va a ser negativo y estos son distintos
             contenedordefacturas.innerHTML = "<h2>Futuras Facturas a vencer</h2>" // la primera vez carga el titulo si o si
-            pagos.forEach(cadapago=> {
-                if(cadapago.Vencimiento_Factura){
-                    contenedordefacturas.innerHTML+="<h3>"+(parseInt(cadapago.DeberíaPagar)-parseInt(cadapago.Monto))+" a "+cadapago.Razón_Social+" y vence el "+cadapago.Vencimiento_Factura+"</h3>"
+            pagos.forEach(cadapago => {
+                var hoy = new Date()//creamos un elemento tipo fecha, se establece la fecha actual
+                if (cadapago.Vencimiento_Factura && Date.parse(cadapago.Vencimiento_Factura) > Date.parse(hoy)) { // si hay seteada una fecha de vencimiento de la factura y el dia del vencimiento de la factura es mayor(está en el futuro) es decir todavía no venció, la carga. si ya venció no la carga
+                    contenedordefacturas.innerHTML += "<h3>$" + (parseInt(cadapago.DeberíaPagar) - parseInt(cadapago.Monto)) + " a " + cadapago.Razón_Social + " y vence el " + cadapago.Vencimiento_Factura + "</h3>"
                 }
             })
         }
@@ -730,7 +737,8 @@ export function cargarproductosconpocostock() {
                 cantidadactual++
             }
         })
-        if (cantidaddeproductos != cantidadactual) {
+        if (cantidaddeproductos != cantidadactual){
+            contenedordeproductos.innerHTML="<h2>Productos con poco Stock</h2>";
             productos.forEach(cadaProducto => {
                 if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
                     if (parseInt(cadaProducto.Cantidad) == 0) {

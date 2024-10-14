@@ -105,7 +105,21 @@ function enviarcodigoparareestablecer($nombre, $codigo, $destino)
     </div>
 </body>
 </html>';
+$asunto = "Correo de Recuperación";
 
+$encabezado  = "MIME-Version:1.0\n";
+$encabezado .= "Content-type: text/html; charset=utf-8\n";
+$encabezado .= "From: Maná <smtp@elmana.site>\n";
+$encabezado .= "X-Sender: <smtp@elmana.site>\n";
+$encabezado .= "Replay-to: smtp@elmana.site\n";
+$encabezado .= "Return-path: smtp@elmana.site\n";
+$encabezado .= "X-Mailer: PHP\n";
+$encabezado .= "X-Priority: 1\n";
+
+$encabezado .= "List-unsuscribe: <https://www.elmana.site/unsuscribe.php>\n";
+$encabezado .= "List-Unsuscribe-Post: List-Unsuscribe=One-Click\n";
+
+mail($destino, $asunto, $contenido, $encabezado);
   echo "<script>alert('Se enviará el código " . $codigo . " a " . $nombre . " con el correo " . $destino . " ')</script>";
 }
 function generarcodigo($cantidad)

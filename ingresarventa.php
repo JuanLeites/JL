@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $cantidadactualizada = floatval($productoconprecio["Cantidad"]) - floatval($_POST["CANTIDAD"][$indice]); //obtenemos la cantidad actualizada de cada producto
                 mysqli_query($basededatos, 'UPDATE producto SET Cantidad="' . $cantidadactualizada . '" WHERE ID_PRODUCTO="' . $cadaID . '" ');
 
-                mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO, Cantidad_de_Venta, Precio_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Venta"]) . '");'); //ingresamos cada producto a la tabla productos vendidos
+                mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO, Cantidad_de_Venta, Precio_de_Venta, Iva_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Venta"]) . '","'.$productoconprecio["Valor"].'");'); //ingresamos cada producto a la tabla productos vendidos
             }
 
             //ingresamos el cobro con el cliente, la id de venta y el usuario que la realizó

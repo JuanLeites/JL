@@ -100,8 +100,9 @@ include_once("funciones.php");
             ?>
 
 
-            <h1>Venta a <?php echo  $cliente["Nombre"] . " - " . $cliente["Cédula"];  ?>
-            </h1>
+            <h3>Concretar Venta </h3> 
+            <p>Cliente :<?php echo  $cliente["Nombre"] . " - " . $cliente["Cédula"];  ?> </p>
+            
             <label for="cuantopaga">Ingrese el dinero recibido</label>
             <input id="cuantopaga" type="number" placeholder="Dinero Recibido" name="monto" min="0" required>
             <input type="submit" value="Concretar Venta">

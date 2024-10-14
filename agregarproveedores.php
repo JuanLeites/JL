@@ -5,7 +5,7 @@ include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
-        if ($_POST["RS"] != "" && $_POST["rut"] != "" && $_POST["contacto"] != "") {
+        if ($_POST["RS"] != ""  && $_POST["contacto"] != "") {
             mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
             $opcion = "proveedorregistrado";
         } else {
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" placeholder="Razón Social" name="RS" id="RS" required>
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" min="1000000" max="999999999999" name="rut" id="rut" required>
+        <input type="number" placeholder="RUT" min="1000000" max="999999999999" name="rut" id="rut" >
 
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" required>
