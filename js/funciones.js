@@ -539,7 +539,7 @@ export function cargarpagos(filtro) {
         const pagos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != pagos.length) {
-            tabla.innerHTML = "<tr><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Compra</th></tr>"
+            tabla.innerHTML = "<tr><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Vencimiento Factura</th><th>Compra</th></tr>"
             pagos.forEach(cadapago => {
 
                 var linea = document.createElement("tr");
@@ -554,8 +554,14 @@ export function cargarpagos(filtro) {
                 agregaralinea(cadapago.Razón_Social + " - " + cadapago.RUT);
                 agregaralinea(cadapago.Monto);
                 agregaralinea(cadapago.Fecha_Pago);
+                if (cadapago.Vencimiento_Factura) {
+                    agregaralinea(cadapago.Vencimiento_Factura)
+                } else {
+                    agregaralinea("Contado");
+                }
+
                 if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>--Ver Compra--<a>")
+                    agregaralinea("<a href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>-Ver Compra-<a>")
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -681,7 +687,34 @@ export function cargarclientesdecumpleaños() {
         }
     }
 }
+export function cargarfacturasavencer() {
+    var contenedordefacturas = document.querySelector(".contenedordefacturas");
+    var cantidaddefacturas = contenedordefacturas.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los cumplañeros ya cargados)
+    var cantidadactual = 0
 
+    const cargaFacturas = new XMLHttpRequest();
+    cargaFacturas.open('GET', 'apis/apipagos.php');
+    cargaFacturas.send()
+    cargaFacturas.onload = function () {
+        const pagos = JSON.parse(this.responseText);
+        pagos.forEach(cadapago => { //for each que recorre todos los pagos
+            if(cadapago.Vencimiento_Factura){
+                cantidadactual++;
+            }
+        }) //luego del foreach que solamente cuenta
+        if (cantidaddefacturas != cantidadactual) { // chequemos si hay menos o mas clientes de cumpleaños el dia de hoy// si llega a haber carga todos los cumpleañeros el dia de hoy // la primera vez entra en este if. si o si ya que compara -1 con 0 o la cantidad de clientes que haya de cumpleaños que nunca va a ser negativo y estos son distintos
+            contenedordefacturas.innerHTML = "<h2>Futuras Facturas a vencer</h2>" // la primera vez carga el titulo si o si
+            pagos.forEach(cadapago=> {
+                if(cadapago.Vencimiento_Factura){
+                    contenedordefacturas.innerHTML+="<h3>"+(parseInt(cadapago.DeberíaPagar)-parseInt(cadapago.Monto))+" a "+cadapago.Razón_Social+" y vence el "+cadapago.Vencimiento_Factura+"</h3>"
+                }
+            })
+        }
+        if (contenedordefacturas.childElementCount == 1) { // si solamente se cargó el titulo( osea que no hay ningun cumpleañero) carga un texto diciendo que no hay cumpleañeros
+            contenedordefacturas.innerHTML += "<h3>No hay Facturas por vencer</h3>"
+        }
+    }
+}
 export function cargarproductosconpocostock() {
     var contenedordeproductos = document.querySelector(".contenedordeproductos");
     var cantidaddeproductos = contenedordeproductos.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los productos ya cargados)
@@ -701,9 +734,9 @@ export function cargarproductosconpocostock() {
             productos.forEach(cadaProducto => {
                 if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
                     if (parseInt(cadaProducto.Cantidad) == 0) {
-                        contenedordeproductos.innerHTML += "<h3 class='productoconpocostock' >" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                        contenedordeproductos.innerHTML += "<h3 class='productoconpocostock' >" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + " " + cadaProducto.Símbolo + "</h3>";
                     } else {
-                        contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + "</h3>";
+                        contenedordeproductos.innerHTML += "<h3>" + cadaProducto.Nombre + " - " + cadaProducto.Código_de_Barras + " - quedan: " + cadaProducto.Cantidad + " " + cadaProducto.Símbolo + "</h3>";
                     }
 
                 }
@@ -799,7 +832,7 @@ window.onload = function () {
 
     var boton = document.querySelector("#botoncreditocontado");
     var inputdate = document.querySelector('#inputdate');
-    if(boton && inputdate){
+    if (boton && inputdate) {
         boton.addEventListener("click", () => {
             if (inputdate.type == "date") {
                 inputdate.type = "hidden";

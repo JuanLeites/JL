@@ -11,18 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($contraseña, $usuario["Contraseña"])) { //la variable contraseña obtiene la contraseña que ingresó el usuario y "$usuario["Contraseña"]" obtiene la contraseña encriptada, la funcion password_veryfy() verifica que esté correcta la contraseña
                 if($usuario["Tipo_Usuario"]=="admin"){
                     $_SESSION["administador"]=TRUE;
-                    $_SESSION["usuario"] = $usuarioingresado;
-                    $_SESSION["nombre"] = $usuario["Nombre"];
-                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
-                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
-                    $_SESSION["correo"] = $usuario["Correo"];
-                }else{
-                    $_SESSION["usuario"] = $usuarioingresado;
-                    $_SESSION["nombre"] = $usuario["Nombre"];
-                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
-                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
-                    $_SESSION["correo"] = $usuario["Correo"];
                 }
+                    $_SESSION["usuario"] = $usuarioingresado;
+                    $_SESSION["nombre"] = $usuario["Nombre"];
+                    $_SESSION["fotoperf"] = $usuario["Foto_Perfil"];
+                    $_SESSION["fecha_nacimiento"] = $usuario["Fecha_Nacimiento"];
+                    $_SESSION["correo"] = $usuario["Correo"];
+                
             } else {
                 if (isset($_SESSION["intentosdisponibles"])) { //chequea que intentos este seteada
                     if ($_SESSION["intentosdisponibles"] <= 0) {// si intentos en
@@ -74,6 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="contenedordeproductos">
                 <h2>Productos con poco Stock</h2>
             </div>
+            <div class="contenedordefacturas">
+                <h2>Futuras Facturas a vencer<h2>
+            </div>
         </div>
     </main>
     <?php include_once("barralateral.html") ?>
@@ -82,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     import {
         actualizarfecha,
         cargarclientesdecumpleaños,
-        cargarproductosconpocostock
+        cargarproductosconpocostock,
+        cargarfacturasavencer
     } from "./js/funciones.js"
 
 
@@ -91,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
         cargarclientesdecumpleaños()
         cargarproductosconpocostock()
+        cargarfacturasavencer();
         setInterval(() => {
             actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
             cargarclientesdecumpleaños()
