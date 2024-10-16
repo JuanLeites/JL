@@ -133,10 +133,6 @@ switch (trim($opcion)) {
         mostraravisoconfoto("Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
 
-    case 'usuariocambiadofotocambiado':
-        mostraravisoconfoto("Usuario y foto modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
     case 'usuariocambiadocorreocambiadodatosactualizados':
         mostraraviso("Usuario, correo y datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
@@ -189,7 +185,7 @@ switch (trim($opcion)) {
         mostraravisoconfoto("El nombre de usuario es muy corto, pero el correo, la foto y los datos se han modificado con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
     case 'correoyaexistentefotocambiadadatosactualizados':
-        mostraravisoconfoto("Ese correo ya está en uso!! <br>Correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        mostraravisoconfoto("Ese correo ya está en uso!! <br>Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
     case 'usuariocambiadofotocambiadadatosactualizados':
         mostraravisoconfoto("Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
@@ -199,12 +195,5 @@ switch (trim($opcion)) {
         mostraraviso("Ese correo ya está en uso!! <br> Correo modificado con éxito", $colorfondo, $colorprincipal);
         break;
 
-    case 'correocambiado':
-        mostraraviso("Correo modificado con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'fotocambiado':
-        mostraravisoconfoto("Foto modificada con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
 }
 ?>

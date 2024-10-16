@@ -79,6 +79,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
                 $datosdelclienteganador = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ACTIVO=TRUE and ID_CLIENTE="' . $arraydeparticipantes[$cadaganador] . '"')); //obtenemos los datos del cliente ganador
                 echo "<p class='ganadores'>" . $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"] . "</p>";
             }
+            
             mysqli_query($basededatos, 'UPDATE sorteo SET Fecha_realización ="' . date("Y-m-d") . '" WHERE ID_SORTEO ="' . $_GET["id"] . '"');
             mysqli_query($basededatos, 'UPDATE cliente SET Tickets_de_Sorteo="0"');
             ?>

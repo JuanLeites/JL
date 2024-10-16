@@ -17,12 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!file_exists('IMAGENESSOFTWARE/' . $_FILES['foto']['name'])) { //sino existe una imagen con ese nombre la guarda y carga la base de datos.
                 mysqli_query($basededatos, 'INSERT INTO producto (Nombre, Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']);
-                $opcion = "Productoregistrado";
             } else { //si llegase a existir imagen con ese nombre le pone el codigo de barras a la imagen y la carga asi.
                 mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"] . $_FILES['foto']['name']);
-                $opcion = "Productoregistrado";
             }
+            $opcion = "Productoregistrado";
         } else { //sino se seteo la foto
             if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
                 mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["enlacedefoto"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
