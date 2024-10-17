@@ -7,11 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST["destino"])){
         //hacemos dos consultas una por si fuese el correo y otra por si fuese el usuario:
         $consultaconcorreo=mysqli_query($basededatos,'SELECT * FROM Usuario WHERE Correo="'.$_POST['destino'].'";');
-        $consultaconusuario=mysqli_query($basededatos,'SELECT Nombre, Correo FROM Usuario WHERE Usuario="'.$_POST['destino'].'";');
+        $consultaconusuario=mysqli_query($basededatos,'SELECT Nombre, Correo, Usuario FROM Usuario WHERE Usuario="'.$_POST['destino'].'";');
         
         if(mysqli_num_rows($consultaconusuario)==1){// si la cantidad es uno, significa que hay un usuario con ese correo
             $_SESSION["arraydeusuario"] = mysqli_fetch_assoc($consultaconusuario);
-
             //echo "el correo del usuario es: ".$usuario["Correo"];
             $_SESSION["codigo"] = generarcodigo(6);
             enviarcodigoparareestablecer($_SESSION["arraydeusuario"]["Nombre"], $_SESSION["codigo"],$_SESSION["arraydeusuario"]["Correo"]);

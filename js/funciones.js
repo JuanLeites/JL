@@ -195,6 +195,7 @@ export function cargarproductos(filtro) {
                 var imagen = document.createElement("img")//crea elemento imagen
                 imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
                 imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
+                imagen.setAttribute("alt","Imágen de "+cadaproducto.Nombre)
                 var objeto = document.createElement("td")//creamos una celda
                 objeto.appendChild(imagen);//le agregamos la imagen a la celda
                 linea.appendChild(objeto);//agregamos la celda a la fila
@@ -384,7 +385,7 @@ function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la fu
     var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
     BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
         CADABOTON.addEventListener("click", () => {
-            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
+            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_compra"), CADABOTON.getAttribute("cantidaddisponible"));
         });
     });
 };
@@ -413,7 +414,7 @@ export function cargarproductosparacomprar(filtro) {
                 agregaralinea(cadaproducto.Código_de_Barras);
                 agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
                 agregaralinea(cadaproducto.Descripción);
-                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
+                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_Compra='" + cadaproducto.Precio_Compra + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })

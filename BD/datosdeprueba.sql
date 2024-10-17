@@ -1,91 +1,40 @@
-INSERT INTO `producto` (`Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`)
-VALUES
-('Manzana Roja Premium', 15.50, 18.90, '123456789001', 'Manzana roja de calidad premium, ideal para snacks o postres.', 'Frutas del Sol', 100, 10, 'manzana_roja.jpg', 3, 5, 24),
-('Agua Mineral Natural', 12.00, 14.50, '123456789002', 'Agua mineral sin gas, fresca y pura.', 'AquaSalto', 200, 20, 'agua_mineral.jpg', 2, 2, 1),
-('Galletas de Avena y Pasas', 8.50, 10.00, '123456789003', 'Galletas crujientes de avena y pasas, perfectas para una merienda saludable.', 'DeliSnacks', 80, 15, 'galletas_avena.jpg', 3, 6, 2),
-('Chocolate Amargo 70%', 30.00, 35.00, '123456789004', 'Chocolate amargo con un 70% de cacao puro.', 'ChocoLuxe', 50, 5, 'chocolate_amargo.jpg', 3, 12, 3),
-('Leche Descremada', 20.00, 25.00, '123456789005', 'Leche descremada pasteurizada, ideal para dietas bajas en grasa.', 'Lácteos del Campo', 120, 20, 'leche_descremada.jpg', 3, 2, 4),
-('Pan Integral de Centeno', 18.00, 21.00, '123456789006', 'Pan integral elaborado con centeno, rico en fibra.', 'Panaderos Unidos', 70, 10, 'pan_centeno.jpg', 3, 5, 24),
-('Cerveza Artesanal Rubia', 50.00, 65.00, '123456789007', 'Cerveza artesanal rubia de sabor suave.', 'Cervezas Artesanales', 150, 20, 'cerveza_rubia.jpg', 2, 8, 19),
-('Yogur Natural sin Azúcar', 22.00, 28.00, '123456789008', 'Yogur natural sin azúcar, rico en probióticos.', 'Lácteos del Campo', 90, 15, 'yogur_natural.jpg', 3, 2, 4),
-('Té Verde Orgánico', 10.50, 13.00, '123456789009', 'Té verde orgánico en sobre, antioxidante y energizante.', 'Herbalia', 200, 30, 'te_verde.jpg', 3, 16, 24),
-('Soda Light', 12.00, 14.50, '123456789010', 'Soda baja en calorías, refrescante y sin azúcar.', 'Frescolina', 180, 25, 'soda_light.jpg', 2, 8, 1),
-('Papas Fritas Clásicas', 22.00, 27.50, '123456789011', 'Papas fritas clásicas, crujientes y saladas.', 'SnackTime', 100, 20, 'papas_fritas.jpg', 3, 6, 2),
-('Hamburguesa Clásica', 45.00, 55.00, '123456789012', 'Hamburguesa de carne con queso y vegetales.', 'Comida Express', 50, 5, 'hamburguesa_clasica.jpg', 3, 5, 13),
-('Jugo de Naranja Natural', 18.50, 22.00, '123456789013', 'Jugo de naranja natural, sin conservantes.', 'FruFru', 120, 20, 'jugo_naranja.jpg', 2, 2, 1),
-('Bolígrafo Azul', 5.00, 7.50, '123456789014', 'Bolígrafo azul de tinta líquida, ideal para escritura suave.', 'EscribeYa', 300, 50, 'boligrafo_azul.jpg', 3, 5, 10),
-('Shampoo Hidratante', 40.00, 48.00, '123456789015', 'Shampoo hidratante para todo tipo de cabellos.', 'Belleza Natural', 60, 10, 'shampoo_hidratante.jpg', 2, 8, 21),
-('Galletas de Chocolate', 15.00, 19.00, '123456789016', 'Galletas de chocolate con trozos de cacao.', 'ChocoBites', 100, 15, 'galletas_chocolate.jpg', 3, 6, 2),
-('Café Molido Premium', 50.00, 65.00, '123456789017', 'Café molido de gran calidad, sabor intenso.', 'Café Supremo', 40, 5, 'cafe_molido.jpg', 3, 5, 24),
-('Queso Gouda', 35.00, 42.00, '123456789018', 'Queso Gouda suave, ideal para snacks y sándwiches.', 'Lácteos del Campo', 80, 10, 'queso_gouda.jpg', 3, 5, 4),
-('Gaseosa de Limón', 18.00, 21.50, '123456789019', 'Gaseosa de limón, refrescante y ligera.', 'RefrescoManía', 100, 15, 'gaseosa_limon.jpg', 2, 8, 1),
-('Helado de Vainilla', 35.00, 42.00, '123456789020', 'Helado de vainilla, suave y cremoso.', 'DulceFrío', 60, 10, 'helado_vainilla.jpg', 3, 5, 7),
-('Batata Frita Sazonada', 25.00, 30.00, '123456789021', 'Batatas fritas con un toque de sal y pimienta.', 'SnackSaludable', 70, 15, 'batata_frita.jpg', 3, 6, 2),
-('Salsa de Tomate', 22.00, 27.00, '123456789022', 'Salsa de tomate natural, ideal para pastas y pizzas.', 'Deliziosa', 90, 10, 'salsa_tomate.jpg', 3, 5, 23),
-('Chicles de Menta', 5.00, 6.50, '123456789023', 'Chicles refrescantes con sabor a menta.', 'MentaFresh', 200, 30, 'chicles_menta.jpg', 3, 6, 3),
-('Jugo de Manzana Orgánico', 16.00, 19.00, '123456789024', 'Jugo de manzana orgánico sin azúcar añadida.', 'BioFru', 120, 20, 'jugo_manzana.jpg', 2, 8, 1),
-('Refresco de Cola', 18.00, 21.00, '123456789025', 'Refresco de cola, ideal para acompañar las comidas.', 'ColaDrink', 200, 30, 'refresco_cola.jpg', 2, 8, 1),
-('Cereal Integral', 30.00, 36.00, '123456789026', 'Cereal integral rico en fibra y nutrientes.', 'NutriCereal', 100, 10, 'cereal_integral.jpg', 3, 5, 22),
-('Bolsa de Caramelos', 12.00, 15.00, '123456789027', 'Bolsa surtida de caramelos de diferentes sabores.', 'DulceManía', 150, 20, 'caramelos_surtidos.jpg', 3, 6, 3),
-('Detergente Líquido', 40.00, 50.00, '123456789028', 'Detergente líquido concentrado para limpieza.', 'CleanHouse', 60, 10, 'detergente_liquido.jpg', 3, 8, 18),
-('Alimento para Gatos', 55.00, 70.00, '123456789029', 'Alimento seco para gatos con sabor a pollo.', 'PetLovers', 100, 15, 'alimento_gatos.jpg', 3, 6, 17),
-('Vino Tinto Reserva', 120.00, 150.00, '123456789030', 'Vino tinto reserva de alta calidad.', 'Viñedos del Sur', 50, 5, 'vino_tinto.jpg', 2, 8, 19),
-('Hamburguesa de Pollo', 38.00, 45.00, '123456789031', 'Hamburguesa de pollo con vegetales frescos.', 'Comida Express', 80, 10, 'hamburguesa_pollo.jpg', 3, 5, 13),
-('Torta de Chocolate', 60.00, 75.00, '123456789032', 'Torta de chocolate esponjosa y deliciosa.', 'Pastelería Delicias', 50, 5, 'torta_chocolate.jpg', 3, 5, 7),
-('Papel Higiénico Triple Hoja', 35.00, 40.00, '123456789033', 'Papel higiénico suave y resistente de triple hoja.', 'ConfortPlus', 120, 15, 'papel_higienico.jpg', 3, 12, 20),
-('Huevos Orgánicos', 45.00, 55.00, '123456789034', 'Huevos de gallinas alimentadas con productos orgánicos.', 'GranjaFeliz', 200, 25, 'huevos_organicos.jpg', 3, 12, 4),
-('Aceite de Oliva Extra Virgen', 70.00, 85.00, '123456789035', 'Aceite de oliva extra virgen de la mejor calidad.', 'OliNatural', 80, 10, 'aceite_oliva.jpg', 2, 5, 24),
-('Queso Parmesano', 55.00, 70.00, '123456789036', 'Queso parmesano rallado, ideal para pastas.', 'Lácteos del Campo', 50, 5, 'queso_parmesano.jpg', 3, 5, 4),
-('Galletitas Saladas', 10.00, 13.00, '123456789037', 'Galletitas saladas crujientes.', 'SnackTime', 100, 15, 'galletitas_saladas.jpg', 3, 6, 2),
-('Manteca Vegetal', 32.00, 40.00, '123456789038', 'Manteca vegetal ideal para cocinar y hornear.', 'VeggieDelight', 90, 10, 'manteca_vegetal.jpg', 3, 5, 4),
-('Sushi Mixto', 65.00, 80.00, '123456789039', 'Sushi mixto de pescado y vegetales frescos.', 'Sushi House', 40, 5, 'sushi_mixto.jpg', 3, 5, 13),
-('Botella de Whisky', 200.00, 250.00, '123456789040', 'Whisky premium añejado.', 'Spirits&Co', 30, 5, 'whisky_premium.jpg', 2, 8, 19),
-('Papas Chips Sabor Barbacoa', 25.00, 30.00, '123456789041', 'Papas chips con sabor a barbacoa.', 'SnackSaludable', 150, 20, 'papas_barbacoa.jpg', 3, 6, 2),
-('Queso Cheddar', 48.00, 58.00, '123456789042', 'Queso cheddar suave y cremoso.', 'Lácteos del Campo', 100, 15, 'queso_cheddar.jpg', 3, 5, 4),
-('Gaseosa Sabor Naranja', 18.00, 21.00, '123456789043', 'Gaseosa sabor naranja, refrescante.', 'RefrescoManía', 200, 30, 'gaseosa_naranja.jpg', 2, 8, 1),
-('Leche Entera', 22.00, 28.00, '123456789044', 'Leche entera pasteurizada.', 'Lácteos del Campo', 150, 20, 'leche_entera.jpg', 3, 2, 4),
-('Café Instantáneo', 45.00, 55.00, '123456789045', 'Café instantáneo soluble.', 'Café Supremo', 60, 10, 'cafe_instantaneo.jpg', 3, 5, 24),
-('Bebida Energética', 35.00, 45.00, '123456789046', 'Bebida energética revitalizante.', 'Energizer', 100, 20, 'bebida_energetica.jpg', 2, 8, 1),
-('Helado de Fresa', 40.00, 48.00, '123456789047', 'Helado de fresa, suave y cremoso.', 'DulceFrío', 80, 10, 'helado_fresa.jpg', 3, 5, 7),
-('Yogur con Cereales', 28.00, 35.00, '123456789048', 'Yogur natural con cereales crocantes.', 'Lácteos del Campo', 90, 15, 'yogur_cereales.jpg', 3, 2, 4),
-('Papel Film', 12.00, 15.00, '123456789049', 'Papel film para envolver alimentos.', 'Wrap&Save', 100, 15, 'papel_film.jpg', 3, 5, 23),
-('Salsa BBQ', 25.00, 30.00, '123456789050', 'Salsa BBQ para carnes y parrillas.', 'Deliziosa', 80, 10, 'salsa_bbq.jpg', 3, 5, 23);
-
-INSERT INTO `producto` (`Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`)
-VALUES
-('Cereal de Avena', 35.00, 45.00, '123456789051', 'Cereal de avena integral alto en fibra.', 'Cereales NutriLife', 0, 10, 'cereal_avena.jpg', 3, 2, 12),
-('Mermelada de Frutilla', 28.00, 35.00, '123456789052', 'Mermelada de frutilla sin azúcar.', 'Frutos Dulces', 0, 8, 'mermelada_frutilla.jpg', 3, 6, 5),
-('Cerveza Artesanal', 50.00, 60.00, '123456789053', 'Cerveza artesanal de trigo.', 'Cerveza La Fábrica', 0, 15, 'cerveza_artesanal.jpg', 2, 7, 19),
-('Pan Integral', 20.00, 25.00, '123456789054', 'Pan integral con semillas.', 'Panadería Salus', 0, 12, 'pan_integral.jpg', 3, 5, 4),
-('Crema de Maní', 45.00, 55.00, '123456789055', 'Crema de maní sin azúcar añadido.', 'NutriNatur', 0, 10, 'crema_mani.jpg', 3, 5, 7),
-('Champú para Cabello Seco', 35.00, 42.00, '123456789056', 'Champú hidratante para cabello seco.', 'Belleza Natural', 0, 8, 'shampoo_cabello_seco.jpg', 3, 9, 15),
-('Chocolate Amargo', 30.00, 40.00, '123456789057', 'Chocolate amargo con 80% de cacao.', 'ChocoDelight', 0, 10, 'chocolate_amargo.jpg', 3, 5, 2),
-('Detergente Líquido', 25.00, 30.00, '123456789058', 'Detergente líquido para platos.', 'Limpiamax', 0, 20, 'detergente_liquido.jpg', 3, 6, 23),
-('Jugo de Naranja Natural', 20.00, 25.00, '123456789059', 'Jugo de naranja 100% natural.', 'JugoFresco', 0, 10, 'jugo_naranja.jpg', 3, 5, 13),
-('Salsa de Tomate', 15.00, 18.00, '123456789060', 'Salsa de tomate natural y fresca.', 'Deliziosa', 0, 12, 'salsa_tomate.jpg', 3, 5, 23);
-
-INSERT INTO `producto` (`Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`)
-VALUES
-('Té Verde Orgánico', 12.00, 15.00, '123456789061', 'Té verde orgánico en sobres.', 'Herbal Infusions', 3, 10, 'te_verde.jpg', 3, 5, 7),
-('Aceitunas Verdes', 25.00, 30.00, '123456789062', 'Aceitunas verdes en conserva.', 'Delicias del Sur', 4, 12, 'aceitunas_verdes.jpg', 3, 6, 8),
-('Jabón Líquido de Manos', 18.00, 22.00, '123456789063', 'Jabón líquido para manos con aroma a lavanda.', 'Belleza Natural', 5, 15, 'jabon_liquido.jpg', 3, 9, 17),
-('Galletas Integrales', 28.00, 35.00, '123456789064', 'Galletas integrales de avena y miel.', 'NutriLife', 2, 10, 'galletas_integrales.jpg', 3, 5, 12),
-('Café Molido', 50.00, 65.00, '123456789065', 'Café molido 100% arábica.', 'Café Supremo', 6, 15, 'cafe_molido.jpg', 2, 8, 10),
-('Leche Descremada', 18.00, 22.00, '123456789066', 'Leche descremada en polvo.', 'Lácteos Del Campo', 4, 12, 'leche_descremada.jpg', 3, 5, 4),
-('Mantequilla de Maní', 45.00, 55.00, '123456789067', 'Mantequilla de maní sin sal.', 'NutriNatur', 3, 8, 'mantequilla_mani.jpg', 3, 5, 7),
-('Galletas de Arroz', 22.00, 28.00, '123456789068', 'Galletas de arroz sin gluten.', 'Vida Sana', 5, 12, 'galletas_arroz.jpg', 3, 5, 5),
-('Lechuga Orgánica', 12.00, 15.00, '123456789069', 'Lechuga orgánica fresca.', 'AgroBio', 2, 8, 'lechuga_organica.jpg', 3, 5, 6),
-('Yogur Natural', 20.00, 25.00, '123456789070', 'Yogur natural sin azúcar.', 'Lácteos Del Campo', 6, 15, 'yogur_natural.jpg', 2, 5, 4),
-('Papas Fritas', 25.00, 30.00, '123456789071', 'Papas fritas sabor clásico.', 'Snacky', 7, 20, 'papas_fritas.jpg', 2, 5, 8),
-('Queso Rallado', 32.00, 40.00, '123456789072', 'Queso rallado tipo parmesano.', 'Lácteos Del Campo', 6, 15, 'queso_rallado.jpg', 3, 5, 4),
-('Refresco de Limón', 15.00, 18.00, '123456789073', 'Refresco de limón sin azúcar.', 'Bebidas Tropicales', 3, 10, 'refresco_limon.jpg', 2, 7, 9),
-('Cereal de Maíz', 35.00, 45.00, '123456789074', 'Cereal de maíz sin gluten.', 'Cereales NutriLife', 4, 10, 'cereal_maiz.jpg', 3, 2, 12),
-('Shampoo Anticaspa', 38.00, 45.00, '123456789075', 'Shampoo anticaspa con aloe vera.', 'Belleza Natural', 6, 15, 'shampoo_anticaspa.jpg', 2, 9, 15),
-('Caramelo de Menta', 12.00, 15.00, '123456789076', 'Caramelo de menta sin azúcar.', 'Confites DulceSabor', 5, 12, 'caramelo_menta.jpg', 3, 5, 3),
-('Gaseosa de Naranja', 18.00, 25.00, '123456789077', 'Gaseosa sabor naranja.', 'Bebidas Tropicales', 4, 12, 'gaseosa_naranja.jpg', 2, 7, 10),
-('Queso Mozzarella', 45.00, 60.00, '123456789078', 'Queso mozzarella fresco.', 'Lácteos Del Campo', 5, 12, 'queso_mozzarella.jpg', 2, 5, 4),
-('Gel Antibacterial', 20.00, 25.00, '123456789079', 'Gel antibacterial con aroma a limón.', 'Limpiamax', 4, 10, 'gel_antibacterial.jpg', 2, 6, 13),
-('Salsa Barbacoa', 30.00, 38.00, '123456789080', 'Salsa barbacoa estilo americano.', 'Deliziosa', 3, 10, 'salsa_barbacoa.jpg', 3, 5, 23);
+INSERT INTO `producto` (`ID_PRODUCTO`, `Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `Activo`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`) VALUES
+(1, 'Manzana Roja Premium', 15.50, 18.90, '123456789001', 'Manzana roja de calidad premium, ideal para snacks o postres.', 'Frutas del Sol', 76, 10, 'https://t4.ftcdn.net/jpg/04/78/96/49/240_F_478964938_3l80mjnkhnPGPMgVfgDnfrvZBS9x7Bjp.jpg', 1, 1, 5, 15),
+(2, 'Agua Mineral Natural', 12.00, 14.50, '123456789002', 'Agua mineral sin gas, fresca y pura.', 'Cristaline', 10, 20, 'https://t3.ftcdn.net/jpg/07/33/30/84/240_F_733308459_eXSNoihFDkWdlqBaHBKSwH36JOnO3HNb.jpg', 1, 2, 8, 1),
+(3, 'Galletas de Avena y Pasas', 8.50, 10.00, '123456789003', 'Galletas crujientes de avena y pasas, perfectas para una merienda saludable.', 'Otameal', 80, 15, 'https://t4.ftcdn.net/jpg/04/69/87/85/240_F_469878523_MQHZsmgedQwX8y01MDVVwaRt07yKacs6.jpg', 1, 3, 6, 2),
+(4, 'Chocolate Amargo 70%', 30.00, 35.00, '123456789004', 'Chocolate amargo con un 70% de cacao puro.', 'Cuadratini', 50, 5, 'https://media.istockphoto.com/id/537870976/es/foto/oblea-cookies-loacker.jpg?s=612x612&w=0&k=20&c=LgwXAp6hhwADbUb6OoX56qMX5NYFJV7CAB2jij73qIw=', 1, 3, 16, 3),
+(5, 'Leche Descremada', 20.00, 25.00, '123456789005', 'Leche descremada pasteurizada, ideal para dietas bajas en grasa.', 'MILK', 120, 20, 'https://media.istockphoto.com/id/517416636/es/foto/cart%C3%B3n-de-leche-con-dise%C3%B1o-exclusivo.jpg?s=2048x2048&w=is&k=20&c=8pqzy0zddSDdFGZDgTFmyA33xYWj6pRV4tu2xqZKEhc=', 1, 3, 2, 4),
+(6, 'Pan Integral de Centeno', 18.00, 21.00, '123456789006', 'Pan integral elaborado con centeno, rico en fibra.', '', 92, 10, 'https://cdn.pixabay.com/photo/2017/09/09/12/11/bread-basket-2731824_640.jpg', 1, 3, 5, 24),
+(7, 'Cerveza Artesanal Rubia', 50.00, 65.00, '123456789007', 'Cerveza artesanal rubia de sabor suave.', 'Segfield Craft brewery', 152, 20, 'https://cdn.pixabay.com/photo/2017/01/21/21/15/beer-1998293_1280.jpg', 1, 2, 8, 19),
+(8, 'Yogur Natural sin Azúcar', 22.00, 28.00, '123456789008', 'Yogur natural sin azúcar, rico en probióticos.', 'Conaprole', 90, 15, 'https://www.conaprole.uy/wp-content/uploads/2018/03/ynat-300x300.png', 1, 3, 2, 4),
+(9, 'Té Verde Orgánico', 10.50, 13.00, '123456789009', 'Té verde orgánico en sobre, antioxidante y energizante.', 'Green Tea', 15, 4, 'https://http2.mlstatic.com/D_Q_NP_864038-MLM52559886335_112022-O.webp', 1, 3, 16, 15),
+(10, 'Coca Light 3lts', 12.00, 14.50, '123456789010', 'Soda baja en calorías, refrescante y sin azúcar.', 'CocaCola', 177, 25, 'https://devotouy.vtexassets.com/arquivos/ids/1516522-800-450?v=638619355883700000&width=800&height=450&aspect=true', 1, 2, 8, 1),
+(11, 'Papas Fritas Clásicas', 22.00, 27.50, '123456789011', 'Papas fritas clásicas, crujientes y saladas.', 'Lays', 100, 20, 'https://ventasdelacosta.uy/wp-content/uploads/2020/11/34.jpg', 1, 3, 6, 2),
+(12, 'Hamburguesa Clásica', 45.00, 55.00, '123456789012', 'Hamburguesa de carne con queso y vegetales.', 'Shnek', 50, 5, 'https://f.fcdn.app/imgs/b42e99/tienda.schneck.com.uy/snekuy/c648/original/catalogo/Ham80001/460x460/hamburguesa-clasica-schneck-x-2-unidades.jpg', 1, 3, 5, 13),
+(13, 'Jugo de Naranja Natural', 18.50, 22.00, '123456789013', 'Jugo de naranja natural, sin conservantes.', 'conaprole', 39, 3, 'https://www.conaprole.uy/wp-content/uploads/2018/03/jugo_naranja-1.png', 1, 2, 5, 1),
+(14, 'Bolígrafo Azul', 5.00, 7.50, '123456789014', 'Bolígrafo azul de tinta líquida, ideal para escritura suave.', 'EscribeYa', 300, 50, 'https://www.mosca.com.uy/media/catalog/product/5/4/54327.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700', 1, 3, 5, 10),
+(15, 'Shampoo Hidratante', 40.00, 48.00, '123456789015', 'Shampoo hidratante para todo tipo de cabellos.', 'Dove', 59, 10, 'https://f.fcdn.app/imgs/cb0414/eltunel.com.uy/tuneuy/ebf3/original/catalogo/02655043-02655043_1/1920-1200/shampoo-dove-hidratacion-intensa-400-ml-shampoo-dove-hidratacion-intensa-400-ml.jpg', 1, 2, 8, 21),
+(16, 'Galletitas Lulu', 15.00, 19.00, '123456789016', 'Galletas de chocolate con trozos de cacao.', 'Lulu', 100, 15, 'https://tatauy.vtexassets.com/arquivos/ids/371931/Galletas-Rellenas-Lul-Chocolate-115-G-1-7624.jpg?v=637897054606430000', 1, 3, 6, 2),
+(17, 'Café Molido 500gs', 50.00, 65.00, '123456789017', 'Café molido de gran calidad, sabor intenso.', 'Aguila', 40, 5, 'https://discouy.vtexassets.com/arquivos/ids/1772854/Cafe-molido-AGUILA-extra-azul-500-g-0.jpg?v=638507821309400000', 1, 3, 5, 23),
+(18, 'Queso Gouda', 35.00, 42.00, '123456789018', 'Queso Gouda suave, ideal para snacks y sándwiches.', 'Conaprole', 80, 10, 'https://www.lacasadelqueso.com.uy/imgs/productos/productos37_3882.png', 1, 3, 5, 4),
+(19, 'Gaseosa de Limón 2.25', 18.00, 21.50, '123456789019', 'Gaseosa de limón, refrescante y ligera.', 'Crush', 20, 15, 'https://discouy.vtexassets.com/arquivos/ids/1837204/Refresco-CRUSH-limon-225-L-0.jpg?v=638619335617430000', 1, 2, 8, 1),
+(20, 'Helado bombón', 35.00, 42.00, '123456789020', 'Helado de bombón, suave y cremoso.', 'Crufi', 60, 10, 'https://crufi.com.uy/files/tmp/compressed/normal/9ioxs32um9rgchwdvss1.png', 1, 3, 5, 7),
+(21, 'Salsa de Tomate', 22.00, 27.00, '123456789022', 'Salsa de tomate natural, ideal para pastas y pizzas.', 'Don Perita', 90, 10, 'https://pontevedra.com.uy/imagenes/productos/salsa-condimentada-don-perita-1020g.png', 1, 3, 5, 23),
+(22, 'Chicles de Menta', 5.00, 6.50, '123456789023', 'Chicles refrescantes con sabor a menta.', 'Beldent', 0, 3, 'https://prod-resize.tiendainglesa.com.uy/images/medium/P001205-2.jpg?20211107000119,Chicle-de-Menta-BELDENT-10-gr-en-Tienda-Inglesa', 1, 3, 6, 3),
+(23, 'Jugo de Manzana Orgánico', 16.00, 19.00, '123456789024', 'Jugo de manzana orgánico sin azúcar añadida.', 'Conaprole', 29, 5, 'https://www.conaprole.uy/wp-content/uploads/2018/03/jugo_manzana.png', 1, 2, 8, 1),
+(24, 'Bolsa de Caramelos', 12.00, 15.00, '123456789027', 'Bolsa surtida de caramelos de diferentes sabores.', 'Arcor', 150, 20, 'https://deliganga.com.uy/wp-content/uploads/2024/06/caramelosrellenosfrutalesarcor-300x300.jpg', 1, 3, 6, 3),
+(25, 'Detergente Líquido', 40.00, 50.00, '123456789028', 'Detergente líquido concentrado para limpieza.', 'Prix', 60, 10, 'https://devotouy.vtexassets.com/arquivos/ids/1509620/Detergente-liquido-PRIX-aloe-500-ml-1.jpg?v=638619307003600000', 1, 3, 8, 18),
+(26, 'Alimento para Gatos', 55.00, 70.00, '123456789029', 'Alimento seco para gatos con sabor a pollo.', 'whiskas', 100, 15, 'https://tatauy.vtexassets.com/arquivos/ids/601082/Alimento-Para-Gatos-Pescado-Whiskas-1-Kg-1-366.jpg?v=638208094249670000', 1, 3, 6, 17),
+(27, 'Vino Tinto Reserva', 120.00, 150.00, '123456789030', 'Vino tinto reserva de alta calidad.', 'Toscanini', 4, 2, 'https://devotouy.vtexassets.com/arquivos/ids/1506373/Vino-tinto-malbec-tannat-reserva-TOSCANINI-750-ml-0.jpg?v=638619291328470000', 1, 2, 8, 19),
+(28, 'Papel Higiénico Triple Hoja', 35.00, 40.00, '123456789033', 'Papel higiénico suave y resistente de triple hoja.', 'Elite', 20, 15, 'https://f.fcdn.app/imgs/faf2eb/eltunel.com.uy/tuneuy/8d69/original/catalogo/81002604-81002604_1/800x800/papel-higienico-elite-premium-triple-hoja-4-uds-30-mts-papel-higienico-elite-premium-triple-hoja-4-uds-30-mts.jpg', 1, 3, 12, 18),
+(29, 'Botella de Whisky', 200.00, 250.00, '123456789040', 'Whisky premium añejado.', 'johnnie walker', 32, 5, 'https://cachi.uy/wp-content/uploads/Whisky_Johnnie_Walker_Red_Label_1lt__1.jpg', 1, 2, 8, 19),
+(30, 'Alfajor chocolate', 35.00, 45.00, '123456789051', 'Alfajor de chocolate relleno de dulce de leche.', 'portezuelo', 0, 10, 'https://discouy.vtexassets.com/arquivos/ids/1855711/Alfajor-PORTEZUELO-chocolate-0.jpg?v=638620012189300000', 1, 3, 2, 2),
+(31, 'Champú para Cabello Seco', 35.00, 42.00, '123456789056', 'Champú hidratante para cabello seco.', 'Herbal Essences', 0, 8, 'https://vader-prod.s3.amazonaws.com/1679077071-41hWfuXiB5L._SL500_.jpg', 1, 3, 9, 21),
+(32, 'Chupetón', 3.00, 5.00, '123456789061', 'Golosina Comestible', 'pops', 3, 10, 'https://tatauy.vtexassets.com/arquivos/ids/156458/CHUPETIN-SURTIDO-MISTER-POP-S-1-333.jpg?v=636803919865800000', 1, 3, 5, 3),
+(33, 'Monster Energy', 20.00, 25.00, '123456789070', 'Bebida enegetica.', 'Moster', 6, 15, 'https://tatauy.vtexassets.com/arquivos/ids/215646/Energizante-Monster-Original-Lata-473Ml-2-2903.jpg?v=637647670964270000', 1, 2, 5, 16),
+(34, 'Papas Fritas 85g', 25.00, 30.00, '123456789071', 'Papas fritas sabor Original.', 'Ruffles', 5, 20, 'https://devotouy.vtexassets.com/arquivos/ids/1511685/Papas-fritas-RUFFLES-85-g-0.jpg?v=638619338874570000', 1, 2, 5, 2),
+(35, 'Alfajores de Maicena', 32.00, 40.00, '123456789072', 'Alfajores de maicena caseros', '', 5, 15, 'https://www.ohmargott.com/content/uploads/2020/05/DSC00628-01-e1588557286234.jpeg', 1, 3, 5, 6),
+(36, 'Salsa Barbacoa', 30.00, 38.00, '123456789080', 'Salsa barbacoa estilo americano.', 'Heinz', 3, 10, 'https://prod-resize.tiendainglesa.com.uy/images/medium/P448431-1.jpg?20230410180020,Salsa-Barbacoa-HEINZ-606-gr-en-Tienda-Inglesa', 1, 3, 5, 23);
 
 
 
@@ -190,6 +139,8 @@ VALUES
 ('49873211', 'Lucía Rojas', '1986-11-13', 'lucia.rojas@mail.com'),
 ('54321099', 'Enzo Ortiz', '1992-10-09', '+59894456781'),
 ('51123479', 'Victoria Peña', '1995-01-05', 'victoria.pena@mail.com'),
+('57085863','Juan Leites','2007-02-28','098957986'),
+('31231411','Lautaro Vaz Tourem','2006-06-22','098866899'),
 ('56752611','Juan Leites','2005-10-02','092211720');
 
 INSERT INTO `cliente` (`Cédula`, `Nombre`, `Fecha_de_Nacimiento`, `Contacto`, `RUT`)
@@ -197,4 +148,61 @@ VALUES
 ('41230985', 'Manuel Gómez', '1995-07-18', 'manuel.gomez@email.com', 414111141),
 ('56543214', 'Alejandra Delgado', '1990-09-22', 'alejandra.delgado@email.com', 515151234),
 ('56789016', 'Paola Castro', '1993-04-25', 'paola.castro@email.com', 1111111111),
-('25432104', 'Isabel Martínez', '1983-08-07', 'isabel.martinez@email.com', 51515151);
+('25432104', 'Isabel Martínez', '1983-08-07', 'isabel.martinez@email.com', 1231131311);
+
+
+INSERT INTO `usuario` (`Usuario`, `Contraseña`, `Nombre`, `Correo`, `Foto_Perfil`, `Fecha_Nacimiento`, `Color_Fondo`, `Color_Principal`, `Color_Secundario`, `Tipo_Usuario`) VALUES
+('colorazul', '$2y$10$X64oU4VchYUMH26FbqMGFuyXqFVL77DWwq.b1Za3UNH1VRIOLzpeK', 'Usuario con Color Azul', 'usuarioazul@gmail.com', 'images (1).jpeg', '2007-10-17', '#003e8f', '#54b7e8', '#ffffff', 'funcionario'),
+('colorrosa', '$2y$10$ZjQGEEa64SzzaQpU1YbRgeud1wu2Jv/A7AaIL3vnw4tFAfWZb3kmu', 'Usuario con color rosa', 'colorrosa@gmail.com', 'images.jpeg', '2016-10-17', '#ea99d1', '#a30057', '#75005c', 'funcionario'),
+('JuanLeites', '$2y$10$PyrzdCQIQNq.LGzZvVNG/.Y9/GwFJY/69sdjryGiQSK9hB/oH1fPu', 'Juan Andrés Leites Artia', '123juan123123852@gmail.com', 'JuanLeitesIMG_20220819_203411_106.jpg', '2005-10-17', '#001F47', '#4DBF38', '#80D12A', 'funcionario');
+
+
+INSERT INTO `venta` (`ID_VENTA`, `Precio_Final`, `Sub_Total`, `Fecha_Venta`, `ID_CLIENTE`) VALUES
+(1, 811.98, 672.90, '2024-10-16', 50),
+(2, 750.27, 625.20, '2024-10-15', 38);
+
+INSERT INTO `cobro` (`ID_COBRO`, `Monto`, `Fecha_Cobro`, `ID_CLIENTE`, `ID_VENTA`, `Usuario`) VALUES
+(1, 820.00, '2024-10-16', 50, 1, 'usuarioadmin'),
+(2, 700.00, '2024-10-15', 38, 2, 'JuanLeites');
+
+INSERT INTO `productos_vendidos` (`ID_VENTA`, `ID_PRODUCTO`, `Cantidad_de_Venta`, `Precio_de_Venta`, `Iva_de_Venta`) VALUES
+(1, 1, 1, 18.90, 0.00),
+(1, 2, 10, 14.50, 22.00),
+(1, 7, 2, 65.00, 22.00),
+(1, 10, 2, 14.50, 22.00),
+(1, 29, 1, 250.00, 22.00),
+(1, 35, 1, 40.00, 10.00),
+(1, 34, 2, 30.00, 22.00),
+(2, 1, 3, 18.90, 0.00),
+(2, 7, 1, 65.00, 22.00),
+(2, 10, 1, 14.50, 22.00),
+(2, 13, 1, 22.00, 22.00),
+(2, 15, 1, 48.00, 22.00),
+(2, 23, 1, 19.00, 22.00),
+(2, 27, 1, 150.00, 22.00),
+(2, 29, 1, 250.00, 22.00);
+
+INSERT INTO `compra` (`ID_COMPRA`, `Precio_Final`, `Sub_Total`, `Fecha_Compra`, `Vencimiento_Factura`, `ID_PROVEEDOR`) VALUES
+(1, 435.60, 396.00, '2024-10-16', '2024-10-23', 6),
+(2, 775.00, 775.00, '2024-10-16', NULL, 43),
+(3, 1573.80, 1290.00, '2024-10-16', '2024-10-31', 30);
+
+INSERT INTO `pago` (`ID_PAGO`, `Fecha_Pago`, `Monto`, `ID_PROVEEDOR`, `ID_COMPRA`, `Usuario`) VALUES
+(1, '2024-10-16', 436.00, 6, 1, 'colorazul'),
+(2, '2024-10-16', 780.00, 43, 2, 'colorazul'),
+(3, '2024-10-16', 80.00, 30, 3, 'colorazul'),
+(4, '2024-10-16', 300.00, 15, NULL, 'usuarioadmin');
+
+
+INSERT INTO `productos_comprados` (`ID_COMPRA`, `ID_PRODUCTO`, `Cantidad_de_Compra`, `Precio_de_Compra`, `Iva_de_Compra`) VALUES
+(1, 6, 22, 18.00, 10.00),
+(2, 1, 50, 15.50, 0.00),
+(3, 7, 5, 50.00, 22.00),
+(3, 27, 2, 120.00, 22.00),
+(3, 29, 4, 200.00, 22.00);
+
+INSERT INTO `sorteo` (`ID_SORTEO`, `Premio`, `Cantidad`, `Activo`, `Fecha_realización`) VALUES
+(1, 'Canasta Familiar, Fardo de Cocacola. ', 2, 1, NULL),
+(2, "Televisor 32'", 1, 1, NULL),
+(3, 'Tablet', 1, 1, NULL),
+(4,'500 pesos en compras en la empresa', 3, 1, NULL);

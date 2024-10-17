@@ -119,7 +119,7 @@ $encabezado .= "X-Priority: 1\n";
 $encabezado .= "List-unsuscribe: <https://www.elmana.site/unsuscribe.php>\n";
 $encabezado .= "List-Unsuscribe-Post: List-Unsuscribe=One-Click\n";
 
-mail($destino, $asunto, $contenido, $encabezado);
+@mail($destino, $asunto, $contenido, $encabezado);
   echo "<script>alert('Se enviará el código " . $codigo . " a " . $nombre . " con el correo " . $destino . " ')</script>";
 }
 function generarcodigo($cantidad)
