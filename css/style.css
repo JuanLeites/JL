@@ -119,6 +119,9 @@ input:hover {
         4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
         35px 41px 80px rgba(0, 0, 0, 0.52);
 }
+.accion:hover{
+    filter: drop-shadow(12px 10px 15px var(--color-fondo));
+}
 
 input::placeholder {
     color: var(--color-fondo);
@@ -447,8 +450,16 @@ table {
     border-radius: 100%;
     background-color: var(--color-secundario);
     border: solid 1px var(--color-fondo);
+    color: var(--color-fondo);
     padding: 5px 10px;
     font-size: 100%;
+    transition:0.9s;
+}
+.agregarproducto:hover{
+background-color: var(--color-fondo);
+border: var(--color-principal);
+color:var(--color-secundario);
+
 }
 .enlace{
     text-decoration: none; 

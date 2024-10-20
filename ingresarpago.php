@@ -2,6 +2,19 @@
 include_once("chequeodelogin.php");
 include_once("coneccionBD.php");
 include_once("funciones.php");
+    
+    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    mysqli_query($basededatos, 'INSERT INTO pago (Monto, ID_PROVEEDOR, Fecha_Pago, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
+    
+    $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
+    $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
+    mysqli_query($basededatos,'UPDATE `proveedor` SET `Deuda`="'.$deudaactual.'" WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'); //actualizamos la deuda del cliente
+    header("Location:ingresarpago.php?opcion=pagoingresado");
+    die();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -34,18 +47,7 @@ include_once("funciones.php");
         <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
         <input type="submit" value="agregar">
     </form>
-    <?php include_once("barralateral.html");
-    
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        mysqli_query($basededatos, 'INSERT INTO pago (Monto, ID_PROVEEDOR, Fecha_Pago, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
-        
-        $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
-        $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
-        mysqli_query($basededatos,'UPDATE `proveedor` SET `Deuda`="'.$deudaactual.'" WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'); //actualizamos la deuda del cliente
-        mostraraviso("Pago ingresado con éxito<br> Deuda actualizada",$colorfondo,$colorsecundario);
-    }
-    ?>
+    <?php include_once("barralateral.html"); ?>
 </body>
 <script type="module">
     import {cargarproveedoresenselect} from "./js/funciones.js"
@@ -64,3 +66,12 @@ include_once("funciones.php");
 
 </script>
 </html>
+
+<?php
+
+
+if(isset($_GET["opcion"]) && $_GET["opcion"] == "pagoingresado"){
+    mostraraviso("Pago ingresado con éxito<br> Deuda actualizada",$colorfondo,$colorsecundario);
+}
+    
+    ?>

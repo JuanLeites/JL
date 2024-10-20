@@ -7,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
     if ($_POST["premio"] != "" && $_POST["cantidad"]!="") {
         mysqli_query($basededatos, 'INSERT INTO sorteo (Premio, Cantidad) VALUES ("' . $_POST["premio"] . '" , "' . $_POST["cantidad"].'");');
-        $opcion="sorteorealizado";
+        header("Location:agregarsorteos.php?opcion=sorteocreado");
+        die();
     } else {
         $opcion="datosincompletos";
     }
@@ -60,9 +61,9 @@ if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
 
 // esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
-switch ($opcion) {
+switch (@$opcion) {
     case 'sorteorealizado';
-        mostraraviso("Sorteo Creado con éxito", $colorfondo, $colorprincipal);
+        
         break;
     case 'datosincompletos';
         mostraralerta("Debes de completar todos los campos", $colorfondo, $colorprincipal);
@@ -70,5 +71,10 @@ switch ($opcion) {
     case 'datosnoseteados';
         mostraralerta("Los datos no fueron seteados", $colorfondo, $colorprincipal);
         break;
+}
+if(isset($_GET["opcion"])){
+    if($_GET["opcion"] == "sorteocreado"){
+        mostraraviso("Sorteo Creado con éxito", $colorfondo, $colorprincipal);
+    }
 }
 ?>

@@ -20,16 +20,20 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->SetMargins(5, 0, 5);
             $pdf->SetFont('Arial', 'B', 15); //I interlineado; B Negrita; U Interlineado;
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Write(5, mb_convert_encoding("Comprobante de Venta", "ISO-8859-1", "UTF-8"));
+            $pdf->Write(5, mb_convert_encoding("      Orden de Venta", "ISO-8859-1", "UTF-8"));
             $pdf->Ln(); //salto de linea
+
+            $pdf->SetFont('Arial', 'I', 7);
+            $texto = "Cliente: " . $datosdelaventa["Nombre"] . " - " . $datosdelaventa["Cédula"]; //guardamos el texto que vamos a centrar en una variable
+            $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
             $pdf->Ln();
             $pdf->SetFont('Arial', 'B', 7); //I de costado; B Negrita; U Subrayado;
             $pdf->SetTextColor(0, 0, 0);
             $pdf->SetFillColor(150, 150, 200);
 
+            $pdf->Cell(9, $alturadeceldas, mb_convert_encoding("Iva", "UTF-8"), true, false, "C", true); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(36, $alturadeceldas, mb_convert_encoding("Producto", "ISO-8859-1", "UTF-8"), true, false, "C", true,); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(11, $alturadeceldas, mb_convert_encoding("Cántidad", "ISO-8859-1", "UTF-8"), true, false, "C", true);
-            $pdf->Cell(9, $alturadeceldas, mb_convert_encoding("Iva", "UTF-8"), true, false, "C", true); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(16, $alturadeceldas, mb_convert_encoding("Precio c/u", "ISO-8859-1", "UTF-8"), true, true, "C", true);
 
 
@@ -56,9 +60,9 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                     $nombreProducto = substr($nombreProducto, 0, -3) . '...'; //le quitamos los ultimos 3caracteres y le agregamos puntos suspensivos
                 }
 
+                $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Venta"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(36, $alturadeceldas, mb_convert_encoding($nombreProducto, "ISO-8859-1", "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(11, $alturadeceldas, mb_convert_encoding($cadaproducto["Cantidad_de_Venta"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
-                $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Venta"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(16, $alturadeceldas, mb_convert_encoding($cadaproducto["Precio_de_Venta"], "ISO-8859-1", "UTF-8"), true, true, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
 
             }
@@ -78,19 +82,12 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
             $pdf->Ln();
             $pdf->SetFont('Arial', '', 7);
-            $texto = "Vendedor: " . $datosdelaventa["Vendedor"]; //guardamos el texto que vamos a centrar en una variable
+            $texto = "Usuario que ingresó la venta : " . $datosdelaventa["Vendedor"]; //guardamos el texto que vamos a centrar en una variable
             $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
             $pdf->Ln();
 
-            $texto = "Cliente: " . $datosdelaventa["Nombre"] . " - " . $datosdelaventa["Cédula"]; //guardamos el texto que vamos a centrar en una variable
-            $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
-            $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
-
-
-            $pdf->Ln();
-
-            $texto = "El cliente pagó: " . $datosdelaventa["Monto"]; //guardamos el texto que vamos a centrar en una variable
+            $texto = "pagó: " . $datosdelaventa["Monto"]; //guardamos el texto que vamos a centrar en una variable
             $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
 
@@ -125,16 +122,21 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->SetMargins(4, 0, 5);
             $pdf->SetFont('Arial', 'B', 14); //I interlineado; B Negrita; U Interlineado;
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Write(5, mb_convert_encoding("Comprobante de Compra", "ISO-8859-1", "UTF-8"));
+            $pdf->Write(5, mb_convert_encoding("       Orden de Compra", "ISO-8859-1", "UTF-8"));
             $pdf->Ln(); //salto de linea
+            $pdf->SetFont('Arial', 'I', 7);
+            $pdf->Write(5, mb_convert_encoding("Proveedor :".$datosdelacompra["Razón_Social"], "ISO-8859-1", "UTF-8"));
+            $pdf->Ln();
+            $pdf->Write(5, mb_convert_encoding("RUT :".$datosdelacompra["RUT"], "ISO-8859-1", "UTF-8"));
+
             $pdf->Ln();
             $pdf->SetFont('Arial', 'B', 7); //I de costado; B Negrita; U Subrayado;
             $pdf->SetTextColor(0, 0, 0);
             $pdf->SetFillColor(150, 150, 200);
 
+            $pdf->Cell(9, $alturadeceldas, mb_convert_encoding("Iva", "UTF-8"), true, false, "C", true); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(36, $alturadeceldas, mb_convert_encoding("Producto", "ISO-8859-1", "UTF-8"), true, false, "C", true,); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(11, $alturadeceldas, mb_convert_encoding("Cántidad", "ISO-8859-1", "UTF-8"), true, false, "C", true);
-            $pdf->Cell(9, $alturadeceldas, mb_convert_encoding("Iva", "UTF-8"), true, false, "C", true); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
             $pdf->Cell(16, $alturadeceldas, mb_convert_encoding("Precio c/u", "ISO-8859-1", "UTF-8"), true, true, "C", true);
 
 
@@ -158,9 +160,10 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                 if ($nombreProducto != $cadaproducto["Nombre"]) { //si el texto fue recortado
                     $nombreProducto = substr($nombreProducto, 0, -3) . '...'; //le quitamos los ultimos 3caracteres y le agregamos puntos suspensivos
                 }
+
+                $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Compra"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(36, $alturadeceldas, mb_convert_encoding($nombreProducto, "ISO-8859-1", "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(11, $alturadeceldas, mb_convert_encoding($cadaproducto["Cantidad_de_Compra"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
-                $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Compra"], "UTF-8"), true, false, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
                 $pdf->Cell(16, $alturadeceldas, mb_convert_encoding($cadaproducto["Precio_de_Compra"], "ISO-8859-1", "UTF-8"), true, true, "C", false); //("ancho","alto","contendido",borde,"salto de linea","pocision del taxto","color de relleno","enlace que nos redireccionará al presionar el texto")
 
             }
@@ -181,16 +184,9 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
             $pdf->Ln();
             $pdf->SetFont('Arial', '', 7);
-            $texto = "Comprador: " . $datosdelacompra["Comprador"]; //guardamos el texto que vamos a centrar en una variable
+            $texto = "Usuario que ingresó la compra: " . $datosdelacompra["Comprador"]; //guardamos el texto que vamos a centrar en una variable
             $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
-            $pdf->Ln();
-
-            $texto = "Proveedor: " . $datosdelacompra["Razón_Social"] . " - " . $datosdelacompra["RUT"]; //guardamos el texto que vamos a centrar en una variable
-            $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
-            $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
-
-
             $pdf->Ln();
 
             if($datosdelacompra["Vencimiento_Factura"]!=""){ // si la compra fue a crédito, se obtendrá el valor
@@ -199,7 +195,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                 $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
                 $pdf->Ln();
             }
-            $texto = "Se le pagó al proveedor : " . $datosdelacompra["Monto"]; //guardamos el texto que vamos a centrar en una variable
+            $texto = "Se le pagó : " . $datosdelacompra["Monto"]; //guardamos el texto que vamos a centrar en una variable
             $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
 
@@ -211,9 +207,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
             $pdf->output('d', str_replace(" ", "", 'compra' . $datosdelacompra["Razón_Social"] . $datosdelacompra["RUT"] . "-" . $datosdelacompra["Fecha_Compra"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
             break;
-        case 'factura':
-            echo "Se debe de implementar la impresión de facturas a clientes con RUT";
-            break;
+        
     }
 } else {
     echo "faltan datos...";

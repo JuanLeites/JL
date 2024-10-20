@@ -8,10 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST["nombre"] != "" && $_POST["cedula"] != "" && $_POST["fechanac"] != "" && $_POST["contacto"] != "") {
             if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
                 mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto,RUT) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '","' . $_POST["rut"] . '");');
-                $opcion = "clienteconrutregistrado";
+                header("Location:agregarclientes.php?opcion=clienteconrutregistrado");
+                die();
             } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
                 mysqli_query($basededatos, 'INSERT INTO cliente (Cédula, Nombre, Fecha_de_Nacimiento, Contacto) VALUES ("' . $_POST["cedula"] . '","' . $_POST["nombre"] . '","' . $_POST["fechanac"] . '","' . $_POST["contacto"] . '");');
-                $opcion = "clienteregistrado";
+                header("Location:agregarclientes.php?opcion=clienteregistrado");
+                die();
             }
         } else {
             $opcion = "datosincompletos";
@@ -20,11 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fechanac = $_POST["fechanac"];
             $contacto = $_POST["contacto"];
         }
-    } else {
-        $opcion = "error";
     }
-} else {
-    $opcion = "";
 }
 
 
@@ -82,18 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 // esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
-switch ($opcion) {
-    case 'clienteconrutregistrado';
-        mostraraviso("Cliente con RUT registrado con éxito", $colorfondo, $colorprincipal);
-        break;
-    case 'clienteregistrado';
-        mostraraviso("Cliente registrado con éxito", $colorfondo, $colorprincipal);
-        break;
-    case 'datosincompletos';
-        mostraralerta("Debe de completar todos los datos", $colorfondo, $colorprincipal);
-        break;
-    case 'error';
-        mostraralerta("Datos no seteados", $colorfondo, $colorprincipal);
-        break;
+if (isset($opcion)) {
+    switch ($opcion) {
+        case 'datosincompletos';
+            mostraralerta("Debe de completar todos los datos", $colorfondo, $colorprincipal);
+            break;
+    }
+}else if(isset($_GET["opcion"])){
+    switch ($_GET["opcion"]) {
+        case 'clienteconrutregistrado';
+            mostraraviso("Cliente con RUT registrado con éxito", $colorfondo, $colorprincipal);
+            break;
+        case 'clienteregistrado';
+            mostraraviso("Cliente registrado con éxito", $colorfondo, $colorprincipal);
+            break;
+    }
 }
 ?>
