@@ -216,13 +216,15 @@ footer>a:hover {
     text-decoration: none;
     min-width: 3000px;
     color: var(--color-fondo);
-    transition: 1s;
+    transition: .8s;
     height: 100%;
 }
 
 .contenedordeicono:hover {
     background-color: var(--color-fondo);
-    color: var(--color-secundario)
+    box-shadow:
+    4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
+    35px 41px 80px rgba(0, 0, 0, 0.52);
 }
 
 .contenedordeicono>a:hover {
@@ -686,10 +688,6 @@ main {
         max-height: 440px;
     }
 
-    .tresinputs {
-        max-width: 350px;
-        max-height: 160px;
-    }
 
     .contenedordeicono {
         padding: 5px;
@@ -743,8 +741,8 @@ main {
     }
 
     .tresinputs>.subcontenedor {
-        margin: 5px;
-        padding: 5px;
+        margin: 1px;
+        padding: 1px;
         font-size: 10%;
     }
 
