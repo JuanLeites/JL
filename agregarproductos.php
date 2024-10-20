@@ -21,21 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"] . $_FILES['foto']['name']);
             }
-            $opcion = "Productoregistrado";
+            header("Location:agregarproductos.php?opcion=productoagregado");
+            die();
         } else { //sino se seteo la foto
             if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
                 mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["enlacedefoto"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
-                $opcion = "Productoregistrado";
+                header("Location:agregarproductos.php?opcion=productoagregado");
+                die();
             } else {
-                $opcion = "ingresefotooenlace";
-                $nombre = $_POST["nombre"];
-                $preciocompra = $_POST["preciocompra"];
-                $precioventa = $_POST["precioventa"];
-                $codbarras= $_POST["codbarras"];
-                $descripcion = $_POST["descripcion"];
-                $marca = $_POST["marca"];
-                $cantidad = $_POST["cantidad"];
-                $cantidadaviso = $_POST["cantidadaviso"];
+                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","imagenes/sinfoto.jpg","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                header("Location:agregarproductos.php?opcion=productoagregadosinfoto");
+                die();
             }
         }
     } else {
@@ -138,15 +134,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 // esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
-switch ($opcion) {
-    case 'Productoregistrado';
-        mostraraviso("Producto registrado con éxito", $colorfondo, $colorprincipal);
+if (isset($opcion)) {
+    switch ($opcion) {
+        case 'datosnoseteados';
+        mostraralerta("Debe completar todos los campos", $colorfondo, $colorprincipal);
         break;
-    case 'ingresefotooenlace';
-        mostraralerta("Debe ingresar una foto o el enlace de una foto", $colorfondo, $colorprincipal);
-        break;
-    case 'datosnoseteados';
-        mostraralerta("Datos no seteados", $colorfondo, $colorprincipal);
-        break;
+    }
+}
+if(isset($_GET["opcion"])){
+    switch ($_GET["opcion"]) {
+        case 'productoagregadosinfoto':
+            mostraraviso("Producto sin foto registrado con éxito", $colorfondo, $colorprincipal);
+            break;
+
+        case 'productoagregado';
+            mostraraviso("Producto registrado con éxito", $colorfondo, $colorprincipal);
+            break;
+    }
 }
 ?>

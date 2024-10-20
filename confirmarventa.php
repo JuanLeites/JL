@@ -28,10 +28,10 @@ include_once("funciones.php");
             <table>
                 <tbody>
                     <tr>
+                        <th>IVA</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Precio por Unidad</th>
-                        <th>iva</th>
                         <th>Monto</th>
                     </tr>
                     <?php
@@ -66,7 +66,7 @@ include_once("funciones.php");
                             $preciototalconiva = $subtotal + (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos al subtotal el iva
                             $total += $preciototalconiva;
 
-                            echo "<tr><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Venta"] . "</th><th>" . $productoconprecio["Valor"] . "%</th><th>" . $subtotal . "</th></tr>";
+                            echo "<tr><th>" . $productoconprecio["Valor"] . "%</th><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Venta"] . "</th><th>" . $subtotal . "</th></tr>";
                         }
 
                         //si tiene algun producto con alguno de los ivas los carga:
@@ -104,11 +104,11 @@ include_once("funciones.php");
             <p>Cliente :<?php echo  $cliente["Nombre"] . " - " . $cliente["Cédula"];  ?> </p>
             
             <label for="cuantopaga">Ingrese el dinero recibido</label>
-            <input id="cuantopaga" type="number" placeholder="Dinero Recibido" name="monto" min="0" required>
+            <input id="cuantopaga" type="number" placeholder="Dinero Cobrado" name="monto" min="0" required>
             <input type="submit" value="Concretar Venta">
             <?php if ($cliente["RUT"] != "") {
-                echo "<input type='button' value='Solicitar Factura'></input>";
-            } //solamente carga el botón solicitar boleta si el cliente tiene rut  
+                echo "<input type='hidden' name='CLIENTECONRUT' value='".$cliente["RUT"]."'></input>";
+            } //si el cliente tiene rut imprimira un input type hidden para luego poder imprimir una factura
             ?>
         </form>
     </div>

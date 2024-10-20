@@ -29,10 +29,10 @@ include_once("funciones.php");
             <table>
                 <tbody>
                     <tr>
+                        <th>IVA</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Precio por Unidad</th>
-                        <th>iva</th>
                         <th>Monto</th>
                     </tr>
                     <?php
@@ -66,7 +66,7 @@ include_once("funciones.php");
                             $preciototalconiva = $subtotal + (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos al subtotal el iva
                             $total += $preciototalconiva;
 
-                            echo "<tr><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Compra"] . "</th><th>" . $productoconprecio["Valor"] . "%</th><th>" . $subtotal . "</th></tr>";
+                            echo "<tr><th>" . $productoconprecio["Valor"] . "%</th><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Compra"] . "</th><th>" . $subtotal . "</th></tr>";
                         
                         }
                         if ($contadordeiva10 != 0) {

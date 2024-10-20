@@ -7,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
         if ($_POST["RS"] != ""  && $_POST["contacto"] != "") {
             mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
-            $opcion = "proveedorregistrado";
+            header("Location:agregarproveedores.php?opcion=proveedorregistrado");
+                die();
         } else {
             $opcion="datosincompletos";
         }
@@ -56,10 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 </html>
 <?php
-switch ($opcion) {
-    case 'proveedorregistrado';
+if(isset($_GET["opcion"])){
+    if($_GET["opcion"]== "proveedorregistrado"){
         mostraraviso("Proveedor registrado con éxito", $colorfondo, $colorprincipal);
-        break;
+    }
+}
+switch ($opcion) {
     case 'datosincompletos';
         mostraralerta("Debe rellenar todos los campos", $colorfondo, $colorprincipal);
         break;

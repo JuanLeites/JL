@@ -5,10 +5,10 @@ include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
-        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
         $opcion="clienteconrutactualizado";
     } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
-        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Deuda` = "' . $_POST["deuda"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        mysqli_query($basededatos, 'UPDATE `cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
         $opcion="clienteactualizado";
     }
 } else {
@@ -54,9 +54,6 @@ if (isset($_GET["id"])) {
 
         <label for="fechanac">Fecha de Nacimiento</label>
         <input type="date" name="fechanac" id="fechanac" max="2019-12-31" min="1940-12-31" value="<?php echo $cliente['Fecha_de_Nacimiento']; ?>">
-
-        <label for="deuda">Deuda</label>
-        <input placeholder="Deuda" type="number" name="deuda" id="deuda" value="<?php echo $cliente['Deuda']; ?>">
 
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" value="<?php echo $cliente['Contacto']; ?>">
