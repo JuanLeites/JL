@@ -17,7 +17,7 @@ INSERT INTO Medida (Unidad, Símbolo) VALUES
 ('Sobre', 'sob');
 
 
-INSERT INTO `categoría` (`ID_CATEGORIA`, `Título`, `Descripción`) VALUES
+INSERT INTO `Categoría` (`ID_CATEGORIA`, `Título`, `Descripción`) VALUES
 (1, 'Bebidas', 'Todo tipo de bebidas, desde refrescos hasta jugos y agua mineral.'),
 (2, 'Snacks', 'Botanas saladas y dulces, como papas fritas, galletas y nueces.'),
 (3, 'Confites', 'Caramelos, chocolates y golosinas diversas.'),

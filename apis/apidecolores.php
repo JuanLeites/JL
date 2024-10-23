@@ -3,7 +3,7 @@ include_once("../coneccionBD.php");
 include_once("../chequeodelogin.php");
 
 if(isset($_SESSION["usuario"])){
-    $configuraciondecolores = mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Color_Principal,Color_Secundario,Color_Fondo FROM usuario  WHERE Usuario ="' . $_SESSION["usuario"] . '";'));
+    $configuraciondecolores = mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Color_Principal,Color_Secundario,Color_Fondo FROM Usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";'));
     
     $colorprincipal =$configuraciondecolores["Color_Principal"];
     $colorsecundario = $configuraciondecolores["Color_Secundario"];

@@ -33,6 +33,8 @@ var grafica1 = new Chart(canvas1, {//establecemos el objeto chart con datos por 
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {
         bodyColor: "gold",
@@ -92,6 +94,8 @@ grafica2 = new Chart(canvas2, {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {
         bodyColor: "gold",
@@ -149,6 +153,8 @@ grafica3 = new Chart(canvas3, {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {
         bodyColor: "gold",
@@ -205,6 +211,8 @@ grafica4 = new Chart(canvas4, {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {
         bodyColor: "gold",

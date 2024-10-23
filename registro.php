@@ -12,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (strlen($_POST["pass"]) >= 6) { //si la cantidad de caracteres de la contraseña es mayor o igual a 6
                     if ($_POST["clavamaestra"] == $configuracion["Clave_Maestra"]) { //comparamos clave maestra para lograr el registro
 
-                        $chekuser = mysqli_query($basededatos, 'SELECT * from usuario WHERE Usuario="' . $_POST["usuario"] . '"'); //consulta para comprobar que no haya ningun usuario con ese usuario
-                        $chekcorreo = mysqli_query($basededatos, 'SELECT * from usuario WHERE Correo="' . $_POST["correo"] . '"'); //consulta para comprobar que no haya ningun usuario con ese correo
+                        $chekuser = mysqli_query($basededatos, 'SELECT * from Usuario WHERE Usuario="' . $_POST["usuario"] . '"'); //consulta para comprobar que no haya ningun usuario con ese usuario
+                        $chekcorreo = mysqli_query($basededatos, 'SELECT * from Usuario WHERE Correo="' . $_POST["correo"] . '"'); //consulta para comprobar que no haya ningun usuario con ese correo
 
                         if (mysqli_num_rows($chekuser) == 0) { //si no encuentra ningun usuario con ese nombre
 
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     header("Location:index.php?causa=reg");
                                 } else { //sino la guardara con el nombre de usuario(unico)y el nombre de la foto
                                     move_uploaded_file($_FILES['fotoperfil']['tmp_name'], 'fotoperfil/' . $_POST["usuario"] . $_FILES['fotoperfil']['name']);
-                                    mysqli_query($basededatos, 'INSERT INTO usuario (Usuario, Contraseña, Nombre, Correo, Foto_Perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . password_hash($_POST["pass"], PASSWORD_BCRYPT) . '","' . $_POST["nombre"] . '","' . $_POST["correo"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
+                                    mysqli_query($basededatos, 'INSERT INTO Usuario (Usuario, Contraseña, Nombre, Correo, Foto_Perfil, Fecha_Nacimiento) VALUES ("' . $_POST["usuario"] . '","' . password_hash($_POST["pass"], PASSWORD_BCRYPT) . '","' . $_POST["nombre"] . '","' . $_POST["correo"]  . '","' . $_POST["usuario"] . $_FILES['fotoperfil']['name'] . '","' . $_POST["fecha"] . '");');
                                     header("Location:index.php?causa=reg");
                                 }
                             } else {

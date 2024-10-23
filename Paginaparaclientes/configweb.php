@@ -28,7 +28,7 @@ $config = mysqli_fetch_assoc($consultaconfiguración);
     <style>
         <?php
 
-        $configuraciondecolores = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Color_Principal,Color_Secundario,Color_Fondo FROM configuración;'));
+        $configuraciondecolores = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Color_Principal,Color_Secundario,Color_Fondo FROM Configuración;'));
 
         $colorprincipal = $configuraciondecolores["Color_Principal"];
         $colorsecundario = $configuraciondecolores["Color_Secundario"];

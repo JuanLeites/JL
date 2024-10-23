@@ -417,7 +417,7 @@ function sumar(id_producto) {
 
 //funciones utilizadas unicamente para agregarle las funciones a los botones de vender y comprar productos
 function cargarbotonparasumarproductoparavender() {//funcion utilizada en la funcion de cargar productos para vender, la cual se utiliza en el archivo ingresarventa.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
-    function agregar(id_producto, nombre, Precio_Neto, cantidaddisponible) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
+    function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
         var inputdeenviar = document.querySelector(".botonenviar");
         inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
@@ -469,7 +469,7 @@ function cargarbotonparasumarproductoparavender() {//funcion utilizada en la fun
     var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
     BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
         CADABOTON.addEventListener("click", () => {
-            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
+            agregaraventa(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
         });
     });
 };
@@ -477,7 +477,7 @@ function cargarbotonparasumarproductoparavender() {//funcion utilizada en la fun
 
 
 function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la funcion "cargarproductosparacomprar()", la cual se utiliza en el archivo ingresarcompra.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
-    function agregar(id_producto, nombre, Precio_Neto) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
+    function agregaracompra(id_producto, nombre, Precio_Neto) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
         var inputdeenviar = document.querySelector(".botonenviar");
         inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
@@ -525,7 +525,7 @@ function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la fu
     var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
     BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
         CADABOTON.addEventListener("click", () => {
-            agregar(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_compra"));
+            agregaracompra(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_compra"));
         });
     });
 };
@@ -556,7 +556,7 @@ export function cargarproductosparacomprar(filtro) {
                 agregaralinea(cadaproducto.Código_de_Barras);
                 agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
                 agregaralinea(cadaproducto.Descripción);
-                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_Compra='" + cadaproducto.Precio_Compra + "' id_producto='" + cadaproducto.ID_Producto + "'>+</button>")
+                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_Compra='" + cadaproducto.Precio_Compra + "' id_producto='" + cadaproducto.ID_Producto + "' onclick='agregarcompra('" + cadaproducto.Nombre + "','" + cadaproducto.Precio_Compra + "','" + cadaproducto.ID_Producto + "')'>+</button>")
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })

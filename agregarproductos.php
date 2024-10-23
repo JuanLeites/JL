@@ -3,9 +3,9 @@ include_once("chequeodelogin.php");
 include_once("coneccionBD.php");
 include_once("funciones.php");
 
-$ivas =  mysqli_query($basededatos, 'SELECT * FROM iva ');
-$categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ORDER BY Título');
-$medidas = mysqli_query($basededatos, 'SELECT * FROM medida ORDER BY Unidad');
+$ivas =  mysqli_query($basededatos, 'SELECT * FROM IVA ');
+$categorias = mysqli_query($basededatos, 'SELECT * FROM Categoría ORDER BY Título');
+$medidas = mysqli_query($basededatos, 'SELECT * FROM Medida ORDER BY Unidad');
 
 if (!file_exists("IMAGENESSOFTWARE")) {
     mkdir("IMAGENESSOFTWARE");
@@ -15,21 +15,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["preciocompra"])&& isset($_POST["precioventa"]) && isset($_POST["codbarras"]) && isset($_POST["descripcion"]) && isset($_POST["marca"]) && isset($_POST["cantidad"]) && isset($_POST["cantidadaviso"]) && isset($_FILES["foto"]) && isset($_POST["ID_IVA"]) && isset($_POST["ID_UNIDAD"]) && isset($_POST["ID_CATEGORIA"])) {
         if ($_FILES['foto']["name"]!="") { //chequeamos que se haya seteado una foto
             if (!file_exists('IMAGENESSOFTWARE/' . $_FILES['foto']['name'])) { //sino existe una imagen con ese nombre la guarda y carga la base de datos.
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre, Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                mysqli_query($basededatos, 'INSERT INTO Producto (Nombre, Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_FILES['foto']['name']);
             } else { //si llegase a existir imagen con ese nombre le pone el codigo de barras a la imagen y la carga asi.
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                mysqli_query($basededatos, 'INSERT INTO Producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . "IMAGENESSOFTWARE/" . $_POST["codbarras"] . $_FILES["foto"]["name"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 move_uploaded_file($_FILES['foto']['tmp_name'], 'IMAGENESSOFTWARE/' . $_POST["codbarras"] . $_FILES['foto']['name']);
             }
             header("Location:agregarproductos.php?opcion=productoagregado");
             die();
         } else { //sino se seteo la foto
             if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["enlacedefoto"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                mysqli_query($basededatos, 'INSERT INTO Producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","' . $_POST["enlacedefoto"] . '","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 header("Location:agregarproductos.php?opcion=productoagregado");
                 die();
             } else {
-                mysqli_query($basededatos, 'INSERT INTO producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","imagenes/sinfoto.jpg","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
+                mysqli_query($basededatos, 'INSERT INTO Producto (Nombre,Precio_Compra, Precio_Venta,Código_de_Barras,Descripción,Marca,Cantidad,Cantidad_minima_aviso,imagen,ID_IVA,ID_UNIDAD,ID_CATEGORIA) VALUES ("' . $_POST["nombre"] . '","' . $_POST["preciocompra"] .'","' . $_POST["precioventa"] . '","' . $_POST["codbarras"] . '","' . $_POST["descripcion"] . '","' . $_POST["marca"] . '","' . $_POST["cantidad"] . '","' . $_POST["cantidadaviso"] . '","imagenes/sinfoto.jpg","'  . $_POST["ID_IVA"] . '","' . $_POST["ID_UNIDAD"] . '","' . $_POST["ID_CATEGORIA"] . '");');
                 header("Location:agregarproductos.php?opcion=productoagregadosinfoto");
                 die();
             }

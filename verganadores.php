@@ -2,8 +2,8 @@
 include_once("chequeodelogin.php");
 include_once("coneccionBD.php");
 if (isset($_GET["id"])) {
-    $datosdelsorteo = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT * FROM sorteo WHERE ID_SORTEO="' . $_GET["id"] . '"'));
-    $ganadores = mysqli_query($basededatos, 'SELECT Nombre,Cédula FROM sorteo s, ganador g, cliente c WHERE s.ID_SORTEO=g.ID_SORTEO and g.ID_CLIENTE=c.ID_CLIENTE and  s.ID_SORTEO="' . $_GET["id"] . '"');
+    $datosdelsorteo = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT * FROM Sorteo WHERE ID_SORTEO="' . $_GET["id"] . '"'));
+    $ganadores = mysqli_query($basededatos, 'SELECT Nombre,Cédula FROM Sorteo s, Ganador g, Cliente c WHERE s.ID_SORTEO=g.ID_SORTEO and g.ID_CLIENTE=c.ID_CLIENTE and  s.ID_SORTEO="' . $_GET["id"] . '"');
 } else {
     header("Location:sorteos.php?causa?idnoseteada");
     die();
