@@ -6,7 +6,7 @@ include_once("funciones.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_POST["premio"]) && isset($_POST["cantidad"])) {
     if ($_POST["premio"] != "" && $_POST["cantidad"]!="") {
-        mysqli_query($basededatos, 'INSERT INTO sorteo (Premio, Cantidad) VALUES ("' . $_POST["premio"] . '" , "' . $_POST["cantidad"].'");');
+        mysqli_query($basededatos, 'INSERT INTO Sorteo (Premio, Cantidad) VALUES ("' . $_POST["premio"] . '" , "' . $_POST["cantidad"].'");');
         header("Location:agregarsorteos.php?opcion=sorteocreado");
         die();
     } else {

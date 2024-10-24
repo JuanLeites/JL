@@ -39,7 +39,13 @@
     padding: 10px;
     max-width: 40%;
     max-height: 37vh;
+    box-shadow:
+        3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
+        11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
+        50px 41px 115px rgba(0, 0, 0, 0.45);
+    
 }
+
 
 .ganadores {
     padding: 20px;
@@ -475,7 +481,14 @@ th {
     border: 2px solid var(--color-fondo);
     padding: 3px;
     text-align: center;
+    color:var(--color-fondo);
 }
+td>a{
+    color:var(--color-fondo);
+}
+
+
+
 
 #prod {
     border-radius: 5px;
@@ -649,7 +662,9 @@ main {
     top: 28% !important;
     max-height: 65% !important;
 }
-
+.contenedordetitulos{
+    max-height: 20vh;
+}
 
 .contenedordetitulos>h1 {
     font-size: 200%;
@@ -667,12 +682,7 @@ main {
     text-shadow: -1px -1px 1px var(--color-secundario);
 }
 
-.contenedordegraficas>canvas {
-    box-shadow:
-        3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
-        11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
-        50px 41px 115px rgba(0, 0, 0, 0.45);
-}
+
 /*.acredito{ 
     border: 1px solid var(--color-fondo);
     border-radius: 5px;
@@ -745,10 +755,6 @@ main {
 @media (max-height: 700px) {
     .contenedordeicono> {
         max-height: 60px;
-    }
-
-    .contenedoresenmenuprincipal>div {
-        max-height: 250px;
     }
 
     .tresinputs>.subcontenedor {
@@ -859,7 +865,6 @@ main {
     .contenedordeproductos {
         max-width: 270px;
     }
-
     .formularios>.agregarproductos {
         max-width: 100%;
     }
@@ -874,6 +879,29 @@ main {
 
     .formularios>.tabladeprductosagregados {
         max-width: 70%;
+    }
+}
+
+.contenedordegraficas {
+    position: absolute;
+    top: 16%;
+    max-height: 90vh;
+    max-width: 90%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+    .contenedordegraficas {
+        align-items: center;
+        background-color: red;
+    }
+
+    .contenedordegraficas>canvas {
+        max-height: 35vh; /* Limita la altura en pantallas pequeñas */
+        max-width: 30vw;
     }
 }
 
@@ -894,6 +922,14 @@ main {
 }
 
 @media (max-width:1000px) {
+    .contenedoresenmenuprincipal {
+        display: flex;
+        flex-direction: column;
+    }
+    .contenedoresenmenuprincipal>div {
+        max-height: 20vh;
+        max-width: 80vw;
+    }
     .contenedordegraficas {
         max-height: 80%;
     }
@@ -930,10 +966,6 @@ main {
 }
 
 @media (max-width: 670px) {
-    .contenedoresenmenuprincipal>div {
-        max-height: 50vh;
-    }
-
     .compra-venta> {
         overflow: scroll;
     }

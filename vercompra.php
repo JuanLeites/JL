@@ -33,8 +33,8 @@ include_once("coneccionBD.php");
                         <?php
                         //sumar los precio
                         if (isset($_GET["id"])) {
-                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT pr.Razón_Social,pr.RUT,c.Fecha_Compra, pa.Monto, Precio_Final, Sub_Total, u.Nombre"NombreUsuario",c.Vencimiento_Factura from compra c,proveedor pr,pago pa,usuario u WHERE u.Usuario=pa.Usuario and c.ID_COMPRA = pa.ID_COMPRA and c.ID_PROVEEDOR = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
-                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pc.Cantidad_de_Compra, pc.Iva_de_Compra, pc.Precio_de_Compra From producto p ,compra c,productos_comprados pc WHERE  pc.ID_PRODUCTO= p.ID_PRODUCTO and c.ID_COMPRA=pc.ID_COMPRA and c.ID_COMPRA="' . $_GET["id"] . '";');
+                            $datosdecompra = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT pr.Razón_Social,pr.RUT,c.Fecha_Compra, pa.Monto, Precio_Final, Sub_Total, u.Nombre"NombreUsuario",c.Vencimiento_Factura from Compra c, Proveedor pr, Pago pa, Usuario u WHERE u.Usuario=pa.Usuario and c.ID_COMPRA = pa.ID_COMPRA and c.ID_PROVEEDOR = pr.ID_PROVEEDOR and c.ID_COMPRA="' . $_GET["id"] . ';"'));
+                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pc.Cantidad_de_Compra, pc.Iva_de_Compra, pc.Precio_de_Compra From Producto p , Compra c, Productos_Comprados pc WHERE  pc.ID_PRODUCTO= p.ID_PRODUCTO and c.ID_COMPRA=pc.ID_COMPRA and c.ID_COMPRA="' . $_GET["id"] . '";');
 
 
                             $contadordeiva10=0;

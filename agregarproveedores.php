@@ -6,7 +6,7 @@ include_once("funciones.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["RS"]) && isset($_POST["rut"]) && isset($_POST["contacto"])) {
         if ($_POST["RS"] != ""  && $_POST["contacto"] != "") {
-            mysqli_query($basededatos, 'INSERT INTO proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
+            mysqli_query($basededatos, 'INSERT INTO Proveedor (Contacto, Razón_Social,RUT) VALUES ("' . $_POST["contacto"] . '","' . $_POST["RS"] . '","' . $_POST["rut"] . '");');
             header("Location:agregarproveedores.php?opcion=proveedorregistrado");
                 die();
         } else {

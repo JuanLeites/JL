@@ -1,4 +1,4 @@
-INSERT INTO `producto` (`ID_PRODUCTO`, `Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `Activo`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`) VALUES
+INSERT INTO `Producto` (`ID_PRODUCTO`, `Nombre`, `Precio_Compra`, `Precio_Venta`, `Código_de_Barras`, `Descripción`, `Marca`, `Cantidad`, `Cantidad_minima_aviso`, `Imagen`, `Activo`, `ID_IVA`, `ID_UNIDAD`, `ID_CATEGORIA`) VALUES
 (1, 'Manzana Roja Premium', 15.50, 18.90, '123456789001', 'Manzana roja de calidad premium, ideal para snacks o postres.', 'Frutas del Sol', 76, 10, 'https://t4.ftcdn.net/jpg/04/78/96/49/240_F_478964938_3l80mjnkhnPGPMgVfgDnfrvZBS9x7Bjp.jpg', 1, 1, 5, 15),
 (2, 'Agua Mineral Natural', 12.00, 14.50, '123456789002', 'Agua mineral sin gas, fresca y pura.', 'Cristaline', 10, 20, 'https://t3.ftcdn.net/jpg/07/33/30/84/240_F_733308459_eXSNoihFDkWdlqBaHBKSwH36JOnO3HNb.jpg', 1, 2, 8, 1),
 (3, 'Galletas de Avena y Pasas', 8.50, 10.00, '123456789003', 'Galletas crujientes de avena y pasas, perfectas para una merienda saludable.', 'Otameal', 80, 15, 'https://t4.ftcdn.net/jpg/04/69/87/85/240_F_469878523_MQHZsmgedQwX8y01MDVVwaRt07yKacs6.jpg', 1, 3, 6, 2),
@@ -38,7 +38,7 @@ INSERT INTO `producto` (`ID_PRODUCTO`, `Nombre`, `Precio_Compra`, `Precio_Venta`
 
 
 
-INSERT INTO `proveedor` (`Razón_Social`, `RUT`, `Contacto`) 
+INSERT INTO `Proveedor` (`Razón_Social`, `RUT`, `Contacto`) 
 VALUES
 ('Distribuidora Alimentos Sur', '123456780012', 'contacto@alimentosur.com'),
 ('Frutas del Valle', '123456780013', '+59891234567'),
@@ -90,7 +90,7 @@ VALUES
 ('Distribuidora de Hierbas Naturales', '123456780059', '+59894321234'),
 ('Panadería Artesanal', '123456780060', 'info@panartesanal.com');
 
-INSERT INTO `cliente` (`Cédula`, `Nombre`, `Fecha_de_Nacimiento`, `Contacto`)
+INSERT INTO `Cliente` (`Cédula`, `Nombre`, `Fecha_de_Nacimiento`, `Contacto`)
 VALUES
 ('41234567', 'Juan Pérez', '1985-03-15', 'juan.perez@mail.com'),
 ('59876543', 'María Rodríguez', '1990-07-23', '+59891234567'),
@@ -143,7 +143,7 @@ VALUES
 ('31231411','Lautaro Vaz Tourem','2006-06-22','098866899'),
 ('56752611','Juan Leites','2005-10-02','092211720');
 
-INSERT INTO `cliente` (`Cédula`, `Nombre`, `Fecha_de_Nacimiento`, `Contacto`, `RUT`)
+INSERT INTO `Cliente` (`Cédula`, `Nombre`, `Fecha_de_Nacimiento`, `Contacto`, `RUT`)
 VALUES
 ('41230985', 'Manuel Gómez', '1995-07-18', 'manuel.gomez@email.com', 414111141),
 ('56543214', 'Alejandra Delgado', '1990-09-22', 'alejandra.delgado@email.com', 515151234),
@@ -151,21 +151,20 @@ VALUES
 ('25432104', 'Isabel Martínez', '1983-08-07', 'isabel.martinez@email.com', 1231131311);
 
 
-INSERT INTO `usuario` (`Usuario`, `Contraseña`, `Nombre`, `Correo`, `Foto_Perfil`, `Fecha_Nacimiento`, `Color_Fondo`, `Color_Principal`, `Color_Secundario`, `Tipo_Usuario`) VALUES
+INSERT INTO `Usuario` (`Usuario`, `Contraseña`, `Nombre`, `Correo`, `Foto_Perfil`, `Fecha_Nacimiento`, `Color_Fondo`, `Color_Principal`, `Color_Secundario`, `Tipo_Usuario`) VALUES
 ('colorazul', '$2y$10$X64oU4VchYUMH26FbqMGFuyXqFVL77DWwq.b1Za3UNH1VRIOLzpeK', 'Usuario con Color Azul', 'usuarioazul@gmail.com', 'images (1).jpeg', '2007-10-17', '#003e8f', '#54b7e8', '#ffffff', 'funcionario'),
-('colorrosa', '$2y$10$ZjQGEEa64SzzaQpU1YbRgeud1wu2Jv/A7AaIL3vnw4tFAfWZb3kmu', 'Usuario con color rosa', 'colorrosa@gmail.com', 'images.jpeg', '2016-10-17', '#ea99d1', '#a30057', '#75005c', 'funcionario'),
-('JuanLeites', '$2y$10$PyrzdCQIQNq.LGzZvVNG/.Y9/GwFJY/69sdjryGiQSK9hB/oH1fPu', 'Juan Andrés Leites Artia', '123juan123123852@gmail.com', 'JuanLeitesIMG_20220819_203411_106.jpg', '2005-10-17', '#001F47', '#4DBF38', '#80D12A', 'funcionario');
+('colorrosa', '$2y$10$ZjQGEEa64SzzaQpU1YbRgeud1wu2Jv/A7AaIL3vnw4tFAfWZb3kmu', 'Usuario con color rosa', 'colorrosa@gmail.com', 'images.jpeg', '2016-10-17', '#ea99d1', '#a30057', '#75005c', 'funcionario');
 
 
-INSERT INTO `venta` (`ID_VENTA`, `Precio_Final`, `Sub_Total`, `Fecha_Venta`, `ID_CLIENTE`) VALUES
+INSERT INTO `Venta` (`ID_VENTA`, `Precio_Final`, `Sub_Total`, `Fecha_Venta`, `ID_CLIENTE`) VALUES
 (1, 811.98, 672.90, '2024-10-16', 50),
 (2, 750.27, 625.20, '2024-10-15', 38);
 
-INSERT INTO `cobro` (`ID_COBRO`, `Monto`, `Fecha_Cobro`, `ID_CLIENTE`, `ID_VENTA`, `Usuario`) VALUES
+INSERT INTO `Cobro` (`ID_COBRO`, `Monto`, `Fecha_Cobro`, `ID_CLIENTE`, `ID_VENTA`, `Usuario`) VALUES
 (1, 820.00, '2024-10-16', 50, 1, 'usuarioadmin'),
 (2, 700.00, '2024-10-15', 38, 2, 'JuanLeites');
 
-INSERT INTO `productos_vendidos` (`ID_VENTA`, `ID_PRODUCTO`, `Cantidad_de_Venta`, `Precio_de_Venta`, `Iva_de_Venta`) VALUES
+INSERT INTO `Productos_Vendidos` (`ID_VENTA`, `ID_PRODUCTO`, `Cantidad_de_Venta`, `Precio_de_Venta`, `Iva_de_Venta`) VALUES
 (1, 1, 1, 18.90, 0.00),
 (1, 2, 10, 14.50, 22.00),
 (1, 7, 2, 65.00, 22.00),
@@ -182,26 +181,26 @@ INSERT INTO `productos_vendidos` (`ID_VENTA`, `ID_PRODUCTO`, `Cantidad_de_Venta`
 (2, 27, 1, 150.00, 22.00),
 (2, 29, 1, 250.00, 22.00);
 
-INSERT INTO `compra` (`ID_COMPRA`, `Precio_Final`, `Sub_Total`, `Fecha_Compra`, `Vencimiento_Factura`, `ID_PROVEEDOR`) VALUES
+INSERT INTO `Compra` (`ID_COMPRA`, `Precio_Final`, `Sub_Total`, `Fecha_Compra`, `Vencimiento_Factura`, `ID_PROVEEDOR`) VALUES
 (1, 435.60, 396.00, '2024-10-16', '2024-10-23', 6),
 (2, 775.00, 775.00, '2024-10-16', NULL, 43),
 (3, 1573.80, 1290.00, '2024-10-16', '2024-10-31', 30);
 
-INSERT INTO `pago` (`ID_PAGO`, `Fecha_Pago`, `Monto`, `ID_PROVEEDOR`, `ID_COMPRA`, `Usuario`) VALUES
+INSERT INTO `Pago` (`ID_PAGO`, `Fecha_Pago`, `Monto`, `ID_PROVEEDOR`, `ID_COMPRA`, `Usuario`) VALUES
 (1, '2024-10-16', 436.00, 6, 1, 'colorazul'),
 (2, '2024-10-16', 780.00, 43, 2, 'colorazul'),
 (3, '2024-10-16', 80.00, 30, 3, 'colorazul'),
 (4, '2024-10-16', 300.00, 15, NULL, 'usuarioadmin');
 
 
-INSERT INTO `productos_comprados` (`ID_COMPRA`, `ID_PRODUCTO`, `Cantidad_de_Compra`, `Precio_de_Compra`, `Iva_de_Compra`) VALUES
+INSERT INTO `Productos_Comprados` (`ID_COMPRA`, `ID_PRODUCTO`, `Cantidad_de_Compra`, `Precio_de_Compra`, `Iva_de_Compra`) VALUES
 (1, 6, 22, 18.00, 10.00),
 (2, 1, 50, 15.50, 0.00),
 (3, 7, 5, 50.00, 22.00),
 (3, 27, 2, 120.00, 22.00),
 (3, 29, 4, 200.00, 22.00);
 
-INSERT INTO `sorteo` (`ID_SORTEO`, `Premio`, `Cantidad`, `Activo`, `Fecha_realización`) VALUES
+INSERT INTO `S  orteo` (`ID_SORTEO`, `Premio`, `Cantidad`, `Activo`, `Fecha_realización`) VALUES
 (1, 'Canasta Familiar, Fardo de Cocacola. ', 2, 1, NULL),
 (2, "Televisor 32'", 1, 1, NULL),
 (3, 'Tablet', 1, 1, NULL),

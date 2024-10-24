@@ -46,10 +46,10 @@ include_once("funciones.php");
                         $contadordeiva10 = 0;
                         $contadordeiva22 = 0;
                         $contadordesubtotal = 0; // contador que sumara todos los subtotales de cada producto
-                        $proveedor = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * From proveedor WHERE ID_PROVEEDOR="' . $_POST["ID_PROVEEDOR"] . '";'));
+                        $proveedor = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * From Proveedor WHERE ID_PROVEEDOR="' . $_POST["ID_PROVEEDOR"] . '";'));
 
                         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
-                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Compra, Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));//obtenemos el producto y su precio
+                            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Compra, Cantidad From Producto p, IVA i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));//obtenemos el producto y su precio
                             $subtotal = floatval($productoconprecio["Precio_Compra"]) * floatval($_POST["CANTIDAD"][$indice]); // el precio de cada producto por la cantidad pero sin el iva
                             
                             //calculamos depende su iva: 

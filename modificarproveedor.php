@@ -4,14 +4,14 @@ include_once("coneccionBD.php");
 include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'UPDATE `proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
+    mysqli_query($basededatos, 'UPDATE `Proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
     $opcion = "proveedoractualizado";
 } else {
     $opcion = "";
 }
 
 if (isset($_GET["id"])) {
-    $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
+    $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM Proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
     $proveedor = mysqli_fetch_assoc($consultaproveedor);
 } else {
     header("Location:proveedores.php");

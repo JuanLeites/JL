@@ -7,7 +7,7 @@ try {
 }
 
 
-$categorias = mysqli_query($basededatos, 'SELECT * FROM categoría ORDER BY Título');
+$categorias = mysqli_query($basededatos, 'SELECT * FROM Categoría ORDER BY Título');
 ?>
 <!DOCTYPE html>
 <html lang="es">

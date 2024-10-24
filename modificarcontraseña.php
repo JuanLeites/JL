@@ -3,7 +3,7 @@ include_once("chequeodelogin.php");
 include_once("coneccionBD.php");
 include_once("funciones.php");
 
-$consultausuario = mysqli_query($basededatos, 'SELECT * FROM usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+$consultausuario = mysqli_query($basededatos, 'SELECT * FROM Usuario WHERE Usuario ="' . $_SESSION["usuario"] . '";');
 $usuario = mysqli_fetch_assoc($consultausuario);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($contraseña, $usuario["Contraseña"])) { // si la contraseña ingresada coincide con la contraseña del usuario
                     if (strlen($_POST["contraseñanueva"]) > 5) { //strlen retorna la cantidad de caracteres
 
-                        mysqli_query($basededatos, 'UPDATE `usuario` SET `contraseña`="' . password_hash($_POST["contraseñanueva2"], PASSWORD_BCRYPT) . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+                        mysqli_query($basededatos, 'UPDATE `Usuario` SET `contraseña`="' . password_hash($_POST["contraseñanueva2"], PASSWORD_BCRYPT) . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
                         $opcion = "contraseñacambiada";
                     } else {
                         $opcion = "contraseñacorta";

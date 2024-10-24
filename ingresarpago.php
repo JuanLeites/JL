@@ -5,9 +5,9 @@ include_once("funciones.php");
     
     
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'INSERT INTO pago (Monto, ID_PROVEEDOR, Fecha_Pago, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
+    mysqli_query($basededatos, 'INSERT INTO Pago (Monto, ID_PROVEEDOR, Fecha_Pago, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_PROVEEDOR"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
     
-    $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
+    $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from Proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
     $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
     mysqli_query($basededatos,'UPDATE `proveedor` SET `Deuda`="'.$deudaactual.'" WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'); //actualizamos la deuda del cliente
     header("Location:ingresarpago.php?opcion=pagoingresado");

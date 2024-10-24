@@ -33,8 +33,8 @@ include_once("coneccionBD.php");
                         <?php
                         //sumar los precio
                         if (isset($_GET["id"])) {
-                            $datosdeventa = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT cl.Nombre, cl.Cédula,cl.RUT, v.Fecha_Venta, co.Monto, v.Precio_Final, v.Sub_Total,u.Nombre"NombreUsuario" from venta v,cliente cl,cobro co, usuario u WHERE u.Usuario = co.Usuario and co.ID_VENTA=v.ID_VENTA and v.ID_CLIENTE = cl.ID_CLIENTE and v.ID_VENTA="' . $_GET["id"] . ';"'));
-                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pv.Cantidad_de_Venta,pv.Iva_de_Venta,pv.Precio_de_venta From producto p ,venta v,productos_vendidos pv WHERE  pv.ID_PRODUCTO= p.ID_PRODUCTO and v.ID_VENTA=pv.ID_VENTA and v.ID_VENTA="' . $_GET["id"] . '";');
+                            $datosdeventa = mysqli_fetch_array(mysqli_query($basededatos, 'SELECT cl.Nombre, cl.Cédula,cl.RUT, v.Fecha_Venta, co.Monto, v.Precio_Final, v.Sub_Total,u.Nombre"NombreUsuario" from Venta v, Cliente cl, Cobro co, Usuario u WHERE u.Usuario = co.Usuario and co.ID_VENTA=v.ID_VENTA and v.ID_CLIENTE = cl.ID_CLIENTE and v.ID_VENTA="' . $_GET["id"] . ';"'));
+                            $productos = mysqli_query($basededatos, 'SELECT p.Nombre, pv.Cantidad_de_Venta,pv.Iva_de_Venta,pv.Precio_de_venta From Producto p , Venta v, Productos_Vendidos pv WHERE  pv.ID_PRODUCTO= p.ID_PRODUCTO and v.ID_VENTA=pv.ID_VENTA and v.ID_VENTA="' . $_GET["id"] . '";');
 
                             $contadordeiva10=0;
                             $contadordeiva22=0;

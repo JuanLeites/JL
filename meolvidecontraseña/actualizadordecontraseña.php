@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["usuario"])) {
         die();
     }
     if ($_POST["pass1"] == $_POST["pass2"]) { 
-        mysqli_query($basededatos,'UPDATE `usuario` SET `Contraseña` = "'.password_hash($_POST["pass1"], PASSWORD_BCRYPT).'" WHERE Usuario="'.$_POST["usuario"].'"');//actualizamos la contraseña
+        mysqli_query($basededatos,'UPDATE `Usuario` SET `Contraseña` = "'.password_hash($_POST["pass1"], PASSWORD_BCRYPT).'" WHERE Usuario="'.$_POST["usuario"].'"');//actualizamos la contraseña
         session_destroy();
         header("Location:../index.php?causa=contraseñaactualizada");
     }else{

@@ -11,20 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //cargamos todos los productos en la tabla productos_vendidos con la id de la venta y los datos de la venta
         foreach ($_POST["IDPRODUCTOS"] as $indice => $cadaID) {
-            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Venta,Cantidad From Producto p, iva i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
+            $productoconprecio = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Valor, Nombre, Precio_Venta,Cantidad From Producto p, IVA i WHERE i.ID_IVA= p.ID_IVA and ID_PRODUCTO="' . $cadaID . '";'));
             //actualizamos la cantidad de cada producto dependiendo a lo que vendió:
             $cantidadactualizada = floatval($productoconprecio["Cantidad"]) - floatval($_POST["CANTIDAD"][$indice]); //obtenemos la cantidad actualizada de cada producto
-            mysqli_query($basededatos, 'UPDATE producto SET Cantidad="' . $cantidadactualizada . '" WHERE ID_PRODUCTO="' . $cadaID . '" ');
+            mysqli_query($basededatos, 'UPDATE Producto SET Cantidad="' . $cantidadactualizada . '" WHERE ID_PRODUCTO="' . $cadaID . '" ');
 
-            mysqli_query($basededatos, 'INSERT INTO productos_vendidos (ID_VENTA,ID_PRODUCTO, Cantidad_de_Venta, Precio_de_Venta, Iva_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Venta"]) . '","' . $productoconprecio["Valor"] . '");'); //ingresamos cada producto a la tabla productos vendidos
+            mysqli_query($basededatos, 'INSERT INTO Productos_Vendidos (ID_VENTA,ID_PRODUCTO, Cantidad_de_Venta, Precio_de_Venta, Iva_de_Venta) values ("' . $iddeventa . '","' . $cadaID . '","' . $_POST["CANTIDAD"][$indice] . '","' . floatval($productoconprecio["Precio_Venta"]) . '","' . $productoconprecio["Valor"] . '");'); //ingresamos cada producto a la tabla productos vendidos
         }
 
         //ingresamos el cobro con el cliente, la id de venta y el usuario que la realizó
-        mysqli_query($basededatos, 'INSERT INTO cobro (Monto, ID_CLIENTE, Fecha_Cobro, ID_Venta, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] . '","' . date("Y-m-d") . '","' . $iddeventa . '","' . $_SESSION["usuario"] . '");');
-        $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Deuda,Tickets_de_Sorteo from cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
+        mysqli_query($basededatos, 'INSERT INTO Cobro (Monto, ID_CLIENTE, Fecha_Cobro, ID_Venta, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] . '","' . date("Y-m-d") . '","' . $iddeventa . '","' . $_SESSION["usuario"] . '");');
+        $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Deuda,Tickets_de_Sorteo from Cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
         $Tiketsanteriores = $cliente["Tickets_de_Sorteo"];
         $Deduaanterior = $cliente["Deuda"];
-        $PrecioFinaldelaventa = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_Final from venta WHERE ID_VENTA="' . $iddeventa . '";')); // obtenemos el precio final de la venta
+        $PrecioFinaldelaventa = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_Final from Venta WHERE ID_VENTA="' . $iddeventa . '";')); // obtenemos el precio final de la venta
 
         //sabiendo que $_POST["monto"]  es lo que se pagó  y $_POST["precio_final"] es lo que debería de haberse pagado. podemos calcular la deuda que se le debe de sumar al cliente.
         $generacióndetikets = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_por_Tickets from Configuración')); //obtenemos el valor de generación de generacion por tickets
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $deudaactual = $Deduaanterior + $deudadeventa; // establecemos en la variable deudaactual el valor de la deuda anterior del cliente + la deuda de la vanta actual. 
 
 
-        mysqli_query($basededatos, 'UPDATE `cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // actualizamos la deuda y los tikets del cliente
+        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // actualizamos la deuda y los tikets del cliente
         header("Location:ingresarventa.php?causa=ventaconcretada");
         die();
     }
