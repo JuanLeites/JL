@@ -4,8 +4,8 @@ include("../coneccionBD.php");
 if (isset($_GET["tipo"]) && isset($_GET["id"])) {
     switch ($_GET['tipo']) {
         case "venta":
-            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `productos_vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = PV.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
-            $datosdelaventa = mysqli_query($basededatos, 'SELECT c.Cédula,c.Nombre,v.Precio_Final,v.Sub_Total,v.Fecha_Venta,u.Nombre"Vendedor",co.Monto FROM `venta`v,`Cliente`c,`Usuario`u,`cobro`co WHERE u.Usuario=co.Usuario and co.ID_VENTA = v.ID_VENTA and v.ID_CLIENTE=c.ID_CLIENTE and  v.ID_VENTA="' . $_GET["id"] . '"');
+            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `Productos_Vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = PV.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
+            $datosdelaventa = mysqli_query($basededatos, 'SELECT c.Cédula,c.Nombre,v.Precio_Final,v.Sub_Total,v.Fecha_Venta,u.Nombre"Vendedor",co.Monto FROM `Venta`v,`Cliente`c,`Usuario`u,`Cobro`co WHERE u.Usuario=co.Usuario and co.ID_VENTA = v.ID_VENTA and v.ID_CLIENTE=c.ID_CLIENTE and  v.ID_VENTA="' . $_GET["id"] . '"');
             $datosdelaventa = mysqli_fetch_assoc($datosdelaventa);
             $alturadeceldas = 7;
             $cabecera = 35;
@@ -36,9 +36,9 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->Cell(11, $alturadeceldas, mb_convert_encoding("Cántidad", "ISO-8859-1", "UTF-8"), true, false, "C", true);
             $pdf->Cell(16, $alturadeceldas, mb_convert_encoding("Precio c/u", "ISO-8859-1", "UTF-8"), true, true, "C", true);
 
-
             $contadordeiva10 = 0;
             $contadordeiva22 = 0;
+            
             foreach ($productosdelaventa as $cadaproducto) {
                 $subtotal = intval($cadaproducto["Precio_de_Venta"]) * intval($cadaproducto["Cantidad_de_Venta"]);
 
@@ -101,14 +101,10 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->output('d', str_replace(" ", "", 'venta' . $datosdelaventa["Nombre"] . $datosdelaventa["Cédula"] . "-" . $datosdelaventa["Fecha_Venta"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
             break;
 
-
-
-
-
             //en caso de que sea una compra
         case 'compra':
-            $productosdelacompra = mysqli_query($basededatos, 'SELECT p.Nombre,pc.Cantidad_de_Compra,pc.Precio_de_Compra,pc.Iva_de_Compra FROM `productos_comprados` pc,`Producto` p  WHERE p.ID_PRODUCTO = Pc.ID_PRODUCTO and ID_COMPRA="' . $_GET["id"] . '"');
-            $datosdelacompra = mysqli_query($basededatos, 'SELECT c.Sub_Total, c.Precio_Final, p.Razón_Social, p.RUT,c.Fecha_Compra,u.Nombre"Comprador",pa.Monto,c.Vencimiento_Factura   FROM `compra`c,`proveedor`p,`Usuario`u,`pago`pa WHERE pa.ID_COMPRA=c.ID_COMPRA and pa.Usuario=u.Usuario and p.ID_PROVEEDOR=c.ID_PROVEEDOR and c.ID_Compra="' . $_GET["id"] . '"');
+            $productosdelacompra = mysqli_query($basededatos, 'SELECT p.Nombre,pc.Cantidad_de_Compra,pc.Precio_de_Compra,pc.Iva_de_Compra FROM `Productos_Comprados` pc,`Producto` p  WHERE p.ID_PRODUCTO = Pc.ID_PRODUCTO and ID_COMPRA="' . $_GET["id"] . '"');
+            $datosdelacompra = mysqli_query($basededatos, 'SELECT c.Sub_Total, c.Precio_Final, p.Razón_Social, p.RUT,c.Fecha_Compra,u.Nombre"Comprador",pa.Monto,c.Vencimiento_Factura   FROM `Compra`c,`Proveedor`p,`Usuario`u,`Pago`pa WHERE pa.ID_COMPRA=c.ID_COMPRA and pa.Usuario=u.Usuario and p.ID_PROVEEDOR=c.ID_PROVEEDOR and c.ID_Compra="' . $_GET["id"] . '"');
             $datosdelacompra = mysqli_fetch_assoc($datosdelacompra);
             $alturadeceldas = 7;
             $cabecera = 35;

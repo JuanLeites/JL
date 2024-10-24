@@ -57,7 +57,7 @@ INSERT INTO `categoría` (`ID_CATEGORIA`, `Título`, `Descripción`) VALUES
 (37, 'Sin Categoría','Sin Descripción');
 
 
-
+    
 INSERT INTO IVA (Tipo, Valor) VALUES
 ('Exento', 0.00),
 ('Tasa Básica', 22.00),
