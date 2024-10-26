@@ -1,39 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About us</title>
+    <title>Juan Leites</title>
     <link rel="stylesheet" href="./css/styleaboutus.css">
 
     <link rel="shortcut icon" href="../imagenes/JL.svg" type="image/x-icon">
 </head>
+
 <body>
     <div class="contenedor">
-        <div class="conten izq">
-            <h1>Sobre nosotros</h1>
-            <p>En J.L. somos apasionados por la tecnología y el desarrollo de software, dedicándonos desde nuestro inicio a crear soluciones tecnológicas a medida que se adaptan perfectamente a las necesidades específicas de nuestros clientes. Nuestra misión es proporcionar software personalizado que no solo cumpla con los requisitos de nuestros clientes, sino que también supere sus expectativas. Nos especializamos en el desarrollo de software a medida, abarcando una amplia gama de tecnologías, desde aplicaciones móviles hasta sistemas de gestión empresarial y soluciones integrales para optimizar procesos. Nuestro equipo, compuesto por desarrolladores, diseñadores y consultores altamente calificados, trabaja con un compromiso inquebrantable hacia la excelencia, entendiendo a fondo los desafíos únicos de cada cliente para ofrecer soluciones innovadoras y efectivas.</p>
+        <header>
+            <h1>&lt;Juan Leites/&gt;</h1><img src="imagenes/JL.svg" class="logo">
+        </header>
+
+        <div class="español" visible="si">
+            <h2>Sobre nosotros</h2>
+            <p>En J.L. somos apasionados por la tecnología y el desarrollo de software, dedicándonos desde nuestro
+                inicio a crear soluciones tecnológicas a medida que se adaptan perfectamente a las necesidades
+                específicas de nuestros clientes. Nuestra misión es proporcionar software personalizado que no solo
+                cumpla con los requisitos de nuestros clientes, sino que también supere sus expectativas. Nos
+                especializamos en el desarrollo de software a medida, abarcando una amplia gama de tecnologías, desde
+                aplicaciones móviles hasta sistemas de gestión empresarial y soluciones integrales para optimizar
+                procesos. Nuestro equipo, compuesto por desarrolladores, diseñadores y consultores altamente
+                calificados, trabaja con un compromiso inquebrantable hacia la excelencia, entendiendo a fondo los
+                desafíos únicos de cada cliente para ofrecer soluciones innovadoras y efectivas.</p>
+            <div class="datos mision">
+                <div class="texto">
+                    <h2>Misión</h2>
+                    <p>Nuestra Misión es desarrollar soluciones de software a medida e innovadoras para optimizar los
+                        procesos de nuestros clientes.</p>
+                </div>
+                <img src="imagenes/informatica.png" class="logoinformatica">
+            </div>
+            <div class="datos vision">
+                <img src="imagenes/lider.png" class="logolider">
+                <div class="texto">
+                    <h2>Visión</h2>
+                    <p>Ser reconocidos como líderes en el desarrollo de software a nivel local.</p>
+                </div>
+            </div>
+
+
         </div>
-        <div class="conten">
-            <h1>About us</h1>
-            <p>At J.L. we are passionate about technology and software development, dedicating ourselves from the beginning to creating tailored technological solutions that perfectly adapt to the specific needs of our clients. Our mission is to provide personalized software that not only meets our clients' requirements but also exceeds their expectations. We specialize in custom software development, covering a wide range of technologies, from mobile applications to enterprise management systems and comprehensive solutions to optimize processes. Our team, composed of highly qualified developers, designers, and consultants, works with an unwavering commitment to excellence, thoroughly understanding the unique challenges of each client to offer innovative and effective solutions.</p>
-            <a id="reg" href="index.php">regresar</a>
-        
+        <div class="ingles" style="display: none;">
+            <h2>About us</h2>
+            <p>At J.L. we are passionate about technology and software development, dedicating ourselves from the
+                beginning to creating tailored technological solutions that perfectly adapt to the specific needs of our
+                clients. Our mission is to provide personalized software that not only meets our clients' requirements
+                but also exceeds their expectations. We specialize in custom software development, covering a wide range
+                of technologies, from mobile applications to enterprise management systems and comprehensive solutions
+                to optimize processes. Our team, composed of highly qualified developers, designers, and consultants,
+                works with an unwavering commitment to excellence, thoroughly understanding the unique challenges of
+                each client to offer innovative and effective solutions.</p>
+                <div class="datos mision">
+                    <div class="texto">
+                        <h2>Mission</h2>
+                        <p>Our mission is to develop customized and innovative software solutions to optimize our clients' processes.</p>
+                    </div>
+                    <img src="imagenes/informatica.png" class="logoinformatica">
+                </div>
+                <div class="datos vision">
+                    <img src="imagenes/lider.png" class="logolider">
+                    <div class="texto">
+                        <h2>Vision</h2>
+                        <p>To be recognized as leaders in software development at the local level.</p>
+                    </div>
+    
+    
+                </div>
         </div>
+        <a id="reg" href="index.php">regresar</a>
+        <button class="alternar" onclick="alternar()">English</button>
     </div>
+
     <div class="contenedorperfiles">
         <div class="perfil" id="leites">
-            <img src="imagenes/desarolladores/juan.jpg" alt="foto de Juan"></img>
+            <img src="imagenes/desarolladores/juan.jpg" alt="foto de Juan" class="fotodesarrollador"></img>
             <div class="info">
-                <h3>Juan Leites</h3>
-                <p class="desc">Un joven desarrollador de software con un futuro prometedor, es una persona apasionada por la tecnología y la innovación. Con capacidad para aprender rápidamente y adaptarse a nuevas tecnologías, ha logrado destacarse en diversos proyectos, donde ha demostrado creatividad y habilidades técnicas. Con una visión clara de su carrera, está comprometido a seguir creciendo profesionalmente, buscando siempre nuevos desafíos que lo impulsen a mejorar y contribuir al avance de la industria tecnológica.</p>
+                <h3>Juan Andrés Leites</h3>
+                <p class="desc">Un joven desarrollador de software con un futuro prometedor, es una persona apasionada
+                    por la tecnología y la innovación. Con capacidad para aprender rápidamente y adaptarse a nuevas
+                    tecnologías, ha logrado destacarse en diversos proyectos, donde ha demostrado creatividad y
+                    habilidades técnicas. Con una visión clara de su carrera, está comprometido a seguir creciendo
+                    profesionalmente, buscando siempre nuevos desafíos que lo impulsen a mejorar y contribuir al avance
+                    de la industria tecnológica.</p>
             </div>
             <div class="conenedorredes">
                 <a class="linkedin" href="https://www.linkedin.com/in/juan-leites-5237a9250/">Linkedin</a>
                 <a class="instagram" href="https://www.instagram.com/juanleites_">Instagram</a>
             </div>
-            
         </div>
     </div>
 </body>
+<script src="js/scriptaboutas.js"></script>
+
 </html>

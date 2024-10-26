@@ -36,11 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_query($basededatos, 'UPDATE `Proveedor` SET `Deuda`="' . $deudaactual . '"  WHERE `ID_PROVEEDOR`="' . $_POST["ID_PROVEEDOR"] . '";'); // lo actualizamos en la base de datos
 
+            imprimirPDF("compra",$iddecompra);
             if (isset($esacredito)) {
-                header("Location:ingresarcompra.php?causa=compraacreditook");
+                header("Location:ingresarcompra.php?causa=compraacreditook&id=".$iddecompra);//redirigimos a la misma página pero con una causa y una id de compra.
                 die();
             } else {
-                header("Location:ingresarcompra.php?causa=compraacontadook");
+                header("Location:ingresarcompra.php?causa=compraacontadook&id=".$iddecompra);//redirigimos a la misma página pero con una causa y una id de compra.
                 die();
             }
         }
@@ -132,16 +133,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </html>
 <?php
-if (isset($_GET["causa"])) {
+if (isset($_GET["causa"]) ) {
     switch ($_GET['causa']) {
         case "sinproductos":
             mostraralerta("No puedes realizar una compra sin productos", $colorfondo, $colorprincipal);
             break;
         case 'compraacreditook':
             mostraraviso("Compra a crédito concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
+            imprimirPDF("compra",$_GET["id"]);
             break;
         case 'compraacontadook':
             mostraraviso("Compra al contado concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
+            imprimirPDF("compra",$_GET["id"]);
             break;
     }
 }

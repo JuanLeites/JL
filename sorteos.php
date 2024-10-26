@@ -52,6 +52,8 @@ include_once("funciones.php");
         setInterval(() => {
             if (inputdesorteos.value == "") { //si el input está vacío recarga, esto es para que no interrumpa la funcion cuando está filtrando
                 cargarsorteos()
+            }else{
+                cargarsorteos(inputdesorteos.value)
             }
         }, 2000);
     }

@@ -104,7 +104,7 @@ include_once("funciones.php");
             </div>
             <label for="cuantopaga">Ingrese el dinero pagado </label>
             <input id="cuantopaga" type="number" placeholder="Dinero Pagado" name="monto" min="0"  required>
-            <input type="submit" value="Concretar Compra">
+            <input type="submit" value="Finalizar Compra">
         </form>
     </div>
     <?php include_once("barralateral.html");

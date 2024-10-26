@@ -44,7 +44,10 @@
         setInterval(() => {
             if (inputdeproveedores.value == "") {
                 cargarproveedores()
+            }else{
+                cargarproveedores(inputdeproveedores.value)
             }
+
         }, 2000);
     }
 </script>

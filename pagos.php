@@ -38,6 +38,8 @@
         setInterval(() => {
             if(inputdepagos.value==""){
                 cargarpagos();
+            }else{
+                cargarpagos(inputdepagos.value);
             }
         }, 2000);
     }

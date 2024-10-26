@@ -250,14 +250,16 @@ grafica4 = new Chart(canvas4, {
   }
 });
 
-establecercolor(grafica1);
-establecercolor(grafica2);
-establecercolor(grafica3);
-establecercolor(grafica4);
-obtenercolores(grafica3)
+cambiarcolores(grafica1);
+cambiarcolores(grafica2);
+cambiarcolores(grafica3);
+cambiarcolores(grafica4);
+
+obtenercoloresdefondo(grafica3)//cambiamos los colores solo de la gráfica 3
 
 
-function obtenercolores(grafica) { // obtiene los colores principal y del fondo y los setea en el fondo de la gráfica, queda bien unicamente en las de "bar"
+
+function obtenercoloresdefondo(grafica) { // obtiene los colores principal y del fondo y los setea en el fondo de la gráfica, queda bien unicamente en las de "bar"
   // Hacemos la consulta a la API
   const colores = new XMLHttpRequest();
   colores.open('GET', 'apis/apidecolores.php');
@@ -267,14 +269,9 @@ function obtenercolores(grafica) { // obtiene los colores principal y del fondo 
     // Obtenemos los datos en formato JSON
     const datos = JSON.parse(this.responseText);
     const colorPrincipal = datos.color_principal;
-    const colorSecundario = datos.color_secundario;
     const colorFondo = datos.color_fondo;
 
-    // Mostrar los colores obtenidos
-    console.log('Color Principal:', colorPrincipal);
-    console.log('Color Fondo:', colorFondo);
-
-    // Generar y mostrar distintos gradientes en la consola
+    // cargamos los colores en la grafica
     grafica.data.datasets[0].backgroundColor = [colorPrincipal,colorFondo]
     
   };
@@ -289,7 +286,7 @@ function actualizargraficas(fechainicio, fechafinal) {
   actualizargrafica4(fechainicio, fechafinal)
 }
 
-function establecercolor(grafica) { // esta funcion unicamente lo que hace es setearle el color de todos los colores modificables al objeto chart.js pasado por parametro
+function cambiarcolores(grafica) { // esta funcion unicamente lo que hace es setearle el color de todos los colores modificables al objeto chart.js pasado por parametro
   const colores = new XMLHttpRequest();
   colores.open('GET', 'apis/apidecolores.php');
   colores.send();

@@ -6,7 +6,7 @@ if (!isset($_GET["id"])) {
     header("LOCATION:sorteos.php?causa=idnoseteada");
 }
 
-$consultadesorteo = mysqli_fetch_array(mysqli_query($basededatos, 'Select * FROM sorteo WHERE ID_SORTEO ="' . $_GET["id"] . '"'));
+$consultadesorteo = mysqli_fetch_array(mysqli_query($basededatos, 'Select * FROM Sorteo WHERE ID_SORTEO ="' . $_GET["id"] . '"'));
 if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia no fue realizado
 
     $consultadeclientes = mysqli_query($basededatos, 'SELECT * FROM Cliente WHERE ACTIVO=TRUE and Tickets_de_Sorteo>=1;'); //obtenemos todos los clientes que tienen por lo menos un tiket del sorteo o más
@@ -25,9 +25,6 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
                 $ganadores = array_rand($arraydeparticipantes, $consultadesorteo["Cantidad"]); //array_rand recive dos parametros, un array y un numero que será la cantidad de elementos que devuelva de forma aleatoria(devuelve los indices de forma aleatora).
             }
 
-
-
-            //mostrar animación desde php de ganadorees sonnn.......
         } else {
             header("Location:sorteos.php?causa=maspremiosqueclientes");
             die(); //el die lo que hace es corta el codigo para que se cumpla la redirección sin ejecutar el resto del codigo
@@ -61,8 +58,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
 </head>
 
 <body>
-
-    <div class="formularios">
+    <div class="formularios" style="display: none;">
 
         <?php
         if ($consultadesorteo["Cantidad"] > 1) {
@@ -78,14 +74,50 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
                 mysqli_query($basededatos, 'INSERT INTO Ganador (ID_CLIENTE,ID_SORTEO) values ("' . $arraydeparticipantes[$cadaganador] . '","' . $_GET["id"] . '");');
                 $datosdelclienteganador = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ACTIVO=TRUE and ID_CLIENTE="' . $arraydeparticipantes[$cadaganador] . '"')); //obtenemos los datos del cliente ganador
                 echo "<p class='ganadores'>" . $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"] . "</p>";
+                $ganadoresJS[] = $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"]; // guardamos el nombre y la cédula de cada ganador en un array
             }
-            
-            mysqli_query($basededatos, 'UPDATE Sorteo SET Fecha_realización ="' . date("Y-m-d") . '" WHERE ID_SORTEO ="' . $_GET["id"] . '"');
-            mysqli_query($basededatos, 'UPDATE Cliente SET Tickets_de_Sorteo="0"');
+
+             mysqli_query($basededatos, 'UPDATE Sorteo SET Fecha_realización ="' . date("Y-m-d") . '" WHERE ID_SORTEO ="' . $_GET["id"] . '"');
+             mysqli_query($basededatos, 'UPDATE Cliente SET Tickets_de_Sorteo="0"');
             ?>
         </div>
     </div>
     <a href="sorteos.php" id="reg">regresar</a>
+    <script>
+        const ganadores = <?php echo json_encode($ganadoresJS); ?>; // le seteamos a ganadores en formato json el array de ganadores
+
+        const colores = new XMLHttpRequest();
+        colores.open('GET', 'apis/apidecolores.php');
+        colores.send();
+
+        colores.onload = function() {
+            const datos = JSON.parse(this.responseText);
+            const colorPrincipal = datos.color_principal;
+            const colorFondo = datos.color_fondo;
+
+            let delay = 0;
+
+            ganadores.forEach((cadaganador, indice) => { //foreach que recorre el array de ganadores en cadaganador
+                setTimeout(() => { // cada vez que recorra el array, va a establecer un tiempo entre alertas
+                    Swal.fire({
+                        title: `🎉 ¡Ganador ${indice + 1}! 🎉`, // indice+1 pq el indice comienza en 0
+                        background: colorFondo,
+                        color: colorPrincipal,
+                        text: cadaganador,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                }, delay); // la primera vez será 0, cada alerta se ejecutará 500ms luego que termine la otra
+                delay += 2500; //se hace un incremento de tiempo para poder diferenciar las alertas, 2000 que durará mas 500ms de separación entre alertas
+            });
+
+            setTimeout(() => {//este set time out se ejecutará una vez finalicen todas las alertas y seteará el formulario visible.
+                document.querySelector(".formularios").setAttribute("style", "display:flex")
+            }, delay)
+        }
+
+    </script>
 </body>
 
 

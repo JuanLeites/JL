@@ -43,6 +43,8 @@ include_once("chequeodelogin.php");
         setInterval(() => {
             if (inputdeclientes.value == "") {
                 cargarclientes();
+            }else{
+                cargarclientes(inputdeclientes.value)
             }
 
         }, 2000);

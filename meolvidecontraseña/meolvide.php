@@ -29,6 +29,7 @@ if(isset($_SESSION["acertado"])){
     <input type="submit" value="Enviar Código">
  </form>
 <a href="../index.php" id="reg">regresar</a>
+<?php include_once("footermeolvide.html") ?>
 </body>
 </html>
 <?php

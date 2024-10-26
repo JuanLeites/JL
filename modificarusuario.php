@@ -190,7 +190,6 @@ switch (trim($opcion)) {
     case 'usuariocambiadofotocambiadadatosactualizados':
         mostraravisoconfoto("Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
-
     case 'correocambiadocorreoyaexistentedatosactualizados':
         mostraraviso("Ese correo ya está en uso!! <br> Correo modificado con éxito", $colorfondo, $colorprincipal);
         break;

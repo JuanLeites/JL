@@ -38,6 +38,8 @@
         setInterval(() => {
             if(inputdecobros.value==""){
                 cargarcobros();
+            }else{
+                cargarcobros(inputdecobros.value);
             }
         }, 2000);
     }

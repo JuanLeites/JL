@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //arriba asi lo ingresa apenas cargu
     } else {
         if (isset($_POST["enlacedefoto"]) && $_POST["enlacedefoto"] != "") { //comprobamos que se haya seteado un enlace de foto
             mysqli_query($basededatos, 'UPDATE `Producto` SET `imagen`="' . $_POST["enlacedefoto"] . '",`Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"]. '", `Cantidad` = "' . $_POST["cantidad"]   . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
-            $opcion = "productoactualizado";
+            $opcion = "productoactualizadoconfotoenlace";
         } else {
             mysqli_query($basededatos, 'UPDATE `Producto` SET `Nombre` = "' . $_POST["nombre"] . '", `Precio_Compra` = "' . $_POST["preciocompra"] . '", `Precio_Venta` = "' . $_POST["precioventa"] . '", `Código_de_Barras` = "' . $_POST["codbarras"] . '", `Descripción` = "' . $_POST["descripcion"] . '", `Marca` = "' . $_POST["marca"] . '", `Cantidad_minima_aviso` = "' . $_POST["cantidadaviso"]. '", `Cantidad` = "' . $_POST["cantidad"]   . '", `ID_IVA` = "' . $_POST["ID_IVA"] . '", `ID_UNIDAD` = "' . $_POST["ID_UNIDAD"] . '", `ID_CATEGORIA` = "' . $_POST["ID_CATEGORIA"] . '" WHERE `producto`.`ID_Producto` =' . $_GET["id"]);
             $opcion = "productoactualizado";
@@ -136,6 +136,9 @@ if (isset($_GET["id"])) {
 // esto lo debemos hacer luego de cargar el html porque la funcion mostraraviso() y mostraravisoconfoto() hace un echo a la funcion de la libreria "Sweetalert" la cual requiere que se cargue el html para funcionar;
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
 switch ($opcion) {
+    case 'productoactualizadoconfotoenlace';
+    mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, $_POST["enlacedefoto"]);
+    break;
     case 'productoactualizadoconfoto';
         mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, "IMAGENESSOFTWARE/" . $_FILES['foto']['name']);
         break;

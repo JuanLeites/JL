@@ -3,7 +3,6 @@
     --color-secundario: #80D12A;
     --color-fondo: #001F47;
 }
-
 .mensaje {
     border: solid 1px red;
     border-radius: 10px;
@@ -46,7 +45,13 @@
     
 }
 
-
+.contenedordeganadores{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: var(--color-secundario);
+}
 .ganadores {
     padding: 20px;
     margin: 2px;
@@ -57,14 +62,6 @@
     border: solid var(--color-fondo);
 }
 
-.contenedordeganadores {
-    overflow-y: scroll;
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
-
-}
-
 body {
     background-color: var(--color-fondo);
     display: flex;
@@ -72,8 +69,8 @@ body {
     height: 100vh;
     max-height: 110vh;
     align-items: center;
+    font-family:    Helvetica, sans-serif;
     overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .contenedor {
@@ -82,7 +79,7 @@ body {
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0.2);
-    border: solid #dbdbdb 0.571429px;
+    border: solid var(--color-fondo) 0.9px;
     background-color: var(--color-secundario);
     color: var(--color-fondo);
     align-items: center;
@@ -111,8 +108,14 @@ select,.botonconfiguración {
     border-radius: 10px;
     border: 1px solid var(--color-fondo);
     color:var(--color-fondo);
-
     padding: 10px;
+    transition: 0.2s;
+}
+.linkdedescarga:hover{
+    filter: contrast(140%);
+    -webkit-box-shadow: 10px 0px 47px -8px rgba(0,0,0,0.37);
+    -moz-box-shadow: 10px 0px 47px -8px rgba(0,0,0,0.37);
+    box-shadow: 10px 0px 47px -8px rgba(0,0,0,0.37);
 }
 .botonconfiguración{
     text-align: center;
@@ -187,7 +190,7 @@ footer>a:hover {
     background-color: var(--color-secundario);
     padding: 20px;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     left: 0px;
     width: 85px;
     overflow: hidden;
@@ -205,6 +208,10 @@ footer>a:hover {
     margin-right: 30px;
 }
 
+#codigo{
+    font-size: 30px;
+    text-align: center;
+}
 .contenedordeicono {
     display: flex;
     transition: 0.4s;
@@ -215,7 +222,7 @@ footer>a:hover {
     overflow: hidden;
     width: 350px;
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    border-radius: 15px;
     align-items: center;
 }
 
@@ -430,9 +437,11 @@ table {
     display: flex;
     flex-direction: column;
     background-color: var(--color-secundario);
+    color: var(--color-fondo);
     border-radius: 10px;
     padding: 25px;
     align-items: center;
+    text-align: center;
     max-height: 80%;
     max-width: 60%;
     margin: 10px;
@@ -453,7 +462,7 @@ table {
     justify-content: center;
 }
 .agregarproducto{
-    border-radius: 100%;
+    border-radius: 5px;
     background-color: var(--color-secundario);
     border: solid 1px var(--color-fondo);
     color: var(--color-fondo);
@@ -468,9 +477,9 @@ color:var(--color-secundario);
 
 }
 .enlace{
-    text-decoration: none; 
-    color:var(--color-principal);;
+    color:var(--color-principal);
 }
+
 .contenedordeproductos {
     max-height: 50%;
     overflow-y: scroll;
@@ -486,9 +495,6 @@ th {
 td>a{
     color:var(--color-fondo);
 }
-
-
-
 
 #prod {
     border-radius: 5px;
@@ -531,12 +537,18 @@ tr:hover {
     font-family: "p";
     text-decoration: none;
     padding: 5px;
+    z-index: 1;
+    -webkit-box-shadow: 10px 9px 24px -4px rgba(0,0,0,0.62);
+    -moz-box-shadow: 10px 9px 24px -4px rgba(0,0,0,0.62);
+    box-shadow: 10px 9px 24px -4px rgba(0,0,0,0.62);
 }
 
 .inputdecantidadesdeproductos {
     max-width: 55px;
 }
-
+.barrasuperior{
+    overflow: hidden; position:absolute; top:0px; margin:0px; left:0px; width:100vw; z-index: -1;
+}
 .contenedordesubcontenedores {
     display: flex;
 }
@@ -683,22 +695,6 @@ main {
 }
 
 
-/*.acredito{ 
-    border: 1px solid var(--color-fondo);
-    border-radius: 5px;
-    width: 120px;
-    height: 40px;
-    background-color: var(--color-principal);
-    color: var(--color-fondo);
-    -webkit-text-stroke-width: .1px;
-    -webkit-text-stroke-color: black;
-    transition: .7s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    cursor: pointer;
-}*/
 @media (max-height: 830px) {
     .tablabajolostresinputs {
         top: 36% !important;
@@ -1010,3 +1006,4 @@ main {
     background-color: var(--color-fondo);
 
 }
+

@@ -24,10 +24,10 @@ include_once("coneccionBD.php");
                 <table>
                     <tbody>
                         <tr>
+                            <th>IVA</th>
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio por Unidad</th>
-                            <th>iva</th>
                             <th>Monto</th>
                         </tr>
                         <?php
@@ -40,7 +40,7 @@ include_once("coneccionBD.php");
                             $contadordeiva22=0;
                             
                             foreach ($productos as $indice => $cadaproducto) {
-                                echo "<tr><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] . "</th><th>" . $cadaproducto["Iva_de_Venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] * $cadaproducto["Cantidad_de_Venta"] . "</th></tr>"; //cargamos cada fila de productos calculando el monto sin el iva, de el precio de venta por la cantidad q se vendió
+                                echo "<tr><th>" . $cadaproducto["Iva_de_Venta"] . "</th><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] * $cadaproducto["Cantidad_de_Venta"] . "</th></tr>"; //cargamos cada fila de productos calculando el monto sin el iva, de el precio de venta por la cantidad q se vendió
                                 
                                 $subtotal = intval($cadaproducto["Precio_de_venta"])*intval($cadaproducto["Cantidad_de_Venta"]);
                                 if ($cadaproducto["Iva_de_Venta"] == 10) { // si el iva es del 10 
@@ -52,8 +52,8 @@ include_once("coneccionBD.php");
 
 
                             }
-                            if($contadordeiva10!=0){echo "<tr><th colspan='3'></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";}
-                            if($contadordeiva22!=0){echo "<tr><th colspan='3'></th><th>Iva 22%</th><th>" . $contadordeiva22  . "</th></tr>";}
+                            if($contadordeiva10!=0){echo "<tr><th colspan='3'></th><th>IVA 10%</th><th>" . $contadordeiva10 . "</th></tr>";}
+                            if($contadordeiva22!=0){echo "<tr><th colspan='3'></th><th>IVA 22%</th><th>" . $contadordeiva22  . "</th></tr>";}
                             echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $datosdeventa["Sub_Total"] . "</th></tr>";
                             echo "<tr><th colspan='3'></th><th>Total</th><th>" . $datosdeventa["Precio_Final"] . "</th></tr>";
                         }else{

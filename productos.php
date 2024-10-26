@@ -30,17 +30,13 @@
             </tbody>
         </table>
     </div>
-
-
     <?php include_once("barralateral.html") ?>
-
 </body>
 
 <script type="module">
     import {
         cargarproductos
     } from "././js/funciones.js"
-
     var inputdeproductos = document.querySelector(".inputdeproductos");
     inputdeproductos.addEventListener("keyup", () => {
         cargarproductos(inputdeproductos.value)
@@ -51,6 +47,8 @@
         setInterval(() => {
             if (inputdeproductos.value == "") {
                 cargarproductos();
+            }else{
+                cargarproductos(inputdeproductos.value);
             }
         }, 2000);
     }

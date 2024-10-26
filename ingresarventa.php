@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         mysqli_query($basededatos, 'UPDATE `Cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // actualizamos la deuda y los tikets del cliente
-        header("Location:ingresarventa.php?causa=ventaconcretada");
+        header("Location:ingresarventa.php?causa=ventaconcretada&id=".$iddeventa); //redirigimos a la misma página pero con una causa y una id de venta.
         die();
     }
 }
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </tbody>
                 </table>
             </div>
-            <input class="botonenviar" type="submit" value="Recibir Pago" disabled> <!-- le ponemos disabled para que el boton esté desabilitado al cargar la pagina, pero al presionar unos de los botones de agregar un producto, llama a la funcion agregar la cual habilita el botón  -->
+            <input class="botonenviar" type="submit" value="Proceder al cobro" disabled> <!-- le ponemos disabled para que el boton esté desabilitado al cargar la pagina, pero al presionar unos de los botones de agregar un producto, llama a la funcion agregar la cual habilita el botón  -->
         </form>
     </div>
 
@@ -136,6 +136,7 @@ if (isset($_GET["causa"])) {
             break;
         case "ventaconcretada":
             mostraraviso("Venta concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
+            imprimirPDF("venta",$_GET["id"]);
             break;
     }
 }

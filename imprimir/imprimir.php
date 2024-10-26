@@ -1,6 +1,7 @@
 <?php
 require("../LIBRERIAS/fpdf/fpdf.php");
 include("../coneccionBD.php");
+$accion = "d";
 if (isset($_GET["tipo"]) && isset($_GET["id"])) {
     switch ($_GET['tipo']) {
         case "venta":
@@ -98,7 +99,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
 
 
-            $pdf->output('d', str_replace(" ", "", 'venta' . $datosdelaventa["Nombre"] . $datosdelaventa["Cédula"] . "-" . $datosdelaventa["Fecha_Venta"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
+            $pdf->output($accion, str_replace(" ", "", 'venta' . $datosdelaventa["Nombre"] . $datosdelaventa["Cédula"] . "-" . $datosdelaventa["Fecha_Venta"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
             break;
 
             //en caso de que sea una compra
@@ -201,7 +202,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             $pdf->SetX((80 - $pdf->GetStringWidth($texto)) / 2); //seteamos el puntero en la pocición especifica donde deberia de comenzar el texto para que esté alineado. la funcion GetStringWidth obtiene lo largo que será el texto pasado por parametro
             $pdf->Write(5, mb_convert_encoding($texto, "ISO-8859-1", "UTF-8"));
 
-            $pdf->output('d', str_replace(" ", "", 'compra' . $datosdelacompra["Razón_Social"] . $datosdelacompra["RUT"] . "-" . $datosdelacompra["Fecha_Compra"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
+            $pdf->output($accion, str_replace(" ", "", 'compra' . $datosdelacompra["Razón_Social"] . $datosdelacompra["RUT"] . "-" . $datosdelacompra["Fecha_Compra"] . '.pdf'), TRUE); //la i lo muestra, la d li descarga
             break;
         
     }

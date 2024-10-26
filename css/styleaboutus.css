@@ -6,41 +6,151 @@
 
 @font-face {
     font-family: "p";
-    src: url("../fuentes/Grumpy\ Sunshine\ Demo.ttf")format('truetype');
+    src: url("../fuentes/Cheesecake.ttf")format('truetype');
 }
 
 @font-face {
     font-family: "fuente";
-    src: url('../fuentes/Franchise.ttf')format('truetype');
+    src: url('../fuentes/cafe.ttf')format('truetype');
 }
 
 body {
     padding: 0px;
     margin: 0px;
-    background-color: var(--color-fondo)
+    background-color: var(--color-fondo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+}
+
+.español,
+.ingles {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logoinformatica,
+.logolider {
+    position: relative;
+    border: 0px;
+    border-radius: 10px;
+    height: 30%;
+    width: 30%;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+.datos {
+    border: solid 1px var(--color-secundario);
+    border-radius: 25px;
+    padding: 15px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1100px;
+    transition: 0.3s;
+}
+
+.datos:hover {
+    box-shadow:
+        1.8px 2.3px 1.9px rgba(0, 0, 0, 0.088),
+        4.5px 5.9px 4.3px rgba(0, 0, 0, 0.127),
+        8.6px 11.2px 7.7px rgba(0, 0, 0, 0.156),
+        14.4px 18.8px 12.8px rgba(0, 0, 0, 0.184),
+        22.9px 29.8px 21.2px rgba(0, 0, 0, 0.213),
+        35.5px 46.3px 37px rgba(0, 0, 0, 0.252),
+        56px 73px 80px rgba(0, 0, 0, 0.34);
+    transform: translateY(-10px);
+    cursor: crosshair;
+
+}
+
+.datos>.texto>h2 {
+    font-size: 55px;
+    margin: 5px;
+}
+
+.datos>.texto>p {
+    font-size: 35px;
+    margin: 6px;
+}
+
+.mision {
+    align-items: flex-start;
+    text-align: start;
+}
+
+.vision {
+    align-items: flex-end;
+    text-align: end;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 0px;
+    transition: 0.2s;
+}
+
+.logo:hover {
+    filter: drop-shadow(12px 10px 15px var(--color-secundario));
+    cursor: url("../imagenes/cursor.png"), auto;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
 }
 
 .contenedor {
     padding: 0px;
     margin: 0px;
     display: flex;
+    flex-direction: column;
     text-align: center;
+    justify-content: center;
+    max-width: 70vw;
+}
+
+h1:hover {
+    filter: drop-shadow(5px 5px 100px var(--color-secundario));
+    cursor: url("../imagenes/cursor.png"), auto;
 }
 
 h1 {
-    font-size: 80px;
+    font-size: 7vw;
+    margin: 20px;
     font-family: "fuente";
-    color: var(--color-principal)
+    color: var(--color-principal);
+    transition: 0.3s;
+}
+
+h2 {
+    font-size: 50px;
+    font-family: 'p';
+    color: var(--color-principal);
+    margin: 25px;
 }
 
 h3 {
     font-size: 35px;
     color: rgb(214, 255, 205);
+
 }
 
 p {
     font-family: "p";
-    color: var(--color-secundario)
+    color: var(--color-secundario);
+    font-size: 20px;
 }
 
 .izq {
@@ -58,12 +168,7 @@ p {
     justify-content: center;
 }
 
-img {
-    border-radius: 10px;
-    height: 200px;
-    width: 200px;
-    border: solid 1px var(--color-fondo)
-}
+
 
 .info {
     text-align: center;
@@ -76,14 +181,6 @@ img {
     cursor: cell;
 }
 
-#benja {
-    cursor: help;
-}
-
-#lautaro {
-    cursor: not-allowed;
-}
-
 .desc {
     color: var(--color-fondo)
 }
@@ -91,8 +188,7 @@ img {
 .perfil {
     position: relative;
     border: solid 1px black;
-    width: 49.5%;
-    min-height: 50%;
+    max-width: 500px;
     border-radius: 15px;
     margin: 10px;
     padding: 25px;
@@ -102,10 +198,19 @@ img {
     background-image: linear-gradient(360deg, var(--color-secundario) 5%, var(--color-fondo) 95%);
     overflow: hidden;
     transition: 0.5s;
+    box-shadow:
+        1.8px 2.3px 1.9px rgba(0, 0, 0, 0.088),
+        4.5px 5.9px 4.3px rgba(0, 0, 0, 0.127),
+        8.6px 11.2px 7.7px rgba(0, 0, 0, 0.156),
+        14.4px 18.8px 12.8px rgba(0, 0, 0, 0.184),
+        22.9px 29.8px 21.2px rgba(0, 0, 0, 0.213),
+        35.5px 46.3px 37px rgba(0, 0, 0, 0.252),
+        56px 73px 80px rgba(0, 0, 0, 0.34);
 }
 
 .perfil:hover {
-    transform: translateY(-20px);
+    transform: translateY(-10px);
+    filter: drop-shadow(12px 10px 15px var(--color-secundario));
 }
 
 #reg {
@@ -118,6 +223,39 @@ img {
     font-family: "p";
     text-decoration: none;
     padding: 5px;
+    transition: 0.2s;
+}
+
+#reg:hover {
+    box-shadow:
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.214),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.316),
+        100px 100px 80px rgba(0, 0, 0, 0.53);
+}
+
+.alternar {
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    border: 0px;
+    border-radius: 5px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    position: fixed;
+    font-family: "p";
+    padding: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow:
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.214),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.316),
+        100px 100px 80px rgba(0, 0, 0, 0.53);
+}
+
+.alternar:hover {
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    border: 1px solid var(--color-secundario)
 }
 
 .linkedin {
@@ -144,4 +282,54 @@ img {
     padding: 10px;
     border-radius: 9px;
     text-decoration: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-principal), var(--color-secundario));
+    border: var(--color-fondo) solid 1px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--color-fondo);
+
+}
+
+.fotodesarrollador {
+    border-radius: 10px;
+    height: 200px;
+    width: 200px;
+    border: solid 1px var(--color-fondo);
+    object-fit: cover;
+}
+
+@media (max-width: 770px) {
+    .datos>.texto>h2 {
+        font-size: 35px;
+        margin: 5px;
+    }
+
+    .datos>.texto>p {
+        font-size: 20px;
+        margin: 6px;
+    }
+
+    .logoinformatica,
+    .logolider {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .logoinformatica,
+    .logolider {
+        display: none;
+    }
 }

@@ -5,10 +5,10 @@ include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["rut"] != "") { //si see ingresó un rut lo cargará
-        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
         $opcion="clienteconrutactualizado";
     } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
-        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);$opcion="clienteregistrado";
+        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
         $opcion="clienteactualizado";
     }
 } else {

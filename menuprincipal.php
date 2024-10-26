@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location:index.php?causa=nolog");
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -83,7 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     window.onload = () => {
-
         actualizarfecha("<?php echo $_SESSION["fecha_nacimiento"]; ?>");
         cargarclientesdecumpleaños()
         cargarproductosconpocostock()

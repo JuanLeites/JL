@@ -55,8 +55,7 @@ function mostraravisoconfoto($titulo, $colorfondo, $colortexto, $foto)
           });
           </script>';
 }
-function mostraralerta($titulo, $colorfondo, $colortexto)
-{
+function mostraralerta($titulo, $colorfondo, $colortexto){
   if ($colorfondo == "") {
     $colorfondo = "#001F47";
   }
@@ -81,8 +80,7 @@ function mostraralerta($titulo, $colorfondo, $colortexto)
           });
           </script>';
 }
-function enviarcodigoparareestablecer($nombre, $codigo, $destino)
-{
+function enviarcodigoparareestablecer($nombre, $codigo, $destino){
     //esta función deberia de mandar el codigo por correo al destino
     $contenido = '<!DOCTYPE html>
   <html lang="es">
@@ -118,8 +116,8 @@ function enviarcodigoparareestablecer($nombre, $codigo, $destino)
   $encabezado .= "List-Unsubscribe: <https://www.elmana.site/unsuscribe.php>\r\n";
   $encabezado .= "List-Unsubscribe-Post: List-Unsubscribe=One-Click\r\n";
 
-  mail($destino, $asunto, $contenido, $encabezado);
-  //echo "<script>alert('Se enviará el código " . $codigo . " a " . $nombre . " con el correo " . $destino . " ')</script>";
+  @mail($destino, $asunto, $contenido, $encabezado);
+  echo "<script>alert('Se enviará el código " . $codigo . " a " . $nombre . " con el correo " . $destino . " ')</script>"; // esta linea es para probar en servidor local ya que no funciona la función mail.
 }
 function generarcodigo($cantidad)
 { //devuelve un numero con la cantidad de caracteres que fue pasada por parametro
@@ -128,4 +126,9 @@ function generarcodigo($cantidad)
     $codigo .= rand(0, 9);
   }
   return $codigo;
+} 
+function imprimirPDF($tipo,$id) {
+  echo "<iframe src='imprimir/imprimir.php?tipo=".$tipo."&id=".$id."' style='display:none;'></iframe>";//creará un iframe que 
 }
+
+

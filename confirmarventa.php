@@ -103,9 +103,9 @@ include_once("funciones.php");
             <h3>Concretar Venta </h3> 
             <p>Cliente :<?php echo  $cliente["Nombre"] . " - " . $cliente["Cédula"];  ?> </p>
             
-            <label for="cuantopaga">Ingrese el dinero recibido</label>
+            <label for="cuantopaga">Ingrese el dinero cobrado</label>
             <input id="cuantopaga" type="number" placeholder="Dinero Cobrado" name="monto" min="0" required>
-            <input type="submit" value="Concretar Venta">
+            <input type="submit" value="Finalizar Venta">
             <?php if ($cliente["RUT"] != "") {
                 echo "<input type='hidden' name='CLIENTECONRUT' value='".$cliente["RUT"]."'></input>";
             } //si el cliente tiene rut imprimira un input type hidden para luego poder imprimir una factura
