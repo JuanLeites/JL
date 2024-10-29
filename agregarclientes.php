@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="rut">RUT</label>
         <input type="number" placeholder="RUT" name="rut" id="rut">
 
-        <input type="submit" value="agregar">
+        <input type="submit" value="Agregar">
 
     </form>
     <?php include_once("barralateral.html") ?>

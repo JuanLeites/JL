@@ -21,9 +21,9 @@
 
 .contenedordegraficas {
     position: absolute;
-    top: 16%;
     max-height: 90vh;
     max-width: 90%;
+    top: 20%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -70,9 +70,22 @@ body {
     max-height: 110vh;
     align-items: center;
     font-family:    Helvetica, sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;  
 }
+.encabezado{
+    position: sticky;
+    top:-22px;
+    background-color: var(--color-secundario);
+}
+.encabezado:hover{
+    filter: contrast(2);
 
+}
+.encabezadoprincipal{
+    position: sticky;
+    top: -15px;
+    background-color: var(--color-fondo);
+}
 .contenedor {
     display: flex;
     flex-direction: column;
@@ -194,11 +207,13 @@ footer>a:hover {
     left: 0px;
     width: 85px;
     overflow: hidden;
-    transition: 1s;
+    transition: 1s ease;
+    
 }
 
 .barralateral:hover {
-    width: 340px;
+    width: 355px;
+    border: 1px solid var(--color-fondo);
 }
 
 .icono {
@@ -832,9 +847,6 @@ main {
 @media (max-width: 1750px) {
 
     /* EL MENU DE PRODUCTOS NO SE CARGA BIEN*/
-    .contenedordegraficas {
-        top: 20%
-    }
 
     .barralateral {
         display: none;
@@ -878,26 +890,17 @@ main {
     }
 }
 
-.contenedordegraficas {
-    position: absolute;
-    top: 16%;
-    max-height: 90vh;
-    max-width: 90%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    overflow: hidden;
-}
-
 @media only screen and (max-width: 768px) {
     .contenedordegraficas {
         align-items: center;
-        background-color: red;
+        position: absolute;
+        top: 20%;
+        max-height: none;
     }
 
     .contenedordegraficas>canvas {
-        max-height: 35vh; /* Limita la altura en pantallas pequeñas */
-        max-width: 30vw;
+        max-width: 90%;
+        max-height: 60vh;
     }
 }
 
@@ -925,9 +928,6 @@ main {
     .contenedoresenmenuprincipal>div {
         max-height: 20vh;
         max-width: 80vw;
-    }
-    .contenedordegraficas {
-        max-height: 80%;
     }
 }
 
@@ -987,9 +987,18 @@ main {
     .formularioproductos {
         font-size: 3vw;
     }
-
 }
-
+@media (max-width:360px) {
+.close{
+    position: absolute;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    top:10px;
+    max-width: 90vw;
+}
+}
 
 ::-webkit-scrollbar {
     width: 10px;

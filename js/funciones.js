@@ -78,7 +78,7 @@ export function cargarclientes(filtro) {
 
         if (cantidaddeelementosantes - 1 != clientes.length) {
 
-            tabla.innerHTML = "<tr><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
             clientes.forEach(cadacliente => {
 
                 var linea = document.createElement("tr");
@@ -121,7 +121,7 @@ export function cargarproductos(filtro) {
         const productos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != productos.length) {
-            tabla.innerHTML = "<tr><th>nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
             productos.forEach(cadaproducto => {
 
                 var linea = document.createElement("tr");
@@ -171,7 +171,7 @@ export function cargarproveedores(filtro) {
         const proveedores = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != proveedores.length) { // compara los elementos de la tabla con los resultados de la api, si hay una cantidad distinta, cargará todos los proveedores
-            tabla.innerHTML = "<tr><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Deuda</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
+            tabla.innerHTML = "<tr class='encabezado'><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Deuda</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
             proveedores.forEach(cadaproveedor => {
 
                 var linea = document.createElement("tr");
@@ -206,7 +206,7 @@ export function cargarcobros(filtro) {
         const cobros = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != cobros.length) {
-            tabla.innerHTML = "<tr><th>Responsable</th><th>Cliente</th><th>Monto Abonado</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Responsable</th><th>Cliente</th><th>Monto Abonado</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
             cobros.forEach(cadacobro => {
 
                 var linea = document.createElement("tr");
@@ -243,7 +243,7 @@ export function cargarpagos(filtro) {
         const pagos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != pagos.length) {
-            tabla.innerHTML = "<tr><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Vencimiento Factura</th><th>Compra</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Vencimiento Factura</th><th>Compra</th></tr>"
             pagos.forEach(cadapago => {
 
                 var linea = document.createElement("tr");
@@ -291,7 +291,7 @@ export function cargarsorteos(filtro) {
         const sorteos = JSON.parse(this.responseText);
 
         if (cantidaddeelementosantes - 1 != sorteos.length) {
-            tabla.innerHTML = "<tr><th>Premio</th><th>Cantidad</th><th>Fecha de realización</th><th>Acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Premio</th><th>Cantidad</th><th>Fecha de realización</th><th>Acción</th></tr>"
             sorteos.forEach(cadaSorteo => {
                 var linea = document.createElement("tr");
 
@@ -464,7 +464,7 @@ function cargarbotonparasumarproductoparavender() {//funcion utilizada en la fun
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
 
         if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
         }
 
         for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -524,7 +524,7 @@ function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la fu
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
 
         if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
         }
 
         for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 4 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -585,7 +585,7 @@ export function cargarproductosparacomprar(filtro) {
     cargaDatos.onload = function () {
         const productos = JSON.parse(this.responseText);
         if (cantidaddeelementosantes - 1 != productos.length) {
-            tabla.innerHTML = "<tr><th>Nombre</th><th>Código de barras</th><th>Precio de Compra</th><th>Descripcion</th><th>Acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Código de barras</th><th>Precio de Compra</th><th>Descripcion</th><th>Acción</th></tr>"
             productos.forEach(cadaproducto => {
                 var linea = document.createElement("tr");
                 function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
@@ -614,7 +614,7 @@ export function cargarproductosparavender(filtro) {
     cargaDatos.onload = function () {
         const productos = JSON.parse(this.responseText);
         if (cantidaddeelementosantes - 1 != productos.length) {
-            tabla.innerHTML = "<tr><th>Nombre</th><th>Código de barras</th><th>Precio de Venta</th><th>Descripcion</th><th>Acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Código de barras</th><th>Precio de Venta</th><th>Descripcion</th><th>Acción</th></tr>"
             productos.forEach(cadaproducto => {
                 if (cadaproducto.Cantidad > 0) {//si el producto tiene por lo menos uno lo carga
                     var linea = document.createElement("tr");
@@ -780,7 +780,7 @@ export function cargarfacturasavencer() {
             }
         }) //luego del foreach que solamente cuenta
         if (cantidaddefacturas != cantidadactual) { // chequemos si hay menos o mas clientes de cumpleaños el dia de hoy// si llega a haber carga todos los cumpleañeros el dia de hoy // la primera vez entra en este if. si o si ya que compara -1 con 0 o la cantidad de clientes que haya de cumpleaños que nunca va a ser negativo y estos son distintos
-            contenedordefacturas.innerHTML = "<h2>Futuras Facturas a vencer</h2>" // la primera vez carga el titulo si o si
+            contenedordefacturas.innerHTML = "<h2 class='encabezadoprincipal'>Futuras Facturas a vencer</h2>" // la primera vez carga el titulo si o si
             pagos.forEach(cadapago => {
                 var hoy = new Date()//creamos un elemento tipo fecha, se establece la fecha actual
                 if (cadapago.Vencimiento_Factura && Date.parse(cadapago.Vencimiento_Factura) > Date.parse(hoy)) { // si hay seteada una fecha de vencimiento de la factura y el dia del vencimiento de la factura es mayor(está en el futuro) es decir todavía no venció, la carga. si ya venció no la carga
@@ -789,7 +789,7 @@ export function cargarfacturasavencer() {
             })
         }
         if (contenedordefacturas.childElementCount == 1) { // si solamente se cargó el titulo( osea que no hay ningun cumpleañero) carga un texto diciendo que no hay cumpleañeros
-            contenedordefacturas.innerHTML += "<h3>No hay Facturas por vencer</h3>"
+            contenedordefacturas.innerHTML += "<h3 class='encabezadoprincipal'>No hay Facturas por vencer</h3>"
         }
     }
 }
@@ -809,7 +809,7 @@ export function cargarproductosconpocostock() {
             }
         })
         if (cantidaddeproductos != cantidadactual) {
-            contenedordeproductos.innerHTML = "<h2>Productos con poco Stock</h2>";
+            contenedordeproductos.innerHTML = "<h2 class='encabezadoprincipal'>Productos con poco Stock</h2>";
             productos.forEach(cadaProducto => {
                 if (parseInt(cadaProducto.Cantidad) <= parseInt(cadaProducto.Cantidad_minima_aviso)) { //si la cantidad es menor o igual a la cantidad de aviso lo carga como un h3, utilizamos parseint ya que comparabas datos tipo string.
                     if (parseInt(cadaProducto.Cantidad) == 0) {
