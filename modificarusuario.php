@@ -117,82 +117,92 @@ $usuario = mysqli_fetch_assoc($consultausuario);
 //hay que probar todos los posibles casos de combinaciones de cambios en la variable $opcion
 //echo $opcion;
 switch (trim($opcion)) {
+    // CASO BASE
     case 'datosactualizados':
         mostraraviso("Datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
 
+    // CASOS SOLO USUARIO
     case 'usuariocambiadodatosactualizados':
         mostraraviso("Usuario y datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
-
     case 'usuarioyaexistentedatosactualizados':
         mostraraviso("Ese usuario ya está en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
-
-    case 'usuariocambiadofotocambiadodatosactualizados':
-        mostraravisoconfoto("Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
-    case 'usuariocambiadocorreocambiadodatosactualizados':
-        mostraraviso("Usuario, correo y datos modificados con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'usuariocambiadocorreoyaexistentedatosactualizados':
-        mostraraviso("Ese correo ya está en uso!! <br> Usuario y datos modificados con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'usuariocambiadocorreocambiadofotocambiadadatosactualizados':
-        mostraravisoconfoto("Usuario, correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
-    case 'usuarioyaexistentecorreoyaexistentedatosactualizados':
-        mostraraviso("Ese usuario y correo ya están en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'correocambiadodatosactualizados':
-        mostraraviso("Correo y datos modificados con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'correoyaexistentedatosactualizados':
-        mostraraviso("Ese correo ya está en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
-        break;
-
-    case 'fotocambiadadatosactualizados':
-        mostraravisoconfoto("Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
-    case 'correocambiadofotocambiadodatosactualizados':
-        mostraravisoconfoto("Correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
     case 'usuariomuycortodatosactualizados':
         mostraraviso("El nombre de usuario es muy corto <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
 
+    // CASOS SOLO CORREO
+    case 'correocambiadodatosactualizados':
+        mostraraviso("Correo y datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'correoyaexistentedatosactualizados':
+        mostraraviso("Ese correo ya está en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+
+    // CASOS SOLO FOTO
+    case 'fotocambiadadatosactualizados':
+        mostraravisoconfoto("Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+
+    // CASOS USUARIO + CORREO
+    case 'usuariocambiadocorreocambiadodatosactualizados':
+        mostraraviso("Usuario, correo y datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'usuariocambiadocorreoyaexistentedatosactualizados':
+        mostraraviso("Ese correo ya está en uso!! <br> Usuario y datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'usuarioyaexistentecorreocambiadodatosactualizados':
+        mostraraviso("El usuario ya existe!! <br> Correo y datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'usuarioyaexistentecorreoyaexistentedatosactualizados':
+        mostraraviso("Ese usuario y correo ya están en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
+    case 'usuariomuycortocorreocambiadodatosactualizados':
+        mostraraviso("El nombre de usuario es muy corto <br> Correo y datos modificados con éxito", $colorfondo, $colorprincipal);
+        break;
     case 'usuariomuycortocorreoyaexistentedatosactualizados':
         mostraraviso("El nombre de usuario es muy corto y ese correo ya está en uso!! <br> Datos modificados con éxito", $colorfondo, $colorprincipal);
         break;
 
-    case 'usuariomuycortocorreocambiadofotocambiadadatosactualizados':
-        mostraravisoconfoto("El nombre de usuario es muy corto, pero el correo, foto y datos se han modificado con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
-    case 'usuariomuycortofotocambiadodatosactualizados':
-        mostraravisoconfoto("El nombre de usuario es muy corto, pero la foto y los datos se han modificado con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-
-    case 'usuariomuycortocorreocambiadofotocambiadodatosactualizados':
-        mostraravisoconfoto("El nombre de usuario es muy corto, pero el correo, la foto y los datos se han modificado con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
-    case 'correoyaexistentefotocambiadadatosactualizados':
-        mostraravisoconfoto("Ese correo ya está en uso!! <br>Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
-        break;
+    // CASOS USUARIO + FOTO
     case 'usuariocambiadofotocambiadadatosactualizados':
         mostraravisoconfoto("Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
-    case 'correocambiadocorreoyaexistentedatosactualizados':
-        mostraraviso("Ese correo ya está en uso!! <br> Correo modificado con éxito", $colorfondo, $colorprincipal);
+    case 'usuarioyaexistentefotocambiadadatosactualizados':
+        mostraravisoconfoto("El usuario ya existe!! <br> Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuariomuycortofotocambiadadatosactualizados':
+        mostraravisoconfoto("El nombre de usuario es muy corto <br> Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
         break;
 
+    // CASOS CORREO + FOTO
+    case 'correocambiadofotocambiadadatosactualizados':
+        mostraravisoconfoto("Correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'correoyaexistentefotocambiadadatosactualizados':
+        mostraravisoconfoto("Ese correo ya está en uso!! <br> Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+
+    // CASOS USUARIO + CORREO + FOTO
+    case 'usuariocambiadocorreocambiadofotocambiadadatosactualizados':
+        mostraravisoconfoto("Usuario, correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuariocambiadocorreoyaexistentefotocambiadadatosactualizados':
+        mostraravisoconfoto("El correo ya existe!! <br> Usuario, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuarioyaexistentecorreocambiadofotocambiadadatosactualizados':
+        mostraravisoconfoto("El usuario ya existe!! <br> Correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuarioyaexistentecorreoyaexistentefotocambiadadatosactualizados':
+        mostraravisoconfoto("El usuario y correo ya existen!! <br> Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuariomuycortocorreocambiadofotocambiadadatosactualizados':
+        mostraravisoconfoto("El nombre de usuario es muy corto <br> Correo, foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
+    case 'usuariomuycortocorreoyaexistentefotocambiadadatosactualizados':
+        mostraravisoconfoto("El nombre de usuario es muy corto y el correo ya existe!! <br> Foto y datos modificados con éxito", $colorfondo, $colorprincipal, "fotoperfil/" . $_SESSION["fotoperf"]);
+        break;
 }
 ?>

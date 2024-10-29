@@ -28,9 +28,14 @@ $medidas = mysqli_query($basededatos, 'SELECT * FROM Medida ORDER BY Unidad');
 
 if (isset($_GET["id"])) {
     $consultaproducto = mysqli_query($basededatos, 'SELECT * FROM Producto WHERE ID_PRODUCTO=' . $_GET["id"]);
+    if (mysqli_num_rows($consultaproducto) == 0) {
+        header("Location:productos.php");
+        die();
+    }
     $producto = mysqli_fetch_assoc($consultaproducto);
 } else {
     header("Location:productos.php");
+    die();
 }
 
 
@@ -75,12 +80,13 @@ if (isset($_GET["id"])) {
                 <label for="marca">Marca</label>
                 <input type="text" placeholder="marca" name="marca" id="marca" value="<?php echo $producto['Marca']; ?>">
 
-                <label for="cantidad">Cantidad</label>
-                <input type="number" placeholder="cantidad" name="cantidad" id="cantidad" value="<?php echo $producto['Cantidad']; ?>">
             </div>
 
             <div class="subcontenedores">
 
+            <label for="cantidad">Cantidad</label>
+                <input type="number" placeholder="cantidad" name="cantidad" id="cantidad" value="<?php echo $producto['Cantidad']; ?>">
+            
                 <label for="cantidadaviso">Cantidad de Aviso</label>
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso" value="<?php echo $producto['Cantidad_minima_aviso']; ?>">
 

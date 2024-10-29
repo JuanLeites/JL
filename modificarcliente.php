@@ -17,9 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (isset($_GET["id"])) {
     $consultacliente = mysqli_query($basededatos, 'SELECT * FROM Cliente WHERE ID_CLIENTE=' . $_GET["id"]);
+    if (mysqli_num_rows($consultacliente) == 0) {
+        header("Location:clientes.php");
+        die();
+    }
     $cliente = mysqli_fetch_assoc($consultacliente); //obtenemos un array asociativo de la consulta(un array con indices iguales a la base de datos sirve unicamente cuando obtenemos una fila sola)
 } else {
     header("Location:clientes.php");
+    die();
 }
 
 

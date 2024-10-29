@@ -12,9 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (isset($_GET["id"])) {
     $consultaproveedor = mysqli_query($basededatos, 'SELECT * FROM Proveedor WHERE ID_PROVEEDOR=' . $_GET["id"]);
+    if (mysqli_num_rows($consultaproveedor) == 0) {
+        header("Location:proveedores.php");
+        die();
+    }
     $proveedor = mysqli_fetch_assoc($consultaproveedor);
 } else {
     header("Location:proveedores.php");
+    die();
 }
 
 

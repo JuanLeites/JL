@@ -86,11 +86,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="marca">Marca</label>
                 <input type="text" placeholder="marca" name="marca" id="marca" <?php if(isset($marca)){echo "value='".$marca."'"; }  ?>>
 
-                <label for="cantidad">Cantidad</label>
-                <input type="number" placeholder="cantidad" min="0" name="cantidad" id="cantidad" required <?php if(isset($cantidad)){echo "value='".$cantidad."'"; }  ?>>
             </div>
 
             <div class="subcontenedores">
+            <label for="cantidad">Cantidad</label>
+                <input type="number" placeholder="cantidad" min="0" name="cantidad" id="cantidad" required <?php if(isset($cantidad)){echo "value='".$cantidad."'"; }  ?>>
+            
                 <label for="cantidadaviso">Cantidad de Aviso</label>
                 <input type="number" placeholder="cantidad de aviso" name="cantidadaviso" id="cantidadaviso" required <?php if(isset($cantidadaviso)){echo "value='".$cantidadaviso."'"; }  ?>>
 

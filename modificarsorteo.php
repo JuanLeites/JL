@@ -13,9 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (isset($_GET["id"])) {
     $consultasorteo = mysqli_query($basededatos, 'SELECT * FROM Sorteo WHERE ID_SORTEO=' . $_GET["id"]);
+    if (mysqli_num_rows($consultasorteo) == 0) {
+        header("Location:sorteos.php");
+        die();
+    }
     $sorteo = mysqli_fetch_assoc($consultasorteo); //obtenemos un array asociativo de la consulta(un array con indices iguales a la base de datos sirve unicamente cuando obtenemos una fila sola)
 } else {
     header("Location:sorteos.php");
+    die();
 }
 
 
