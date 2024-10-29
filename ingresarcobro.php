@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
 
         <select name="ID_CLIENTE" class="selectdeclientes" required></select>
-        <input type="submit" value="agregar">
+        <input type="submit" value="Agregar">
     </form>
     <?php include_once("barralateral.html"); ?>
 </body>

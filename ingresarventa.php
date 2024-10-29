@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="compra-venta">
-        <div class="formularios">
+        <div class="formularios primerformulario">
             <div>
                 <input type="search" id="filtro" class="filtroproductos" placeholder="Buscar Productos">
 
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <form method="POST" class="formularios" action="confirmarventa.php">
+        <form method="POST" class="formularios segundoformulario" action="confirmarventa.php">
             <h1>Ingresar Venta</h1>
             <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarclientes.php">agregar clientes</a> </label>
             <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
@@ -87,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="contenedordeproductos">
                 <table class="agregarproductos">
                     <tbody class="tabladeprductosagregados">
-
                     </tbody>
                 </table>
             </div>

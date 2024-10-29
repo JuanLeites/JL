@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="shortcut icon" href="../imagenes/JL.svg" type="image/x-icon">
     
 </head>
-<body>
+<body class="scroll">
     <form method="post" action="cambiarcontraseña.php" class="formularios meolvidelacontraseña">
         <img src="../imagenes/JL.svg" class="logoenformulario">
         <p class="textoformulario">Introduce el código de 6 digitos que ha llegado a tu correo.</p>

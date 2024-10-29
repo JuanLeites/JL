@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <input type="submit" value="agregar">
+        <input type="submit" value="Agregar">
     </form>
     <?php include_once("barralateral.html") ?>
 </body>

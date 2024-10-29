@@ -21,7 +21,7 @@ if(isset($_SESSION["acertado"])){
     <link rel="shortcut icon" href="../imagenes/JL.svg" type="image/x-icon">
     
 </head>
-<body>
+<body class="scroll">
   <form method="post" action="ingresarcodigo.php" class="formularios meolvidelacontraseña">
     <img src="../imagenes/JL.svg" class="logoenformulario">
     <p class="textoformulario">Introduce el correo electrónico o el nombre de usuario asociados a tu cuenta para cambiar tu contraseña.</p>

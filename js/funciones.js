@@ -464,7 +464,7 @@ function cargarbotonparasumarproductoparavender() {//funcion utilizada en la fun
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
 
         if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezadodeproductosseleccionados'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
         }
 
         for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -524,7 +524,7 @@ function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la fu
         var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
 
         if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
+            tabla.innerHTML = "<tr class='encabezadodeproductosseleccionados'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
         }
 
         for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 4 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -749,7 +749,7 @@ export function cargarclientesdecumpleaños() {
             }
         }) //luego del foreach que solamente cuenta
         if (cantidaddecumpleañeros != cantidadactual) { // chequemos si hay menos o mas clientes de cumpleaños el dia de hoy// si llega a haber carga todos los cumpleañeros el dia de hoy // la primera vez entra en este if. si o si ya que compara -1 con 0 o la cantidad de clientes que haya de cumpleaños que nunca va a ser negativo y estos son distintos
-            contenedordecumpleañeros.innerHTML = "<h2>Clientes de cumpleaños 🍰</h2>" // la primera vez carga el titulo si o si
+            contenedordecumpleañeros.innerHTML = "<h2 class='encabezadoprincipal'>Clientes de cumpleaños 🍰</h2>" // la primera vez carga el titulo si o si
             clientes.forEach(cadacliente => {
                 var hoy = new Date() //guardamos la fecha de hoy en un dato tipo fecha
                 var dia = new Date(cadacliente.Fecha_de_Nacimiento); // guardamos el cumpleaños del cliente como un dato tipo fecha

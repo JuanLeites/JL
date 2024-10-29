@@ -40,7 +40,7 @@ if(!isset($_SESSION["codigo"])){
     <script src="../js/funciones.js" type="module"></script>
     
 </head>
-<body>
+<body class="scroll">
     <form class="formularios" method="post" action="actualizadordecontraseña.php">
     <img src="../imagenes/JL.svg" class="logoenformulario">
         <h2>Bienvenido, <?php echo $_SESSION["arraydeusuario"]["Nombre"]; echo "<input type='hidden' name='usuario' value='".$_SESSION["arraydeusuario"]["Usuario"]."'>" ?> </h2>
