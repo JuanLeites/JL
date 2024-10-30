@@ -41,7 +41,7 @@ if(!isset($_SESSION["codigo"])){
     
 </head>
 <body class="scroll">
-    <form class="formularios" method="post" action="actualizadordecontraseña.php">
+    <form class="contenedor" method="post" action="actualizadordecontraseña.php">
     <img src="../imagenes/JL.svg" class="logoenformulario">
         <h2>Bienvenido, <?php echo $_SESSION["arraydeusuario"]["Nombre"]; echo "<input type='hidden' name='usuario' value='".$_SESSION["arraydeusuario"]["Usuario"]."'>" ?> </h2>
         <label for="contraseñameolvide">Ingrese una nueva contraseña:</label>

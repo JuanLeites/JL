@@ -66,4 +66,4 @@ INSERT INTO IVA (Tipo, Valor) VALUES
 INSERT INTO Configuración (Precio_por_Tickets,Clave_Maestra,Color_Principal,Color_Secundario,Color_Fondo) VALUES
 ('200','JL2024','#4DBF38','#80D12A','#001F47');
 
-INSERT INTO Usuario (Usuario,Contraseña,Nombre,Correo,Tipo_Usuario) VALUES ("usuarioadmin","$2y$10$PyrzdCQIQNq.LGzZvVNG/.Y9/GwFJY/69sdjryGiQSK9hB/oH1fPu","Usuario Administrador","correousuarioadministrador@gmail.com","administrador");--contraseña encriptada: contraseñausuarioadministrador 
+INSERT INTO Usuario (Usuario,Contraseña,Nombre,Correo,Tipo_Usuario) VALUES ("usuarioadmin","$2y$10$zaKVdU1VwHFU8e1raW76yehs4LtpZ9HqgzSaUlQ9aJ6SAhnf3dV2a","Usuario Administrador","correousuarioadministrador@gmail.com","administrador");--contraseña encriptada: contraseñausuarioadministrador 

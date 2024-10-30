@@ -22,7 +22,7 @@ if(isset($_SESSION["acertado"])){
     
 </head>
 <body class="scroll">
-  <form method="post" action="ingresarcodigo.php" class="formularios meolvidelacontraseña">
+  <form method="post" action="ingresarcodigo.php" class="contenedor meolvidelacontraseña">
     <img src="../imagenes/JL.svg" class="logoenformulario">
     <p class="textoformulario">Introduce el correo electrónico o el nombre de usuario asociados a tu cuenta para cambiar tu contraseña.</p>
     <input type="text" placeholder="ingrece email o Usuario" name="destino" required>

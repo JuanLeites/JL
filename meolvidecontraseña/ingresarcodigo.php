@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 </head>
 <body class="scroll">
-    <form method="post" action="cambiarcontraseña.php" class="formularios meolvidelacontraseña">
+    <form method="post" action="cambiarcontraseña.php" class="contenedor meolvidelacontraseña">
         <img src="../imagenes/JL.svg" class="logoenformulario">
         <p class="textoformulario">Introduce el código de 6 digitos que ha llegado a tu correo.</p>
         <input type="text" placeholder="XXXXXX" id="codigo" inputmode="numeric" pattern="[0-9]{6}" min="000000" max="999999" name="codigoingresado" minlength="6" maxlength="6" required title="*Debes ingresar unicamente 6 caracteres numericos">

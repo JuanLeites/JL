@@ -73,6 +73,7 @@ body {
     align-items: center;
     font-family: Helvetica, sans-serif;
     overflow-x: hidden;
+    overflow-y: auto;
     z-index: 0;
 }
 
@@ -294,9 +295,24 @@ footer>a:hover {
     border: solid 2px var(--color-fondo);
     border-radius: 13px;
 }
-
-.close {
+.contenedordepopup{
+    transition: 1s ease;
+    display: flex;
     position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(5px);
+    z-index: 3;
+    align-items: center;
+    justify-content: center;
+}
+.desaparecer{
+    display: none;
+}
+.close {
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -668,7 +684,7 @@ main {
 
 .popup {
     padding: 20px;
-    position: fixed;
+    position: relative;
     background-color: var(--color-secundario);
     color: var(--color-fondo);
     border: solid 1.5px var(--color-fondo);
@@ -805,7 +821,7 @@ main {
 
     footer {
         position: relative;
-        bottom: 5px;
+        bottom: -50px;
         margin: 20px;
     }
 

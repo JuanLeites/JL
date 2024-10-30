@@ -64,12 +64,12 @@
 
 <script>
     function mostrarpopup() {
-        var popup = document.querySelector("#popup");
-        popup.setAttribute("Style", "");
+        var popup = document.querySelector("#contpop");
+        popup.setAttribute("Style", "transition:0.3s;");
     }
     function ocultarpopup() {
-        var popup = document.querySelector("#popup");
-        popup.setAttribute("Style", "display: none");
+        var popup = document.querySelector("#contpop");
+        popup.setAttribute("Style", "transition:0.3s;display: none");
     }
     function mostrarmenu() {
         var slidebar = document.querySelector(".barralateral");
@@ -78,7 +78,6 @@
         botoncerrar.setAttribute("Style", "display:initial;")
         slidebar.setAttribute("Style", "display:initial");
         boton.setAttribute("Style", "display:none;");
-
     }
     function ocultarmenu() {
         var slidebar = document.querySelector(".barralateral");
@@ -89,14 +88,16 @@
         boton.setAttribute("Style", "display:initial;");
     }
 </script>
-
-<div class="popup" style="display: none;" id="popup">
-    <a href="modificarusuario.php"> Modificar Datos de Usuario</a>
-    <a href="modificarcontraseña.php"> Modificar Contraseña</a>
-    <a href="modificarconfiguracion.php"> Modificar Configuración del software</a>
-    <a href="reestablecercolores.php">Reestablecer Colores por defecto</a>
-    <button onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
+<div class="contenedordepopup"  id="contpop" style="display: none;" onclick="ocultarpopup()">
+    <div class="popup" id="popup">
+        <a href="modificarusuario.php"> Modificar Datos de Usuario</a>
+        <a href="modificarcontraseña.php"> Modificar Contraseña</a>
+        <a href="modificarconfiguracion.php"> Modificar Configuración del software</a>
+        <a href="reestablecercolores.php">Reestablecer Colores por defecto</a>
+        <button onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
+    </div>
 </div>
+
 
 
 <div class="close">
