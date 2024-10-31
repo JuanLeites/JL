@@ -47,7 +47,7 @@ if (isset($_GET["id"])) {
         <input type="text" placeholder="Razón Social" name="RS" id="RS" value="<?php echo $proveedor['Razón_Social']; ?>">
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" min="1000000" max="999999999999" name="rut" id="rut" value="<?php echo $proveedor['RUT']; ?>">
+        <input type="text" placeholder="RUT" inputmode="numeric" minlength="7" maxlength="12" pattern="[0-9]{7,12}" title="*Debes ingresar un RUT valido" name="rut" id="rut" value="<?php echo $proveedor['RUT']; ?>">
 
         <label for="contacto">Contacto</label>
         <input type="text" placeholder="contacto" name="contacto" id="contacto" value="<?php echo $proveedor['Contacto']; ?>">

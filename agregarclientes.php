@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                             } ?>>
 
         <label for="cedula">Cédula</label>
-        <input type="number" placeholder="Cedula" name="cedula" id="cedula" min="1000000" max="99999999" <?php if (isset($cedula)) {
+        <input type="text" placeholder="Cedula" inputmode="numeric" minlength="6" maxlength="10" pattern="[0-9]{6,10}" title="*Debes ingresar una Cédula valida" name="cedula" id="cedula" <?php if (isset($cedula)) {
                                                                                                                 echo "value='" . $cedula . "'";
                                                                                                             } ?>>
 
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                                 } ?>>
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" name="rut" id="rut">
+        <input type="text" placeholder="RUT" inputmode="numeric" minlength="7" maxlength="12" pattern="[0-9]{7,12}" title="*Debes ingresar un RUT valido" name="rut" id="rut">
 
         <input type="submit" value="Agregar">
 

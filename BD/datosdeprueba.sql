@@ -162,7 +162,7 @@ INSERT INTO `Venta` (`ID_VENTA`, `Precio_Final`, `Sub_Total`, `Fecha_Venta`, `ID
 
 INSERT INTO `Cobro` (`ID_COBRO`, `Monto`, `Fecha_Cobro`, `ID_CLIENTE`, `ID_VENTA`, `Usuario`) VALUES
 (1, 820.00, '2024-10-16', 50, 1, 'usuarioadmin'),
-(2, 700.00, '2024-10-15', 38, 2, 'JuanLeites');
+(2, 700.00, '2024-10-15', 38, 2, 'colorazul');
 
 INSERT INTO `Productos_Vendidos` (`ID_VENTA`, `ID_PRODUCTO`, `Cantidad_de_Venta`, `Precio_de_Venta`, `Iva_de_Venta`) VALUES
 (1, 1, 1, 18.90, 0.00),
@@ -200,7 +200,7 @@ INSERT INTO `Productos_Comprados` (`ID_COMPRA`, `ID_PRODUCTO`, `Cantidad_de_Comp
 (3, 27, 2, 120.00, 22.00),
 (3, 29, 4, 200.00, 22.00);
 
-INSERT INTO `S  orteo` (`ID_SORTEO`, `Premio`, `Cantidad`, `Activo`, `Fecha_realización`) VALUES
+INSERT INTO `Sorteo` (`ID_SORTEO`, `Premio`, `Cantidad`, `Activo`, `Fecha_realización`) VALUES
 (1, 'Canasta Familiar, Fardo de Cocacola. ', 2, 1, NULL),
 (2, "Televisor 32'", 1, 1, NULL),
 (3, 'Tablet', 1, 1, NULL),

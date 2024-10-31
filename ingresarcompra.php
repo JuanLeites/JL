@@ -70,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="compra-venta">
         <div class="formularios primerformulario">
-            <div>
+            <div class="contenedordebuscadoryboton">
                 <input type="search" id="filtro" class="filtroproductos" placeholder="Buscar Productos">
-
+                <a href="agregarproductos.php" target="_blank" class="agregardato">+</a>
             </div>
 
             <div class="agregarproductos">

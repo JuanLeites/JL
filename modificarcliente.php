@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
         $opcion="clienteconrutactualizado";
     } else { //si no se ingresa un rut carga todos menos el rut(esto para que cargue su valor por defecto ("no tiene"))
-        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = "no tiene" WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
+        mysqli_query($basededatos, 'UPDATE `Cliente` SET `Cédula` = "' . $_POST["cedula"] . '", `Nombre` = "' . $_POST["nombre"] . '", `Fecha_de_Nacimiento` = "' . $_POST["fechanac"] . '", `Contacto` = "' . $_POST["contacto"] . '",`RUT` = null WHERE `cliente`.`ID_CLIENTE` = ' . $_GET["id"]);
         $opcion="clienteactualizado";
     }
 } else {
@@ -55,7 +55,7 @@ if (isset($_GET["id"])) {
         <input type="text" placeholder="nombre" name="nombre" id="nombre" value="<?php echo $cliente['Nombre']; ?>">
 
         <label for="cedula">Cédula</label>
-        <input type="number" placeholder="Cedula" name="cedula" id="cedula" value="<?php echo $cliente['Cédula']; ?>" min="100000" max="99999999">
+        <input type="text" placeholder="Cedula" inputmode="numeric" minlength="6" maxlength="9" pattern="[0-9]{6,9}" title="*Debes ingresar una Cédula valida" name="cedula" id="cedula" value="<?php echo $cliente['Cédula']; ?>" min="100000" max="99999999">
 
         <label for="fechanac">Fecha de Nacimiento</label>
         <input type="date" name="fechanac" id="fechanac" max="2019-12-31" min="1940-12-31" value="<?php echo $cliente['Fecha_de_Nacimiento']; ?>">
@@ -64,7 +64,7 @@ if (isset($_GET["id"])) {
         <input type="text" placeholder="contacto" name="contacto" id="contacto" value="<?php echo $cliente['Contacto']; ?>">
 
         <label for="rut">RUT</label>
-        <input type="number" placeholder="RUT" name="rut" id="rut" value="<?php if($cliente['RUT']!="no tiene"){echo $cliente['RUT'];}  ?>">
+        <input type="text" placeholder="RUT" inputmode="numeric" minlength="7" maxlength="12" pattern="[0-9]{7,12}" title="*Debes ingresar un RUT valido" name="rut" id="rut"  value="<?php if($cliente['RUT']!="no tiene"){echo $cliente['RUT'];}  ?>">
 
         <input type="submit" value="Actualizar">
 

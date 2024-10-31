@@ -128,7 +128,7 @@ function generarcodigo($cantidad)
   return $codigo;
 } 
 function imprimirPDF($tipo,$id) {
-  echo "<iframe src='imprimir/imprimir.php?tipo=".$tipo."&id=".$id."' style='display:none;'></iframe>";//creará un iframe que 
+  echo "<iframe src='imprimir/imprimir.php?tipo=".$tipo."&id=".$id."' style='display:none;'></iframe>";//creará un iframe que ejecuta el archivo imprimir.php el cual imprimirá un comprobante
 }
 
 

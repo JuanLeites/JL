@@ -182,7 +182,11 @@ export function cargarproveedores(filtro) {
                     linea.appendChild(objeto);
                 }
                 agregaralinea(cadaproveedor.Razón_Social);
-                agregaralinea(cadaproveedor.RUT);
+                if(cadaproveedor.RUT){
+                    agregaralinea(cadaproveedor.RUT);
+                }else{
+                    agregaralinea("no tiene");
+                }
                 agregaralinea(cadaproveedor.Contacto);
                 agregaralinea(cadaproveedor.Deuda);
                 agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos

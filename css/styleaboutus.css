@@ -124,14 +124,21 @@ header {
 h1:hover {
     filter: drop-shadow(5px 5px 100px var(--color-secundario));
     cursor: url("../imagenes/cursor.png"), auto;
+
+
 }
+
 
 h1 {
     font-size: 7vw;
     margin: 20px;
     font-family: "fuente";
     color: var(--color-principal);
-    transition: 0.3s;
+    transition: 0.9s;
+    background-image: url("../imagenes/fondo.jpg");
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    
 }
 
 h2 {

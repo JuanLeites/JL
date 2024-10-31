@@ -14,7 +14,7 @@ include_once("coneccionBD.php");
     <link rel="stylesheet" href="css/style.css">
     <?php include_once("css/colorespersonalizados.php"); ?>
 
-    <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagenes/icons/pagos.png" type="image/x-icon">
 </head>
 
 <body>
@@ -40,7 +40,7 @@ include_once("coneccionBD.php");
                             $contadordeiva10=0;
                             $contadordeiva22=0;
                             foreach ($productos as $indice => $cadaproducto) {
-                                echo "<tr><th>" . $cadaproducto["Iva_de_Compra"] . "</th><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Compra"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] * $cadaproducto["Cantidad_de_Compra"] . "</th></tr>";
+                                echo "<tr><th>" . $cadaproducto["Iva_de_Compra"] . "</th><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Compra"] . "</th><th>" . $cadaproducto["Precio_de_Compra"] . "</th><th>" . number_format($cadaproducto["Precio_de_Compra"] * $cadaproducto["Cantidad_de_Compra"], 2, '.', ''). "</th></tr>";
                                 $subtotal = intval($cadaproducto["Precio_de_Compra"])*intval($cadaproducto["Cantidad_de_Compra"]);
                                 if ($cadaproducto["Iva_de_Compra"] == 10) { // si el iva es del 10 
                                     $contadordeiva10 += (($subtotal / 100) * $cadaproducto["Iva_de_Compra"]); // le sumamos a la variable que tiene la funcion de contador el iva dependiendo del subtotal
@@ -51,10 +51,10 @@ include_once("coneccionBD.php");
 
 
                             }
-                            if($contadordeiva10!=0){echo "<tr><th colspan='3'></th><th>IVA 10%</th><th>" . $contadordeiva10 . "</th></tr>";}
-                            if($contadordeiva22!=0){echo "<tr><th colspan='3'></th><th>IVA 22%</th><th>" . $contadordeiva22  . "</th></tr>";}
-                            echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $datosdecompra["Sub_Total"] . "</th></tr>";
-                            echo "<tr><th colspan='3'></th><th>Total</th><th>" . $datosdecompra["Precio_Final"] . "</th></tr>";
+                            if($contadordeiva10!=0){echo "<tr><th colspan='3'></th><th>IVA 10%</th><th>" . number_format($contadordeiva10, 2, '.', '') . "</th></tr>";}
+                            if($contadordeiva22!=0){echo "<tr><th colspan='3'></th><th>IVA 22%</th><th>" . number_format($contadordeiva22, 2, '.', '')  . "</th></tr>";}
+                            echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . number_format($datosdecompra["Sub_Total"], 2, '.', '') . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Total</th><th>" . number_format($datosdecompra["Precio_Final"], 2, '.', '') . "</th></tr>";
                         } else {
                             header("Location:compras.php?causa=ningunidseteado"); // arreglar this
                         }
@@ -65,13 +65,14 @@ include_once("coneccionBD.php");
         </div>
         <div class="formularios">
             <h1>Datos de la Compra</h1>
-            <p>Proveedor : <?php echo $datosdecompra["Razón_Social"] . " - " . $datosdecompra["RUT"]; ?> </p>
+            <p>Proveedor : <?php echo $datosdecompra["Razón_Social"]; ?> </p>
+            <p>RUT : <?php echo$datosdecompra["RUT"]; ?>
             <p>Fecha de la compra : <?php echo $datosdecompra["Fecha_Compra"]; ?> </p>
             <?php if ($datosdecompra["Vencimiento_Factura"] != "") {
                 echo "<p>La compra fué a credito, vence : " . $datosdecompra["Vencimiento_Factura"] . "</p>";
             } ?>
-            <p>Se le pagó al proveedor : <?php echo $datosdecompra["Monto"]; ?></p>
-            <p>Generó una deuda de : <?php echo $datosdecompra["Monto"] - $datosdecompra["Precio_Final"]; // siendo monto el dinero que se le pagó al proveedor y precio final lo que se deberia de haber pagado 
+            <p>Se le pagó al proveedor : <?php echo  number_format($datosdecompra["Monto"], 2, '.', ''); ?></p>
+            <p>Generó una deuda de : <?php echo number_format(($datosdecompra["Monto"] - $datosdecompra["Precio_Final"]), 2, '.', ''); // siendo monto el dinero que se le pagó al proveedor y precio final lo que se deberia de haber pagado 
                                         ?></p>
             <p>Compra ingresada por: <?php echo $datosdecompra["NombreUsuario"]; ?> </p>
             <a class="linkdedescarga" href="imprimir/imprimir.php?tipo=compra&id=<?php echo $_GET["id"]; ?>" target="_blank">Descargar Comprobante</a>

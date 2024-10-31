@@ -62,34 +62,9 @@
 
 
 
-<script>
-    function mostrarpopup() {
-        var popup = document.querySelector("#contpop");
-        popup.setAttribute("Style", "transition:0.3s;");
-    }
-    function ocultarpopup() {
-        var popup = document.querySelector("#contpop");
-        popup.setAttribute("Style", "transition:0.3s;display: none");
-    }
-    function mostrarmenu() {
-        var slidebar = document.querySelector(".barralateral");
-        var boton = document.querySelector(".botonbarralateral");
-        var botoncerrar = document.querySelector(".cerrarbarralateral");
-        botoncerrar.setAttribute("Style", "display:initial;")
-        slidebar.setAttribute("Style", "display:initial");
-        boton.setAttribute("Style", "display:none;");
-    }
-    function ocultarmenu() {
-        var slidebar = document.querySelector(".barralateral");
-        var boton = document.querySelector(".botonbarralateral");
-        var botoncerrar = document.querySelector(".cerrarbarralateral");
-        botoncerrar.setAttribute("Style", "display:none;")
-        slidebar.setAttribute("Style", "display: none");
-        boton.setAttribute("Style", "display:initial;");
-    }
-</script>
-<div class="contenedordepopup"  id="contpop" style="display: none;" onclick="ocultarpopup()">
-    <div class="popup" id="popup">
+<script src="js/scriptbarralateral.js"></script>
+<div class="contenedordepopup" style="z-index: -1;" onclick="ocultarpopup()">
+    <div class="popup" style="transform: scale(0);" id="popup" onclick="event.stopPropagation();">
         <a href="modificarusuario.php"> Modificar Datos de Usuario</a>
         <a href="modificarcontraseña.php"> Modificar Contraseña</a>
         <a href="modificarconfiguracion.php"> Modificar Configuración del software</a>
@@ -100,10 +75,11 @@
 
 
 
+
 <div class="close">
     <h2>
         <?php echo $_SESSION["usuario"]; ?>
     </h2>
     <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
-    <a class="botoncerrar" href="close.php">LogOut</a>
+    <a class="botoncerrar" href="close.php" title="Cerrar Sesión">LogOut</a>
 </div>

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //ingresamos el cobro con el cliente, la id de venta y el usuario que la realizó
         mysqli_query($basededatos, 'INSERT INTO Cobro (Monto, ID_CLIENTE, Fecha_Cobro, ID_Venta, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] . '","' . date("Y-m-d") . '","' . $iddeventa . '","' . $_SESSION["usuario"] . '");');
-        $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Deuda,Tickets_de_Sorteo from Cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
+        $cliente = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT RUT,Deuda,Tickets_de_Sorteo from Cliente WHERE ID_CLIENTE="' . $_POST["ID_CLIENTE"] . '";')); //obtenemos los datos del cliente
         $Tiketsanteriores = $cliente["Tickets_de_Sorteo"];
         $Deduaanterior = $cliente["Deuda"];
         $PrecioFinaldelaventa = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Precio_Final from Venta WHERE ID_VENTA="' . $iddeventa . '";')); // obtenemos el precio final de la venta
@@ -36,7 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         mysqli_query($basededatos, 'UPDATE `Cliente` SET `Tickets_de_Sorteo`="' . $tiketsactuales . '",`Deuda`="' . $deudaactual . '"  WHERE `ID_CLIENTE`="' . $_POST["ID_CLIENTE"] . '";'); // actualizamos la deuda y los tikets del cliente
-        header("Location:ingresarventa.php?causa=ventaconcretada&id=".$iddeventa); //redirigimos a la misma página pero con una causa y una id de venta.
+
+        if ($cliente["RUT"] != "") {
+            header("Location:ingresarventa.php?causa=ventaconcretadarut&id=" . $iddeventa); //redirigimos a la misma página pero con una causa y una id de venta.
+        } else {
+            header("Location:ingresarventa.php?causa=ventaconcretada&id=" . $iddeventa); //redirigimos a la misma página pero con una causa y una id de venta.
+        }
         die();
     }
 }
@@ -65,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="compra-venta">
         <div class="formularios primerformulario">
-            <div>
+            <div class="contenedordebuscadoryboton">
                 <input type="search" id="filtro" class="filtroproductos" placeholder="Buscar Productos">
-
+                <a href="agregarproductos.php" target="_blank" class="agregardato">+</a>
             </div>
 
             <div class="agregarproductos">
@@ -135,8 +140,12 @@ if (isset($_GET["causa"])) {
             break;
         case "ventaconcretada":
             mostraraviso("Venta concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
-            imprimirPDF("venta",$_GET["id"]);
+            imprimirPDF("venta", $_GET["id"]);
             break;
+            case "ventaconcretadarut":
+                mostraraviso("Venta a cliente con RUT concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
+                imprimirPDF("factura", $_GET["id"]);
+                break;
     }
 }
 
