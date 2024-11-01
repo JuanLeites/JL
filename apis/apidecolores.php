@@ -19,6 +19,7 @@ $colores = [
     "color_secundario" => $colorsecundario,
     "color_fondo" => $colorfondo
 ];
+header('Content-Type: application/json', true, 200);
 json_encode($colores);
 echo json_encode($colores);
 

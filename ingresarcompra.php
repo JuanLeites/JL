@@ -102,6 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include_once("barralateral.html"); ?>
 </body>
+<script src="js/funcionessinexport.js"></script>
 <script type="module">
     import {
         cargarproveedoresenselect,

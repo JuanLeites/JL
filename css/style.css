@@ -3,7 +3,6 @@
     --color-secundario: #80D12A;
     --color-fondo: #001F47;
 }
-
 .mensaje {
     border: solid 1px red;
     border-radius: 10px;
@@ -19,7 +18,14 @@
     border: 3px solid var(--color-secundario);
     border-radius: 10px;
 }
-
+.cantidaddeelementos{
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    max-width: max-content;
+}
 .contenedordegraficas {
     position: absolute;
     max-height: 90vh;

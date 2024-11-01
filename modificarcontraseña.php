@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($contraseña, $usuario["Contraseña"])) { // si la contraseña ingresada coincide con la contraseña del usuario
                     if (strlen($_POST["contraseñanueva"]) > 5) { //strlen retorna la cantidad de caracteres
 
-                        mysqli_query($basededatos, 'UPDATE `Usuario` SET `contraseña`="' . password_hash($_POST["contraseñanueva2"], PASSWORD_BCRYPT) . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
+                        mysqli_query($basededatos, 'UPDATE `Usuario` SET `Contraseña`="' . password_hash($_POST["contraseñanueva2"], PASSWORD_BCRYPT) . '" WHERE Usuario ="' . $_SESSION["usuario"] . '";');
                         $opcion = "contraseñacambiada";
                     } else {
                         $opcion = "contraseñacorta";

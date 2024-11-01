@@ -14,6 +14,7 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
                     $datos[] = $cantidades; //agregamos los dos array a un solo array de datos
                     $datos[] = $Nombre;
                     echo json_encode($datos); // y lo pasamos por json
+                    header('Content-Type: application/json', true, 200);
                 } else {
                     echo json_encode(array(array(0), array("Ningún Producto"))); // devolvemos un array con dos arrays vacios para que no de errores ya que de donde obtenemos cargra con dos arreglos
                 }
@@ -30,6 +31,7 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
                     $datos[] = $cantidades; //agregamos los dos array a un solo array de datos
                     $datos[] = $Nombresconcedulas;
                     echo json_encode($datos); // y lo pasamos por json
+                    header('Content-Type: application/json', true, 200);
                 } else {
                     echo json_encode(array(array(0), array("Ningún Cliente")));
                 }
@@ -44,6 +46,7 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
                     $datos[] = $fechas; //agregamos los dos array a un solo array de datos
                     $datos[] = $cantidad;
                     echo json_encode($datos); // y lo pasamos por json
+                    header('Content-Type: application/json', true, 200);
                 } else {
                     echo json_encode(array(array(0),array(0)));
                 }
@@ -59,13 +62,14 @@ if (isset($_GET["fecha_inicio"]) && isset($_GET["fecha_final"]) && isset($_GET["
                 $datos[] = $cantidades; //agregamos los dos array a un solo array de datos
                 $datos[] = $categorias;
                 echo json_encode($datos); // y lo pasamos por json
+                header('Content-Type: application/json', true, 200);
             } else {
-                echo json_encode(array(array(0), array("ninguna venta")));
+                echo json_encode([[], ["ninguna venta"]]);
             }
 
                 break;
         }
     }
 } else {
-    echo json_encode("Datos Necesarios");
+    echo json_encode(["error"=>"Datos Necesarios"]);
 }

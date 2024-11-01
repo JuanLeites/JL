@@ -10,7 +10,7 @@
 
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-    
+
     <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/proveedor.png" type="image/x-icon">
 </head>
@@ -23,6 +23,7 @@
     </div>
 
     <div class="contenedordemenu">
+        <div class="cantidaddeelementos"></div>
         <table>
             <tbody>
 
@@ -32,19 +33,24 @@
 
     <?php include_once("barralateral.html") ?>
 </body>
+<script src="js/funcionessinexport.js"></script>
 <script type="module">
-    import {cargarproveedores} from "./js/funciones.js"
-    
+    import {
+        cargarproveedores
+    } from "./js/funciones.js"
+
     var inputdeproveedores = document.querySelector(".inputdeproveedores");
 
-    inputdeproveedores.addEventListener("keyup", () => {cargarproveedores(inputdeproveedores.value)}) //keyup porque toma el valor al levantar la tecla, se lo pasa a la funcion cargar proveedores la cual recive un parametro "filtro" con el cual hará la consulta a la api, en la api chequeamos que filtro esté seteada( distinto de undefined, porque al no estar seteada queda "undefined") y hacemos una consulta personalizada con la propiedad LIKE
+    inputdeproveedores.addEventListener("keyup", () => {
+        cargarproveedores(inputdeproveedores.value)
+    }) //keyup porque toma el valor al levantar la tecla, se lo pasa a la funcion cargar proveedores la cual recive un parametro "filtro" con el cual hará la consulta a la api, en la api chequeamos que filtro esté seteada( distinto de undefined, porque al no estar seteada queda "undefined") y hacemos una consulta personalizada con la propiedad LIKE
 
     window.onload = () => {
         cargarproveedores()
         setInterval(() => {
             if (inputdeproveedores.value == "") {
                 cargarproveedores()
-            }else{
+            } else {
                 cargarproveedores(inputdeproveedores.value)
             }
 

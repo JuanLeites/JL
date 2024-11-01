@@ -4,7 +4,7 @@ include_once("coneccionBD.php");
 include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'UPDATE `Proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
+    mysqli_query($basededatos, 'UPDATE `Proveedor` SET `Contacto` = "' . $_POST["contacto"] . '", `Razón_Social` = "' . $_POST["RS"] . '", `RUT` = "' . $_POST["rut"] . '" WHERE `Proveedor`.`ID_PROVEEDOR` =' . $_GET["id"]);
     $opcion = "proveedoractualizado";
 } else {
     $opcion = "";

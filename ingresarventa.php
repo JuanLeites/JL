@@ -102,6 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include_once("barralateral.html"); ?>
 </body>
+<script src="js/funcionessinexport.js"></script>
 <script type="module">
     import {
         cargarclientesenselect,
@@ -142,10 +143,10 @@ if (isset($_GET["causa"])) {
             mostraraviso("Venta concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
             imprimirPDF("venta", $_GET["id"]);
             break;
-            case "ventaconcretadarut":
-                mostraraviso("Venta a cliente con RUT concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
-                imprimirPDF("factura", $_GET["id"]);
-                break;
+        case "ventaconcretadarut":
+            mostraraviso("Venta a cliente con RUT concretada con éxito, y deuda del cliente actualizada", $colorfondo, $colorsecundario);
+            imprimirPDF("factura", $_GET["id"]);
+            break;
     }
 }
 

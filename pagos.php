@@ -22,6 +22,7 @@
         <input type="search" placeholder="Buscar Pago" class="inputdebusquedadepago">
     </div>
     <div class="contenedordemenu tablabajolostresinputs">
+        <div class="cantidaddeelementos"></div>
         <table>
             <tbody>
             </tbody>
@@ -30,20 +31,23 @@
     <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
-    import {cargarpagos} from "./js/funciones.js"
+    import {
+        cargarpagos
+    } from "./js/funciones.js"
     var inputdepagos = document.querySelector(".inputdebusquedadepago");
-    inputdepagos.addEventListener("keyup",()=>{cargarpagos(inputdepagos.value)})
+    inputdepagos.addEventListener("keyup", () => {
+        cargarpagos(inputdepagos.value)
+    })
     window.onload = () => {
         cargarpagos();
         setInterval(() => {
-            if(inputdepagos.value==""){
+            if (inputdepagos.value == "") {
                 cargarpagos();
-            }else{
+            } else {
                 cargarpagos(inputdepagos.value);
             }
         }, 2000);
     }
-    
 </script>
 
 </html>

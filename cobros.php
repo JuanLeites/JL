@@ -22,6 +22,7 @@
         <input type="search" placeholder="Buscar Cobro" class="inputdebusquedadecobro">
     </div>
     <div class="contenedordemenu tablabajolostresinputs">
+        <div class="cantidaddeelementos"></div>
         <table>
             <tbody>
             </tbody>
@@ -30,15 +31,19 @@
     <?php include_once("barralateral.html") ?>
 </body>
 <script type="module">
-    import {cargarcobros} from "./js/funciones.js"
+    import {
+        cargarcobros
+    } from "./js/funciones.js"
     var inputdecobros = document.querySelector(".inputdebusquedadecobro");
-    inputdecobros.addEventListener("keyup",()=>{cargarcobros(inputdecobros.value)})
+    inputdecobros.addEventListener("keyup", () => {
+        cargarcobros(inputdecobros.value)
+    })
     window.onload = () => {
         cargarcobros();
         setInterval(() => {
-            if(inputdecobros.value==""){
+            if (inputdecobros.value == "") {
                 cargarcobros();
-            }else{
+            } else {
                 cargarcobros(inputdecobros.value);
             }
         }, 2000);

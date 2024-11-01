@@ -26,6 +26,7 @@ include_once("funciones.php");
         <a href="agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
+        <div class="cantidaddeelementos"></div>
         <table>
             <tbody>
             </tbody>
@@ -35,7 +36,7 @@ include_once("funciones.php");
     <?php include_once("barralateral.html") ?>
 </body>
 
-
+<script src="js/funcionessinexport.js"></script>
 <script type="module">
     import {
         cargarsorteos
@@ -52,30 +53,31 @@ include_once("funciones.php");
         setInterval(() => {
             if (inputdesorteos.value == "") { //si el input está vacío recarga, esto es para que no interrumpa la funcion cuando está filtrando
                 cargarsorteos()
-            }else{
+            } else {
                 cargarsorteos(inputdesorteos.value)
             }
         }, 2000);
     }
 </script>
+
 </html>
 
 <?php
-            if (isset($_GET["causa"])) {
-                switch ($_GET['causa']) {
-                    case "idnoseteada":
-                        mostraralerta("ID de sorteo no seteada",$colorfondo,$colorprincipal);
-                        break;;
-                    case "maspremiosqueclientes":
-                        mostraralerta("No hay suficientes clientes con Tickets para poder realizar ese sorteo",$colorfondo,$colorprincipal);
-                        break;;
-                    case "clientessintickets":
-                        mostraralerta("Ningun cliente tiene tickets",$colorfondo,$colorprincipal);
-                        break;;
-                    case "sorteoyarealizado":
-                        mostraralerta("El sorteo ya fue realizado",$colorfondo,$colorprincipal);
-                        break;;
-                }
-            }
+if (isset($_GET["causa"])) {
+    switch ($_GET['causa']) {
+        case "idnoseteada":
+            mostraralerta("ID de sorteo no seteada", $colorfondo, $colorprincipal);
+            break;;
+        case "maspremiosqueclientes":
+            mostraralerta("No hay suficientes clientes con Tickets para poder realizar ese sorteo", $colorfondo, $colorprincipal);
+            break;;
+        case "clientessintickets":
+            mostraralerta("Ningun cliente tiene tickets", $colorfondo, $colorprincipal);
+            break;;
+        case "sorteoyarealizado":
+            mostraralerta("El sorteo ya fue realizado", $colorfondo, $colorprincipal);
+            break;;
+    }
+}
 
 ?>

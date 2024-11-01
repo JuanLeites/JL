@@ -1,116 +1,107 @@
-export function asignarbotoneliminar() {
-    function eliminar(ruta) { //funcion que ejecuta archivo de eliminar el cual se le pasan dos parametros(el tipo de objeto que vamos a borrar y la id) con esto el archivo ejecuta una consulta en la base de datos la cual elimina el archivo
-        const CONSULTA = new XMLHttpRequest();
-        CONSULTA.open('GET', 'apis/' + ruta); //consulta a la api
-        CONSULTA.send()
-    }
-
-    var BOTONESELIMINAR = document.querySelectorAll(".eliminar"); // un querryselector all ya que hay muchos elementos con esta clase, estos serán "la imagen de papelera" con la clase eliminar
-    BOTONESELIMINAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el query selector
-        CADABOTON.addEventListener("click", () => { //al hacer click en el elemento
-            Swal.fire({//elemento de libreria(ALERTA PERSONALIZADA) 
-                title: "Estas Seguro?",
-                text: "No podrás volver esta acción hacia atras!",//elementos de la libreria
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                customClass: {
-                    popup: "alertas"  //le establecemos la clase alertas para poder personalizarlas
-                },
-                confirmButtonText: "SI, Eliminar!",
-                toast: true, //toast para que aparezcan como notificacion (position:fixed)
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    eliminar(CADABOTON.getAttribute("ruta")) //llamamos a la funcion eliminar y le pasamos como parametro lo que habiamos guardado en el elemento imagen con el nombre de "ruta" en la cual está guardada el tipo de elemento que es el que vamos a borrar y un id
-                    Swal.fire({
-                        title: "Eliminado!",
-                        text: "El Objeto a sido eliminado.",
-                        icon: "success",
-                        customClass: {
-                            popup: "alertas"  //le establecemos la clase alertas para poder personalizarlas
-                        },
-                        toast: true
-
-                    });
-                }
-            });
-        });
-    });
-
-}
-
-
-function asignarbotonsortear() {
-    var BOTONESSORTEAR = document.querySelectorAll(".sortear");
-    BOTONESSORTEAR.forEach(CADABOTON => {
-        CADABOTON.addEventListener("mouseenter", () => {
-            // al ingresar al botón de adveretencia 
-            Swal.fire({ //va a mostrar un objeto de la libreria(sweetalert)
-                position: "center",
-                title: "Al Realizar el sorteo todos los ticketes se estableceran en 0!!",
-                icon: "info",
-                customClass: {
-                    popup: "alertas"  // Añadimos una clase personalizada para poder mostrar bordes ya que la alerta no lo permite
-                },
-                toast: true,
-                showConfirmButton: false
-            })
-        })
-        CADABOTON.addEventListener("mouseleave", () => {
-            Swal.close()
-        })
-
-    })
-}
-
-
 
 /* Funciones de carga de datos  */
-export function cargarclientes(filtro) {
+export function cargarclientes(filtro, pagina) {
     var tabla = document.querySelector("tbody");
-    var cantidaddeelementosantes = tabla.children.length;
+    if(tabla.getAttribute("actualizar") == "si"||pagina==1){ //si está en la primer pagina o debe de actualizaarse
+        pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apiclientes.php?pagina=' + pagina + '&filtro=' + filtro);
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const clientes = JSON.parse(this.responseText);
+    
+                tabla.innerHTML = "<tr class='encabezado'><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
+                clientes.forEach(cadacliente => {
+    
+                    var linea = document.createElement("tr");
+    
+                    function agregaralinea(dato) {
+                        var objeto = document.createElement("td");
+                        objeto.innerHTML = dato;
+                        linea.appendChild(objeto);
+                    }
+                    agregaralinea(cadacliente.Cédula);
+                    agregaralinea(cadacliente.Nombre);
+                    agregaralinea(cadacliente.Deuda);
+                    agregaralinea(cadacliente.Fecha_de_Nacimiento);
+                    agregaralinea(cadacliente.Tickets_de_Sorteo);
+                    agregaralinea(cadacliente.Contacto);
+                    if (!cadacliente.RUT) {
+                        agregaralinea("no tiene");
+                    } else {
+                        agregaralinea(cadacliente.RUT);
+                    }
+                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                    tabla.appendChild(linea);
+                })
+            } 
+            //luego de cargar todos los elementos en la pagina
+        tabla.setAttribute("actualizar","no")//seteamos en no. para que no se actualice todo el rato
+        var contenedordelatabla = document.querySelector(".contenedordemenu");
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) {
+                cargarmasclientes(filtro,pagina);
+            }
+        }
+
+    }else{ // si no tiene el atributo actualizar en si
+        if(pagina != "ultima"){
+            var contenedordelatabla = document.querySelector(".contenedordemenu");
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmasclientes(filtro,pagina);
+                }
+            }
+        }
+    }
+    cargarcantidades("cliente");//funcion que recarga el numero de la cantidad de elementos que aparece arriba de la tabla. tambien recarga el atributo cantidad de la tabla y si hay que actualizarla.
+}
+
+
+
+function cargarmasclientes(filtro,pagina) {//función que no reescribirá la tabla, sino que le agregará mas elementos. le agrega los elementos de la proxima página
+
+    var tabla = document.querySelector("tbody");
+    //console.log("parametro recibido en funcion "+pagina)
+    var paginaactual = parseInt(pagina)+1;
+    //console.log("la nueva pagina es "+paginaactual)
+    //console.log("cargando mas productos... actualmente estas en la página "+pagina+" has pasado a la pagina "+paginaactual)
+    tabla.setAttribute("pagina",paginaactual) 
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiclientes.php?filtro=' + filtro);
+    cargaDatos.open('GET', 'apis/apiclientes.php?pagina=' + pagina + '&filtro=' + filtro);
     cargaDatos.send()
     cargaDatos.onload = function () {
         const clientes = JSON.parse(this.responseText);
-
-        if (cantidaddeelementosantes - 1 != clientes.length) {
-
-            tabla.innerHTML = "<tr class='encabezado'><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
-            clientes.forEach(cadacliente => {
-
-                var linea = document.createElement("tr");
-
-                function agregaralinea(dato) {
-                    var objeto = document.createElement("td");
-                    objeto.innerHTML = dato;
-                    linea.appendChild(objeto);
-                }
-                agregaralinea(cadacliente.Cédula);
-                agregaralinea(cadacliente.Nombre);
-                agregaralinea(cadacliente.Deuda);
-                agregaralinea(cadacliente.Fecha_de_Nacimiento);
-                agregaralinea(cadacliente.Tickets_de_Sorteo);
-                agregaralinea(cadacliente.Contacto);
-                if (cadacliente.RUT == null) {
-                    agregaralinea("no tiene");
-                } else {
-                    agregaralinea(cadacliente.RUT);
-                }
-
-                agregaralinea('<img ruta="eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
-                tabla.appendChild(linea);
-
-            })
-            asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas.
+        if(clientes.length<20){//si la respuesta es menor a 20 significará que ya es la ultima página
+            tabla.setAttribute("pagina","ultima")//le seteamos a página el texto ultima, para no seguir cargando productos.
+            //console.log("ultima pagina")
         }
+        clientes.forEach(cadacliente => {//carga los datos 
 
+            var linea = document.createElement("tr");
 
+            function agregaralinea(dato) {
+                var objeto = document.createElement("td");
+                objeto.innerHTML = dato;
+                linea.appendChild(objeto);
+            }
+            agregaralinea(cadacliente.Cédula);
+            agregaralinea(cadacliente.Nombre);
+            agregaralinea(cadacliente.Deuda);
+            agregaralinea(cadacliente.Fecha_de_Nacimiento);
+            agregaralinea(cadacliente.Tickets_de_Sorteo);
+            agregaralinea(cadacliente.Contacto);
+            if (!cadacliente.RUT) {
+                agregaralinea("no tiene");
+            } else {
+                agregaralinea(cadacliente.RUT);
+            }
+            agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+            tabla.appendChild(linea);
+        })
     }
-
 }
+
 export function cargarproductos(filtro) {
     var tabla = document.querySelector("tbody");
     var cantidaddeelementosantes = tabla.children.length;
@@ -151,13 +142,14 @@ export function cargarproductos(filtro) {
                 agregaralinea(cadaproducto.Tipo);
                 agregaralinea(cadaproducto.Unidad);
                 agregaralinea(cadaproducto.Título);
-                agregaralinea('<img ruta="eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
-            asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas que asignará para cada boton eliminar una funcion de confirmación.
+
         }
     }
+    cargarcantidades("producto");
 }
 
 export function cargarproveedores(filtro) {
@@ -182,22 +174,22 @@ export function cargarproveedores(filtro) {
                     linea.appendChild(objeto);
                 }
                 agregaralinea(cadaproveedor.Razón_Social);
-                if(cadaproveedor.RUT){
+                if (cadaproveedor.RUT) {
                     agregaralinea(cadaproveedor.RUT);
-                }else{
+                } else {
                     agregaralinea("no tiene");
                 }
                 agregaralinea(cadaproveedor.Contacto);
                 agregaralinea(cadaproveedor.Deuda);
-                agregaralinea('<img ruta="eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
 
             })
-            asignarbotoneliminar();//llamamos a la funcion luego de haber cargado todos las filas.
         }
 
 
     }
+    cargarcantidades("proveedor");
 }
 
 export function cargarcobros(filtro) {
@@ -235,6 +227,7 @@ export function cargarcobros(filtro) {
             })
         }
     }
+    cargarcantidades("cobro");
 }
 
 export function cargarpagos(filtro) {
@@ -283,6 +276,7 @@ export function cargarpagos(filtro) {
             })
         }
     }
+    cargarcantidades("pago");
 }
 
 export function cargarsorteos(filtro) {
@@ -309,30 +303,89 @@ export function cargarsorteos(filtro) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("todavia no realizado");
-                    agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"></a>');
+                    agregaralinea('<img ruta="eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
-                    agregaralinea('<img ruta="eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + '" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
+                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
                 }
-
                 tabla.appendChild(linea);
             })
-            asignarbotoneliminar();
-            asignarbotonsortear();
         }
+    }
+    cargarcantidades("sorteo");
+}
 
-
+function cargarcantidadesentabla(tipo){
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apidecantidades.php?tipo=' + tipo);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        var tabla = document.querySelector("tbody")
+        tabla.setAttribute("cantidad",JSON.parse(this.responseText))
     }
 }
 
-
-
-
-
-
-
-
-
+function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
+    cargarcantidadesentabla(tipo)
+    var contenedordecantidaddeelementos = document.querySelector(".cantidaddeelementos")
+    var tabla = document.querySelector("tbody");
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apidecantidades.php?tipo=' + tipo);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        if(tabla.getAttribute("cantidad")!=JSON.parse(this.responseText)){//si hay cambios, se le setea un atributo a la tabla, que se llamará actualizar en si.
+            tabla.setAttribute("actualizar","si");
+        }else{
+            tabla.setAttribute("actualizar","no");
+        }
+        contenedordecantidaddeelementos.innerHTML = JSON.parse(this.responseText); // la respuesta será la cantidad depende del tipo.
+        
+        switch (tipo) {
+            case "cliente":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Cliente";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Clientes";
+                }
+                break;
+            case "producto":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Producto";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Productos";
+                }
+                break;
+            case "proveedor":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Proveedor";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Proveedores";
+                }
+                break;
+            case "sorteo":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Sorteo";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Sorteos";
+                }
+                break;
+            case "pago":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Pago";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Pagos";
+                }
+                break;
+            case "cobro":
+                if (contenedordecantidaddeelementos.innerHTML == 1) {
+                    contenedordecantidaddeelementos.innerHTML += " Cobro";
+                } else {
+                    contenedordecantidaddeelementos.innerHTML += " Cobros";
+                }
+                break;
+        }
+    }
+}
 
 //funciones para cargar datos en los select(para filtrar dentro de estos, en apartados ingresarventa.php e ingresarcompra.php)
 export function cargarproveedoresenselect(filtro) {
@@ -378,207 +431,6 @@ export function cargarclientesenselect(filtro) {
 
 
 
-
-
-//funciones que son llamadas dentro  de las funciones "cargarbotonparasumarproductoparavender()" y "cargarbotonparasumarproductoparacomprar()"
-function restar(id_producto) {
-    var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-    for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-        if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
-            if (parseInt(tabla.children[i].children[1].children[0].value) == 1) { // si el contenido de children[2] que en este caso es lo que está dentro de "cantidad" es igual a 1 y fue llamada la función lo eliminamos
-                eliminar(id_producto);
-                return
-            }
-            tabla.children[i].children[1].children[0].value = parseInt(tabla.children[i].children[1].children[0].value) - 1 // al entrar le va a restar uno al valor del hijo
-            return // al suman uno en la cantidad termina la función termuna la función aca
-        }
-    }
-}
-function eliminar(id_producto) {
-    var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-    for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-        if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
-            tabla.children[i].remove(); // elimina el elemento que tenga la id igual al producto
-            if(tabla.children.length == 1){
-                tabla.innerHTML="";
-            }
-            return //termina la función
-        }
-    }
-}
-function sumar(id_producto) {
-    var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-    for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-        if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
-            tabla.children[i].children[1].children[0].value = parseInt(tabla.children[i].children[1].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
-            return //termina la función
-        }
-
-    }
-}
-function sumarenventa(id_producto, cantidaddisponible) {
-    //console.log("cantidadmaxima= " + cantidaddisponible);
-    var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-    for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-        if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
-            if (parseInt(tabla.children[i].children[1].children[0].value) < parseInt(cantidaddisponible)) {//parse int ya que toma el dato como string
-                tabla.children[i].children[1].children[0].value = parseInt(tabla.children[i].children[1].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
-                return //termina la función
-            } else {
-                //console.log("has llegado al limite de productos");
-                mostrarmensaje("no queda mas stock de ese producto")
-                return
-            }
-
-        }
-    }
-}
-function mostrarmensaje(mensaje){
-    const colores = new XMLHttpRequest();
-  colores.open('GET', 'apis/apidecolores.php');
-  colores.send();
-
-  colores.onload = function () {
-    // Obtenemos los datos en formato JSON
-    const datos = JSON.parse(this.responseText);
-    const colorPrincipal = datos.color_principal;
-    const colorFondo = datos.color_fondo;
-  
-    Swal.fire({
-        position:"center",
-        title: mensaje,
-        icon: "warning",
-        background: colorFondo,
-        color:colorPrincipal,
-        customClass: {
-          popup: "alertaconbordes"  // Añadimos una clase personalizada para poder mostrar bordes ya que la alerta no lo permite
-        },
-        toast:true,
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    });
-}
-}
-//funciones utilizadas unicamente para agregarle las funciones a los botones de vender y comprar productos
-function cargarbotonparasumarproductoparavender() {//funcion utilizada en la funcion de cargar productos para vender, la cual se utiliza en el archivo ingresarventa.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
-    function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
-        var inputdeenviar = document.querySelector(".botonenviar");
-        inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
-        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-
-        if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr class='encabezadodeproductosseleccionados'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
-        }
-
-        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-            if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los hijos[0] de cada fila de la tabla con la id del producto pasado por parametro a la funcion, si llegase a encontrar entra en el if
-                if (parseInt(tabla.children[i].children[1].children[0].value) < parseInt(cantidaddisponible)) { //si el texto de cantidad es menor a la cantidad que queda disponible
-                    tabla.children[i].children[1].children[0].value = parseInt(tabla.children[i].children[1].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
-                    return // al suman uno en la cantidad termina la función termuna la función aca
-                } else {//si la cantidad disponible es menor a la cantidad que se va a usar en la compra
-                    mostrarmensaje("no queda mas stock de ese producto")
-                    return
-                }
-            }
-        }
-        //si no encuentra ninguno sigue con la función y carga el elemento:
-        var linea = document.createElement("tr");
-        function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
-            var objeto = document.createElement("td");//crea el elemento td(columna)
-            objeto.innerHTML = dato;//le introduce el valor pasado por parametros
-            linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
-        }
-
-        var objeto = document.createElement("td");//crea el elemento td(columna)
-        objeto.innerHTML = nombre;//le introduce el valor pasado por parametros
-        objeto.setAttribute("ID_PRODUCTO",id_producto)
-        linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
-
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' min='1' value='1' max='" + cantidaddisponible + "' required>");
-        agregaralinea(Precio_Neto)
-        agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
-        var inputparalaid = document.createElement("input")
-        inputparalaid.setAttribute("type", "hidden")
-        inputparalaid.setAttribute("name", "IDPRODUCTOS[]")
-        inputparalaid.setAttribute("value", id_producto)
-        linea.appendChild(inputparalaid)
-
-        tabla.appendChild(linea);
-        linea.children[3].children[0].addEventListener("click", () => { eliminar(id_producto) })//le agregamos el evento a el hijo 0(en este caso la imagen de borrar) dentro del 4to hijo de la linea(la cual contiene las acciones)
-        linea.children[3].children[1].addEventListener("click", () => { sumarenventa(id_producto, cantidaddisponible) })
-        linea.children[3].children[2].addEventListener("click", () => { restar(id_producto) })
-        //en el caso de arriba (linea.children[4] seria la celda numero 5 de la linea y los otros serian los hijos de esa linea)
-    }
-    //lo que hace la función es esto
-    var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
-    BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
-        CADABOTON.addEventListener("click", () => {
-            agregaraventa(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_neto"), CADABOTON.getAttribute("cantidaddisponible"));
-        });
-    });
-};
-
-
-
-function cargarbotonparasumarproductoparacomprar() {//funcion utilizada en la funcion "cargarproductosparacomprar()", la cual se utiliza en el archivo ingresarcompra.php - La funcion acutal se encarga de obtener todos los botones con cierta clase y les agrega un evento click, que llamen a una función agregar() la cual los va a agregar en una nueva tabla de productos agregados.
-    function agregaracompra(id_producto, nombre, Precio_Neto) {//recive 4 parametros cantidad disponible es para que o pueda agregar mas productos de los que hay
-        var inputdeenviar = document.querySelector(".botonenviar");
-        inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
-        var tabla = document.querySelector(".tabladeprductosagregados");//obtiene la tabla de productos agregados
-
-        if (tabla.children.length == 0) { // cuenta los hijos de la tabla si son 0 agrega el encabezado esto lo hacemos dentro de la funcion agregar para que agregue la tabla al cargar un producto
-            tabla.innerHTML = "<tr class='encabezadodeproductosseleccionados'><th>Nombre</th><th>Cantidad</th><th>Precio Neto</th><th>acción</th></tr>"
-        }
-
-        for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 4 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
-            if (tabla.children[i].children[0].getAttribute("ID_PRODUCTO") == id_producto) { //compara todos los atributos ID_PRODUCTO que se encuentran en el nombre de cada fila de la tabla , si llegase a encontrar entra en el if
-                tabla.children[i].children[1].children[0].value = parseInt(tabla.children[i].children[1].children[0].value) + 1 // al entrar le va a sumar uno al valor del hijo
-                return // al suman uno en la cantidad termina la función termuna la función aca
-            }
-        }
-
-        //si no encuentra ninguno sigue con la función y carga el elemento:
-        var linea = document.createElement("tr");
-        function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
-            var objeto = document.createElement("td");//crea el elemento td(columna)
-            objeto.innerHTML = dato;//le introduce el valor pasado por parametros
-            linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
-        }
-
-        var objeto = document.createElement("td");//crea el elemento td(columna)
-        objeto.innerHTML = nombre;//le introduce el valor del nombre
-        objeto.setAttribute("ID_PRODUCTO",id_producto) //le agregae el atributo id producto a la celda
-        linea.appendChild(objeto);//le agrega a la fila(linea) la celda
-
-        agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' min='1' type='number' name='cantidad' value='1'>");
-        agregaralinea(Precio_Neto)
-        agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
-        var inputparalaid = document.createElement("input")
-        inputparalaid.setAttribute("type", "hidden")
-        inputparalaid.setAttribute("name", "IDPRODUCTOS[]")
-        inputparalaid.setAttribute("value", id_producto)
-        linea.appendChild(inputparalaid)
-
-        tabla.appendChild(linea);
-        linea.children[3].children[0].addEventListener("click", () => { eliminar(id_producto) })//le agregamos el evento a el hijo 0(en este caso la imagen de borrar) dentro del 4to hijo de la linea(la cual contiene las acciones)
-        linea.children[3].children[1].addEventListener("click", () => { sumar(id_producto) })
-        linea.children[3].children[2].addEventListener("click", () => { restar(id_producto) })
-        //en el caso de arriba (linea.children[4] seria la celda numero 5 de la linea y los otros serian los hijos de esa linea)
-    }
-    //lo que hace la función es esto
-    var BOTONESAGREGAR = document.querySelectorAll(".agregarproducto"); // un querryselector all ya que hay muchos botones con esa clase
-    BOTONESAGREGAR.forEach(CADABOTON => { // este foeeach recorre cada elemento que obtiene el querryselector y les agrega el evento que al hacer click llaman a la funcion agregar con 3 parametros que los obtiene de atributos del boton que fueron agregados al cargarlos
-        CADABOTON.addEventListener("click", () => {
-            agregaracompra(CADABOTON.getAttribute("id_producto"), CADABOTON.getAttribute("nombre"), CADABOTON.getAttribute("precio_compra"));
-        });
-    });
-};
-
-
-
-
-
 //funciones que cargar las tablas con productos para comprar y vender
 export function cargarproductosparacomprar(filtro) {
     var tabla = document.querySelector("tbody");
@@ -601,14 +453,15 @@ export function cargarproductosparacomprar(filtro) {
                 agregaralinea(cadaproducto.Código_de_Barras);
                 agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
                 agregaralinea(cadaproducto.Descripción);
-                agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_Compra='" + cadaproducto.Precio_Compra + "' id_producto='" + cadaproducto.ID_Producto + "'>Agregar</button>")
+                agregaralinea('<button onclick="agregaracompra(\'' + cadaproducto.ID_Producto + '\',\'' + cadaproducto.Nombre + '\',\'' + cadaproducto.Precio_Compra + '\')" class="agregarproducto">Agregar</button>');
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
-            cargarbotonparasumarproductoparacomprar()//esta funcion les agregará funciones a todos los botones una vez agregados
         }
     }
 }
+
+
 export function cargarproductosparavender(filtro) {
     var tabla = document.querySelector("tbody");
     var cantidaddeelementosantes = tabla.children.length;
@@ -631,21 +484,16 @@ export function cargarproductosparavender(filtro) {
                     agregaralinea(cadaproducto.Código_de_Barras);
                     agregaralinea(cadaproducto.Precio_Venta); // cargamos unicamente el precio de venta ya que vamos a vender
                     agregaralinea(cadaproducto.Descripción);
-                    agregaralinea("<button class='agregarproducto'nombre='" + cadaproducto.Nombre + "' precio_neto='" + cadaproducto.Precio_Venta + "' cantidaddisponible='" + cadaproducto.Cantidad + "' id_producto='" + cadaproducto.ID_Producto + "'>Agregar</button>")//se le agrega atributos al boton para poder ser utilizados en la funcion cargarbotonparasumarproductoparavender la cual recibe 4 parametros.
+                    agregaralinea('<button onclick="agregaraventa(\'' + cadaproducto.ID_Producto + '\',\'' + cadaproducto.Nombre + '\',\'' + cadaproducto.Precio_Compra + '\',\'' + cadaproducto.Cantidad + '\')" class="agregarproducto">Agregar</button>');
                     tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
                 }
 
             })
-            cargarbotonparasumarproductoparavender()//esta funcion le agrega a todos los botones con la clase 'agregarproducto' la funcion agregar() que recibe cuatro parametros para agregar cada producto
         }
     }
 
 }
-
-
-
-
 
 
 
@@ -895,14 +743,14 @@ window.onload = function () {
 
     var inputmeolvide1 = document.querySelector("#contraseñameolvide")
     var ojo1meolvide = document.querySelector(".ojo1meolvide");
-    if(inputmeolvide1 && ojo1meolvide){
-        ojo1meolvide.addEventListener("click",()=>{alternar(inputmeolvide1,ojo1meolvide,"../imagenes")})
+    if (inputmeolvide1 && ojo1meolvide) {
+        ojo1meolvide.addEventListener("click", () => { alternar(inputmeolvide1, ojo1meolvide, "../imagenes") })
     }
 
     var inputmeolvide2 = document.querySelector("#contraseñameolvide2")
     var ojo2meolvide = document.querySelector(".ojo2meolvide");
-    if(inputmeolvide2,ojo2meolvide){
-        ojo2meolvide.addEventListener("click",()=>{alternar(inputmeolvide2,ojo2meolvide,"../imagenes")})
+    if (inputmeolvide2, ojo2meolvide) {
+        ojo2meolvide.addEventListener("click", () => { alternar(inputmeolvide2, ojo2meolvide, "../imagenes") })
     }
     var boton = document.querySelector("#botoncreditocontado");
     var inputdate = document.querySelector('#inputdate');
@@ -920,4 +768,9 @@ window.onload = function () {
         })
     }
 
+
+
+
+    var contenedordelatabla = document.querySelector(".contenedordemenu");
+    console.log(contenedordelatabla)
 }
