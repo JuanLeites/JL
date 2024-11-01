@@ -14,12 +14,10 @@
     ?>
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
-
     <link rel="shortcut icon" href="imagenes/icons/productos.png" type="image/x-icon">
 </head>
 
 <body>
-
     <div class="buscador">
         <input type="search" class="inputdeproductos" placeholder="Buscar Productos">
         <a href="agregarproductos.php" class="agregardato">+</a>
@@ -27,7 +25,7 @@
     <div class="contenedordemenu">
         <div class="cantidaddeelementos"></div>
         <table>
-            <tbody>
+            <tbody pagina="1" actualizar="si">
             </tbody>
         </table>
     </div>
@@ -41,16 +39,19 @@
     } from "././js/funciones.js"
     var inputdeproductos = document.querySelector(".inputdeproductos");
     inputdeproductos.addEventListener("keyup", () => {
-        cargarproductos(inputdeproductos.value)
+        cargarproductos(inputdeproductos.value, 1)
+        document.querySelector("tbody").setAttribute("pagina", 1)
     }) //keyup porque toma el valor al levantar la tecla, se lo pasa a la funcion cargar proveedores la cual recive un parametro "filtro" con el cual hará la consulta a la api, en la api chequeamos que filtro esté seteada( distinto de undefined, porque al no estar seteada queda "undefined") y hacemos una consulta personalizada con la propiedad LIKE
 
     window.onload = () => {
-        cargarproductos();
+
+        cargarproductos("", "");
         setInterval(() => {
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
             if (inputdeproductos.value == "") {
-                cargarproductos();
+                cargarproductos("", cantidaddepaginascargadasenlatabla);
             } else {
-                cargarproductos(inputdeproductos.value);
+                cargarproductos(inputdeproductos.value, cantidaddepaginascargadasenlatabla);
             }
         }, 2000);
     }

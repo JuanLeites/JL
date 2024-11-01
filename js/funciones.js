@@ -1,117 +1,124 @@
 
 /* Funciones de carga de datos  */
-export function cargarclientes(filtro, pagina) {
+export function cargarclientes(filtro, pagina) {//esta funcion es llamada siempre
     var tabla = document.querySelector("tbody");
-    if(tabla.getAttribute("actualizar") == "si"||pagina==1){ //si está en la primer pagina o debe de actualizaarse
+    if (tabla.getAttribute("actualizar") == "si" || pagina == 1) { //si está en la primer pagina o debe de actualizaarse
+        if (tabla.getAttribute("actualizar") == "si") {
+            tabla.setAttribute("actualizar", "no");
+            tabla.setAttribute("pagina", "1")
+        }
         pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
         const cargaDatos = new XMLHttpRequest();
         cargaDatos.open('GET', 'apis/apiclientes.php?pagina=' + pagina + '&filtro=' + filtro);
         cargaDatos.send()
         cargaDatos.onload = function () {
             const clientes = JSON.parse(this.responseText);
-    
-                tabla.innerHTML = "<tr class='encabezado'><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
-                clientes.forEach(cadacliente => {
-    
-                    var linea = document.createElement("tr");
-    
-                    function agregaralinea(dato) {
-                        var objeto = document.createElement("td");
-                        objeto.innerHTML = dato;
-                        linea.appendChild(objeto);
-                    }
-                    agregaralinea(cadacliente.Cédula);
-                    agregaralinea(cadacliente.Nombre);
-                    agregaralinea(cadacliente.Deuda);
-                    agregaralinea(cadacliente.Fecha_de_Nacimiento);
-                    agregaralinea(cadacliente.Tickets_de_Sorteo);
-                    agregaralinea(cadacliente.Contacto);
-                    if (!cadacliente.RUT) {
-                        agregaralinea("no tiene");
-                    } else {
-                        agregaralinea(cadacliente.RUT);
-                    }
-                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
-                    tabla.appendChild(linea);
-                })
-            } 
-            //luego de cargar todos los elementos en la pagina
-        tabla.setAttribute("actualizar","no")//seteamos en no. para que no se actualice todo el rato
+
+            tabla.innerHTML = "<tr class='encabezado'><th>Cedula</th><th>Nombre</th><th>Deuda</th><th>Fecha de Nacimiento</th><th>Tickets</th><th>Contacto</th><th>RUT</th><th>Acción</th></tr>"
+            clientes.forEach(cadacliente => {
+
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {
+                    var objeto = document.createElement("td");
+                    objeto.innerHTML = dato;
+                    linea.appendChild(objeto);
+                }
+                agregaralinea(cadacliente.Cédula);
+                agregaralinea(cadacliente.Nombre);
+                agregaralinea(cadacliente.Deuda);
+                agregaralinea(cadacliente.Fecha_de_Nacimiento);
+                agregaralinea(cadacliente.Tickets_de_Sorteo);
+                agregaralinea(cadacliente.Contacto);
+                if (!cadacliente.RUT) {
+                    agregaralinea("no tiene");
+                } else {
+                    agregaralinea(cadacliente.RUT);
+                }
+                agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                tabla.appendChild(linea);
+            })
+        }
+        //luego de cargar todos los elementos en la pagina
+        tabla.setAttribute("actualizar", "no")//seteamos en no. para que no se actualice todo el rato igual entrará en el if ya que está en la página 1
         var contenedordelatabla = document.querySelector(".contenedordemenu");
-        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
-            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) {
-                cargarmasclientes(filtro,pagina);
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {//entrará en este if solamente si hay scroll en el contenedor de la tabla
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) {//si el scroll está llegando al final
+                //console.log("está en la página "+pagina+" y el scroll está bajo, el filtro es: "+filtro)
+                cargarmasclientes(filtro, pagina);
             }
         }
 
-    }else{ // si no tiene el atributo actualizar en si
-        if(pagina != "ultima"){
+    } else { // si no tiene el atributo actualizar en si
+        if (pagina != "ultima") {
             var contenedordelatabla = document.querySelector(".contenedordemenu");
             if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
                 if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
-                    cargarmasclientes(filtro,pagina);
+                    cargarmasclientes(filtro, pagina);
                 }
             }
         }
     }
     cargarcantidades("cliente");//funcion que recarga el numero de la cantidad de elementos que aparece arriba de la tabla. tambien recarga el atributo cantidad de la tabla y si hay que actualizarla.
 }
-
-
-
-function cargarmasclientes(filtro,pagina) {//función que no reescribirá la tabla, sino que le agregará mas elementos. le agrega los elementos de la proxima página
-
+function cargarmasclientes(filtro, pagina) {//función que no reescribirá la tabla, sino que le agregará mas elementos. le agrega los elementos de la proxima página
     var tabla = document.querySelector("tbody");
     //console.log("parametro recibido en funcion "+pagina)
-    var paginaactual = parseInt(pagina)+1;
+    var paginaactual = parseInt(pagina) + 1;
     //console.log("la nueva pagina es "+paginaactual)
     //console.log("cargando mas productos... actualmente estas en la página "+pagina+" has pasado a la pagina "+paginaactual)
-    tabla.setAttribute("pagina",paginaactual) 
+    tabla.setAttribute("pagina", paginaactual)
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiclientes.php?pagina=' + pagina + '&filtro=' + filtro);
+    cargaDatos.open('GET', 'apis/apiclientes.php?pagina=' + paginaactual + '&filtro=' + filtro); //cargamos desde la nueva página
     cargaDatos.send()
     cargaDatos.onload = function () {
         const clientes = JSON.parse(this.responseText);
-        if(clientes.length<20){//si la respuesta es menor a 20 significará que ya es la ultima página
-            tabla.setAttribute("pagina","ultima")//le seteamos a página el texto ultima, para no seguir cargando productos.
+        if (clientes.length < 30) {//si la respuesta es menor a 30. 30 es el limite de la cosnulta. significará que está en la ultima página
+            tabla.setAttribute("pagina", "ultima")//le seteamos a página el texto ultima, para no seguir cargando productos.
             //console.log("ultima pagina")
         }
-        clientes.forEach(cadacliente => {//carga los datos 
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            clientes.forEach(cadacliente => {//carga los datos 
 
-            var linea = document.createElement("tr");
+                var linea = document.createElement("tr");
 
-            function agregaralinea(dato) {
-                var objeto = document.createElement("td");
-                objeto.innerHTML = dato;
-                linea.appendChild(objeto);
-            }
-            agregaralinea(cadacliente.Cédula);
-            agregaralinea(cadacliente.Nombre);
-            agregaralinea(cadacliente.Deuda);
-            agregaralinea(cadacliente.Fecha_de_Nacimiento);
-            agregaralinea(cadacliente.Tickets_de_Sorteo);
-            agregaralinea(cadacliente.Contacto);
-            if (!cadacliente.RUT) {
-                agregaralinea("no tiene");
-            } else {
-                agregaralinea(cadacliente.RUT);
-            }
-            agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
-            tabla.appendChild(linea);
-        })
+                function agregaralinea(dato) {
+                    var objeto = document.createElement("td");
+                    objeto.innerHTML = dato;
+                    linea.appendChild(objeto);
+                }
+                agregaralinea(cadacliente.Cédula);
+                agregaralinea(cadacliente.Nombre);
+                agregaralinea(cadacliente.Deuda);
+                agregaralinea(cadacliente.Fecha_de_Nacimiento);
+                agregaralinea(cadacliente.Tickets_de_Sorteo);
+                agregaralinea(cadacliente.Contacto);
+                if (!cadacliente.RUT) {
+                    agregaralinea("no tiene");
+                } else {
+                    agregaralinea(cadacliente.RUT);
+                }
+                agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                tabla.appendChild(linea);
+            })
+        }, 100)
     }
 }
 
-export function cargarproductos(filtro) {
-    var tabla = document.querySelector("tbody");
-    var cantidaddeelementosantes = tabla.children.length;
-    const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiproductos.php?filtro=' + filtro);
-    cargaDatos.send()
-    cargaDatos.onload = function () {
-        const productos = JSON.parse(this.responseText);
 
-        if (cantidaddeelementosantes - 1 != productos.length) {
+export function cargarproductos(filtro, pagina) {
+    var tabla = document.querySelector("tbody");
+    if (tabla.getAttribute("actualizar") == "si" || pagina == 1) { //si está en la primer pagina o debe de actualizaarse
+        if (tabla.getAttribute("actualizar") == "si") {
+            tabla.setAttribute("actualizar", "no");
+            tabla.setAttribute("pagina", "1")
+        }
+        pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apiproductos.php?pagina=' + pagina + '&filtro=' + filtro);
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const productos = JSON.parse(this.responseText);
             tabla.innerHTML = "<tr class='encabezado'><th>nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
             productos.forEach(cadaproducto => {
 
@@ -148,26 +155,97 @@ export function cargarproductos(filtro) {
             })
 
         }
+        var contenedordelatabla = document.querySelector(".contenedordemenu");
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {//si hay scroll disponible en la página
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                cargarmasproductos(filtro, pagina); // llamamos a la funcion cargar más productos
+            }
+        }
+
+    } else { // si no tiene el atributo actualizar en si
+        if (pagina != "ultima") {
+            var contenedordelatabla = document.querySelector(".contenedordemenu");
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmasproductos(filtro, pagina);
+                }
+            }
+        }
     }
     cargarcantidades("producto");
 }
-
-export function cargarproveedores(filtro) {
-    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
-    var cantidaddeelementosantes = tabla.children.length; // guanta en la variable la cantidad de elementos "hijos" tiene la tabla
-
+function cargarmasproductos(filtro, pagina) {//función que no reescribirá la tabla, sino que le agregará mas elementos. le agrega los elementos de la proxima página
+    var tabla = document.querySelector("tbody");
+    //console.log("parametro recibido en funcion "+pagina)
+    var paginaactual = parseInt(pagina) + 1;
+    //console.log("la nueva pagina es "+paginaactual)
+    //console.log("cargando mas productos... actualmente estas en la página "+pagina+" has pasado a la pagina "+paginaactual)
+    tabla.setAttribute("pagina", paginaactual)
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiproveedores.php?filtro=' + filtro); //consulta a la api
+    cargaDatos.open('GET', 'apis/apiproductos.php?pagina=' + paginaactual + '&filtro=' + filtro);
+    //console.log('apis/apiproductos.php?pagina=' + paginaactual + '&filtro=' + filtro)
     cargaDatos.send()
     cargaDatos.onload = function () {
-        const proveedores = JSON.parse(this.responseText);
-
-        if (cantidaddeelementosantes - 1 != proveedores.length) { // compara los elementos de la tabla con los resultados de la api, si hay una cantidad distinta, cargará todos los proveedores
-            tabla.innerHTML = "<tr class='encabezado'><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Deuda</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
-            proveedores.forEach(cadaproveedor => {
-
+        const productos = JSON.parse(this.responseText);
+        //console.log("se cargaron " + productos.length + " productos")
+        if (productos.length < 20) {
+            tabla.setAttribute("pagina", "ultima")//le seteamos a página el texto ultima, para no seguir cargando productos.
+        }
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            productos.forEach(cadaproducto => {
                 var linea = document.createElement("tr");
 
+                function agregaralinea(dato) {//funcion creada para agregar una celda a "linea" la cual es una fila de una tabla (tr)
+                    var objeto = document.createElement("td");//crea el elemento td(celda)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros a la celda
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion(la celda)
+                }
+
+                agregaralinea(cadaproducto.Nombre);
+                agregaralinea(cadaproducto.Precio_Compra);
+                agregaralinea(cadaproducto.Precio_Venta);
+                agregaralinea(cadaproducto.Código_de_Barras);
+                agregaralinea(cadaproducto.Descripción);
+                agregaralinea(cadaproducto.Marca);
+                agregaralinea(cadaproducto.Cantidad);
+                agregaralinea(cadaproducto.Cantidad_minima_aviso);
+
+                var imagen = document.createElement("img")//crea elemento imagen
+                imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
+                imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
+                imagen.setAttribute("alt", "Imágen de " + cadaproducto.Nombre)
+                var objeto = document.createElement("td")//creamos una celda
+                objeto.appendChild(imagen);//le agregamos la imagen a la celda
+                linea.appendChild(objeto);//agregamos la celda a la fila
+                agregaralinea(cadaproducto.Tipo);
+                agregaralinea(cadaproducto.Unidad);
+                agregaralinea(cadaproducto.Título);
+                agregaralinea('<img  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+        }, 100)
+
+    }
+}
+
+
+export function cargarproveedores(filtro, pagina) {
+    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
+    if (tabla.getAttribute("actualizar") == "si" || pagina == 1) { //si está en la primer pagina o debe de actualizaarse
+        if (tabla.getAttribute("actualizar") == "si") {
+            tabla.setAttribute("actualizar", "no");
+            tabla.setAttribute("pagina", "1")
+        }
+        pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apiproveedores.php?filtro=' + filtro); //consulta a la api
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const proveedores = JSON.parse(this.responseText);
+            tabla.innerHTML = "<tr class='encabezado'><th>Razón social</th><th>RUT</th><th>Contacto</th><th>Deuda</th><th>Acción</th></tr>"; // carga la primera fila de la tabla
+            proveedores.forEach(cadaproveedor => {
+                var linea = document.createElement("tr");
                 function agregaralinea(dato) {
                     var objeto = document.createElement("td");
                     objeto.innerHTML = dato;
@@ -183,25 +261,78 @@ export function cargarproveedores(filtro) {
                 agregaralinea(cadaproveedor.Deuda);
                 agregaralinea('<img onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
-
             })
         }
-
-
+        var contenedordelatabla = document.querySelector(".contenedordemenu");
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                cargarmasproveedores(filtro, pagina);
+            }
+        }
+    } else {
+        if (pagina != "ultima") {
+            var contenedordelatabla = document.querySelector(".contenedordemenu");
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmasproveedores(filtro, pagina);
+                }
+            }
+        }
     }
     cargarcantidades("proveedor");
 }
-
-export function cargarcobros(filtro) {
+function cargarmasproveedores(filtro, pagina) {
+    //console.log("se llamó a función de cargar más proveedores en la página " + pagina +" con el filtro " +filtro);
     var tabla = document.querySelector("tbody");
-    var cantidaddeelementosantes = tabla.children.length;
+    var paginaactual = parseInt(pagina) + 1;
+    tabla.setAttribute("pagina", paginaactual);
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apicobros.php?filtro=' + filtro);
-    cargaDatos.send()
+    cargaDatos.open("GET", "apis/apiproveedores.php?pagina=" + paginaactual + "&filtro=" + filtro);
+    cargaDatos.send();
     cargaDatos.onload = function () {
-        const cobros = JSON.parse(this.responseText);
+        const proveedores = JSON.parse(this.responseText);
+        if (proveedores.length < 30) { //30 es el limite de la api por página
+            tabla.setAttribute("pagina", "ultima"); //le seteamos a página el texto ultima, para no seguir cargando proveedores.
+        }
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            proveedores.forEach(cadaproveedor => {
+                var linea = document.createElement("tr");
+                function agregaralinea(dato) {
+                    var objeto = document.createElement("td");
+                    objeto.innerHTML = dato;
+                    linea.appendChild(objeto);
+                }
+                agregaralinea(cadaproveedor.Razón_Social);
+                if (cadaproveedor.RUT) {
+                    agregaralinea(cadaproveedor.RUT);
+                } else {
+                    agregaralinea("no tiene");
+                }
+                agregaralinea(cadaproveedor.Contacto);
+                agregaralinea(cadaproveedor.Deuda);
+                agregaralinea('<img onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                tabla.appendChild(linea);
+            })
+        }, 100)
+    };
+}
 
-        if (cantidaddeelementosantes - 1 != cobros.length) {
+
+export function cargarcobros(filtro, pagina) {
+    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
+    var contenedordelatabla = document.querySelector(".contenedordemenu");
+
+    if (tabla.getAttribute("actualizar") == "si" || pagina == 1) { //si está en la primer pagina o debe de actualizaarse
+        if (tabla.getAttribute("actualizar") == "si") {
+            tabla.setAttribute("actualizar", "no");
+            tabla.setAttribute("pagina", "1")
+        }
+        pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apicobros.php?pagina=' + pagina + '&filtro=' + filtro);
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const cobros = JSON.parse(this.responseText);
             tabla.innerHTML = "<tr class='encabezado'><th>Responsable</th><th>Cliente</th><th>Monto Abonado</th><th>Fecha de Cobro</th><th>VENTA</th></tr>"
             cobros.forEach(cadacobro => {
 
@@ -225,21 +356,81 @@ export function cargarcobros(filtro) {
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
+
+        }
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                cargarmascobros(filtro, pagina);
+            }
+        }
+    } else {
+        if (pagina != "ultima") {
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmascobros(filtro, pagina);
+                }
+            }
         }
     }
     cargarcantidades("cobro");
 }
-
-export function cargarpagos(filtro) {
+function cargarmascobros(filtro, pagina) {
     var tabla = document.querySelector("tbody");
-    var cantidaddeelementosantes = tabla.children.length;
+    var paginaactual = parseInt(pagina) + 1;
+    tabla.setAttribute("pagina", paginaactual)
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apipagos.php?filtro=' + filtro);
+    cargaDatos.open('GET', 'apis/apicobros.php?pagina=' + paginaactual + '&filtro=' + filtro);
     cargaDatos.send()
     cargaDatos.onload = function () {
-        const pagos = JSON.parse(this.responseText);
+        const cobros = JSON.parse(this.responseText);
+        console.log(cobros.length)
+        if (cobros.length < 40) {
+            tabla.setAttribute("pagina", "ultima")
+        }
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            cobros.forEach(cadacobro => {
 
-        if (cantidaddeelementosantes - 1 != pagos.length) {
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+
+                agregaralinea(cadacobro.NombreUsuario);
+                agregaralinea(cadacobro.Nombre + " - " + cadacobro.Cédula);
+                agregaralinea(cadacobro.Monto);
+                agregaralinea(cadacobro.Fecha_Cobro);
+                if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
+                    agregaralinea("<a href='verventa.php?id=" + cadacobro.ID_VENTA + "'>--Ver Venta--<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
+                } else {
+                    agregaralinea("Sin Datos");
+                }
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+        }, 100)
+
+    }
+}
+
+
+
+export function cargarpagos(filtro, pagina) {
+    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
+    if (tabla.getAttribute("actualizar") == "si" || pagina == 1) { //si está en la primer pagina o debe de actualizaarse
+        if (tabla.getAttribute("actualizar") == "si") {
+            tabla.setAttribute("actualizar", "no");
+            tabla.setAttribute("pagina", "1")
+        }
+        pagina = 1 // por si llegase a entrar por la condición de actualizar=si 
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apipagos.php?pagina=' + pagina + '&filtro=' + filtro);
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const pagos = JSON.parse(this.responseText);
+
             tabla.innerHTML = "<tr class='encabezado'><th>Responsable</th><th>Proveedor</th><th>Monto</th><th>Fecha de Pago</th><th>Vencimiento Factura</th><th>Compra</th></tr>"
             pagos.forEach(cadapago => {
 
@@ -275,11 +466,84 @@ export function cargarpagos(filtro) {
 
             })
         }
+        var contenedordelatabla = document.querySelector(".contenedordemenu");
+        if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+            if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                cargarmaspagos(filtro, pagina);
+            }
+        }
+
+
+    } else {
+        if (pagina != "ultima") {
+            var contenedordelatabla = document.querySelector(".contenedordemenu");
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmaspagos(filtro, pagina);
+                }
+            }
+        }
     }
     cargarcantidades("pago");
 }
+function cargarmaspagos(filtro, pagina) {
+    var tabla = document.querySelector("tbody");
+    var paginaactual = parseInt(pagina) + 1;
+    console.log("la pagina pasada por parametro es " + pagina + " y la pagina actual es " + paginaactual + " el filtro es " + filtro)
+    tabla.setAttribute("pagina", paginaactual)
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apipagos.php?pagina=' + paginaactual + '&filtro=' + filtro);
+    console.log('apis/apipagos.php?pagina=' + paginaactual + '&filtro=' + filtro)
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const pagos = JSON.parse(this.responseText);
+        console.log(pagos)
+        console.log(pagos.length)
+        if (pagos.length < 40) {
+            tabla.setAttribute("pagina", "ultima")
+        }
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            pagos.forEach(cadapago => {
 
-export function cargarsorteos(filtro) {
+                var linea = document.createElement("tr");
+
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+
+                agregaralinea(cadapago.NombreUsuario);
+                agregaralinea(cadapago.Razón_Social + " - " + cadapago.RUT);
+                agregaralinea(cadapago.Monto);
+                agregaralinea(cadapago.Fecha_Pago);
+                if (cadapago.Vencimiento_Factura) {//si llega a estár seteado el vencimiento de la factura
+                    var hoy = new Date()//creamos un elemento tipo fecha, se establece la fecha actual
+                    if (Date.parse(cadapago.Vencimiento_Factura) > Date.parse(hoy)) {//si el vencimiento de la factura es mayor que el dia actual (el vencimiento está en el futuro es decir que todavia no pasó )
+                        agregaralinea(cadapago.Vencimiento_Factura)//carga la fecha
+                    } else {//sino va a cargar un texto por defecto de que ya venció la factura
+                        agregaralinea("Ya venció")
+                    }
+                } else {//si no está seteado, es porque fué al contado
+                    agregaralinea("Contado");
+                }
+
+                if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
+                    agregaralinea("<a href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>-Ver Compra-<a>")
+                } else {
+                    agregaralinea("Sin Datos");
+                }
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+
+            })
+        }, 100)
+
+    }
+}
+
+
+//faltan cambiar estas funciones:::
+export function cargarsorteos(filtro,pagina) {
     var tabla = document.querySelector("tbody");
     var cantidaddeelementosantes = tabla.children.length;
     const cargaDatos = new XMLHttpRequest();
@@ -314,32 +578,32 @@ export function cargarsorteos(filtro) {
     }
     cargarcantidades("sorteo");
 }
+function cargarmassorteos(filtro,pagina){
 
-function cargarcantidadesentabla(tipo){
+}
+
+
+function cargarcantidadesentabla(tipo) {
     const cargaDatos = new XMLHttpRequest();
     cargaDatos.open('GET', 'apis/apidecantidades.php?tipo=' + tipo);
     cargaDatos.send()
     cargaDatos.onload = function () {
         var tabla = document.querySelector("tbody")
-        tabla.setAttribute("cantidad",JSON.parse(this.responseText))
+        tabla.setAttribute("cantidad", JSON.parse(this.responseText))
     }
 }
-
 function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
-    cargarcantidadesentabla(tipo)
     var contenedordecantidaddeelementos = document.querySelector(".cantidaddeelementos")
     var tabla = document.querySelector("tbody");
     const cargaDatos = new XMLHttpRequest();
     cargaDatos.open('GET', 'apis/apidecantidades.php?tipo=' + tipo);
     cargaDatos.send()
     cargaDatos.onload = function () {
-        if(tabla.getAttribute("cantidad")!=JSON.parse(this.responseText)){//si hay cambios, se le setea un atributo a la tabla, que se llamará actualizar en si.
-            tabla.setAttribute("actualizar","si");
-        }else{
-            tabla.setAttribute("actualizar","no");
+        if (tabla.getAttribute("cantidad") != JSON.parse(this.responseText)) {//si hay cambios, se le setea un atributo a la tabla, que se llamará actualizar en si.
+            tabla.setAttribute("actualizar", "si");
         }
         contenedordecantidaddeelementos.innerHTML = JSON.parse(this.responseText); // la respuesta será la cantidad depende del tipo.
-        
+
         switch (tipo) {
             case "cliente":
                 if (contenedordecantidaddeelementos.innerHTML == 1) {
@@ -385,6 +649,7 @@ function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
                 break;
         }
     }
+    cargarcantidadesentabla(tipo)
 }
 
 //funciones para cargar datos en los select(para filtrar dentro de estos, en apartados ingresarventa.php e ingresarcompra.php)
@@ -392,7 +657,7 @@ export function cargarproveedoresenselect(filtro) {
     var select = document.querySelector(".selectdeproveedores");
     var cantidaddeelementosantes = select.children.length;
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiproveedores.php?filtro=' + filtro); // consultamos a la api
+    cargaDatos.open('GET', 'apis/apiproveedores.php?limite=50&filtro=' + filtro); // consultamos a la api
     cargaDatos.send()
     cargaDatos.onload = function () {
         const proveedores = JSON.parse(this.responseText);
@@ -412,7 +677,7 @@ export function cargarclientesenselect(filtro) {
     var select = document.querySelector(".selectdeclientes");
     var cantidaddeelementosantes = select.children.length;
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiclientes.php?filtro=' + filtro);
+    cargaDatos.open('GET', 'apis/apiclientes.php?limite=50&filtro=' + filtro);
     cargaDatos.send()
     cargaDatos.onload = function () {
         const clientes = JSON.parse(this.responseText);
@@ -589,7 +854,7 @@ export function cargarclientesdecumpleaños() {
     var cantidadactual = 0
 
     const cargaCumpleañeros = new XMLHttpRequest();
-    cargaCumpleañeros.open('GET', 'apis/apiclientes.php');
+    cargaCumpleañeros.open('GET', 'apis/apiclientes.php?limite=sin');
     cargaCumpleañeros.send()
     cargaCumpleañeros.onload = function () {
         const clientes = JSON.parse(this.responseText);
@@ -622,7 +887,7 @@ export function cargarfacturasavencer() {
     var cantidadactual = 0
 
     const cargaFacturas = new XMLHttpRequest();
-    cargaFacturas.open('GET', 'apis/apipagos.php');
+    cargaFacturas.open('GET', 'apis/apipagos.php?limite=sin'); //hacemos las consultas sin limite, ya que deberá cargar todos los procutos con poco stock
     cargaFacturas.send()
     cargaFacturas.onload = function () {
         const pagos = JSON.parse(this.responseText);
@@ -651,7 +916,7 @@ export function cargarproductosconpocostock() {
     var cantidadactual = 0
 
     const cargaproductos = new XMLHttpRequest();
-    cargaproductos.open('GET', 'apis/apiproductos.php');
+    cargaproductos.open('GET', 'apis/apiproductos.php?limite=sin');
     cargaproductos.send()
     cargaproductos.onload = function () {
         const productos = JSON.parse(this.responseText);

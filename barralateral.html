@@ -80,6 +80,6 @@
     <h2>
         <?php echo $_SESSION["usuario"]; ?>
     </h2>
-    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup()">
+    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup(),ocultarmenu()">
     <a class="botoncerrar" href="close.php" title="Cerrar Sesión">LogOut</a>
 </div>

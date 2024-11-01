@@ -18,14 +18,7 @@
     border: 3px solid var(--color-secundario);
     border-radius: 10px;
 }
-.cantidaddeelementos{
-    padding: 5px;
-    margin: 2px;
-    border-radius: 5px;
-    background-color: var(--color-fondo);
-    color: var(--color-secundario);
-    max-width: max-content;
-}
+
 .contenedordegraficas {
     position: absolute;
     max-height: 90vh;
@@ -316,7 +309,7 @@ footer>a:hover {
     right: 0px;
     height: 100vh;
     width: 100vw;
-    z-index: 3;
+    z-index: 999;
     align-items: center;
     justify-content: center;
     transition: 0.4s ease;
@@ -337,7 +330,7 @@ footer>a:hover {
         3.3px 2.7px 7.6px rgba(0, 0, 0, 0.182),
         11.2px 9.2px 25.7px rgba(0, 0, 0, 0.268),
         50px 41px 115px rgba(0, 0, 0, 0.45);
-    z-index: 2;
+    z-index: 1000;
     transition: 0.3s ease;
 }
 
@@ -431,7 +424,9 @@ footer>a:hover {
     color: var(--color-secundario);
     background-color: chocolate;
 }
-
+tbody{
+    transition: 1s;
+}
 main {
     height: 100vh;
     width: 82vw;
@@ -439,6 +434,8 @@ main {
 }
 
 .contenedordemenu {
+    align-items: center;
+    justify-content: center;
     padding: 20px;
     top: 20%;
     background-color: var(--color-principal);
@@ -451,7 +448,18 @@ main {
         10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
         25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
         84px 66px 80px rgba(0, 0, 0, 0.52);
-
+    justify-items:center;
+}
+.cantidaddeelementos{
+    text-align: center;
+    padding: 7px;
+    margin: 2px;
+    border-radius: 5px;
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    max-width: max-content;
+    border: solid 2.2px var(--color-fondo);
+    font-weight:bold;
 }
 
 .agregarproductos {
@@ -1201,6 +1209,9 @@ main {
 }
 
 @media (max-width:375px) and (max-height: 667px) {
+    .agregarproductos{
+        padding-left: 50vw;
+    }
     .close {
         position: absolute;
         top: 10px;

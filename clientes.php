@@ -27,7 +27,7 @@ include_once("chequeodelogin.php");
     <div class="contenedordemenu">
         <div class="cantidaddeelementos"></div>
         <table>
-            <tbody pagina="1">
+            <tbody pagina="1" actualizar="si">
             </tbody>
         </table>
     </div>
@@ -49,17 +49,19 @@ include_once("chequeodelogin.php");
 
     window.onload = () => {
        
-        cargarclientes("");
+        cargarclientes();//lamamos la función al cargar la pagina
+
         setInterval(() => {
             var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-            var tabla = document.querySelector("tbody")
+
             if (inputdeclientes.value == "") { // si el contenido del buscador está vacío.
                 cargarclientes("", cantidaddepaginascargadasenlatabla);
             } else {
-                cargarclientes(inputdeclientes.value, 1)
+                cargarclientes(inputdeclientes.value, cantidaddepaginascargadasenlatabla)
             }
 
-        }, 500);
+        }, 1200);
+        
     }
 </script>
 

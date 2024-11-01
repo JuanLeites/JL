@@ -24,7 +24,7 @@
     <div class="contenedordemenu tablabajolostresinputs">
         <div class="cantidaddeelementos"></div>
         <table>
-            <tbody>
+            <tbody pagina="1" actualizar="si">
             </tbody>
         </table>
     </div>
@@ -36,15 +36,17 @@
     } from "./js/funciones.js"
     var inputdecobros = document.querySelector(".inputdebusquedadecobro");
     inputdecobros.addEventListener("keyup", () => {
-        cargarcobros(inputdecobros.value)
+        cargarcobros(inputdecobros.value,1)
+        document.querySelector("tbody").setAttribute("pagina", 1)
     })
     window.onload = () => {
-        cargarcobros();
+        cargarcobros("","");
         setInterval(() => {
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
             if (inputdecobros.value == "") {
-                cargarcobros();
+                cargarcobros("",cantidaddepaginascargadasenlatabla);
             } else {
-                cargarcobros(inputdecobros.value);
+                cargarcobros(inputdecobros.value,cantidaddepaginascargadasenlatabla);
             }
         }, 2000);
     }
