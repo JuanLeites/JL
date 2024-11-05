@@ -28,7 +28,7 @@ include_once("funciones.php");
     <div class="contenedordemenu">
         <div class="cantidaddeelementos"></div>
         <table>
-            <tbody>
+            <tbody pagina="1" actualizar="si">
             </tbody>
         </table>
 
@@ -45,16 +45,19 @@ include_once("funciones.php");
     var inputdesorteos = document.querySelector(".inputparabuscarsorteos");
 
     inputdesorteos.addEventListener("keyup", () => {
-        cargarsorteos(inputdesorteos.value)
-    }) // le agregamos la función cargarcobros y le pasamos por parametro el "filtro". esto lo hace al levantar la tecla
+        cargarsorteos(inputdesorteos.value,1)
+        document.querySelector("tbody").setAttribute("pagina", 1)
+    })
 
     window.onload = () => {
         cargarsorteos()
         setInterval(() => {
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
+
             if (inputdesorteos.value == "") { //si el input está vacío recarga, esto es para que no interrumpa la funcion cuando está filtrando
-                cargarsorteos()
+                cargarsorteos("",cantidaddepaginascargadasenlatabla)
             } else {
-                cargarsorteos(inputdesorteos.value)
+                cargarsorteos(inputdesorteos.value,cantidaddepaginascargadasenlatabla)
             }
         }, 2000);
     }

@@ -84,13 +84,15 @@ body {
     z-index: 1;
 }
 
-.encabezadodeproductosseleccionados {
+.encabezadodeproductosseleccionados{
     position: sticky;
     top: 0px;
-    background-color: var(--color-secundario);
+    background-color: var(--color-principal);
     border: var(--color-fondo) solid 1px;
 }
-
+.encabezadodeproductosseleccionados>th{
+    background-color: var(--color-secundario);
+}
 .encabezado:hover,
 .encabezadodeproductosseleccionados:hover {
     filter: contrast(2);
@@ -469,6 +471,7 @@ main {
     max-height: 85%;
     overflow-y: scroll;
     padding: 20px;
+    justify-items:center;
 }
 
 .agregardato {
@@ -646,7 +649,7 @@ td>a {
 
 #prod:hover {
     transform: scale(2);
-    z-index: 2;
+    z-index: 4;
 }
 
 tr {

@@ -3,7 +3,7 @@ include_once("../coneccionBD.php");
 include_once("../chequeodelogin.php");
 
 if(!isset($_GET["limite"])){
-    $limite = 20;
+    $limite = 30;
 }else{
     $limite = $_GET["limite"];
 }
@@ -11,7 +11,7 @@ if(!isset($_GET["limite"])){
 if(!isset($_GET["pagina"])){
     $pagina = 1;
 }else{
-    $pagina = isset($_GET["pagina"]);
+    $pagina = $_GET["pagina"];
 }
 $desdequeelemento = ($pagina-1)*$limite;
 

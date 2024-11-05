@@ -36,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_query($basededatos, 'UPDATE `Proveedor` SET `Deuda`="' . $deudaactual . '"  WHERE `ID_PROVEEDOR`="' . $_POST["ID_PROVEEDOR"] . '";'); // lo actualizamos en la base de datos
 
-            imprimirPDF("compra",$iddecompra);
+            imprimirPDF("compra", $iddecompra);
             if (isset($esacredito)) {
-                header("Location:ingresarcompra.php?causa=compraacreditook&id=".$iddecompra);//redirigimos a la misma página pero con una causa y una id de compra.
+                header("Location:ingresarcompra.php?causa=compraacreditook&id=" . $iddecompra); //redirigimos a la misma página pero con una causa y una id de compra.
                 die();
             } else {
-                header("Location:ingresarcompra.php?causa=compraacontadook&id=".$iddecompra);//redirigimos a la misma página pero con una causa y una id de compra.
+                header("Location:ingresarcompra.php?causa=compraacontadook&id=" . $iddecompra); //redirigimos a la misma página pero con una causa y una id de compra.
                 die();
             }
         }
@@ -76,8 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="agregarproductos">
-                <table>
-                    <tbody>
+                <div class="cantidaddeelementos"></div>
+                <table class="agregarproductos">
+                    <tbody pagina="1" actualizar="si"> 
                     </tbody>
                 </table>
             </div>
@@ -89,8 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
             <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
             <div class="contenedordeproductos">
+
                 <table class="agregarproductos">
-                    <tbody class="tabladeprductosagregados">
+                    <tbody class="tabladeprductosagregados" >
 
                     </tbody>
                 </table>
@@ -114,38 +116,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         cargarproveedoresenselect(inputdeproveedores.value)
     })
     inputdeproductos.addEventListener("keyup", () => {
-        cargarproductosparacomprar(inputdeproductos.value)
+        cargarproductosparacomprar(inputdeproductos.value,1)
+        document.querySelector("tbody").setAttribute("pagina", 1)
     })
 
     window.onload = () => {
         cargarproveedoresenselect();
-        cargarproductosparacomprar()
+        cargarproductosparacomprar("",1);
         setInterval(() => {
-            if (inputdeproveedores.value == "") {
-                cargarproveedoresenselect();
-            }
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
             if (inputdeproductos.value == "") {
-                cargarproductosparacomprar()
+                cargarproductosparacomprar("",cantidaddepaginascargadasenlatabla)
+            }else{
+                cargarproductosparacomprar(inputdeproductos.value,cantidaddepaginascargadasenlatabla)
             }
-
-        }, 2000);
+        }, 500);
     }
 </script>
 
 </html>
 <?php
-if (isset($_GET["causa"]) ) {
+if (isset($_GET["causa"])) {
     switch ($_GET['causa']) {
         case "sinproductos":
             mostraralerta("No puedes realizar una compra sin productos", $colorfondo, $colorprincipal);
             break;
         case 'compraacreditook':
             mostraraviso("Compra a crédito concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
-            imprimirPDF("compra",$_GET["id"]);
+            imprimirPDF("compra", $_GET["id"]);
             break;
         case 'compraacontadook':
             mostraraviso("Compra al contado concretada con éxito, y deuda del proveedor actualizada", $colorfondo, $colorsecundario);
-            imprimirPDF("compra",$_GET["id"]);
+            imprimirPDF("compra", $_GET["id"]);
             break;
     }
 }

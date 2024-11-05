@@ -76,8 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="agregarproductos">
+            <div class="cantidaddeelementos"></div>
                 <table>
-                    <tbody>
+                    <tbody pagina="1" actualizar="si">
                     </tbody>
                 </table>
             </div>
@@ -114,21 +115,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         cargarclientesenselect(inputdeclientes.value)
     })
     inputdeproductos.addEventListener("keyup", () => {
-        cargarproductosparavender(inputdeproductos.value)
+        cargarproductosparavender(inputdeproductos.value,1)
+        document.querySelector("tbody").setAttribute("pagina", 1)
     })
 
     window.onload = () => {
         cargarclientesenselect();
-        cargarproductosparavender()
+        cargarproductosparavender("",1)
         setInterval(() => {
-            if (inputdeclientes.value == "") {
-                cargarclientesenselect();
-            }
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
             if (inputdeproductos.value == "") {
-                cargarproductosparavender()
+                cargarproductosparavender("",cantidaddepaginascargadasenlatabla)
+            }else{
+                cargarproductosparavender(inputdeproductos.value,cantidaddepaginascargadasenlatabla)
             }
-
-        }, 2000);
+        }, 500);
     }
 </script>
 

@@ -51,6 +51,7 @@ function ocultaravisodesorteo() {
 }
 
 
+
 function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//recive 4 parametros, cantidad disponible es para que no pueda agregar mas productos de los que hay
     var inputdeenviar = document.querySelector(".botonenviar");
     inputdeenviar.disabled = false; // habilitamos el boton para poder enviar formulario para la venta
@@ -71,6 +72,7 @@ function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//
             }
         }
     }
+
     //si no encuentra ninguno sigue con la función y carga el elemento:
     var linea = document.createElement("tr");
     function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
@@ -95,7 +97,7 @@ function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//
 
     tabla.appendChild(linea);
     linea.children[3].children[0].addEventListener("click", () => { eliminar(id_producto) })//le agregamos el evento a el hijo 0(en este caso la imagen de borrar) dentro del 4to hijo de la linea(la cual contiene las acciones)
-    linea.children[3].children[1].addEventListener("click", () => { sumarenventa(id_producto, cantidaddisponible) })
+    linea.children[3].children[1].setAttribute("onclick", "sumarenventa(" + id_producto + "," + cantidaddisponible + ")")//lo agregamos como atributo onclick para luego podermodificarlo.
     linea.children[3].children[2].addEventListener("click", () => { restar(id_producto) })
     //en el caso de arriba (linea.children[4] seria la celda numero 5 de la linea y los otros serian los hijos de esa linea)
 }

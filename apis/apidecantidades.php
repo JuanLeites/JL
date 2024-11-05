@@ -22,6 +22,9 @@ if (isset($_GET["tipo"])){
         case "cobro":
             $cantidad = mysqli_query($basededatos,'SELECT Count(*)"cantidad" FROM Cobro');
             break;
+        case "productoconstock":
+            $cantidad = mysqli_query($basededatos, 'SELECT Count(*)"cantidad" FROM Producto WHERE Activo=TRUE and Cantidad>0');
+            break;
         default:
             $cantidad = "tipo incorrecto";
             header('Content-Type: application/json', true, 400);
