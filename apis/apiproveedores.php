@@ -5,7 +5,11 @@ include_once("../chequeodelogin.php");
 if(!isset($_GET["limite"])){
     $limite = 30;
 }else{
-    $limite = $_GET["limite"];
+    if($_GET["limite"]=="sin"){
+        $limite = "99999999999999";
+    }else{
+        $limite = $_GET["limite"];
+    }
 }
 
 if(!isset($_GET["pagina"])){

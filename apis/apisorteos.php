@@ -1,11 +1,16 @@
 <?php 
 include_once("../coneccionBD.php");
 include_once("../chequeodelogin.php");
+header('Content-Type: application/json', true, 200);
 
 if(!isset($_GET["limite"])){
     $limite = 30;
 }else{
-    $limite = $_GET["limite"];
+    if($_GET["limite"]=="sin"){
+        $limite = "99999999999999";
+    }else{
+        $limite = $_GET["limite"];
+    }
 }
 
 if(!isset($_GET["pagina"])){
@@ -28,6 +33,6 @@ if (isset($_GET["filtro"]) && $_GET["filtro"] != "undefined") {
     }
     json_encode($sorteo);
     echo json_encode($sorteo);
-    header('Content-Type: application/json', true, 200);
+    
 ?>
 

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/style.css">
     <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/cobros.png" type="image/x-icon">
+    
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -22,34 +25,18 @@
         <input type="search" placeholder="Buscar Cobro" class="inputdebusquedadecobro">
     </div>
     <div class="contenedordemenu tablabajolostresinputs">
-        <div class="cantidaddeelementos"></div>
+        <div class="contenedordedatos">
+            <div class="cantidaddeelementos"></div>
+            <div class="recargartabla">recargar</div>
+        </div>
         <table>
-            <tbody pagina="1" actualizar="si">
+            <tbody pagina="1" actualizar="si" limite="20">
             </tbody>
         </table>
     </div>
     <?php include_once("barralateral.html") ?>
 </body>
-<script type="module">
-    import {
-        cargarcobros
-    } from "./js/funciones.js"
-    var inputdecobros = document.querySelector(".inputdebusquedadecobro");
-    inputdecobros.addEventListener("keyup", () => {
-        cargarcobros(inputdecobros.value,1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    })
-    window.onload = () => {
-        cargarcobros("","");
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-            if (inputdecobros.value == "") {
-                cargarcobros("",cantidaddepaginascargadasenlatabla);
-            } else {
-                cargarcobros(inputdecobros.value,cantidaddepaginascargadasenlatabla);
-            }
-        }, 2000);
-    }
+<script src="js/funcionessinexport.js">
 </script>
 
 </html>

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/style.css">
     <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/icons/pagos.png" type="image/x-icon">
+
+    <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -22,35 +25,18 @@
         <input type="search" placeholder="Buscar Pago" class="inputdebusquedadepago">
     </div>
     <div class="contenedordemenu tablabajolostresinputs">
-        <div class="cantidaddeelementos"></div>
+        <div class="contenedordedatos">
+            <div class="cantidaddeelementos"></div>
+            <div class="recargartabla">recargar</div>
+        </div>
         <table>
-            <tbody pagina="1" actualizar="si">
+            <tbody pagina="1" actualizar="si" limite="30">
             </tbody>
         </table>
     </div>
     <?php include_once("barralateral.html") ?>
 </body>
-<script type="module">
-    import {
-        cargarpagos
-    } from "./js/funciones.js"
-    var inputdepagos = document.querySelector(".inputdebusquedadepago");
-    inputdepagos.addEventListener("keyup", () => {
-        cargarpagos(inputdepagos.value,1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    })
-    window.onload = () => {
-        cargarpagos("","");
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-
-            if (inputdepagos.value == "") {
-                cargarpagos("",cantidaddepaginascargadasenlatabla);
-            } else {
-                cargarpagos(inputdepagos.value,cantidaddepaginascargadasenlatabla);
-            }
-        }, 2000);
-    }
+<script src="js/funcionessinexport.js">
 </script>
 
 </html>

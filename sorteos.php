@@ -26,9 +26,12 @@ include_once("funciones.php");
         <a href="agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
-        <div class="cantidaddeelementos"></div>
+        <div class="contenedordedatos">
+            <div class="cantidaddeelementos"></div>
+            <div class="recargartabla">recargar</div>
+        </div>
         <table>
-            <tbody pagina="1" actualizar="si">
+            <tbody pagina="1" actualizar="si" limite="20">
             </tbody>
         </table>
 
@@ -37,31 +40,6 @@ include_once("funciones.php");
 </body>
 
 <script src="js/funcionessinexport.js"></script>
-<script type="module">
-    import {
-        cargarsorteos
-    } from "./js/funciones.js"
-
-    var inputdesorteos = document.querySelector(".inputparabuscarsorteos");
-
-    inputdesorteos.addEventListener("keyup", () => {
-        cargarsorteos(inputdesorteos.value,1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    })
-
-    window.onload = () => {
-        cargarsorteos()
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-
-            if (inputdesorteos.value == "") { //si el input está vacío recarga, esto es para que no interrumpa la funcion cuando está filtrando
-                cargarsorteos("",cantidaddepaginascargadasenlatabla)
-            } else {
-                cargarsorteos(inputdesorteos.value,cantidaddepaginascargadasenlatabla)
-            }
-        }, 2000);
-    }
-</script>
 
 </html>
 

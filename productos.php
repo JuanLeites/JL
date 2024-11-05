@@ -23,9 +23,12 @@
         <a href="agregarproductos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
-        <div class="cantidaddeelementos"></div>
+        <div class="contenedordedatos">
+            <div class="cantidaddeelementos"></div>
+            <div class="recargartabla">recargar</div>
+        </div>
         <table>
-            <tbody pagina="1" actualizar="si">
+            <tbody pagina="1" actualizar="si" limite="20">
             </tbody>
         </table>
     </div>
@@ -33,28 +36,4 @@
 </body>
 
 <script src="js/funcionessinexport.js"></script>
-<script type="module">
-    import {
-        cargarproductos
-    } from "././js/funciones.js"
-    var inputdeproductos = document.querySelector(".inputdeproductos");
-    inputdeproductos.addEventListener("keyup", () => {
-        cargarproductos(inputdeproductos.value, 1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    }) //keyup porque toma el valor al levantar la tecla, se lo pasa a la funcion cargar proveedores la cual recive un parametro "filtro" con el cual hará la consulta a la api, en la api chequeamos que filtro esté seteada( distinto de undefined, porque al no estar seteada queda "undefined") y hacemos una consulta personalizada con la propiedad LIKE
-
-    window.onload = () => {
-
-        cargarproductos("", "");
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-            if (inputdeproductos.value == "") {
-                cargarproductos("", cantidaddepaginascargadasenlatabla);
-            } else {
-                cargarproductos(inputdeproductos.value, cantidaddepaginascargadasenlatabla);
-            }
-        }, 2000);
-    }
-</script>
-
 </html>

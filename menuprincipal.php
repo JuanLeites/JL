@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             cargarclientesdecumpleaños()
             cargarproductosconpocostock()
             cargarfacturasavencer()
-        }, 2000);
+        }, 1000);
     }
 </script>
 

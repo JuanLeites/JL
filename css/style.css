@@ -2,6 +2,8 @@
     --color-principal: #4DBF38;
     --color-secundario: #80D12A;
     --color-fondo: #001F47;
+    user-select: none; /* para no poder seleccionar texto*/
+
 }
 .mensaje {
     border: solid 1px red;
@@ -464,6 +466,36 @@ main {
     font-weight:bold;
 }
 
+.contenedordedatos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contenedordedatos>.recargartabla{
+    text-align: center;
+    padding: 7px;
+    margin: 2px;
+    border-radius: 5px;
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    max-width: max-content;
+    border: solid 2.2px var(--color-fondo);
+    font-weight:bold;
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none; /* para no poder seleccionar texto*/
+}
+.contenedordedatos>.recargartabla:hover{
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+}
+.contenedordedatos>.recargartabla:active{
+    box-shadow:
+    3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
+    10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
+    25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
+    84px 66px 80px rgba(0, 0, 0, 0.52);
+}
 .agregarproductos {
     background-color: var(--color-principal);
     border: var(--color-fondo) 1px solid;
@@ -598,7 +630,15 @@ table {
 .compra-venta> {
     overflow: scroll;
 }
-
+.botonenlace{
+    border-radius: 5px;
+    background-color: var(--color-secundario);
+    border: solid 1px var(--color-fondo);
+    color: var(--color-fondo);
+    padding: 2.5px;
+    font-size: 110%;
+    transition: 0.9s;
+}
 .agregarproducto {
     border-radius: 5px;
     background-color: var(--color-secundario);
@@ -609,11 +649,10 @@ table {
     transition: 0.9s;
 }
 
-.agregarproducto:hover {
+.agregarproducto:hover,.botonenlace:hover {
     background-color: var(--color-fondo);
     border: var(--color-principal);
     color: var(--color-secundario);
-
 }
 
 .enlace {
@@ -628,7 +667,7 @@ table {
 td,
 th {
     border: 2px solid var(--color-fondo);
-    padding: 3px;
+    padding: 5px;
     text-align: center;
     color: var(--color-fondo);
 }

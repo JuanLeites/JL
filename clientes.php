@@ -25,9 +25,12 @@ include_once("chequeodelogin.php");
         <a href="agregarclientes.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
-        <div class="cantidaddeelementos"></div>
+        <div class="contenedordedatos">
+            <div class="cantidaddeelementos"></div>
+            <div class="recargartabla">recargar</div>
+        </div>
         <table>
-            <tbody pagina="1" actualizar="si">
+            <tbody pagina="1" actualizar="si" limite="15">
             </tbody>
         </table>
     </div>
@@ -35,34 +38,5 @@ include_once("chequeodelogin.php");
     <?php include_once("barralateral.html") ?>
 </body>
 <script src="js/funcionessinexport.js"></script>
-<script type="module">
-    import {
-        cargarclientes
-    } from "./js/funciones.js"
-
-    var inputdeclientes = document.querySelector(".inputdeclientes")
-
-    inputdeclientes.addEventListener("keyup", () => { //al escribir algo
-        cargarclientes(inputdeclientes.value, 1) //cargará los clientes filtrados. pero solo pa página 1
-        document.querySelector("tbody").setAttribute("pagina", 1) // seteamos la página en 1
-    }) //keyup porque toma el valor al levantar la tecla, se lo pasa a la funcion cargar proveedores la cual recive un parametro "filtro" con el cual hará la consulta a la api, en la api chequeamos que filtro esté seteada( distinto de undefined, porque al no estar seteada queda "undefined") y hacemos una consulta personalizada con la propiedad LIKE
-
-    window.onload = () => {
-       
-        cargarclientes();//lamamos la función al cargar la pagina
-
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-
-            if (inputdeclientes.value == "") { // si el contenido del buscador está vacío.
-                cargarclientes("", cantidaddepaginascargadasenlatabla);
-            } else {
-                cargarclientes(inputdeclientes.value, cantidaddepaginascargadasenlatabla)
-            }
-
-        }, 1200);
-        
-    }
-</script>
 
 </html>

@@ -1,6 +1,7 @@
 <?php
 include_once("../coneccionBD.php");
 include_once("../chequeodelogin.php");
+header('Content-Type: application/json', true, 200);
 
 if(!isset($_GET["limite"])){
     $limite = 20;
@@ -31,6 +32,6 @@ $clientes = array();
 foreach ($clientesconsulta as $cadacliente) {
     $clientes[] = $cadacliente;
 }
-header('Content-Type: application/json', true, 200);
+
 json_encode($clientes);
 echo json_encode($clientes);

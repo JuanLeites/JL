@@ -71,14 +71,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="compra-venta">
         <div class="formularios primerformulario">
             <div class="contenedordebuscadoryboton">
-                <input type="search" id="filtro" class="filtroproductos" placeholder="Buscar Productos">
+                <input type="search" id="filtro" class="filtroproductosparavender" placeholder="Buscar Productos">
                 <a href="agregarproductos.php" target="_blank" class="agregardato">+</a>
             </div>
 
             <div class="agregarproductos">
-            <div class="cantidaddeelementos"></div>
+                <div class="contenedordedatos">
+                    <div class="cantidaddeelementos"></div>
+                    <div class="recargartabla">recargar</div>
+                </div>
                 <table>
-                    <tbody pagina="1" actualizar="si">
+                    <tbody pagina="1" actualizar="si" limite="12">
                     </tbody>
                 </table>
             </div>
@@ -87,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST" class="formularios segundoformulario" action="confirmarventa.php">
             <h1>Ingresar Venta</h1>
             <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarclientes.php">agregar clientes</a> </label>
-            <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
+            <input id="filtro" type="search" placeholder="Buscar" class="filtroclientesparaselect">
 
             <select name="ID_CLIENTE" class="selectdeclientes" required></select>
             <div class="contenedordeproductos">
@@ -104,34 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include_once("barralateral.html"); ?>
 </body>
 <script src="js/funcionessinexport.js"></script>
-<script type="module">
-    import {
-        cargarclientesenselect,
-        cargarproductosparavender
-    } from "./js/funciones.js"
-    var inputdeclientes = document.querySelector(".filtroclientes")
-    var inputdeproductos = document.querySelector(".filtroproductos")
-    inputdeclientes.addEventListener("keyup", () => {
-        cargarclientesenselect(inputdeclientes.value)
-    })
-    inputdeproductos.addEventListener("keyup", () => {
-        cargarproductosparavender(inputdeproductos.value,1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    })
-
-    window.onload = () => {
-        cargarclientesenselect();
-        cargarproductosparavender("",1)
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-            if (inputdeproductos.value == "") {
-                cargarproductosparavender("",cantidaddepaginascargadasenlatabla)
-            }else{
-                cargarproductosparavender(inputdeproductos.value,cantidaddepaginascargadasenlatabla)
-            }
-        }, 500);
-    }
-</script>
 
 </html>
 <?php
