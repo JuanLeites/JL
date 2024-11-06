@@ -355,6 +355,7 @@ function cargarproductos(filtro, pagina) {
                 imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
                 imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
                 imagen.setAttribute("alt", "Imágen de " + cadaproducto.Nombre)
+                imagen.onerror = () => { imagen.src = "imagenes/sinfoto.jpg" } // si la imagen llega a dar error, se le estableserá en la ruta. la foto por defecto
                 var objeto = document.createElement("td")//creamos una celda
                 objeto.appendChild(imagen);//le agregamos la imagen a la celda
                 linea.appendChild(objeto);//agregamos la celda a la fila
@@ -584,6 +585,7 @@ function eliminarlosclientessobrantes(filtro, pagina) {
     }
 }
 
+
 function cargarsorteos(filtro, pagina) {
     var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
     var valoractualizar = tabla.getAttribute("actualizar")
@@ -706,6 +708,7 @@ function eliminarlossorteossobrantes(filtro, pagina) {
 }
 
 
+
 ///funciones para carga de datos en select para poder filtrar los proveedores y productos
 function cargarproveedoresenselect(filtro) {
     var select = document.querySelector(".selectdeproveedores");
@@ -744,6 +747,7 @@ function cargarclientesenselect(filtro) {
     }
 }
 
+
 //funcion utilizada para cargar cantidades en tablas: 
 function cargarcantidadesentabla(tipo) {//función que establece a la tabla el atributo de cantidad en lo que obtiene de la respuesta
     const cargaDatos = new XMLHttpRequest();
@@ -766,6 +770,7 @@ function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
             //console.log(JSON.parse(this.responseText)+" respuesta")
             if (tabla.getAttribute("cantidad") > JSON.parse(this.responseText)) {//si en la respuesta hay menos elementos, significa que se borró un elemento
                 tabla.setAttribute("actualizar", "menoselementos");
+                console.log("hay menos elementos y se a actualizado el atrbuto de la tabla")
             } else if (tabla.getAttribute("cantidad") < JSON.parse(this.responseText)) {
                 tabla.setAttribute("actualizar", "maselementos");
             } else if (tabla.getAttribute("cantidad") == JSON.parse(this.responseText)) {
@@ -834,6 +839,7 @@ function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
 
 
 
+
 //funciones utilizadas para cargar los productos en la tabla para vender.
 function cargarproductosparavender(filtro, pagina) {
     var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
@@ -871,7 +877,7 @@ function cargarproductosparavender(filtro, pagina) {
 
     } else {
         if (valoractualizar == "menoselementos") {
-            eliminarlosproductossobrantes(filtro, pagina);// si hay menos elementos llamamos a la función que consultará todos los elementos de la tabla y de la base de datos, los compara, y elimina el elemento que está en la tabla, pero que no está en la consulta
+            eliminarlosproductossobrantesparavender(filtro, pagina);// si hay menos elementos llamamos a la función que consultará todos los elementos de la tabla y de la base de datos, los compara, y elimina el elemento que está en la tabla, pero que no está en la consulta
         } else if (valoractualizar == "maselementos") {
             mostrarinfo("Hay nuevos Productos!") // unicamente, mostrará un mensaje que hay nuevos productos. si el usuario desea recargar la página para ver esos nuevos clientes será su opción.
         } else if (pagina != "ultima") {
@@ -920,6 +926,33 @@ function cargarmasproductosparavender(filtro, pagina) {
         }, retraso)
     }
 }
+function eliminarlosproductossobrantesparavender(filtro, pagina) {
+    var tabla = document.querySelector("tbody");
+    var limite = tabla.getAttribute("limite")
+
+    if (pagina == "ultima") {
+        var cantidaddeelementos = "sin";
+    } else {
+        var cantidaddeelementos = limite * pagina;
+    }
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproductos.php?productosdisponibles=true&filtro=' + filtro + '&pagina=1&limite=' + cantidaddeelementos) //obtenemos en una sola consulta todos los datos ya cargados
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+
+        const productosparavender = JSON.parse(this.responseText);
+        let filastabla = tabla.children; // obtenemos todas las filas de la tabla en una variable
+
+        for (let i = 1; i < filastabla.length; i++) { // recorremos cada fila de la tabla. 1 para que no tome el encabezado (0)
+            let fila = filastabla[i]; // guardmos cadafila en la variable fila
+
+            let seencuentraenelaconsulta = productosparavender.some((cadaelementodelarreglo) => cadaelementodelarreglo.ID_Producto == fila.getAttribute("id"));//some es una función para arreglos que devolverá true si es que se cumple la condición al menos una vez, si no se cumple con ningun elemento, retoranará false
+            if (!seencuentraenelaconsulta) {//si es false(no encontró la fila en la respuesta a la api) entrará acá.
+                fila.remove();// eliminamos la fila.
+            }
+        }
+    }
+}
 function comprobarstockdearticulosvendidos(id_producto, cantidaddisponible) {//funcion que recorre todos los elementos de la tabla productos agregados, si encuentra el que fue pasado por parametro, se le setea la cantidad pasada por parametro.
     var tabla = document.querySelector(".tabladeprductosagregados");
     for (var i = 0; i < tabla.children.length; i++) {//recorre todos los elementos de la tabla en "tabla.children[i]" (los cuales serian todas las filas horizontales, las cuales tienen 5 elementos cada una)   (usamos for normal y no un foreach para poder interrumpirlo y que no sume repetidas veces)
@@ -939,9 +972,85 @@ function comprobarstockdearticulosvendidos(id_producto, cantidaddisponible) {//f
 
 
 
+function cargarproductosparacomprar(filtro, pagina) {
+    var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
+    var valoractualizar = tabla.getAttribute("actualizar")
+    var contenedordelatabla = document.querySelector(".agregarproductos");
+    var limite = tabla.getAttribute("limite");
+    if (valoractualizar == "si") { //si está en la primer pagina o debe de actualizaarse
+        tabla.setAttribute("actualizar", "no");
+        tabla.setAttribute("pagina", "1")
+        const cargaDatos = new XMLHttpRequest();
+        cargaDatos.open('GET', 'apis/apiproductos.php?pagina=1&limite=' + limite + '&filtro=' + filtro);
+        console.log('apis/apiproductos.php?pagina=1&limite=' + limite + '&filtro=' + filtro);
+        cargaDatos.send()
+        cargaDatos.onload = function () {
+            const productos = JSON.parse(this.responseText);
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Código de barras</th><th>Precio de Compra</th><th>Descripcion</th><th>Acción</th></tr>"
+            productos.forEach(cadaproducto => {
+                var linea = document.createElement("tr");
+                linea.setAttribute("id", cadaproducto.ID_Producto);
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+                agregaralinea(cadaproducto.Nombre);
+                agregaralinea(cadaproducto.Código_de_Barras);
+                agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
+                agregaralinea(cadaproducto.Descripción);
+                agregaralinea('<button onclick="agregaracompra(\'' + cadaproducto.ID_Producto + '\',\'' + cadaproducto.Nombre + '\',\'' + cadaproducto.Precio_Compra + '\')" class="agregarproducto">Agregar</button>');
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
+            })
+        }
+    } else {
+        if (valoractualizar == "menoselementos") {
+            eliminarlosproductossobrantes(filtro, pagina);// si hay menos elementos llamamos a la función que consultará todos los elementos de la tabla y de la base de datos, los compara, y elimina el elemento que está en la tabla, pero que no está en la consulta
+        } else if (valoractualizar == "maselementos") {
+            mostrarinfo("Hay nuevos Productos!") // unicamente, mostrará un mensaje que hay nuevos productos. si el usuario desea recargar la página para ver esos nuevos clientes será su opción.
+        } else if (pagina != "ultima") {
+            if (contenedordelatabla.scrollHeight > contenedordelatabla.clientHeight) {
+                if (((contenedordelatabla.scrollHeight - contenedordelatabla.clientHeight) - contenedordelatabla.scrollTop) < 20) { // si se acerca el scrol a la parte inferior de la pantalla
+                    cargarmasproductosparacomprar(filtro, pagina);
+                }
+            }
+        }
+    }
+    cargarcantidades("producto");
+}
+function cargarmasproductosparacomprar(filtro, pagina) {//funcion que agrega más productos sin sobre escribir la tabla.
+    var tabla = document.querySelector("tbody");
+    var paginaactual = parseInt(pagina) + 1;
+    var limite = tabla.getAttribute("limite");
+    tabla.setAttribute("pagina", paginaactual)
+    const cargaDatos = new XMLHttpRequest();
+    cargaDatos.open('GET', 'apis/apiproductos.php?limite=' + limite + '&pagina=' + paginaactual + '&filtro=' + filtro);
+    cargaDatos.send()
+    cargaDatos.onload = function () {
+        const procutos = JSON.parse(this.responseText);
+        if (procutos.length < limite) {
+            tabla.setAttribute("pagina", "ultima")
+        }
+        setTimeout(() => { // esperamos 100 milesimas ya que sino no se agregan más proveedores y la tabla queda con los primeros datos y el en el atributo página queda la ultima
+            procutos.forEach(cadaproducto => {
+                var linea = document.createElement("tr");
+                function agregaralinea(dato) {//funcion creada para agregar una linea a la tabla(columna)
+                    var objeto = document.createElement("td");//crea el elemento td(columna)
+                    objeto.innerHTML = dato;//le introduce el valor pasado por parametros
+                    linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
+                }
+                agregaralinea(cadaproducto.Nombre);
+                agregaralinea(cadaproducto.Código_de_Barras);
+                agregaralinea(cadaproducto.Precio_Compra); // cargamos unicamente el precio de compra ya que es para comprar
+                agregaralinea(cadaproducto.Descripción);
+                agregaralinea('<button onclick="agregaracompra(\'' + cadaproducto.ID_Producto + '\',\'' + cadaproducto.Nombre + '\',\'' + cadaproducto.Precio_Compra + '\')" class="agregarproducto">Agregar</button>');
+                tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
+            })
 
-
+        }, retraso)
+    }
+}
 
 
 
@@ -983,22 +1092,25 @@ function eliminarobjeto(ruta) {
         }
     });
 }
+
+
+
+
 function mostraravisosorteo() {
     Swal.fire({ //va a mostrar un objeto de la libreria(sweetalert)
         position: "center",
         title: "Al Realizar el sorteo todos los ticketes se estableceran en 0!!",
-        icon: "info",
+        icon: "warning",
         customClass: {
             popup: "alertas"  // Añadimos una clase personalizada para poder mostrar bordes ya que la alerta no lo permite
         },
         toast: true,
-        showConfirmButton: false
+        showConfirmButton: false,
+        timer: 1700,
+        timerProgressBar: true,
     })
 }
 
-function ocultaravisodesorteo() {
-    setTimeout(() => { Swal.close() }, 1000);
-}
 
 
 
@@ -1220,15 +1332,20 @@ function alternar(inputdecontraseña, imagen, ruta) {// funcion utilizada para a
         imagen.setAttribute('src', ruta + '/ojocerrado.png')
     }
 }
+
+
+
+
 window.onload = () => {
     var milisegundosentrerepeticiones = 500;
+
+
     var botonpararecargarlatabla = document.querySelector(".recargartabla");
     if (botonpararecargarlatabla) {
         botonpararecargarlatabla.addEventListener("click", () => {
             document.querySelector('tbody').setAttribute('actualizar', 'si')
         })
     }
-
 
 
     var inputdecobros = document.querySelector(".inputdebusquedadecobro");
@@ -1348,8 +1465,8 @@ window.onload = () => {
     var inputdeproductosparavender = document.querySelector(".filtroproductosparavender")
     if (inputdeproductosparavender) {
         inputdeproductosparavender.addEventListener("keyup", () => {
-            cargarproductosparavender(inputdeproductos.value, 1)
-            document.querySelector("tbody").setAttribute("pagina", 1)
+            document.querySelector("tbody").setAttribute("actualizar", "si")
+            cargarproductosparavender(inputdeproductosparavender.value, 1)
         })
 
         cargarproductosparavender("", 1)
@@ -1367,33 +1484,38 @@ window.onload = () => {
 
     var inputparafiltrarclientes = document.querySelector(".filtroclientesparaselect")
     if (inputparafiltrarclientes) {
-        cargarclientesenselect("",1)
+        cargarclientesenselect("", 1)
         inputparafiltrarclientes.addEventListener("keyup", () => {
-            cargarclientesenselect(inputdeclientes.value)
+            cargarclientesenselect(inputparafiltrarclientes.value)
         })
     }
 
 
 
+    var inputdeproductosparacomprar = document.querySelector(".filtroproductos")
+    if (inputdeproductosparacomprar) {
+        inputdeproductosparacomprar.addEventListener("keyup", () => {
+            document.querySelector("tbody").setAttribute("actualizar", "si")
+            cargarproductosparacomprar(inputdeproductosparacomprar.value, 1)
+        })
+        cargarproductosparacomprar();
+        setInterval(() => {
+            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
+            if (inputdeproductosparacomprar.value == "") {
+                cargarproductosparacomprar("", cantidaddepaginascargadasenlatabla)
+            } else {
+                cargarproductosparacomprar(inputdeproductosparacomprar.value, cantidaddepaginascargadasenlatabla)
+            }
+        }, milisegundosentrerepeticiones);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    var inputparafiltrarproveedores = document.querySelector(".filtroproveedoreparaselect")
+    if (inputparafiltrarproveedores) {
+        cargarproveedoresenselect(inputparafiltrarproveedores.value)
+        inputparafiltrarproveedores.addEventListener("keyup", () => {
+            cargarproveedoresenselect(inputparafiltrarproveedores.value)
+        })
+    }
 
 
 
@@ -1452,6 +1574,7 @@ window.onload = () => {
 
 
 
+    //función para hacer aparecer input tipo fecha para ingresar compra al contado
     var boton = document.querySelector("#botoncreditocontado");
     var inputdate = document.querySelector('#inputdate');
     if (boton && inputdate) {
@@ -1466,5 +1589,23 @@ window.onload = () => {
                 boton.value = "Crédito";
             }
         })
+    }
+
+
+    //para acer aparecer boton de subir el scroll: 
+    var botonsubirscrol = document.querySelector(".button")
+    if (botonsubirscrol) {
+        var contenedordemenu = document.querySelector(".contenedordemenu")
+        if (!contenedordemenu) {
+            contenedordemenu = document.querySelector(".agregarproductos")
+        }
+        contenedordemenu.addEventListener('scroll', function () {
+            if (contenedordemenu.scrollTop > 200) {
+                botonsubirscrol.setAttribute("style", "transform:scale(1)")
+            } else {
+                botonsubirscrol.setAttribute("style", "transform:scale(0);")
+
+            }
+        });
     }
 }

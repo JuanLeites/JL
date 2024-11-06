@@ -2,9 +2,81 @@
     --color-principal: #4DBF38;
     --color-secundario: #80D12A;
     --color-fondo: #001F47;
-    user-select: none; /* para no poder seleccionar texto*/
-
+    user-select: none;
+    /* para no poder seleccionar texto*/
 }
+
+/*ESTILO PARA BOTON DE SUBIR*/
+/* From Uiverse.io by vinodjangid07 */
+.agregadordeproductos {
+    position: relative !important;
+    margin-left: 1vw !important;
+    bottom: 0px !important;
+    right: 0px !important;
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--color-fondo);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 4px var(--color-principal);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: absolute;
+    right: 2vw;
+    bottom: 5vh;
+    color: var(--color-principal);
+}
+
+.svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+.button:hover {
+    width: 70px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: var(--color-fondo);
+    border: solid 1px var(--color-principal);
+    align-items: center;
+}
+
+.button:hover .svgIcon {
+    /* width: 20px; */
+    transition-duration: 0.3s;
+    transform: translateY(-200%);
+}
+
+.button::before {
+    position: absolute;
+    bottom: -20px;
+    content: "Subir";
+    color: var(--color-secundario);
+    /* transition-duration: .3s; */
+    font-size: 0px;
+}
+
+.button:hover::before {
+    font-size: 13px;
+    opacity: 1;
+    bottom: unset;
+    /* transform: translateY(-30px); */
+    transition-duration: 0.3s;
+}
+
+/*       //////////////////        */
 .mensaje {
     border: solid 1px red;
     border-radius: 10px;
@@ -44,7 +116,8 @@
     filter: drop-shadow(10px 10px 5px var(--color-principal));
     transition: 0.2s;
 }
-.contenedordegraficas>canvas:hover{
+
+.contenedordegraficas>canvas:hover {
     filter: drop-shadow(13px 13px 7px var(--color-principal));
 }
 
@@ -86,15 +159,17 @@ body {
     z-index: 1;
 }
 
-.encabezadodeproductosseleccionados{
+.encabezadodeproductosseleccionados {
     position: sticky;
     top: 0px;
     background-color: var(--color-principal);
     border: var(--color-fondo) solid 1px;
 }
-.encabezadodeproductosseleccionados>th{
+
+.encabezadodeproductosseleccionados>th {
     background-color: var(--color-secundario);
 }
+
 .encabezado:hover,
 .encabezadodeproductosseleccionados:hover {
     filter: contrast(2);
@@ -119,7 +194,7 @@ body {
     background-color: var(--color-secundario);
     color: var(--color-fondo);
     align-items: center;
-    
+
 }
 
 input,
@@ -144,6 +219,10 @@ select,
     justify-content: center;
 }
 
+.acredito .acredito {
+    max-width: 30vw;
+}
+
 .linkdedescarga {
     background-color: var(--color-principal);
     border-radius: 10px;
@@ -166,13 +245,15 @@ select,
     justify-content: center;
 }
 
-input:hover,input:focus {
+input:hover,
+input:focus {
     box-shadow:
         4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
         35px 41px 80px rgba(0, 0, 0, 0.52);
 }
 
-.accion:hover,.accion:focus {
+.accion:hover,
+.accion:focus {
     filter: drop-shadow(12px 10px 15px var(--color-fondo));
 }
 
@@ -186,7 +267,8 @@ input[type="submit"] {
     transition: 1s;
 }
 
-input[type="submit"]:hover,input[type="submit"]:focus{
+input[type="submit"]:hover,
+input[type="submit"]:focus {
     cursor: pointer;
     color: var(--color-secundario);
 }
@@ -209,7 +291,8 @@ a:hover {
     transform: translate(+90px, -40px);
     transition: 0.3s;
 }
-#ver:hover{
+
+#ver:hover {
     filter: drop-shadow(1px 1px 2px var(--color-fondo));
 }
 
@@ -249,7 +332,8 @@ footer>a:hover {
 }
 
 .barralateral:hover {
-    width: 370px; /*350 mide el elemento hijo mas los margin de cada lado (10+10) */
+    width: 370px;
+    /*350 mide el elemento hijo mas los margin de cada lado (10+10) */
     border-right: 3px solid var(--color-fondo);
 }
 
@@ -289,14 +373,14 @@ footer>a:hover {
     height: 100%;
 }
 
-.contenedordeicono:hover{
+.contenedordeicono:hover {
     background-color: var(--color-fondo);
     box-shadow:
         4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
         35px 41px 80px rgba(0, 0, 0, 0.52);
 }
 
-.contenedordeicono:hover h2{
+.contenedordeicono:hover h2 {
     color: var(--color-secundario)
 }
 
@@ -306,7 +390,8 @@ footer>a:hover {
     border: solid 2px var(--color-fondo);
     border-radius: 13px;
 }
-.contenedordepopup{
+
+.contenedordepopup {
     display: flex;
     position: fixed;
     top: 0px;
@@ -318,6 +403,7 @@ footer>a:hover {
     justify-content: center;
     transition: 0.4s ease;
 }
+
 .popup {
     transition: transform 0.5s ease;
     padding: 20px;
@@ -365,6 +451,7 @@ footer>a:hover {
     right: 10px;
     cursor: pointer;
 }
+
 .close {
     position: absolute;
     display: flex;
@@ -428,9 +515,11 @@ footer>a:hover {
     color: var(--color-secundario);
     background-color: chocolate;
 }
-tbody{
+
+tbody {
     transition: 1s;
 }
+
 main {
     height: 100vh;
     width: 82vw;
@@ -452,9 +541,16 @@ main {
         10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
         25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
         84px 66px 80px rgba(0, 0, 0, 0.52);
-    justify-items:center;
+
 }
-.cantidaddeelementos{
+
+/*PARA UN SCROLL MAS SUAVE*/
+.contenedordemenu,
+.agregarproductos {
+    scroll-behavior: smooth;
+}
+
+.cantidaddeelementos {
     text-align: center;
     padding: 7px;
     margin: 2px;
@@ -463,15 +559,16 @@ main {
     color: var(--color-fondo);
     max-width: max-content;
     border: solid 2.2px var(--color-fondo);
-    font-weight:bold;
+    font-weight: bold;
 }
 
-.contenedordedatos{
+.contenedordedatos {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.contenedordedatos>.recargartabla{
+
+.contenedordedatos>.recargartabla {
     text-align: center;
     padding: 7px;
     margin: 2px;
@@ -480,31 +577,37 @@ main {
     color: var(--color-fondo);
     max-width: max-content;
     border: solid 2.2px var(--color-fondo);
-    font-weight:bold;
+    font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    user-select: none; /* para no poder seleccionar texto*/
+    user-select: none;
+    /* para no poder seleccionar texto*/
 }
-.contenedordedatos>.recargartabla:hover{
+
+.contenedordedatos>.recargartabla:hover {
     background-color: var(--color-fondo);
     color: var(--color-secundario);
 }
-.contenedordedatos>.recargartabla:active{
+
+.contenedordedatos>.recargartabla:active {
     box-shadow:
-    3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
-    10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
-    25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
-    84px 66px 80px rgba(0, 0, 0, 0.52);
+        3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
+        10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
+        25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
+        84px 66px 80px rgba(0, 0, 0, 0.52);
 }
+
 .agregarproductos {
     background-color: var(--color-principal);
     border: var(--color-fondo) 1px solid;
     border-radius: 10px;
     max-height: 85%;
+    min-height: 40vh;
+    max-width: 95%;
     overflow-y: scroll;
     padding: 20px;
-    justify-items:center;
 }
+
 
 .agregardato {
     height: 40px;
@@ -535,10 +638,12 @@ main {
     display: flex;
     align-items: center;
 }
-.contenedordebuscadoryboton{
+
+.contenedordebuscadoryboton {
     display: flex;
     align-items: center;
 }
+
 .tresinputs {
     position: absolute;
     top: 20px;
@@ -629,9 +734,12 @@ table {
 
 .compra-venta> {
     overflow: scroll;
+    overflow-x: hidden;
 }
-.botonenlace{
-    border-radius: 5px;
+
+.botonenlace {
+    border-radius: 3px;
+    min-width: fit-content;
     background-color: var(--color-secundario);
     border: solid 1px var(--color-fondo);
     color: var(--color-fondo);
@@ -639,6 +747,7 @@ table {
     font-size: 110%;
     transition: 0.9s;
 }
+
 .agregarproducto {
     border-radius: 5px;
     background-color: var(--color-secundario);
@@ -649,7 +758,8 @@ table {
     transition: 0.9s;
 }
 
-.agregarproducto:hover,.botonenlace:hover {
+.agregarproducto:hover,
+.botonenlace:hover {
     background-color: var(--color-fondo);
     border: var(--color-principal);
     color: var(--color-secundario);
@@ -659,9 +769,15 @@ table {
     color: var(--color-principal);
 }
 
+.contenedordeproductos>.agregarproductos {
+    min-height: fit-content;
+}
+
 .contenedordeproductos {
     max-height: 60%;
-    overflow-y: scroll;
+    max-width: 280px;
+    left: 50%;
+    overflow-y: auto;
 }
 
 td,
@@ -785,9 +901,6 @@ tr:hover {
     left: 20%;
 }
 
-.contenedordeproductos {
-    left: 50%;
-}
 
 main {
     margin-left: 5%;
@@ -800,7 +913,8 @@ main {
     left: 10px;
     transition: 0.5s;
 }
-.botonbarralateral:hover{
+
+.botonbarralateral:hover {
     cursor: pointer;
     filter: drop-shadow(2px 2px 5px var(--color-principal));
 }
@@ -815,7 +929,7 @@ main {
     transition: 0.4s;
 }
 
-.cerrarbarralateral:hover{
+.cerrarbarralateral:hover {
     transform: scale(1.1);
 }
 
@@ -852,6 +966,13 @@ main {
     text-shadow: -1px -1px 1px var(--color-secundario);
 }
 
+.segundoformulario {
+    min-width: fit-content;
+}
+
+.contenedordeproductos>.segundoformulario {
+    min-height: fit-content;
+}
 
 @media (max-height: 830px) {
     .tablabajolostresinputs {
@@ -873,7 +994,7 @@ main {
         padding: 7px;
         margin: 1px;
     }
-    
+
 
 }
 
@@ -908,7 +1029,7 @@ main {
         align-items: center;
         justify-content: center;
     }
-    
+
 }
 
 @media (max-height: 700px) {
@@ -928,6 +1049,7 @@ main {
         margin: 1px;
         max-height: 30px;
     }
+
     .contenedordegraficas {
         margin-top: 20px;
         align-items: center;
@@ -1018,10 +1140,10 @@ main {
 
 
     .contenedordemenu>table {
-        font-size: 1.1vw;
+        font-size: 15px;
     }
 
-    .cerrarbarralateral{
+    .cerrarbarralateral {
         transform: scale(1);
     }
 }
@@ -1030,19 +1152,19 @@ main {
     .contenedordeproductos {
         max-width: 280px;
     }
-    .contenedordeproductos>table{
-        font-size: 1.3vw;
+
+    .contenedordeproductos>table,
+    .formularios>.agregarproductos>table,
+    .formularios>.tabladeprductosagregados>table {
+        font-size: 16px;
     }
+
+    .contenedordemenu>table {
+        font-size: 11px;
+    }
+
     .formularios>.agregarproductos {
         max-width: 100%;
-    }
-
-    .formularios>.agregarproductos>table {
-        font-size: 1.3vw;
-    }
-
-    .formularios>.tabladeprductosagregados>table {
-        font-size: 1.3vw;
     }
 
     .formularios>.tabladeprductosagregados {
@@ -1051,22 +1173,6 @@ main {
 }
 
 
-
-@media (max-width:1100px) {
-    .formularios>.agregarproductos {
-        max-width: 70%;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .formularios>.contenedordeproductos>.agregarproductos {
-        font-size: 1.3vw;
-    }
-
-    .formularios {
-        padding: 10px;
-    }
-}
 
 @media (max-width:1000px) {
     .contenedoresenmenuprincipal {
@@ -1080,23 +1186,6 @@ main {
     }
 }
 
-@media (max-width: 950px) {
-    .formularioproductos {
-        padding: 7px;
-    }
-
-    .compra-venta {
-        max-width: 800px;
-    }
-
-    .compra-venta>.formularios {
-        max-width: 300px;
-    }
-
-    .formularios>.agregarproductos {
-        max-width: 80%;
-    }
-}
 
 @media (max-width:600px) {
     .formularios {
@@ -1106,6 +1195,18 @@ main {
     .formularioproductos {
         max-height: 70vh;
     }
+
+    .agregarproductos {
+        overflow-x: auto;
+    }
+
+    .agregarproductos>table {
+        width: 90%;
+        border-collapse: collapse;
+        min-width: 600px;
+        table-layout: fixed;
+    }
+
 }
 
 @media (max-width:1366px) and (max-height: 768px) {
@@ -1123,14 +1224,17 @@ main {
         padding: 5px;
         min-height: 30px;
         max-width: 30vw;
-        }
-
+    }
 }
 
-@media (max-width:720px) and (max-height: 1280px) {
+@media (max-width:870px) and (max-height: 1280px) {
     #prod {
         height: 50px;
         width: 50px;
+    }
+
+    .agregarproductos table {
+        font-size: 11px;
     }
 
     .close {
@@ -1148,7 +1252,8 @@ main {
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
+        overflow-y: auto;
+        min-height: 200px;
     }
 
     .formularios {
@@ -1156,23 +1261,25 @@ main {
         max-height: 80vh;
         overflow-y: auto;
         min-height: min-content;
+        min-width: fit-content;
     }
+
     .primerformulario {
         min-width: 80vw;
-        min-height: 45vh;
+        min-height: 60vh;
     }
+
     .segundoformulario h1 {
         position: relative;
         top: 0;
     }
-    .contenedordeproductos {
-        max-height: 40vh;
-        overflow-y: auto;
-    }
-    .segundoformulario{
 
+
+
+    .segundoformulario {
         padding: 5px;
     }
+
     .segundoformulario>input,
     .segundoformulario>select {
         padding: 7px;
@@ -1216,6 +1323,7 @@ main {
     .contenedoresenmenuprincipal {
         margin-top: 50px;
     }
+
     .contenedordeganadores {
         min-height: 30vh;
     }
@@ -1247,13 +1355,12 @@ main {
         max-width: 90%;
         max-height: 50vh;
     }
-
+    .contenedordeproductos{
+        max-height: 40vh;
+    }
 }
 
 @media (max-width:375px) and (max-height: 667px) {
-    .agregarproductos{
-        padding-left: 50vw;
-    }
     .close {
         position: absolute;
         top: 10px;
@@ -1262,6 +1369,10 @@ main {
         flex-direction: row;
         padding: 10px;
         max-width: 75vw;
+    }
+
+    .agregarproductos table {
+        font-size: 10px;
     }
 
     .fotoperfil {
@@ -1307,14 +1418,12 @@ main {
         padding: 10px;
         min-height: 60vh;
         overflow-y: auto;
-    }
 
-    .tabladeprductosagregados {
-        display: block;
     }
 
     .contenedordeproductos {
         min-height: 70%;
+
     }
 
     .contenedordeganadores {
@@ -1325,7 +1434,7 @@ main {
     select,
     .contenedor>.contenedordesubcontenedores>.subcontenedores>input,
     .contenedor>input {
-        max-width: 35vw;
+        max-width: 40vw;
         padding: 3px;
     }
 

@@ -110,5 +110,7 @@ include_once("funciones.php");
     <?php include_once("barralateral.html");
     ?>
 </body>
-<script src="js/funciones.js" type="module"></script>
+<script src="js/funcionessinexport.js">
+
+</script>
 </html>

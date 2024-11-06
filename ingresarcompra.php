@@ -73,12 +73,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="contenedordebuscadoryboton">
                 <input type="search" id="filtro" class="filtroproductos" placeholder="Buscar Productos">
                 <a href="agregarproductos.php" target="_blank" class="agregardato">+</a>
+                <a href="#top" class="button agregadordeproductos" style="transform:scale(0);">
+                    <svg class="svgIcon" viewBox="0 0 384 512">
+                        <path
+                            d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+                    </svg>
+                </a>
             </div>
 
             <div class="agregarproductos">
-                <div class="cantidaddeelementos"></div>
+                <div class="contenedordedatos" id="top">
+                    <div class="cantidaddeelementos"></div>
+                    <div class="recargartabla">recargar</div>
+                </div>
                 <table class="agregarproductos">
-                    <tbody pagina="1" actualizar="si"> 
+                    <tbody pagina="1" actualizar="si" limite="12">
                     </tbody>
                 </table>
             </div>
@@ -87,13 +96,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST" class="formularios segundoformulario" action="confirmarcompra.php">
             <h1>Ingresar Compra</h1>
             <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label>
-            <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
+            <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedoreparaselect">
             <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
             <div class="contenedordeproductos">
 
                 <table class="agregarproductos">
-                    <tbody class="tabladeprductosagregados" >
-
+                    <tbody class="tabladeprductosagregados">
                     </tbody>
                 </table>
             </div>
@@ -105,35 +113,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include_once("barralateral.html"); ?>
 </body>
 <script src="js/funcionessinexport.js"></script>
-<script type="module">
-    import {
-        cargarproveedoresenselect,
-        cargarproductosparacomprar
-    } from "./js/funciones.js"
-    var inputdeproveedores = document.querySelector(".filtroproveedores")
-    var inputdeproductos = document.querySelector(".filtroproductos")
-    inputdeproveedores.addEventListener("keyup", () => {
-        cargarproveedoresenselect(inputdeproveedores.value)
-    })
-    inputdeproductos.addEventListener("keyup", () => {
-        cargarproductosparacomprar(inputdeproductos.value,1)
-        document.querySelector("tbody").setAttribute("pagina", 1)
-    })
-
-    window.onload = () => {
-        cargarproveedoresenselect();
-        cargarproductosparacomprar("",1);
-        setInterval(() => {
-            var cantidaddepaginascargadasenlatabla = document.querySelector("tbody").getAttribute("pagina")
-            if (inputdeproductos.value == "") {
-                cargarproductosparacomprar("",cantidaddepaginascargadasenlatabla)
-            }else{
-                cargarproductosparacomprar(inputdeproductos.value,cantidaddepaginascargadasenlatabla)
-            }
-        }, 500);
-    }
-</script>
-
 </html>
 <?php
 if (isset($_GET["causa"])) {
