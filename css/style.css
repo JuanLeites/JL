@@ -768,9 +768,16 @@ table {
 .enlace {
     color: var(--color-principal);
 }
-
 .contenedordeproductos>.agregarproductos {
     min-height: fit-content;
+    min-width: fit-content;
+    font-size: 16px;
+}
+.contenedordeproductos{
+    min-width: min-content;
+}
+.contenedordeproductos .agregarproductos .tabladeprductosagregados{
+    max-width: max-content;
 }
 
 .contenedordeproductos {
