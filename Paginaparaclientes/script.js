@@ -1,61 +1,32 @@
+function cargarproductosparavender(filtro, pagina) {
+    var contenedordetarjetas = document.querySelector(".contenedordeproductos");
 
-function filtrarproductos() {
-    const textofiltrado = document.getElementById('buscador').value.toLowerCase();
-    const productos = document.querySelectorAll('.producto');
-
-    productos.forEach(cadaproducto => {
-        const title = cadaproducto.querySelector('h2').textContent.toLowerCase();
-        const description = cadaproducto.querySelector('p').textContent.toLowerCase();
-
-        if (title.includes(textofiltrado) || description.includes(textofiltrado)) {
-            cadaproducto.style.display = 'block';
-        } else {
-            cadaproducto.style.display = 'none';
-        }
-    });
-}
-
-function filtrarporcategoria() {
-    const categoriaseleccionada = document.getElementById('filtrodecategoria').value;
-    const productos = document.querySelectorAll('.producto');
-
-    productos.forEach(cadaproducto => {
-        const categoriadecadaproducto = cadaproducto.getAttribute('categoria-producto');
-
-        if (categoriaseleccionada == 'all' || categoriadecadaproducto == categoriaseleccionada) {
-            cadaproducto.style.display = 'block';
-        } else {
-            cadaproducto.style.display = 'none';
-        }
-    });
-}
-
-
-function cargarproductosparavender() {
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apideproductos.php')
+    cargaDatos.open('GET', 'apideproductos.php?filtro=' + filtro + '&pagina=' + pagina)
+    //console.log('apideproductos.php?filtro='+filtro+'&pagina='+pagina);
     cargaDatos.send()
     cargaDatos.onload = function () {
+        contenedordetarjetas.innerHTML = "";
         const productos = JSON.parse(this.responseText);
-
-        var contenedordetarjetas = document.querySelector(".contenedordeproductos");
+        if (productos.length < 20) {
+            contenedordetarjetas.setAttribute("pagina", "ultima")
+        }else{
+            contenedordetarjetas.setAttribute("pagina", "")
+        }
 
         productos.forEach(cadaproducto => {
-
-
             var tarjeta = document.createElement("div");
             tarjeta.setAttribute("class", "producto");
-            tarjeta.setAttribute("categoria-producto", cadaproducto.Título);
-
+            
             var imagen = document.createElement("img");
-            if (cadaproducto.imagen.includes("IMAGENESSOFTWARE")) {
-                imagen.setAttribute("src", "../" + cadaproducto.imagen);
-            } else if (cadaproducto.imagen.includes("sinfoto.jpg")) {
-                imagen.setAttribute("src", "../" + cadaproducto.imagen);
+            if (cadaproducto.Imagen.includes("IMAGENESSOFTWARE")) {
+                imagen.setAttribute("src", "../" + cadaproducto.Imagen);
+            } else if (cadaproducto.Imagen.includes("sinfoto.jpg")) {
+                imagen.setAttribute("src", "../" + cadaproducto.Imagen);
             } else {
-                imagen.setAttribute("src", cadaproducto.imagen);
+                imagen.setAttribute("src", cadaproducto.Imagen);
             }
-
+            imagen.onerror = () => { imagen.src = "../imagenes/sinfoto.jpg" } // si la imagen llega a dar error, se le estableserá en la ruta. la foto por defecto
 
             tarjeta.appendChild(imagen);
 
@@ -71,15 +42,17 @@ function cargarproductosparavender() {
 
             var spanconprecio = document.createElement("span")
             spanconprecio.setAttribute("class", "precio")
-            spanconprecio.innerHTML = "$" + cadaproducto.Precio_Venta;
+            let preciototal = parseInt(cadaproducto.Precio_Venta) + (parseInt(cadaproducto.Precio_Venta) / 100) * parseInt(cadaproducto.Valor);
+            spanconprecio.innerHTML = "$" + Math.round(preciototal);
 
             tarjeta.appendChild(spanconprecio);
             contenedordetarjetas.appendChild(tarjeta);
         })
+        var botonsiguiente = document.querySelector(".botonsiguiente");
+        if (botonsiguiente && contenedordetarjetas.getAttribute("pagina") == "ultima") {
+            botonsiguiente.setAttribute("style", "display:none;")
+        }else{
+            botonsiguiente.setAttribute("style", "")
+        }
     }
-
-
-}
-window.onload = () => {
-    cargarproductosparavender()
 }

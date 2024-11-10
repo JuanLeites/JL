@@ -66,18 +66,18 @@ include_once("funciones.php");
                             $preciototalconiva = $subtotal + (($subtotal / 100) * $productoconprecio["Valor"]); // le sumamos al subtotal el iva
                             $total += $preciototalconiva;
 
-                            echo "<tr><th>" . $productoconprecio["Valor"] . "%</th><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th>" . $productoconprecio["Precio_Compra"] . "</th><th>" . $subtotal . "</th></tr>";
+                            echo "<tr><th>" . $productoconprecio["Valor"] . "%</th><th>" . $productoconprecio["Nombre"] . "</th><th>" . $_POST["CANTIDAD"][$indice] . "</th><th class='decimal'>" . $productoconprecio["Precio_Compra"] . "</th><th class='decimal'>" . number_format($subtotal, 2, '.', '') . "</th></tr>";
                         
                         }
                         if ($contadordeiva10 != 0) {
-                            echo "<tr><th colspan='3'></th><th>Iva 10%</th><th>" . $contadordeiva10 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>Iva 10%</th><th class='decimal'>" . number_format($contadordeiva10, 2, '.', '') . "</th></tr>";
                         }
                         if ($contadordeiva22 != 0) {
-                            echo "<tr><th colspan='3'></th></th><th>Iva 22%</th><th>" . $contadordeiva22 . "</th></tr>";
+                            echo "<tr><th colspan='3'></th></th><th>Iva 22%</th><th class='decimal'>" . number_format($contadordeiva22, 2, '.', '') . "</th></tr>";
                         }
                         
-                        echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . $contadordesubtotal . "</th></tr>";
-                        echo "<tr><th colspan='3'></th><th>Total</th><th>" . $total . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Subtotal</th><th class='decimal'>" . number_format($contadordesubtotal, 2, '.', '') . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Total</th><th class='decimal'>" . number_format($total, 2, '.', '') . "</th></tr>";
                     }
                     ?>
                 </tbody>

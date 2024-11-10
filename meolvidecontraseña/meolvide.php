@@ -24,11 +24,11 @@ if(isset($_SESSION["acertado"])){
 <body class="scroll">
   <form method="post" action="ingresarcodigo.php" class="contenedor meolvidelacontraseña">
     <img src="../imagenes/JL.svg" class="logoenformulario">
-    <p class="textoformulario">Introduce el correo electrónico o el nombre de usuario asociados a tu cuenta para cambiar tu contraseña.</p>
-    <input type="text" placeholder="ingrece email o Usuario" name="destino" required>
+    <p class="textoformulario">Introduce el correo electrónico o el nombre de usuario asociados a tu cuenta para reestablecer tu contraseña.</p>
+    <input type="text" placeholder="Ingrese email o usuario" name="destino" required>
     <input type="submit" value="Enviar Código">
  </form>
-<a href="../index.php" id="reg">regresar</a>
+<a href="../index.php" id="reg">Regresar</a>
 <?php include_once("footermeolvide.html") ?>
 </body>
 </html>

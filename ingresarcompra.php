@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="cantidaddeelementos"></div>
                     <div class="recargartabla">recargar</div>
                 </div>
-                <table class="agregarproductos">
+                <table>
                     <tbody pagina="1" actualizar="si" limite="12">
                     </tbody>
                 </table>
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </tbody>
                 </table>
             </div>
-            <input class="botonenviar" type="submit" value="Proceder al Pago" disabled> <!-- le ponemos disabled para que el boton esté desabilitado al cargar la pagina, pero al presionar unos de los botones de agregar un producto, llama a la funcion agregar la cual habilita el botón  -->
+            <input class="botonenviar" type="submit" value="Continuar con la compra" disabled> <!-- le ponemos disabled para que el boton esté desabilitado al cargar la pagina, pero al presionar unos de los botones de agregar un producto, llama a la funcion agregar la cual habilita el botón  -->
         </form>
     </div>
 

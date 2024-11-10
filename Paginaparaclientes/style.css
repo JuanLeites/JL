@@ -5,11 +5,6 @@ html, body {
     font-family: 'Arial', sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-principal);
-}
-
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -32,10 +27,24 @@ h1 {
     gap: 10px;
     margin-bottom: 20px;
 }
+
 #buscador::placeholder{
     color: var(--color-secundario);
 }
-#buscador, #filtrodecategoria{
+.boton{
+    cursor: pointer;
+}
+.boton:active{
+    background-color: var(--color-secundario);
+    color:var(--color-fondo);
+    border: solid 1px var(--color-fondo);
+    box-shadow:
+    3.8px 3px 3.6px rgba(0, 0, 0, 0.181),
+    10.5px 8.3px 10px rgba(0, 0, 0, 0.26),
+    25.3px 19.9px 24.1px rgba(0, 0, 0, 0.339),
+    84px 66px 80px rgba(0, 0, 0, 0.52);
+}
+#buscador, .boton{
     background-color: var(--color-fondo);
     color: var(--color-secundario);
     padding: 10px;
@@ -44,13 +53,13 @@ h1 {
     font-size: 1rem;
     width: 250px;
     transition: border-color 0.3s ease;
+    max-width: min-content;
+    margin: 10px;
+    transition: 0.3s;
 }
-
-#buscador:focus, #filtrodecategoria:focus {
-    border-color: var(--color-principal);
-    outline: none;
+ .boton:hover{
+    transform: scale(1.02);
 }
-
 .contenedordeproductos {
     flex-grow: 1;
     display: flex;
@@ -58,8 +67,20 @@ h1 {
     flex-wrap: wrap;
     gap: 20px;
     padding: 40px;
+    min-height: 62.7vh;
 }
 
+.botonesdepaginacion{
+    text-decoration: none;
+    padding: 5px;
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    margin: 10px;
+    border-radius: 4px;
+}
+.controlesdepaginas{
+    text-align: center;
+}
 .producto {
     background-color: var(--color-fondo);
     border: 1px solid var(--color-principal);
@@ -109,10 +130,9 @@ p {
 
 footer {
     background-image: linear-gradient(to top, var(--color-principal),var(--color-fondo));
-
     text-align: center;
     padding: 20px;
-    margin-top: auto;
+    bottom: 0px;
 }
 footer p{
     color: var(--color-secundario);

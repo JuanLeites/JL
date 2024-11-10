@@ -134,7 +134,7 @@ if (isset($_GET["id"])) {
 
         <input type="submit" value="Actualizar">
     </form>
-    <a href="productos.php" id="reg">regresar</a>
+    <a href="productos.php" id="reg">Regresar</a>
 </body>
 
 </html>
@@ -143,7 +143,7 @@ if (isset($_GET["id"])) {
 //las variables $colorfondo,$colorprincipal salen del archivo "colorespersonalizados.php"
 switch ($opcion) {
     case 'productoactualizadoconfotoenlace';
-    mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, $_POST["enlacedefoto"]);
+        mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, $_POST["enlacedefoto"]);
     break;
     case 'productoactualizadoconfoto';
         mostraravisoconfoto('Producto modificado con éxito y su foto también', $colorfondo, $colorprincipal, "IMAGENESSOFTWARE/" . $_FILES['foto']['name']);

@@ -22,12 +22,12 @@ include_once("chequeodelogin.php");
 
     <div class="buscador">
         <input type="search" class="inputdeclientes" placeholder="Buscar Clientes">
-        <a href="agregarclientes.php" class="agregardato">+</a>
+        <a title="Agregar Cliente" href="agregarclientes.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <div class="contenedordedatos" id="top">
             <div class="cantidaddeelementos"></div>
-            <div class="recargartabla">recargar</div>
+            <div class="recargartabla">Recargar</div>
         </div>
         <table>
             <tbody pagina="1" actualizar="si" limite="15">

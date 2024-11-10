@@ -37,7 +37,7 @@ if(!isset($_SESSION["codigo"])){
 
     <script src="../LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../LIBRERIAS/sweetalert/sweetalert2.css">
-    <script src="../js/funciones.js" type="module"></script>
+    <script src= "js/funcionessinexport.js"></script>
     
 </head>
 <body class="scroll">
@@ -54,7 +54,7 @@ if(!isset($_SESSION["codigo"])){
 
         <input type="submit" value="Actualizar">
     </form>
-    <a href="../index.php" id="reg">regresar</a>
+    <a href="../index.php" id="reg">Regresar</a>
     <?php include_once("footermeolvide.html") ?>
 </body>
 </html>
@@ -66,9 +66,6 @@ if(isset($_GET["causa"])){
             break;;
         case "contraseñasdistintas":
             mostraralerta("Las contraseñas deben de ser iguales!","","");
-
-    }
-
-        
+    } 
 }
 ?>

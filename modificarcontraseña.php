@@ -68,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img class="ojo3" id='ver' src="imagenes/ojocerrado.png">
         <input type="submit" value="Cambiar">
     </form>
-    <a href="menuprincipal.php" id="reg">regresar</a>
+    <a href="menuprincipal.php" id="reg">Regresar</a>
 </body>
-<script src="js/funciones.js" type="module"></script>
+<script src= "js/funcionessinexport.js"></script>
 
 </html>
 <?php

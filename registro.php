@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header('Location:registro.php?causa=contraseñasdistintas&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"] . '&fecha=' .  $_POST["fecha"]);
         die();
     }
-    if (strlen($_POST["pass"]) <= 6) {//si coinciden pero son tienen menos de 6 caracteres.
+    if (strlen($_POST["pass"]) < 6) {//si coinciden pero son tienen menos de 6 caracteres.
         header('Location:registro.php?causa=contraseñacorta&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"] . '&fecha=' .  $_POST["fecha"]);
         die();
     }
@@ -62,9 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrarme</title>
+    <title>Registrate!</title>
     <link rel="stylesheet" href="css/style.css">
-
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
 </head>
 
@@ -138,6 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include_once("footer.html") ?>
     <?php include("barraarriba.html") ?>
 </body>
-<script src="js/funciones.js" type="module"></script>
+<script src="js/funcionessinexport.js"></script>
 
 </html>

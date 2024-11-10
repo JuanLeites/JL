@@ -15,7 +15,7 @@ export function actualizarfecha(fechadecumpleaños) {
             diasemana = "Martes ";
             break;
         case 3:
-            diasemana = "Miercoles ";
+            diasemana = "Miércoles ";
             break;
         case 4:
             diasemana = "Jueves ";
@@ -24,7 +24,7 @@ export function actualizarfecha(fechadecumpleaños) {
             diasemana = "Viernes ";
             break;
         case 6:
-            diasemana = "Sabado ";
+            diasemana = "Sábado ";
 
     }
     switch (hoy.getMonth()) {
@@ -79,7 +79,6 @@ export function actualizarfecha(fechadecumpleaños) {
     }
 
 }
-
 export function cargarclientesdecumpleaños() {
     var contenedordecumpleañeros = document.querySelector(".contenedordecumpleañeros");
     var cantidaddecumpleañeros = contenedordecumpleañeros.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los cumplañeros ya cargados)
@@ -112,7 +111,6 @@ export function cargarclientesdecumpleaños() {
         }
     }
 }
-
 export function cargarfacturasavencer() {
     var contenedordefacturas = document.querySelector(".contenedordefacturas");
     var cantidaddefacturas = contenedordefacturas.children.length - 1; // cuenta cuantos hijos tiene el elementos menos el titulo (cuenta los cumplañeros ya cargados)

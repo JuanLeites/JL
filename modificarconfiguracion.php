@@ -51,7 +51,7 @@ $config= mysqli_fetch_assoc($consultaconfiguración);
         <input type="submit" value="Actualizar">
         <?php if(isset($_SESSION["administador"])){echo "<a class='botonconfiguración' href='Paginaparaclientes/configweb.php' >Configuración de administrador</a>";} ?>
     </form>
-    <a href="menuprincipal.php" id="reg">regresar</a>
+    <a href="menuprincipal.php" id="reg">Regresar</a>
 </body>
 
 </html>

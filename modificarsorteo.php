@@ -56,7 +56,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="sorteos.php" id="reg">regresar</a>
+    <a href="sorteos.php" id="reg">Regresar</a>
 </body>
 
 </html>

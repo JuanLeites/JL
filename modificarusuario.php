@@ -105,7 +105,7 @@ $usuario = mysqli_fetch_assoc($consultausuario);
 
         <input type="submit" value="Actualizar">
     </form>
-    <a href="menuprincipal.php" id="reg">regresar</a>
+    <a href="menuprincipal.php" id="reg">Regresar</a>
 </body>
 
 </html>

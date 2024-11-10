@@ -1,7 +1,7 @@
 function mostrarpopup() {
     var popup = document.querySelector("#popup");
     var contenedordepopup = document.querySelector(".contenedordepopup");
-    contenedordepopup.setAttribute("style","backdrop-filter: blur(7px) opacity(8) grayscale(40%); ")
+    contenedordepopup.setAttribute("style","backdrop-filter: blur(7px) opacity(8) grayscale(40%);z-index:1000; ")
     popup.setAttribute("Style", "transform: scale(1);");
 }
 function ocultarpopup() {

@@ -38,28 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input min="1" max="1000000" type="number" id="monto" name="monto" placeholder="Monto" required>
 
         <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarclientes.php">agregar clientes</a> </label> 
-        <input id="filtro" type="search" placeholder="Buscar" class="filtroclientes">
+        <input id="filtro" type="search" placeholder="Buscar" class="filtroclientesparaselect">
 
         <select name="ID_CLIENTE" class="selectdeclientes" required></select>
         <input type="submit" value="Agregar">
     </form>
     <?php include_once("barralateral.html"); ?>
 </body>
-<script type="module">
-    import {cargarclientesenselect} from "./js/funciones.js"
-    var inputdeclientes = document.querySelector(".filtroclientes")
-    inputdeclientes.addEventListener("keyup", () => {cargarclientesenselect(inputdeclientes.value)})
-
-    window.onload = () => {
-        cargarclientesenselect();
-        setInterval(() => {
-            if (inputdeclientes.value == "") {
-                cargarclientesenselect();
-            }
-
-        }, 2000);
-    }
-
+<script src="js/funcionessinexport.js">
 </script>
 </html>
 <?php 

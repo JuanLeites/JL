@@ -86,22 +86,22 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                 $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Venta"], "UTF-8"), true, false, "C", false); 
                 $pdf->Cell(36, $alturadeceldas, mb_convert_encoding($nombreProducto, "ISO-8859-1", "UTF-8"), true, false, "C", false); 
                 $pdf->Cell(11, $alturadeceldas, mb_convert_encoding($cadaproducto["Cantidad_de_Venta"], "UTF-8"), true, false, "C", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Venta"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false);
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Venta"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false);
 
             }
             if ($contadordeiva10 != 0) {
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 10%", "UTF-8"), true, false, "R", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false);
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false);
             }
             if ($contadordeiva22 != 0) {
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 22%", "UTF-8"), true, false, "R", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             }
 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Subtotal", "UTF-8"), true, false, "R", false); 
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Precio Final", "UTF-8"), true, false, "R", false); 
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false);
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false);
 
             $pdf->Ln();
             $pdf->SetFont('Arial', '', 7);
@@ -194,22 +194,22 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                 $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Compra"], "UTF-8"), true, false, "C", false);
                 $pdf->Cell(36, $alturadeceldas, mb_convert_encoding($nombreProducto, "ISO-8859-1", "UTF-8"), true, false, "C", false);
                 $pdf->Cell(11, $alturadeceldas, mb_convert_encoding($cadaproducto["Cantidad_de_Compra"], "UTF-8"), true, false, "C", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Compra"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Compra"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
 
             }
             if ($contadordeiva10 != 0) {
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 10%", "UTF-8"), true, false, "R", false);
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             }
             if ($contadordeiva22 != 0) {
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 22%", "UTF-8"), true, false, "R", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             }
 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Subtotal", "UTF-8"), true, false, "R", false);
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelacompra["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelacompra["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Precio Final", "UTF-8"), true, false, "R", false); 
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelacompra["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelacompra["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
 
 
             $pdf->Ln();
@@ -313,7 +313,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
                 $pdf->Cell(9, $alturadeceldas, mb_convert_encoding($cadaproducto["Iva_de_Venta"], "UTF-8"), true, false, "C", false); 
                 $pdf->Cell(36, $alturadeceldas, mb_convert_encoding($nombreProducto, "ISO-8859-1", "UTF-8"), true, false, "C", false); 
                 $pdf->Cell(11, $alturadeceldas, mb_convert_encoding($cadaproducto["Cantidad_de_Venta"], "UTF-8"), true, false, "C", false); 
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Venta"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false);
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($cadaproducto["Precio_de_Venta"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false);
 
             }
 
@@ -321,17 +321,17 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
             if ($contadordeiva10 != 0) {    
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 10%", "UTF-8"), true, false, "R", false); //56 es la suma de las primeras 3 filas de arriba
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); //16 lo que resta para llegar a 74 que es lo que mide la tabla
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva10, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); //16 lo que resta para llegar a 74 que es lo que mide la tabla
             }
             if ($contadordeiva22 != 0) {
                 $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("IVA 22%", "UTF-8"), true, false, "R", false);
-                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+                $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($contadordeiva22, 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             }
 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Subtotal", "UTF-8"), true, false, "R", false);
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Sub_Total"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
             $pdf->Cell(56, $alturadeceldas, mb_convert_encoding("Precio Final", "UTF-8"), true, false, "R", false); 
-            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "C", false); 
+            $pdf->Cell(16, $alturadeceldas, mb_convert_encoding(number_format($datosdelaventa["Precio_Final"], 2, '.', ''), "ISO-8859-1", "UTF-8"), true, true, "R", false); 
 
             $pdf->Ln();
             $pdf->SetFont('Arial', '', 7);

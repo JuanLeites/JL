@@ -47,8 +47,5 @@ if (isset($_GET["id"])) {
     <?php include_once("barralateral.html");
     ?>
 </body>
-<script type="module">
-
-</script>
 
 </html>

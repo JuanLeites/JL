@@ -2,81 +2,18 @@
     --color-principal: #4DBF38;
     --color-secundario: #80D12A;
     --color-fondo: #001F47;
-    user-select: none;
-    /* para no poder seleccionar texto*/
+    user-select: none; /* para no poder seleccionar texto*/
 }
 
-/*ESTILO PARA BOTON DE SUBIR*/
-/* From Uiverse.io by vinodjangid07 */
-.agregadordeproductos {
-    position: relative !important;
-    margin-left: 1vw !important;
-    bottom: 0px !important;
-    right: 0px !important;
+.scroll {
+    overflow-y: scroll;
+}
+@font-face {
+    font-family: "p";
+    src: url("../fuentes/Cheesecake.ttf")format('truetype');
 }
 
-.button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--color-fondo);
-    border: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 0px 0px 4px var(--color-principal);
-    cursor: pointer;
-    transition-duration: 0.3s;
-    overflow: hidden;
-    position: absolute;
-    right: 2vw;
-    bottom: 5vh;
-    color: var(--color-principal);
-}
 
-.svgIcon {
-    width: 12px;
-    transition-duration: 0.3s;
-}
-
-.svgIcon path {
-    fill: white;
-}
-
-.button:hover {
-    width: 70px;
-    border-radius: 50px;
-    transition-duration: 0.3s;
-    background-color: var(--color-fondo);
-    border: solid 1px var(--color-principal);
-    align-items: center;
-}
-
-.button:hover .svgIcon {
-    /* width: 20px; */
-    transition-duration: 0.3s;
-    transform: translateY(-200%);
-}
-
-.button::before {
-    position: absolute;
-    bottom: -20px;
-    content: "Subir";
-    color: var(--color-secundario);
-    /* transition-duration: .3s; */
-    font-size: 0px;
-}
-
-.button:hover::before {
-    font-size: 13px;
-    opacity: 1;
-    bottom: unset;
-    /* transform: translateY(-30px); */
-    transition-duration: 0.3s;
-}
-
-/*       //////////////////        */
 .mensaje {
     border: solid 1px red;
     border-radius: 10px;
@@ -244,6 +181,11 @@ select,
     padding: 5px;
     justify-content: center;
 }
+.botonconfiguración:hover{
+    box-shadow:
+        4.4px 5.1px 10px rgba(0, 0, 0, 0.26),
+        35px 41px 80px rgba(0, 0, 0, 0.52);
+}
 
 input:hover,
 input:focus {
@@ -270,7 +212,6 @@ input[type="submit"] {
 input[type="submit"]:hover,
 input[type="submit"]:focus {
     cursor: pointer;
-    color: var(--color-secundario);
 }
 
 a {
@@ -398,7 +339,7 @@ footer>a:hover {
     right: 0px;
     height: 100vh;
     width: 100vw;
-    z-index: 999;
+    z-index: -1;
     align-items: center;
     justify-content: center;
     transition: 0.4s ease;
@@ -428,7 +369,7 @@ footer>a:hover {
     padding: 10px;
     background-color: var(--color-fondo);
     text-shadow: 1px .5px 1px white;
-    color: black;
+    color: var(--color-secundario);
     border: solid 1px black;
     border-radius: 10px;
     transition: 0.5s ease-out;
@@ -436,7 +377,8 @@ footer>a:hover {
 
 .popup>a:hover {
     background-color: var(--color-secundario);
-    border: solid 2px var(--color-fondo);
+    border: solid 1px var(--color-fondo);
+    color: var(--color-fondo);
 }
 
 
@@ -757,7 +699,9 @@ table {
     font-size: 100%;
     transition: 0.9s;
 }
-
+.decimal{
+    text-align: end;
+}
 .agregarproducto:hover,
 .botonenlace:hover {
     background-color: var(--color-fondo);
@@ -774,7 +718,7 @@ table {
     font-size: 16px;
 }
 .contenedordeproductos{
-    min-width: min-content;
+    min-width:min-content;
 }
 .contenedordeproductos .agregarproductos .tabladeprductosagregados{
     max-width: max-content;
@@ -831,7 +775,6 @@ tr:hover {
     border: solid 1px var(--color-fondo);
     object-fit: cover;
 }
-
 #reg {
     position: fixed;
     top: 15px;
@@ -843,6 +786,7 @@ tr:hover {
     font-family: "p";
     text-decoration: none;
     padding: 5px;
+    font-size: 25px;
     z-index: 1;
     -webkit-box-shadow: 10px 9px 24px -4px rgba(0, 0, 0, 0.62);
     -moz-box-shadow: 10px 9px 24px -4px rgba(0, 0, 0, 0.62);
@@ -880,10 +824,7 @@ tr:hover {
     padding: 0px;
 }
 
-.scroll {
-    overflow-y: scroll;
 
-}
 
 .contenedoresenmenuprincipal {
     display: flex;
@@ -1476,3 +1417,151 @@ main {
     background-color: var(--color-fondo);
 
 }
+
+
+
+/*ESTILO PARA BOTON DE SUBIR*/
+/* From Uiverse.io by vinodjangid07 */
+.agregadordeproductos {
+    position: relative !important;
+    margin-left: 1vw !important;
+    bottom: 0px !important;
+    right: 0px !important;
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--color-fondo);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 4px var(--color-principal);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: absolute;
+    right: 2vw;
+    bottom: 5vh;
+    color: var(--color-principal);
+}
+/*Para cambair el color al svg de la flechita para subir*/
+.button svg path{
+    fill: var(--color-secundario) !important;
+}
+
+.svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+.button:hover {
+    width: 70px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: var(--color-fondo);
+    border: solid 1px var(--color-principal);
+    align-items: center;
+}
+
+.button:hover .svgIcon {
+    /* width: 20px; */
+    transition-duration: 0.3s;
+    transform: translateY(-200%);
+}
+
+.button::before {
+    position: absolute;
+    bottom: -20px;
+    content: "Subir";
+    color: var(--color-secundario);
+    font-size: 0px;
+}
+
+.button:hover::before {
+    font-size: 13px;
+    opacity: 1;
+    bottom: unset;
+    transition-duration: 0.3s;
+}
+
+/*       //////////////////        */
+
+/*ESTILO PARA BOTON DE LOG OUT*/
+/* From Uiverse.io by vinodjangid07 */ 
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: rgb(255, 65, 65);
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  /* plus sign */
+  .sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  /* text */
+  .text {
+    position: absolute;
+    right: -10%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+  }
+  /* hover effect on button width */
+  .Btn:hover {
+    width: 125px;
+    border-radius: 40px;
+    transition-duration: .3s;
+  }
+  
+  .Btn:hover .sign {
+    width: 30%;
+    transition-duration: .3s;
+    padding-left: 10px;
+  }
+  /* hover effect button's text */
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+  }
+  /* button click effect*/
+  .Btn:active {
+    transform: translate(2px ,2px);
+  }
+  /*////////////////////////////////////////*/

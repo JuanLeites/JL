@@ -23,12 +23,12 @@ include_once("funciones.php");
 
     <div class="buscador">
         <input type="text" placeholder="Buscar Sorteos" class="inputparabuscarsorteos">
-        <a href="agregarsorteos.php" class="agregardato">+</a>
+        <a title="Agregar Sorteo" href="agregarsorteos.php" class="agregardato">+</a>
     </div>
     <div class="contenedordemenu">
         <div class="contenedordedatos" id="top">
             <div class="cantidaddeelementos"></div>
-            <div class="recargartabla">recargar</div>
+            <div class="recargartabla">Recargar</div>
         </div>
         <table>
             <tbody pagina="1" actualizar="si" limite="20">

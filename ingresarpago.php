@@ -42,29 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input min="1" max="1000000" type="number" id="monto" name="monto" placeholder="Monto" required>
 
         <label for="filtro">Buscar o <a class="enlace" target="_blank" href="agregarproveedores.php">agregar proveedores</a> </label> 
-        <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedores">
+        <input id="filtro" type="search" placeholder="Buscar" class="filtroproveedoreparaselect">
 
         <select name="ID_PROVEEDOR" class="selectdeproveedores" required></select>
-        <input type="submit" value="agregar">
+        <input type="submit" value="Agregar">
     </form>
     <?php include_once("barralateral.html"); ?>
 </body>
-<script type="module">
-    import {cargarproveedoresenselect} from "./js/funciones.js"
-    var inputdeproveedores = document.querySelector(".filtroproveedores")
-    inputdeproveedores.addEventListener("keyup", () => {cargarproveedoresenselect(inputdeproveedores.value)})
 
-    window.onload = () => {
-        cargarproveedoresenselect();
-        setInterval(() => {
-            if (inputdeproveedores.value == "") {
-                cargarproveedoresenselect();
-            }
 
-        }, 2000);
-    }
-
-</script>
+<script src="js/funcionessinexport.js"></script>
 </html>
 
 <?php

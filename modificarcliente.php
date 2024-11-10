@@ -69,7 +69,7 @@ if (isset($_GET["id"])) {
         <input type="submit" value="Actualizar">
 
     </form>
-    <a href="clientes.php" id="reg">regresar</a>
+    <a href="clientes.php" id="reg">Regresar</a>
 </body>
 
 </html>

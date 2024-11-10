@@ -54,7 +54,7 @@ $config = mysqli_fetch_assoc($consultaconfiguración);
         <input type="text" name="clavemaestra" id="clavemaestra" value="<?php echo $config["Clave_Maestra"] ?>">
         <br>
 
-        <label for="contenedordeinputs">Colores para página de clientes: </label>
+        <label for="contenedordeinputs">Colores de página pública: </label>
         <br>
         <div class="contenedordeinputs" id="contenedordeinputs">
 
@@ -71,7 +71,7 @@ $config = mysqli_fetch_assoc($consultaconfiguración);
         <a href="index.php" class="botonconfiguración" >probar configuración de la página</a>
     </form>
 
-    <a href="../modificarconfiguracion.php" id="reg">regresar</a>
+    <a href="../modificarconfiguracion.php" id="reg">Regresar</a>
 </body>
 
 </html>

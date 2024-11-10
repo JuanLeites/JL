@@ -27,7 +27,7 @@
     <div class="contenedordemenu tablabajolostresinputs">
         <div class="contenedordedatos" id="top">
             <div class="cantidaddeelementos"></div>
-            <div class="recargartabla">recargar</div>
+            <div class="recargartabla">Recargar</div>
         </div>
         <table>
             <tbody pagina="1" actualizar="si" limite="20">

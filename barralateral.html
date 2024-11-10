@@ -2,7 +2,7 @@
 
     <button class="cerrarbarralateral" onclick="ocultarmenu()">X</button>
 
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Menu Principal">
         <a href="menuprincipal.php">
             <img class="icono" src="imagenes/icons/casa.png">
             <h2>Menu Principal</h2>
@@ -13,43 +13,43 @@
     <hr>
 
 
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Cobros">
         <a href="cobros.php">
             <img class="icono" src="imagenes/icons/cobros.png">
             <h2>Cobros</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Pagos">
         <a href="pagos.php">
             <img class="icono" src="imagenes/icons/pagos.png">
             <h2>Pagos</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Proveedores">
         <a href="proveedores.php">
             <img class="icono" src="imagenes/icons/proveedor.png">
             <h2>Proveedores</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Productos">
         <a href="productos.php">
             <img class="icono" src="imagenes/icons/productos.png">
             <h2>Productos</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Clientes">
         <a href="clientes.php">
             <img class="icono" src="imagenes/icons/modclientes.png">
             <h2>Clientes</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Resumen Mensual">
         <a href="resumenmensual.php">
             <img class="icono" src="imagenes/icons/grafica.png">
             <h2>Resumen Mensual</h2>
         </a>
     </div>
-    <div class="contenedordeicono">
+    <div class="contenedordeicono" title="Sorteos">
         <a href="sorteos.php">
             <img class="icono" src="imagenes/icons/sorteo.png">
             <h2>Sorteos</h2>
@@ -58,18 +58,19 @@
 </div>
 
 
-<img src="imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()">
+<img src="imagenes/icons/menu.png" class="icono botonbarralateral" onclick="mostrarmenu()" title="Desplegar barra lateral">
 
 
 
 <script src="js/scriptbarralateral.js"></script>
-<div class="contenedordepopup" style="z-index: -1;" onclick="ocultarpopup()">
-    <div class="popup" style="transform: scale(0);" id="popup" onclick="event.stopPropagation();">
+
+<div class="contenedordepopup" onclick="ocultarpopup()">
+    <div class="popup" style="transform: scale(0);" id="popup" onclick="event.stopPropagation();//el event.stopPropagation() para que no se propage al contenedor padre el evento click y no se oculte el popup">
         <a href="modificarusuario.php"> Modificar Datos de Usuario</a>
         <a href="modificarcontraseña.php"> Modificar Contraseña</a>
-        <a href="modificarconfiguracion.php"> Modificar Configuración del software</a>
-        <a href="reestablecercolores.php">Reestablecer Colores por defecto</a>
-        <button onclick="ocultarpopup()" class="botoncerrarpopup">X</button>
+        <a href="modificarconfiguracion.php"> Modificar Configuración del Software</a>
+        <a href="reestablecercolores.php">Reestablecer Colores por Defecto</a>
+        <button onclick="ocultarpopup()" class="botoncerrarpopup" title="Cerrar menu de opciones">X</button>
     </div>
 </div>
 
@@ -80,6 +81,16 @@
     <h2>
         <?php echo $_SESSION["usuario"]; ?>
     </h2>
-    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' class="fotoperfil" onclick="mostrarpopup(),ocultarmenu()">
-    <a class="botoncerrar" href="close.php" title="Cerrar Sesión">LogOut</a>
+    <img src='fotoperfil/<?php echo $_SESSION["fotoperf"]; ?>' onerror="this.src='fotoperfil/perfilpordefecto.png'" class="fotoperfil" onclick="mostrarpopup(),ocultarmenu()" title="Desplegar Opciones">
+    <a class="Btn" href="close.php" title="Cerrar Sesión">
+        <div class="sign">
+            <svg viewBox="0 0 512 512">
+                <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                </path>
+            </svg>
+        </div>
+
+        <div class="text">Logout</div>
+    </a>
 </div>

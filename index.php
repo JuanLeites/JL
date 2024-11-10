@@ -11,7 +11,6 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <?php include_once("css/colorespersonalizados.php"); ?>
     <link rel="shortcut icon" href="imagenes/JL.svg" type="image/x-icon">
     <script src="LIBRERIAS/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="LIBRERIAS/sweetalert/sweetalert2.css">
@@ -26,10 +25,10 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
         <input <?php if (isset($_SESSION['bloq'])) {
                     echo "disabled";
                 } // si está seteada la variable de session bloq, desabilitamos el botón 
-                ?> type="text" name="usuario" placeholder="usuario"></input>
+                ?> type="text" name="usuario" placeholder="Usuario"></input>
         <input <?php if (isset($_SESSION['bloq'])) {
                     echo "disabled";
-                } ?> type="password" name="contraseña" class="contraseñadeindex" placeholder="contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png"></input>
+                } ?> type="password" name="contraseña" class="contraseñadeindex" placeholder="Contraseña"><img class="ojoindex" id='ver' src="imagenes/ojocerrado.png"></input>
 
         <?php
         include_once("funciones.php");
@@ -74,15 +73,14 @@ if (isset($_SESSION["usuario"])) { //si ya están las variables de session nos m
         <br>
         <input <?php if (isset($_SESSION['bloq'])) {
                     echo "disabled";
-                } ?> type="submit" value="Iniciar Sesión"></input>
+                } ?> type="submit" value="Iniciar sesión"></input>
         <hr id="linea">
-        <h4>¿No Tienes Cuenta?</h4>
-        <a href="registro.php" class="linkk">registrar usuario</a>
-        <h4>¿has olvidado tu contraseña?</h4>
-        <a href="meolvidecontraseña/meolvide.php" class="linkk">recuperar contraseña</a>
+        <h4>¿No tienes cuenta?</h4>
+        <a href="registro.php" class="linkk">Registrar usuario</a>
+        <h4>¿Has olvidado tu contraseña?</h4>
+        <a href="meolvidecontraseña/meolvide.php" class="linkk">Recuperar contraseña</a>
     </form>
     <?php include_once("footer.html") ?>
 </body>
-<script src="js/funciones.js" type="module"></script>
-
+<script src= "js/funcionessinexport.js"></script>
 </html>

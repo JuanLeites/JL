@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Verificar código">
     </form>
 
-    <a href="../index.php" id="reg">regresar</a>
+    <a href="../index.php" id="reg">Regresar</a>
     <?php include_once("footermeolvide.html") ?>
 </body>
 </html>

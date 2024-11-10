@@ -39,7 +39,7 @@ include_once("coneccionBD.php");
                         $contadordeiva22 = 0;
 
                         foreach ($productos as $indice => $cadaproducto) {
-                            echo "<tr><th>" . $cadaproducto["Iva_de_Venta"] . "</th><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th>" . $cadaproducto["Precio_de_venta"] . "</th><th>" . number_format($cadaproducto["Precio_de_venta"] * $cadaproducto["Cantidad_de_Venta"], 2, '.', '')  . "</th></tr>"; //cargamos cada fila de productos calculando el monto sin el iva, de el precio de venta por la cantidad q se vendió
+                            echo "<tr><th>" . $cadaproducto["Iva_de_Venta"] . "</th><th>" . $cadaproducto["Nombre"] . "</th><th>" . $cadaproducto["Cantidad_de_Venta"] . "</th><th class='decimal'>" . $cadaproducto["Precio_de_venta"] . "</th><th class='decimal'>" . number_format($cadaproducto["Precio_de_venta"] * $cadaproducto["Cantidad_de_Venta"], 2, '.', '')  . "</th></tr>"; //cargamos cada fila de productos calculando el monto sin el iva, de el precio de venta por la cantidad q se vendió
 
                             $subtotal = intval($cadaproducto["Precio_de_venta"]) * intval($cadaproducto["Cantidad_de_Venta"]);
                             if ($cadaproducto["Iva_de_Venta"] == 10) { // si el iva es del 10 
@@ -50,13 +50,13 @@ include_once("coneccionBD.php");
                             }
                         }
                         if ($contadordeiva10 != 0) {
-                            echo "<tr><th colspan='3'></th><th>IVA 10%</th><th>" . number_format($contadordeiva10, 2, '.', '') . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>IVA 10%</th><th class='decimal'>" . number_format($contadordeiva10, 2, '.', '') . "</th></tr>";
                         }
                         if ($contadordeiva22 != 0) {
-                            echo "<tr><th colspan='3'></th><th>IVA 22%</th><th>" . number_format($contadordeiva22, 2, '.', '')  . "</th></tr>";
+                            echo "<tr><th colspan='3'></th><th>IVA 22%</th><th class='decimal'>" . number_format($contadordeiva22, 2, '.', '')  . "</th></tr>";
                         }
-                        echo "<tr><th colspan='3'></th><th>Subtotal</th><th>" . number_format($datosdeventa["Sub_Total"], 2, '.', '') . "</th></tr>";
-                        echo "<tr><th colspan='3'></th><th>Total</th><th>" . number_format($datosdeventa["Precio_Final"], 2, '.', '') . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Subtotal</th><th class='decimal'>" . number_format($datosdeventa["Sub_Total"], 2, '.', '') . "</th></tr>";
+                        echo "<tr><th colspan='3'></th><th>Total</th><th class='decimal'>" . number_format($datosdeventa["Precio_Final"], 2, '.', '') . "</th></tr>";
                     } else {
                         header("Location:menuprincipal.php");
                         die();

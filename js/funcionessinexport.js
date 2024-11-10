@@ -1,5 +1,6 @@
 ///////FUNCIONES PARA CARGAR DATOSSSSSS ////////////////
 const retraso = 200;
+var milisegundosentrerepeticiones = 300;//interavalo utilizado en los setinterval
 function cargarcobros(filtro, pagina) {
     var tabla = document.querySelector("tbody"); // guarda en la variable tabla el objeto de la tabla de html
     var valoractualizar = tabla.getAttribute("actualizar")
@@ -29,7 +30,7 @@ function cargarcobros(filtro, pagina) {
                 agregaralinea(cadacobro.Monto);
                 agregaralinea(cadacobro.Fecha_Cobro);
                 if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a class='botonenlace' href='verventa.php?id=" + cadacobro.ID_VENTA + "'>Ver Venta<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
+                    agregaralinea("<a title='Ver detalles de la venta' class='botonenlace' href='verventa.php?id=" + cadacobro.ID_VENTA + "'>Ver Venta<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -79,7 +80,7 @@ function cargarmascobros(filtro, pagina) {
                 agregaralinea(cadacobro.Monto);
                 agregaralinea(cadacobro.Fecha_Cobro);
                 if (cadacobro.ID_VENTA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a class='botonenlace' href='verventa.php?id=" + cadacobro.ID_VENTA + "'>Ver Venta<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
+                    agregaralinea("<a title='Ver detalles de la venta' class='botonenlace' href='verventa.php?id=" + cadacobro.ID_VENTA + "'>Ver Venta<a>")//carga un enlace a la página verventa.php la cual mostrará la venta segun el parametro id pasado por get
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -130,7 +131,7 @@ function cargarpagos(filtro, pagina) {
                 }
 
                 if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a class='botonenlace' href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>Ver Compra<a>")
+                    agregaralinea("<a title='Ver detalles de la compra' class='botonenlace' href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>Ver Compra<a>")
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -189,7 +190,7 @@ function cargarmaspagos(filtro, pagina) {
                 }
 
                 if (cadapago.ID_COMPRA) { // si tiene un valor entra, sino no carga un valor por defecto de "Sin datos"
-                    agregaralinea("<a class='botonenlace' href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>Ver Compra<a>")
+                    agregaralinea("<a title='Ver detalles de la compra' class='botonenlace' href='vercompra.php?id=" + cadapago.ID_COMPRA + "'>Ver Compra<a>")
                 } else {
                     agregaralinea("Sin Datos");
                 }
@@ -232,7 +233,7 @@ function cargarproveedores(filtro, pagina) {
                 }
                 agregaralinea(cadaproveedor.Contacto);
                 agregaralinea(cadaproveedor.Deuda);
-                agregaralinea('<img onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Proveedor" onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Proveedor" href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
             })
         }
@@ -281,7 +282,7 @@ function cargarmasproveedores(filtro, pagina) {
                 }
                 agregaralinea(cadaproveedor.Contacto);
                 agregaralinea(cadaproveedor.Deuda);
-                agregaralinea('<img onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Proveedor" onclick="eliminarobjeto(\'eliminar.php?tipo=proveedor&id=' + cadaproveedor.ID_PROVEEDOR + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Proveedor" href="modificarproveedor.php?id=' + cadaproveedor.ID_PROVEEDOR + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
             })
         }, retraso)
@@ -332,7 +333,7 @@ function cargarproductos(filtro, pagina) {
         cargaDatos.send()
         cargaDatos.onload = function () {
             const productos = JSON.parse(this.responseText);
-            tabla.innerHTML = "<tr class='encabezado'><th>nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>imagen</th><th>iva</th><th>medida</th><th>categoria</th><th>accion</th></tr>"
+            tabla.innerHTML = "<tr class='encabezado'><th>Nombre</th><th>Precio Compra</th><th>Precio Venta</th><th>Código de barras</th><th>Descripcion</th><th>Marca</th><th>Cantidad</th><th>Cantidad de aviso</th><th>Imagen</th><th>Iva</th><th>Medida</th><th>Categoria</th><th>Acción</th></tr>"
             productos.forEach(cadaproducto => {
                 var linea = document.createElement("tr");
                 linea.setAttribute("id", cadaproducto.ID_Producto);
@@ -352,7 +353,7 @@ function cargarproductos(filtro, pagina) {
                 agregaralinea(cadaproducto.Cantidad_minima_aviso);
 
                 var imagen = document.createElement("img")//crea elemento imagen
-                imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
+                imagen.setAttribute("src", cadaproducto.Imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
                 imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
                 imagen.setAttribute("alt", "Imágen de " + cadaproducto.Nombre)
                 imagen.onerror = () => { imagen.src = "imagenes/sinfoto.jpg" } // si la imagen llega a dar error, se le estableserá en la ruta. la foto por defecto
@@ -362,7 +363,7 @@ function cargarproductos(filtro, pagina) {
                 agregaralinea(cadaproducto.Tipo);
                 agregaralinea(cadaproducto.Unidad);
                 agregaralinea(cadaproducto.Título);
-                agregaralinea('<img  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Producto"  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Producto" href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
             })
         }
@@ -415,16 +416,18 @@ function cargarmasproductos(filtro, pagina) {//función que no reescribirá la t
                 agregaralinea(cadaproducto.Cantidad_minima_aviso);
 
                 var imagen = document.createElement("img")//crea elemento imagen
-                imagen.setAttribute("src", cadaproducto.imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
+                imagen.setAttribute("src", cadaproducto.Imagen)//le setea el atriguto de la ruta el elemento que obtuvo de la base de datos(LARUTA)
                 imagen.setAttribute("id", "prod");// seteamos un id para  la imagen
                 imagen.setAttribute("alt", "Imágen de " + cadaproducto.Nombre)
+                imagen.onerror = () => { imagen.src = "imagenes/sinfoto.jpg" } // si la imagen llega a dar error, se le estableserá en la ruta. la foto por defecto
+
                 var objeto = document.createElement("td")//creamos una celda
                 objeto.appendChild(imagen);//le agregamos la imagen a la celda
                 linea.appendChild(objeto);//agregamos la celda a la fila
                 agregaralinea(cadaproducto.Tipo);
                 agregaralinea(cadaproducto.Unidad);
                 agregaralinea(cadaproducto.Título);
-                agregaralinea('<img  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Producto"  onclick="eliminarobjeto(\'eliminar.php?tipo=producto&id=' + cadaproducto.ID_Producto + '\')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Producto" href="modificarproducto.php?id=' + cadaproducto.ID_Producto + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);//agregamos a la tabla toda la fila creada anteriromente
 
             })
@@ -497,7 +500,7 @@ function cargarclientes(filtro, pagina) {//esta funcion es llamada siempre
                 } else {
                     agregaralinea(cadacliente.RUT);
                 }
-                agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Cliente" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Cliente" href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
             })
         }
@@ -551,7 +554,7 @@ function cargarmasclientes(filtro, pagina) {//función que no reescribirá la ta
                 } else {
                     agregaralinea(cadacliente.RUT);
                 }
-                agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
+                agregaralinea('<img title="Eliminar Cliente" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=cliente&id=' + cadacliente.ID_CLIENTE + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Cliente" href="modificarcliente.php?id=' + cadacliente.ID_CLIENTE + '"><img src="imagenes/acciones/editar.png" class="accion"></a>')//guardamos en la imagen un atributo ruta con el tipo de elemento que es y con su id unica para luego poder utilizarlos
                 tabla.appendChild(linea);
             })
         }, retraso)
@@ -614,10 +617,10 @@ function cargarsorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("todavia no realizado");
-                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
-                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Ver Ganadores" href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
                 }
                 tabla.appendChild(linea);
             })
@@ -665,10 +668,10 @@ function cargarmassorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("todavia no realizado");
-                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
-                    agregaralinea('<img onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Ver Ganadores" href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
                 }
                 tabla.appendChild(linea);
             })
@@ -713,11 +716,11 @@ function eliminarlossorteossobrantes(filtro, pagina) {
 function cargarproveedoresenselect(filtro) {
     var select = document.querySelector(".selectdeproveedores");
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiproveedores.php?limite=100&filtro=' + filtro); // consultamos a la api
+    cargaDatos.open('GET', 'apis/apiproveedores.php?limite=50&filtro=' + filtro); // consultamos a la api
     cargaDatos.send()
     cargaDatos.onload = function () {
         const proveedores = JSON.parse(this.responseText);
-        select.innerHTML = "<option value=''>proveedor</option>" //seteamos el contenido del select en la opcion de proveedor con un value "" , la cual no podrá ser seleccionada pero sirva para poder identificar de que es el select
+        select.innerHTML = "<option value=''>Proveedor</option>" //seteamos el contenido del select en la opcion de proveedor con un value "" , la cual no podrá ser seleccionada pero sirva para poder identificar de que es el select
         proveedores.forEach(cadaproveedor => { // foreach que recorre la respuesta de la api
             var option = document.createElement("option"); // creamos un elemento opcion
             option.setAttribute("value", cadaproveedor.ID_PROVEEDOR); // le seteamos el atributo value en la id del proveedor actual
@@ -731,11 +734,11 @@ function cargarproveedoresenselect(filtro) {
 function cargarclientesenselect(filtro) {
     var select = document.querySelector(".selectdeclientes");
     const cargaDatos = new XMLHttpRequest();
-    cargaDatos.open('GET', 'apis/apiclientes.php?limite=100&filtro=' + filtro);
+    cargaDatos.open('GET', 'apis/apiclientes.php?limite=50&filtro=' + filtro);
     cargaDatos.send()
     cargaDatos.onload = function () {
         const clientes = JSON.parse(this.responseText);
-        select.innerHTML = "<option value=''>cliente</option>"
+        select.innerHTML = "<option value=''>Cliente</option>"
         clientes.forEach(cadacliente => {
             var option = document.createElement("option");
             option.setAttribute("value", cadacliente.ID_CLIENTE);
@@ -1148,7 +1151,7 @@ function agregaraventa(id_producto, nombre, Precio_Neto, cantidaddisponible) {//
     objeto.setAttribute("ID_PRODUCTO", id_producto)
     linea.appendChild(objeto);//le agrega a la fila(linea) el elemento creado por la funcion
 
-    agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' min='1' value='1' max='" + cantidaddisponible + "' required>");
+    agregaralinea("<input class='inputdecantidadesdeproductos' name='CANTIDAD[]' type='number' name='cantidad' step='0.1' min='1' value='1' max='" + cantidaddisponible + "' required>");
     agregaralinea(Precio_Neto)
     agregaralinea("<img src='imagenes/acciones/borrar.png' class='accion borrar'> </img> <img src='imagenes/acciones/agregar.png' class='accion sumar'></img><img src='imagenes/acciones/restar.png' class='accion restar' ></img>")
     var inputparalaid = document.createElement("input")
@@ -1337,9 +1340,7 @@ function alternar(inputdecontraseña, imagen, ruta) {// funcion utilizada para a
 
 
 window.onload = () => {
-    var milisegundosentrerepeticiones = 500;
-
-
+    
     var botonpararecargarlatabla = document.querySelector(".recargartabla");
     if (botonpararecargarlatabla) {
         botonpararecargarlatabla.addEventListener("click", () => {
@@ -1482,16 +1483,6 @@ window.onload = () => {
 
 
 
-    var inputparafiltrarclientes = document.querySelector(".filtroclientesparaselect")
-    if (inputparafiltrarclientes) {
-        cargarclientesenselect("", 1)
-        inputparafiltrarclientes.addEventListener("keyup", () => {
-            cargarclientesenselect(inputparafiltrarclientes.value)
-        })
-    }
-
-
-
     var inputdeproductosparacomprar = document.querySelector(".filtroproductos")
     if (inputdeproductosparacomprar) {
         inputdeproductosparacomprar.addEventListener("keyup", () => {
@@ -1509,6 +1500,9 @@ window.onload = () => {
         }, milisegundosentrerepeticiones);
     }
 
+
+
+    //inputs que sirven como filtros en selects 
     var inputparafiltrarproveedores = document.querySelector(".filtroproveedoreparaselect")
     if (inputparafiltrarproveedores) {
         cargarproveedoresenselect(inputparafiltrarproveedores.value)
@@ -1516,7 +1510,13 @@ window.onload = () => {
             cargarproveedoresenselect(inputparafiltrarproveedores.value)
         })
     }
-
+    var inputparafiltrarclientes = document.querySelector(".filtroclientesparaselect")
+    if (inputparafiltrarclientes) {
+        cargarclientesenselect("", 1)
+        inputparafiltrarclientes.addEventListener("keyup", () => {
+            cargarclientesenselect(inputparafiltrarclientes.value)
+        })
+    }
 
 
 
