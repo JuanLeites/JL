@@ -8,7 +8,7 @@ $pie = 40;
 if (isset($_GET["tipo"]) && isset($_GET["id"])) {
     switch ($_GET['tipo']) {
         case "venta":
-            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `Productos_Vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = PV.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
+            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `Productos_Vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = pv.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
             $datosdelaventa = mysqli_query($basededatos, 'SELECT c.Cédula,c.Nombre,v.Precio_Final,v.Sub_Total,v.Fecha_Venta,u.Nombre"Vendedor",co.Monto FROM `Venta`v,`Cliente`c,`Usuario`u,`Cobro`co WHERE u.Usuario=co.Usuario and co.ID_VENTA = v.ID_VENTA and v.ID_CLIENTE=c.ID_CLIENTE and  v.ID_VENTA="' . $_GET["id"] . '"');
             $datosdelaventa = mysqli_fetch_assoc($datosdelaventa);
 
@@ -119,7 +119,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
 
             //en caso de que sea una compra
         case 'compra':
-            $productosdelacompra = mysqli_query($basededatos, 'SELECT p.Nombre,pc.Cantidad_de_Compra,pc.Precio_de_Compra,pc.Iva_de_Compra FROM `Productos_Comprados` pc,`Producto` p  WHERE p.ID_PRODUCTO = Pc.ID_PRODUCTO and ID_COMPRA="' . $_GET["id"] . '"');
+            $productosdelacompra = mysqli_query($basededatos, 'SELECT p.Nombre,pc.Cantidad_de_Compra,pc.Precio_de_Compra,pc.Iva_de_Compra FROM `Productos_Comprados` pc,`Producto` p  WHERE p.ID_PRODUCTO = pc.ID_PRODUCTO and ID_COMPRA="' . $_GET["id"] . '"');
             $datosdelacompra = mysqli_query($basededatos, 'SELECT c.Sub_Total, c.Precio_Final, p.Razón_Social, p.RUT,c.Fecha_Compra,u.Nombre"Comprador",pa.Monto,c.Vencimiento_Factura   FROM `Compra`c,`Proveedor`p,`Usuario`u,`Pago`pa WHERE pa.ID_COMPRA=c.ID_COMPRA and pa.Usuario=u.Usuario and p.ID_PROVEEDOR=c.ID_PROVEEDOR and c.ID_Compra="' . $_GET["id"] . '"');
             $datosdelacompra = mysqli_fetch_assoc($datosdelacompra);
 
@@ -233,7 +233,7 @@ if (isset($_GET["tipo"]) && isset($_GET["id"])) {
             break;
 
         case "factura":
-            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `Productos_Vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = PV.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
+            $productosdelaventa = mysqli_query($basededatos, 'SELECT p.Nombre,pv.Cantidad_de_Venta,pv.Precio_de_Venta,pv.Iva_de_Venta FROM `Productos_Vendidos` pv,`Producto` p  WHERE p.ID_PRODUCTO = pv.ID_PRODUCTO and ID_VENTA="' . $_GET["id"] . '"');
             $datosdelaventa = mysqli_query($basededatos, 'SELECT c.Cédula,c.RUT,c.Nombre,v.Precio_Final,v.Sub_Total,v.Fecha_Venta,u.Nombre"Vendedor",co.Monto FROM `Venta`v,`Cliente`c,`Usuario`u,`Cobro`co WHERE u.Usuario=co.Usuario and co.ID_VENTA = v.ID_VENTA and v.ID_CLIENTE=c.ID_CLIENTE and  v.ID_VENTA="' . $_GET["id"] . '"');
             $datosdelaventa = mysqli_fetch_assoc($datosdelaventa);
 

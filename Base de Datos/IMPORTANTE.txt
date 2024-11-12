@@ -1,6 +1,6 @@
 Para La importación debe de seguir el siguiente orden, estos son necesarios para el correcto funcionamiento del software:
 
-	1)byytablas.sql
+	1)Basededatosytabla.sql
 	2)usuarios.sql
 	3)cargadedatosesenciales.sql
 

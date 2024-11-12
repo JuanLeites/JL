@@ -616,7 +616,7 @@ function cargarsorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Premio);
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
-                    agregaralinea("todavia no realizado");
+                    agregaralinea("Todavía no realizado");
                     agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
@@ -667,7 +667,7 @@ function cargarmassorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Premio);
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
-                    agregaralinea("todavia no realizado");
+                    agregaralinea("Todavía no realizado");
                     agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);

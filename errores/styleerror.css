@@ -1,10 +1,6 @@
 @font-face {
     font-family: "fuentepersonalizada";
-    src: url("fuente.ttf");
-}
-video{
-    width: 85vw;
-    height: 85vh;
+    src: url("fuente.ttf")format('truetype');
 }
 body{
     background-color: #001F47;

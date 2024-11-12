@@ -22,7 +22,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
             if ($consultadesorteo["Cantidad"] == 1) { //si es un solo elemento forzamos que sea un array de ganadores para poder hacer el foreach mas abajo
                 $ganadores[] = array_rand($arraydeparticipantes, $consultadesorteo["Cantidad"]); //array_rand recive dos parametros, un array y un numero que será la cantidad de elementos que devuelva de forma aleatoria(devuelve los indices de forma aleatora).
             } else {
-                $ganadores = array_rand($arraydeparticipantes, $consultadesorteo["Cantidad"]); //array_rand recive dos parametros, un array y un numero que será la cantidad de elementos que devuelva de forma aleatoria(devuelve los indices de forma aleatora).
+                $ganadores[] = array_rand($arraydeparticipantes, $consultadesorteo["Cantidad"]); //array_rand recive dos parametros, un array y un numero que será la cantidad de elementos que devuelva de forma aleatoria(devuelve los indices de forma aleatora).
             }
 
         } else {
@@ -72,7 +72,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
 
             foreach ($ganadores as $cadaganador) { // ganadoores es el array con los indices ganadores lo separamos en el idice de cada ganado
                 mysqli_query($basededatos, 'INSERT INTO Ganador (ID_CLIENTE,ID_SORTEO) values ("' . $arraydeparticipantes[$cadaganador] . '","' . $_GET["id"] . '");');
-                $datosdelclienteganador = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * FROM cliente WHERE ACTIVO=TRUE and ID_CLIENTE="' . $arraydeparticipantes[$cadaganador] . '"')); //obtenemos los datos del cliente ganador
+                $datosdelclienteganador = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT * FROM Cliente WHERE ACTIVO=TRUE and ID_CLIENTE="' . $arraydeparticipantes[$cadaganador] . '"')); //obtenemos los datos del cliente ganador
                 echo "<p class='ganadores'>" . $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"] . "</p>";
                 $ganadoresJS[] = $datosdelclienteganador["Nombre"] . " - " . $datosdelclienteganador["Cédula"]; // guardamos el nombre y la cédula de cada ganador en un array
             }
@@ -82,7 +82,7 @@ if ($consultadesorteo["Fecha_realización"] == null) { // si el sorteo todavia n
             ?>
         </div>
     </div>
-    <a href="sorteos.php" id="reg">regresar</a>
+    <a href="sorteos.php" id="reg">Regresar</a>
     <script>
         const ganadores = <?php echo json_encode($ganadoresJS); ?>; // le seteamos a ganadores en formato json el array de ganadores
 

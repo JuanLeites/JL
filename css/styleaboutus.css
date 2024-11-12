@@ -137,8 +137,7 @@ h1 {
     transition: 0.9s;
     background-image: url("../imagenes/fondo.jpg");
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    
+    -webkit-background-clip: text; /* es para que la imagen se setée en el fondo del texto, lo vi en un video.*/
 }
 
 h2 {
