@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from Proveedor WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'));//obtenemos deuda anterior
     $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
-    mysqli_query($basededatos,'UPDATE `proveedor` SET `Deuda`="'.$deudaactual.'" WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'); //actualizamos la deuda del cliente
+    mysqli_query($basededatos,'UPDATE `¨Proveedor` SET `Deuda`="'.$deudaactual.'" WHERE ID_PROVEEDOR="'.$_POST["ID_PROVEEDOR"].'";'); //actualizamos la deuda del cliente
     header("Location:ingresarpago.php?opcion=pagoingresado");
     die();
 }

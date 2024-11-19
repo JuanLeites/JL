@@ -2,6 +2,11 @@
 include_once("coneccionBD.php");
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    //para evitar inyecciones: 
+    $_POST["usuario"] = str_replace('"', '´', $_POST["usuario"]);
+    $_POST["contraseña"] = str_replace('"', '´', $_POST["contraseña"]);
+
     if ($_POST["usuario"] != "" && $_POST["contraseña"] != "") { // si contienen texto
         $usuarioingresado = $_POST["usuario"];
         $contraseña = $_POST["contraseña"];

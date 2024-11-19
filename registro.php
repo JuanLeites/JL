@@ -6,6 +6,18 @@ if (!file_exists("fotoperfil")) {
 $configuracion = mysqli_fetch_assoc(mysqli_query($basededatos, 'SELECT Clave_Maestra FROM Configuración')); //obtenemos la clave maestra del software que está guardada en la base de datos
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        
+    //para evitar inyecciones sql:
+    $_POST["nombre"] = str_replace('"', '´', $_POST["nombre"]);
+    $_POST["usuario"] = str_replace('"', '´', $_POST["usuario"]);
+    $_POST["pass"] = str_replace('"', '´', $_POST["pass"]);
+    $_POST["pass2"] = str_replace('"', '´', $_POST["pass2"]);
+    $_POST["correo"] = str_replace('"', '´', $_POST["correo"]);
+    $_POST["fecha"] = str_replace('"', '´', $_POST["fecha"]);
+    $_POST["clavamaestra"] = str_replace('"', '´', $_POST["clavamaestra"]);
+    $_FILES['fotoperfil']['name'] = str_replace('"', '´', $_FILES['fotoperfil']['name']);
+
 
     if ($_POST["nombre"] == "" || $_POST["usuario"] == "" || $_POST["pass"] == "" || $_POST["pass2"] == "" || $_POST["correo"] == "" || $_POST["fecha"] == ""  || $_POST["clavamaestra"] == "") { //si alguno está vacío
         header('Location:registro.php?causa=campovacio&nombre=' . $_POST["nombre"] . '&usuario=' . $_POST["usuario"] . '&correo=' . $_POST["correo"] . '&fecha=' .  $_POST["fecha"]);

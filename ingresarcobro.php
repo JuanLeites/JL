@@ -4,10 +4,10 @@ include_once("coneccionBD.php");
 include_once("funciones.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    mysqli_query($basededatos, 'INSERT INTO Cobro (Monto,ID_CLIENTE, Fecha_Cobro,Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
+    mysqli_query($basededatos, 'INSERT INTO Cobro (Monto, ID_CLIENTE, Fecha_Cobro, Usuario) VALUES ("' . $_POST["monto"] . '","' . $_POST["ID_CLIENTE"] .'","'.date("Y-m-d").'","'.$_SESSION["usuario"].'");');
     $deudaanterior=mysqli_fetch_assoc(mysqli_query($basededatos,'SELECT Deuda from Cliente WHERE ID_CLIENTE="'.$_POST["ID_CLIENTE"].'";'));//obtenemos deuda anterior
     $deudaactual = $deudaanterior["Deuda"]-$_POST["monto"]; // le descontamos a la deuda el monto que le cobramos al cliente
-    mysqli_query($basededatos,'UPDATE `cliente` SET `Deuda`="'.$deudaactual.'" WHERE ID_CLIENTE="'.$_POST["ID_CLIENTE"].'";'); //actualizamos la deuda del cliente
+    mysqli_query($basededatos,'UPDATE `Cliente` SET `Deuda`="'.$deudaactual.'" WHERE ID_CLIENTE="'.$_POST["ID_CLIENTE"].'";'); //actualizamos la deuda del cliente
     header("Location:ingresarcobro.php?opcion=cobroingresado");
     die();
 }
