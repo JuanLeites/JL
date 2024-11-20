@@ -16,9 +16,9 @@ if(!isset($_GET["limite"])){
 if(!isset($_GET["pagina"])){
     $pagina = 1;
 }else{
-
     $pagina = $_GET["pagina"];
 }
+
 $desdequeelemento = ($pagina-1)*$limite;
 
 

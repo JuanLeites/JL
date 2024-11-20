@@ -454,7 +454,7 @@ function eliminarlosproductossobrantes(filtro, pagina) {
 
         for (let i = 1; i < filastabla.length; i++) { // recorremos cada fila de la tabla
             let fila = filastabla[i]; // guardmos cadafila en la variable fila
-            console.log(fila)
+            //console.log(fila)
             let productoexistente = productos.some((cadaelementodelarreglo) => cadaelementodelarreglo.ID_Producto == fila.getAttribute("id"));//some es una función para arreglos que devolverá true si es que se cumple la condición al menos una vez, si no se cumple con ningun elemento, retoranará false
             if (!productoexistente) {//si es false(no encontró la fila en la respuesta a la api) entrará acá.
                 //console.log("se removió la fila con el id " + fila.getAttribute("id"))
@@ -617,7 +617,7 @@ function cargarsorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("Todavía no realizado");
-                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
                     agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Ver Ganadores" href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
@@ -668,7 +668,7 @@ function cargarmassorteos(filtro, pagina) {
                 agregaralinea(cadaSorteo.Cantidad);
                 if (cadaSorteo.Fecha_realización == null) {//si no fue realizado, su fecha de realización es null. si el sorteo ya fue realizado lo cargamos con el botón para sortear y el boton eliminar con el atributo ruta tipo sorteo(esto lo podra eliminar con la api ya que el sorteo no fue realizado)
                     agregaralinea("Todavía no realizado");
-                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear" onmouseleave="ocultaravisodesorteo()" onmouseenter="mostraravisosorteo()"></a>');
+                    agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteo&id=' + cadaSorteo.ID_SORTEO + "'" + ')" src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Modificar Sorteo" href="modificarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/editar.png" class="accion"></a><a title="Realizar Sorteo" href="concretarsorteo.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/sortear.png" class="accion sortear"  onmouseenter="mostraravisosorteo()"></a>');
                 } else {//si ya fue realizado cargará otro botón que no será sortear sino que será ver datos del sorteo y el botón de eliminar tendra otra ruta para la api eliminar ya que este sorteo ya tiene ganadores, y no hay que eliminarlo para dejar el registro del sorteo. el botón modificar tampoco está
                     agregaralinea(cadaSorteo.Fecha_realización);
                     agregaralinea('<img title="Eliminar Sorteo" onclick="eliminarobjeto(' + "'" + 'eliminar.php?tipo=sorteorealizado&id=' + cadaSorteo.ID_SORTEO + "'" + ')"  src="imagenes/acciones/borrar.png" class="accion eliminar"></a><a title="Ver Ganadores" href="verganadores.php?id=' + cadaSorteo.ID_SORTEO + '"><img src="imagenes/acciones/ganador.png" class="accion"></a>');
@@ -751,6 +751,11 @@ function cargarclientesenselect(filtro) {
 }
 
 
+
+
+
+
+
 //funcion utilizada para cargar cantidades en tablas: 
 function cargarcantidadesentabla(tipo) {//función que establece a la tabla el atributo de cantidad en lo que obtiene de la respuesta
     const cargaDatos = new XMLHttpRequest();
@@ -761,6 +766,10 @@ function cargarcantidadesentabla(tipo) {//función que establece a la tabla el a
         tabla.setAttribute("cantidad", JSON.parse(this.responseText))
     }
 }
+
+
+
+
 function cargarcantidades(tipo) {//es utilizada por las 6 de arriba
     var contenedordecantidaddeelementos = document.querySelector(".cantidaddeelementos")
     var tabla = document.querySelector("tbody");
